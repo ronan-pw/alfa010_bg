@@ -1,0 +1,19 @@
+//::///////////////////////////////////////////////
+//:: Chair Sitting Script v1.1
+//:: Author: Razare
+//:: NWN2:MotB Version 1.0.1153.0
+//:://////////////////////////////////////////////
+/*
+
+	Script is used for sittable chairs.
+	This script executes the animation to sit.
+
+*/
+//:://////////////////////////////////////////////
+//:: January 18, 2008
+//:://////////////////////////////////////////////
+
+void main()
+{
+  PlayCustomAnimation(OBJECT_SELF, "sitidle", 1, 1.0);	
+}
