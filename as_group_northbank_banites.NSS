@@ -23,6 +23,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -54,50 +55,66 @@ void main() {
 	int m=2;
 	int k=4;
 	int i=2;
-	
-	WriteTimestampedLogEntry("ACR_Spawn: spawning banites1");
-	
+
 		if (Random(2) == 0) {
-			ACR_SpawnObject("plc_ml_cauldrong", OBJECT_TYPE_PLACEABLE);
+			switch (Random(5)) {
+				case 0:
+					spawn_placeable("plc_mr_campfire1", 1.0, 50.0, 0.0, 3.0);
+					break;
+				case 1:
+					spawn_placeable("plc_mr_campfire2", 1.0, 50.0, 0.0, 3.0);
+					spawn_placeable("plc_ml_tripodm1", 0.5, 50.0, 0.0, 3.0);
+					break;
+				case 2:
+					spawn_placeable("plc_mr_campfire3", 1.0, 50.0, 0.0, 3.0);
+					spawn_placeable("plc_ml_tripodm1", 0.5, 50.0, 0.0, 3.0);
+					break;
+				case 3:
+					spawn_placeable("plc_mr_campfire4", 1.0, 50.0, 0.0, 3.0);
+					break;
+				case 4:
+					spawn_placeable("plc_ml_cauldrong", 1.0, 50.0, 0.0, 3.0);
+					break;
+			}
 		}
 		
 		if (Random(2*n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_brencis", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_brencis");
 			SetFirstName(o,"Warrior");
 		}
 			
 		if (Random(2*n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_tarquin", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_tarquin");
 			SetFirstName(o,"Warrior");
 		}
 		
 		if (Random(n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_corgis", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_corgis");
 			SetFirstName(o,"Warrior");
 		}
 			
 		if (Random(n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_dorm", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_dorm");
 			SetFirstName(o,"Warrior");
 		}
 			
 		if (Random(n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_lucius", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_lucius");
 			SetFirstName(o,"Warrior");
 		}
 			
 		if (Random(n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_morgan", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_morgan");
 			SetFirstName(o,"Warrior");
 		}
 			
 		if (Random(n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_nix", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_nix");
 			SetFirstName(o,"Warrior");
 		}
 			
 		if (Random(n) == 0) {
-			o = ACR_SpawnObject("010_cr_bane_victoria", OBJECT_TYPE_CREATURE);
+			o = spawn_npc("010_cr_bane_victoria");
 			SetFirstName(o,"Warrior");
 		}
 }

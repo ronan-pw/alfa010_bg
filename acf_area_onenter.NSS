@@ -24,6 +24,7 @@
 
 #include "acr_area_i"
 #include "dpss_include"
+//#include "acr_time_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -48,7 +49,18 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+void refresh_seed()
+{
+	int i,tmp,limit=50;
+	for (i=0;ACR_GetGameHoursSinceStart()%limit>i;++i)
+		tmp = Random(limit);
+}
+
 void main() {
+
+	if (GetIsPC(GetEnteringObject()))
+		refresh_seed();
+		
     ACR_AreaOnEnter();
 	
 	if (!GetLocalInt(OBJECT_SELF,"DPSS_SPAWNED")){DPSS_SPAWN_AREA(OBJECT_SELF,GetEnteringObject());}

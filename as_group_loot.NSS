@@ -52,31 +52,18 @@ void main();
 void main() {
 
 
-object oChest;
-object oTrap;
-object oCheckTrigger;
-        	
-switch(Random(2)) {
-			case 0:
-	            oChest = ACR_SpawnObject("phat_lewt_chest_small", OBJECT_TYPE_PLACEABLE);
-	            oCheckTrigger = GetNearestObjectByTag("phat_lewt_trigger", OBJECT_SELF, 1);
-				if(GetDistanceBetween(oCheckTrigger, OBJECT_SELF) > 10.0)
-					{oCheckTrigger = OBJECT_INVALID;
-					}
-				SetLocalObject(oCheckTrigger, "oChest", oChest);
-				SetUseableFlag(oChest, FALSE);
-				SetLocalInt(oChest, "Trappable", 1);
-				break;
-	        case 1:
-	            oChest = ACR_SpawnObject("phat_lewt_chest_large", OBJECT_TYPE_PLACEABLE);
-	            oCheckTrigger = GetNearestObjectByTag("phat_lewt_trigger", OBJECT_SELF, 1);
-				if(GetDistanceBetween(oCheckTrigger, OBJECT_SELF) > 10.0)
-					{oCheckTrigger = OBJECT_INVALID;
-					}
-				SetLocalObject(oCheckTrigger, "oChest", oChest);
-				SetUseableFlag(oChest, FALSE);
-				SetLocalInt(oChest, "Trappable", 1);
-				break;
-
-				}
+	object oChest;
+	object oTrap;
+	object oCheckTrigger;
+	object o;
+	        	
+	oCheckTrigger = GetNearestObjectByTag("phat_lewt_trigger", OBJECT_SELF, 1);
+	if (GetDistanceBetween(oCheckTrigger, OBJECT_SELF) > 10.0) {
+		oCheckTrigger = OBJECT_INVALID;
+		o = GetArea(OBJECT_SELF);
+		WriteTimestampedLogEntry("phat_lewt: Error, no trigger for loot in "+GetName(o) + " (" + GetTag(o) + ")");
+		return;
+	}
+						
+	SetLocalInt(oCheckTrigger, "spawn_chest", 1);
 }

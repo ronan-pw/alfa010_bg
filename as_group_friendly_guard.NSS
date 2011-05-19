@@ -54,7 +54,46 @@ void main() {
 	WriteTimestampedLogEntry("ACR_Spawn: get_area_type(): retval = "+IntToString(n));
 
 	switch (n) {
-		case 0:
+		// beregost
+		case 2:
+		case 7:
+			switch (Random(2)) {
+				case 0:
+					spawn_npc("templeoflathanderpike01", 0.5);
+					spawn_npc("templeoflathanderpike01", 0.5);
+					spawn_npc("templeoflathandermanatarms01", 0.5);
+					spawn_npc("templeoflathandermanatarms01", 0.5);
+					spawn_npc("templeoflathanderguard", 0.5);
+					spawn_npc("templeoflathanderbow01", 0.5);
+		            break;
+				default:
+					spawn_npc("templeoflathandermanatarms01", 0.5);
+					spawn_npc("10_cr_merchant_bow", 0.5);
+					spawn_npc("10_cr_merchant_clr", 0.5);
+					spawn_npc("10_cr_merchant_ftr", 0.5);
+			}
+			break;
+		// candlekeep
+		case 3:
+			spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
+			spawn_npc("010_cr_ck_guard", 0.5);
+			spawn_npc("010_cr_ck_guard", 0.5);
+			spawn_npc("010_cr_ck_guard", 0.5);
+			spawn_npc("010_cr_ck_guard", 0.5);
+			spawn_npc("010_cr_ck_guard", 0.5);
+			break;
+		// amn
+		case 4:
+		case 8:
+			spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
+			spawn_npc("010_nashkel_amnian_infantry", 0.5);
+			spawn_npc("010_nashkel_amnian_infantry", 0.5);
+			spawn_npc("010_nashkel_amnian_infantry", 0.5);
+			spawn_npc("010_nashkel_amnian_infantry", 0.5);
+			spawn_npc("010_nashkel_amnian_infantry", 0.5);
+			break;
+		// bg
+		default:
 			switch (Random(3)) {
 		        case 0:
 					spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
@@ -79,39 +118,6 @@ void main() {
 					spawn_npc("10_cr_merchant_clr", 0.5);
 					spawn_npc("10_cr_merchant_ftr", 0.5);
 			}
-			break;
-		case 1:
-			switch (Random(2)) {
-				case 0:
-					spawn_npc("templeoflathanderpike01", 0.5);
-					spawn_npc("templeoflathanderpike01", 0.5);
-					spawn_npc("templeoflathandermanatarms01", 0.5);
-					spawn_npc("templeoflathandermanatarms01", 0.5);
-					spawn_npc("templeoflathanderguard", 0.5);
-					spawn_npc("templeoflathanderbow01", 0.5);
-		            break;
-				default:
-					spawn_npc("templeoflathandermanatarms01", 0.5);
-					spawn_npc("10_cr_merchant_bow", 0.5);
-					spawn_npc("10_cr_merchant_clr", 0.5);
-					spawn_npc("10_cr_merchant_ftr", 0.5);
-			}
-			break;
-		case 2:
-			spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
-			break;
-		default:
-			spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
-			spawn_npc("010_nashkel_amnian_infantry", 0.5);
-			spawn_npc("010_nashkel_amnian_infantry", 0.5);
-			spawn_npc("010_nashkel_amnian_infantry", 0.5);
-			spawn_npc("010_nashkel_amnian_infantry", 0.5);
-			spawn_npc("010_nashkel_amnian_infantry", 0.5);
 	}
 }	
     

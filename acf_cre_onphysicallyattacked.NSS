@@ -47,9 +47,14 @@ void main()
 
     // Custom code goes here.
 	
+	/* force an attack if not responding */
+	if ((GetAttackTarget() == OBJECT_INVALID) && (GetNumActions(OBJECT_SELF) == 0))
+		ActionAttack(GetLastAttacker());
+	
 	if(GetLocalInt(OBJECT_SELF, "Fleeing") == 1) 
 		{ClearAllActions(TRUE);
 		 ActionMoveAwayFromObject(GetLastAttacker(), TRUE, 200.0);
 		
 		}
+	
 }

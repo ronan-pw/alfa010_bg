@@ -58,9 +58,27 @@ void main(string sItemTag)
 	
 	nTotalItem = GetNumItems( oPC,"it_sulfur" );
     DestroyItems( oPC,"it_sulfur",nTotalItem,15,15 );
+	
+	nTotalItem = GetNumItems( oPC,"it_plot_hide_troll" );
+    DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,10,10 );
+	
+	nTotalItem = GetNumItems( oPC,"010_it_misc_rtooth" );
+    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,50,50 );
+	
+	nTotalItem = GetNumItems( oPC,"it_plot_gear_electrum" );
+    DestroyItems( oPC,"it_plot_gear_electrum",nTotalItem,5,5 );
+	
+	nTotalItem = GetNumItems( oPC,"it_plot_gear_gold" );
+    DestroyItems( oPC,"it_plot_gear_gold",nTotalItem,15,15 );
+	
+	nTotalItem = GetNumItems( oPC,"it_plot_gear_platinum" );
+    DestroyItems( oPC,"it_plot_gear_platinum",nTotalItem,50,50 );
+	
+	nTotalItem = GetNumItems( oPC,"it_plot_gear_adamantine" );
+    DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,150,150 );
      
     GiveGoldToCreature(oPC,Ggold);
-	ACR_AwardStaticQuestXP(oPC,"Fish",Gxp);  
+	ACR_AwardStaticQuestXP(oPC,"Components",Gxp);  
    
 
 }

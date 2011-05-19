@@ -57,7 +57,7 @@ void main(string sItemTag)
     DestroyItems( oPC,"it_cassil",nTotalItem,15,15 ); 
 	
 	GiveGoldToCreature(oPC,Ggold);
-	ACR_AwardStaticQuestXP(oPC,"Fish",Gxp); 
+	ACR_AwardStaticQuestXP(oPC,"Herbs",Gxp); 
    
 
 }

@@ -47,67 +47,122 @@
 
 void main()
 {
-    ACR_TriggerOnEnter();
-	
 	int iPower = Random(5);
 	int nTrap_Power;
-	if(iPower == 4)
-		{nTrap_Power = 1;
-		}
 	object oTrap;
-	object oChest = GetLocalObject(OBJECT_SELF, "oChest");
-	if(GetLocalString(oChest, GetName(GetEnteringObject())) != GetName(GetEnteringObject()))
-		{SetLocalString(oChest, GetName(GetEnteringObject()), GetName(GetEnteringObject()));
-		 if(GetUseableFlag(oChest) == FALSE)
-			{int iUseableDC = GetLocalInt(oChest, "iUseableDC");
-			 if(iUseableDC == 0)
-					{iUseableDC = 20 + Random(11) - Random(11);
-					 SetLocalInt(oChest, "iUseableDC", iUseableDC);
-					}
-			 if(GetIsSkillSuccessful(GetEnteringObject(), SKILL_SEARCH, iUseableDC, FALSE) == TRUE)
-				{SetUseableFlag(oChest, TRUE);
-				 int iUnlockDC = GetLocalInt(oChest, "iUnlockDC");
-				 if(iUnlockDC == 0)
-						{iUnlockDC = 30 + Random(11) - Random(11) + (5 * nTrap_Power);
-						 SetLocalInt(oChest, "iUnlockDC", iUnlockDC);
-						}
-				 if(GetLockLockable(oChest) == TRUE)
-						{SetLocked(oChest, TRUE);
-						}
-				 SetLockUnlockDC(oChest, iUnlockDC);
-				 if(GetLocalInt(oChest, "Trappable") == 1)
-				 	{if(Random(2) == 1)
-					 	{int iDetectDC = GetLocalInt(oChest, "iDetectDC");;
-						 if(iDetectDC == 0)
-								{iDetectDC = 20 + Random(11) - Random(11) + (5 * nTrap_Power);
-								 SetLocalInt(oChest, "iDetectDC", iDetectDC);
-								}
-						 int iDisableDC = GetLocalInt(oChest, "iDisableDC");
-						 if(iDisableDC == 0)
-								{iDisableDC = 25 + Random(11) - Random(11) + (5 * nTrap_Power);
-								 SetLocalInt(oChest, "iDisableDC", iDisableDC);
-								}
-						 if(iPower == 4)
-						 	{CreateTrapOnObject(4 * Random(11) + 1, oChest, STANDARD_FACTION_HOSTILE, "1sc_plc_ontrapdisarm");
-						 	 SetLocalInt(oChest, "Average_Trap", 1);
-							 }
-						 else
-						 	{CreateTrapOnObject(4 * Random(11), oChest, STANDARD_FACTION_HOSTILE, "1sc_plc_ontrapdisarm");
-						 	}
-						 oTrap = GetNearestTrapToObject(OBJECT_SELF, FALSE);
-						 SetTrapDisarmable(oTrap, TRUE);
-						 SetTrapDetectDC(oTrap, iDetectDC);
-						 SetTrapDisarmDC(oTrap, iDisableDC);
-						 SetTrapDisarmable(oChest, TRUE);
-						 SetTrapDetectDC(oChest, iDetectDC);
-						 SetTrapDisarmDC(oChest, iDisableDC);
-						 SetLocalInt(oChest, "DM_Trapped", 1);
-		 }
-					}
-				 }
-			}
-		}
-    // Custom code goes here.
+	object o = OBJECT_SELF;
+	object oChest = GetLocalObject(o, "oChest");
+	object oEntering = GetEnteringObject();
+	int iUseableDC = 15 + Random(11) - Random(11);
+	int iUnlockDC;
+	int iDetectDC;
+	int iDisableDC;
+	int tmp;
+	location loc = GetLocation(o);
 	
+	
+	ACR_TriggerOnEnter();
+			
+	// already spawned
+	if (GetIsObjectValid(oChest))
+		return;
+			
+	// this isn't supposed to spawn, leave
+	if (GetLocalInt(o, "spawn_chest") == 0)
+		return;
+	
+	// skip non pcs
+	if (!GetIsPC(oEntering))
+		return;
 
+	o = GetArea(OBJECT_SELF);
+	WriteTimestampedLogEntry("phat_lewt: checking for "+GetName(oEntering)+" in "+GetName(o) + " (" + GetTag(o) + ")");
+	
+	// check was already done for player
+	if (GetLocalString(o, GetName(oEntering)) == GetName(oEntering))
+		return;
+	
+	SetLocalString(o, GetName(oEntering), GetName(oEntering));
+	
+	tmp = GetLocalInt(o, "iUsableDC");
+	
+	if (tmp > 0)
+		iUseableDC = tmp;
+	else
+		SetLocalInt(o, "iUsableDC", iUseableDC);
+			
+	WriteTimestampedLogEntry("phat_lewt: search check, DC "+IntToString(iUseableDC));
+	
+	// search check
+	if (GetIsSkillSuccessful(oEntering, SKILL_SEARCH, iUseableDC, FALSE) != TRUE)
+		return;
+					
+	// finally, spawn chest
+	switch (Random(3)) {
+		case 0:
+			oChest = CreateObject(OBJECT_TYPE_PLACEABLE, "phat_lewt_chest_small", loc);
+			break;
+		case 1:
+			oChest = CreateObject(OBJECT_TYPE_PLACEABLE, "phat_lewt_chest_large", loc);
+			break;
+		default:
+			oChest = CreateObject(OBJECT_TYPE_PLACEABLE, "phat_lewt_crate", loc);
+	}
+		
+	WriteTimestampedLogEntry("phat_lewt: search check passed, creating");
+	
+	SendMessageToPC(oEntering, "You discover something!");
+	
+	SetLocalInt(o, "spawn_chest", 0);		
+		
+	iUnlockDC = GetLocalInt(oChest, "iUnlockDC");
+	
+	if (iPower == 4)
+		nTrap_Power = 1;
+
+	if (iUnlockDC == 0) {
+		iUnlockDC = 15 + Random(11) - Random(11) + (5 * nTrap_Power);
+		SetLocalInt(oChest, "iUnlockDC", iUnlockDC);
+	}
+				
+	if (GetLockLockable(oChest) == TRUE)
+		SetLocked(oChest, TRUE);
+						
+	SetLockUnlockDC(oChest, iUnlockDC);
+	
+	WriteTimestampedLogEntry("phat_lewt: handle trapping");
+				
+	if (Random(2) == 1)
+		return;
+					
+	iDetectDC = GetLocalInt(oChest, "iDetectDC");
+	iDisableDC = GetLocalInt(oChest, "iDisableDC");
+						
+	if (iDetectDC == 0) {
+		iDetectDC = 15 + Random(11) - Random(11) + (5 * nTrap_Power);
+		SetLocalInt(oChest, "iDetectDC", iDetectDC);
+	}
+						 
+	if (iDisableDC == 0) {
+		iDisableDC = 20 + Random(11) - Random(11) + (5 * nTrap_Power);
+		SetLocalInt(oChest, "iDisableDC", iDisableDC);
+	}
+						
+	if (iPower == 4) {
+		CreateTrapOnObject(4 * Random(11) + 1, oChest, STANDARD_FACTION_HOSTILE, "1sc_plc_ontrapdisarm");
+	 	SetLocalInt(oChest, "Average_Trap", 1);
+	}
+	else
+		CreateTrapOnObject(4 * Random(11), oChest, STANDARD_FACTION_HOSTILE, "1sc_plc_ontrapdisarm");
+					
+	oTrap = GetNearestTrapToObject(o, FALSE);
+	SetTrapDisarmable(oTrap, TRUE);
+	SetTrapDetectDC(oTrap, iDetectDC);
+	SetTrapDisarmDC(oTrap, iDisableDC);
+	SetTrapDisarmable(oChest, TRUE);
+	SetTrapDetectDC(oChest, iDetectDC);
+	SetTrapDisarmDC(oChest, iDisableDC);
+	SetLocalInt(oChest, "DM_Trapped", 1);
+	
+	// Custom code goes here.
 }
