@@ -1,4 +1,4 @@
-#include "acr_creature_i"
+#include "acr_creature_i_advanced"
 
 void main()
 {

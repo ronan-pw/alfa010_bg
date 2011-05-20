@@ -148,6 +148,9 @@ void ACR_CreatureOnSpawnIn()
 	
 	//Sandermann 03/06/2010 - Are we smart? if so then run separate AI set up for spellcasting and other
 	//variables
+	
+	SetLocalInt(OBJECT_SELF,"X2_L_NOTREASURE",1);
+	
 	if (GetIsSmart(OBJECT_SELF))
 		{ExecuteScript("acf_advanced_spawn", OBJECT_SELF);}
 		
