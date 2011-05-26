@@ -265,8 +265,10 @@ void set_weather(object area,int type,int power)
 			
 		if (GetLocalInt(area,"ambient_night_track"))
 			AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_night_track"));
-		else
-			AmbientSoundChangeDay(area, 54);
+		else {
+			volume = 10; // this thing was sampled SUPER loud
+			AmbientSoundChangeDay(area, 128);
+		}
 	}
 	else {
 		AmbientSoundChangeDay(area, track);

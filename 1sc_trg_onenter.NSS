@@ -58,7 +58,7 @@ void main()
 	int iDetectDC;
 	int iDisableDC;
 	int tmp;
-	location loc = GetLocation(o);
+	location loc = GetLocation(oEntering);
 	
 	
 	ACR_TriggerOnEnter();
