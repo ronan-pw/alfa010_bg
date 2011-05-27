@@ -63,7 +63,7 @@ void main() {
 		
     ACR_AreaOnEnter();
 	
-	if (!GetLocalInt(OBJECT_SELF,"DPSS_SPAWNED")){DPSS_SPAWN_AREA(OBJECT_SELF,GetEnteringObject());}
+	DPSS_SPAWN_AREA(OBJECT_SELF,GetEnteringObject());
 	
 //	SendMessageToAllDMs(GetName(GetEnteringObject())+" is entering area "+GetName(OBJECT_SELF)+" at time "+IntToString(GetTimeSecond()));
     // Custom code goes below this line.

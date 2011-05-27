@@ -57,4 +57,6 @@ else if(Random(5) > 2)
 else if(Random(5) > 3)
  	{ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);}
  
+	ACR_DestroySpawnPoint(OBJECT_SELF);
+
 }

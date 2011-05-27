@@ -1,7 +1,8 @@
 
 
-int DEBUG=1;
-
+const int DEBUG=0;
+const float DESPAWN_DELAY=600.0;
+const float DPSS_WALK_PROB=0.3;
 
 void DPSS_SPAWN_AREA(object oArea,object oPC);
 //spawns an area defined as using DPSS
@@ -25,10 +26,12 @@ int GetIsAreaEmpty(object oArea)
 	return TRUE;
 	}
 
-
-void DPSS_DESPAWN_AREA(object oArea,object oPC)
+void internal_dpss_despawn_area(object oArea)
 {
 	if (!GetLocalInt(oArea,"DPSS_SPAWNED"))
+		return;
+		
+	if (!GetLocalInt(oArea,"DPSS_DESPAWNING"))
 		return;
 
 	if (!GetIsAreaEmpty(oArea))
@@ -48,21 +51,47 @@ void DPSS_DESPAWN_AREA(object oArea,object oPC)
 	object oLoop=GetNearestObjectByTag("DPSS_CREATURE",oBase,iNth);
     while (GetIsObjectValid(oLoop))
 	{
-		WriteTimestampedLogEntry("Destroying "+GetName(oLoop));
 		SetIsDestroyable(TRUE,FALSE,FALSE);
 		DestroyObject(oLoop);
 		iNth=iNth+1;
 		oLoop=GetNearestObjectByTag("DPSS_CREATURE",oBase,iNth);
 	}
+	
+	DeleteLocalInt(oArea,"DPSS_DESPAWNING");
 	DeleteLocalInt(oArea,"DPSS_SPAWNED");
+}
 
+void DPSS_DESPAWN_AREA(object oArea,object oPC)
+{
+	/* not DPSS, ignore */
+	if (!GetLocalInt(oArea,"DPSS_SPAWNED"))
+		return;
+		
+	/* already despawning */
+	if (!GetLocalInt(oArea,"DPSS_DESPAWNING"))
+		return;
+
+	if (DEBUG)
+		WriteTimestampedLogEntry("BEGIN DESPAWNING AREA "+GetName(oArea) + " (" + GetTag(oArea) + ")");
+		
+	SetLocalInt(OBJECT_SELF,"DPSS_DESPAWNING",1);
+	
+	DelayCommand(DESPAWN_DELAY,internal_dpss_despawn_area(oArea));
 }
 
 
 void DPSS_SPAWN_AREA(object oArea,object oPC)
 {
-	//sanity check, make sure the area is flagged as DPSS
+	/* sanity check, make sure the area is flagged as DPSS */
 	if (!GetLocalInt(oArea,"DPSS_CATEGORY"))
+		return;
+		
+	/* despawning still, don't respawn */
+	if (GetLocalInt(oArea,"DPSS_DESPAWNING"))
+		return;
+		
+	/* already spawned, return */
+	if (GetLocalInt(OBJECT_SELF,"DPSS_SPAWNED"))
 		return;
 
 	SetLocalInt(OBJECT_SELF,"DPSS_SPAWNED",1);
@@ -141,10 +170,21 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 		D10=d10(1);
 		oSpawn=GetNearestObjectByTag("DPSS_SPAWN",oBase,D10);
 		lSpawn=GetLocation(oSpawn);
-		//spawn creature and set up link to controller
-		oCreature=CreateObject(OBJECT_TYPE_CREATURE,sCreatureType,lSpawn,FALSE,"DPSS_CREATURE");
+		
+		// spawn creature and set up link to controller
+		oCreature = CreateObject(OBJECT_TYPE_CREATURE,sCreatureType,lSpawn,FALSE,"DPSS_CREATURE");
+		
 		SetLocalObject(oCreature,"CONTROLLER",oController);
 		SetLocalInt(oCreature,"DPSS_CREATURE",1);
+		
+		SetLocalInt(oCreature, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
+		SetLocalInt(oCreature, "X2_L_SPAWN_USE_AMBIENT", 1);
+		
+		if (((Random(1000)*1.0)/1000) <= DPSS_WALK_PROB) {
+			SetLocalInt(oCreature, "X2_L_SPAWN_USE_AMBIENT", 0);
+			SetLocalInt(oCreature, "ACR_FLOCKING", 1);
+		}
+		
 		INDIVIDUAL_CR=FloatToInt(GetChallengeRating(oCreature));
 		SPAWNED_CR=SPAWNED_CR+INDIVIDUAL_CR;
 		if (DEBUG)
