@@ -23,6 +23,7 @@
 
 #include "acr_mod_events_i"
 #include "010_weather_i"
+#include "010_location_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,4 +50,6 @@ void main()
     ACR_ModuleOnHeartbeat();
 	
 	process_weather();
+	
+	loc_update_players();
 }

@@ -44,7 +44,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
+	effect e;
+	object player = GetLastPCRested();
+	
     ACR_ModuleOnPlayerRest();
 
     // Custom code goes below this line.
+	
+	/* remove fatigue/exhaustion */
+	e = GetFirstEffect(player);
+	
+	while (GetIsEffectValid(e)) {
+		/* fatigue */
+		if ((GetEffectType(e) == 49) && (GetEffectSubType(e) == 24))
+			RemoveEffect(player, e);
+			
+		/* exhaustion */
+		if ((GetEffectType(e) == 39) && (GetEffectSubType(e) == 24))
+			RemoveEffect(player, e);
+		
+		e = GetNextEffect(player);
+	}
 }
