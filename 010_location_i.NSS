@@ -5,7 +5,7 @@ const int LOCATION_HEARTBEATS_PER_POLL = 2;
 const float HEARTBEAT_TIME = 6.0;
 const float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
 const float RUN_LIMIT = 2.8;
-const int TICK_LIMIT = 4;
+const int TICK_LIMIT = 15;
 
 const string CHECK_COLOUR1 = "<color=#98FFFF>";
 const string CHECK_COLOUR2 = "<color=#0166FF>";
