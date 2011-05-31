@@ -1,5 +1,6 @@
 #include "acr_list_i"
 #include "nwn2_inc_spells"
+#include "acr_1984_i"
 
 const int LOCATION_HEARTBEATS_PER_POLL = 2;
 const float HEARTBEAT_TIME = 6.0;
@@ -35,7 +36,13 @@ void loc_damage_player(object player, int time)
 	int roll,dc,mod,tmp;
 	string str;
 	effect e;
+	
+	/* replace with logging for now */
+	ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
 
+    SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
+	
+	return;
 	
 	dc = 10+time;
 	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player);
