@@ -27,6 +27,7 @@
 #include "acr_list_i"
 #include "acr_mod_events_i"
 #include "acr_pps_i"
+#include "010_location_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -66,4 +67,6 @@ void main() {
 	
 	index = insert_at_tail(id);
 	set_element_object(id,index,oEnterer);
+
+	loc_cache_speed(oEnterer);
 }

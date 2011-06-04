@@ -1,20 +1,75 @@
 #include "acr_list_i"
 #include "nwn2_inc_spells"
-#include "acr_1984_i"
+//#include "acr_1984_i"
 
-const int LOCATION_HEARTBEATS_PER_POLL = 2;
+const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
 const float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
-const float RUN_LIMIT = 2.8;
-const int TICK_LIMIT = 15;
+const float RUN_LIMIT_FACTOR = 0.7;
+const int TICK_LIMIT = 10;
+
+const float STD_SPEED = 4.0;
+
+const float MONK_SPEED_BONUS = 0.1;
+const float BARB_SPEED_BONUS = 0.1;
+const float WOOD_SPEED_BONUS = 0.1;
+
+const int MONK_LVL_PER_BONUS = 3;
+
+const int HASTE_SPEED_FACTOR = 2;
+const int EXPED_RET_SPEED_FACTOR = 2;
 
 const string CHECK_COLOUR1 = "<color=#98FFFF>";
 const string CHECK_COLOUR2 = "<color=#0166FF>";
 const string CHECK_COLOUR_END = "</c>";
 
+int is_fatigue_effect(effect e)
+{
+	return		(GetEffectType(e) == EFFECT_TYPE_MOVEMENT_SPEED_DECREASE)
+			&&	(GetEffectSubType(e) == SUBTYPE_EXTRAORDINARY)
+			&&	(GetEffectDurationType(e) == DURATION_TYPE_PERMANENT);
+}
+
+/* calculates monk, barb bonus, does simple kludge for woodland stride
+ * (assumption is always active)
+ */
+void loc_cache_speed(object player)
+{
+	float factor = 1.0;
+	int monk_lvs=GetLevelByClass(CLASS_TYPE_MONK,player),barb_lvs=GetLevelByClass(CLASS_TYPE_BARBARIAN,player);
+	
+	factor *= 1.0 + (MONK_SPEED_BONUS*(monk_lvs/MONK_LVL_PER_BONUS));
+	factor *= 1.0 + (BARB_SPEED_BONUS*(barb_lvs > 0));
+	factor *= 1.0 + (WOOD_SPEED_BONUS*(GetHasFeat(FEAT_WOODLAND_STRIDE, player) > 0));
+	
+	SetLocalFloat(player,"speed_factor",factor);
+}
+
 string loc_global_name(object o, string str)
 {
 	return str+"_"+GetName(o);
+}
+
+float get_std_speed(object player)
+{
+	float factor = GetLocalFloat(player,"speed_factor"), tmp_factor = 1.0;
+	effect e = GetFirstEffect(player);
+	
+	while (GetIsEffectValid(e)) {
+		switch (GetEffectSpellId(e)) {
+			case SPELL_HASTE:
+				tmp_factor *= HASTE_SPEED_FACTOR;
+				break;
+			case SPELL_EXPEDITIOUS_RETREAT:
+				tmp_factor *= EXPED_RET_SPEED_FACTOR;
+				break;
+			default:
+		}
+			
+		e = GetNextEffect(player);
+	}
+	
+	return STD_SPEED * factor * tmp_factor;
 }
 
 string loc_format_check(object creature, string stat, int roll, int mod, int dc)
@@ -38,11 +93,11 @@ void loc_damage_player(object player, int time)
 	effect e;
 	
 	/* replace with logging for now */
-	ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
+	//ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
 
-    SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
+    //SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
 	
-	return;
+	//return;
 	
 	dc = 10+time;
 	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player);
@@ -59,18 +114,19 @@ void loc_damage_player(object player, int time)
 		
 		switch (tmp) {
 			case 0:
-				e = EffectFatigue();
-				ApplyEffectToObject(DURATION_TYPE_PERMANENT, e, player);
+				ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectFatigue(), player);
 				break;
 			case 1:
 				/* clear fatigue */
 				e = GetFirstEffect(player);
 				
 				while (GetIsEffectValid(e)) {
-					if ((GetEffectType(e) == 49) && (GetEffectSubType(e) == 24)) {
+				
+					if (is_fatigue_effect(e)) {
 						RemoveEffect(player, e);
 						break;
 					}
+					
 					e = GetNextEffect(player);
 				}
 				
@@ -86,8 +142,8 @@ void loc_damage_player(object player, int time)
 void loc_update_player(object player)
 {
 	location l;
-	object area;
-	float dist,vel;
+	object last_area, cur_area;
+	float dist,vel,vel_ratio;
 	int tick;
 	string str;
 	
@@ -101,27 +157,34 @@ void loc_update_player(object player)
 	SetGlobalInt("loc_hb_tick",0);
 	
 	l = GetLocation(player);
-	area = GetLocalObject(player, "loc_last_area");
+	cur_area = GetArea(player);
+	last_area = GetLocalObject(player, "loc_last_area");
 	
 	/* calculate velocity and set as globals to prevent abuse */
-	if (area == GetArea(player)) {
+	if (last_area == cur_area) {
 	
 		dist = fabs(GetDistanceBetweenLocations(l,GetLocalLocation(player, "loc_last_loc")));
 		vel = dist/LOCATION_POLLING_TIME;
+		
+		/* vel_ratio = current/max */
+		vel_ratio = vel/get_std_speed(player);
 
 		str = loc_global_name(player,"loc_tick");
 		tick = GetGlobalInt(str)+1;
 		SetGlobalInt(str, tick);
 		
 		str = loc_global_name(player,"loc_speed");
-		vel += GetGlobalFloat(str);
-		SetGlobalFloat(str, vel);
+		vel_ratio += GetGlobalFloat(str);
+		SetGlobalFloat(str, vel_ratio);
+		
+		SendMessageToPC(player," "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
 		
 		/* check velocity */
 		if (tick >= TICK_LIMIT) {
+			vel_ratio /= TICK_LIMIT;
 		
 			/* running, increase fatigue */
-			if (vel/tick > RUN_LIMIT) {
+			if (vel_ratio > RUN_LIMIT_FACTOR) {
 				str = loc_global_name(player,"loc_fatigue");
 				SetGlobalInt(str, GetGlobalInt(str)+1);
 				
@@ -133,6 +196,8 @@ void loc_update_player(object player)
 				SetGlobalInt(str, 0);
 			}
 			
+			SendMessageToPC(player,FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
+			
 			str = loc_global_name(player,"loc_tick");
 			SetGlobalInt(str, 0);
 			
@@ -141,26 +206,21 @@ void loc_update_player(object player)
 		}
 	}
 	
-	SetLocalObject(player, "loc_last_area", GetArea(player));
+	SetLocalObject(player, "loc_last_area", cur_area);
 	SetLocalLocation(player, "loc_last_loc", l);
 }
 
 void loc_update_players()
 {
 	int first,i;
-	string id = "players";
-	object o;
+	object pc;
+
+	pc = GetFirstPC();
 	
-	first = get_first_index(id);
-	i = first;
-	
-	do {
-		i = get_next_index(id, i);
-		o = get_element_object(id, i);
-		
-		if (GetIsObjectValid(o))
-			loc_update_player(o);
-		
-	} while (first !=i);
-	
+	while (GetIsObjectValid(pc)) {
+		if (!GetIsDM(pc))
+			loc_update_player(pc);
+
+		pc = GetNextPC();
+	}
 }

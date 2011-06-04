@@ -22,6 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "acr_mod_events_i"
+#include "010_location_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -43,26 +44,29 @@
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
+void main()
+{
 	effect e;
 	object player = GetLastPCRested();
-	
-    ACR_ModuleOnPlayerRest();
-
-    // Custom code goes below this line.
+	string str;
 	
 	/* remove fatigue/exhaustion */
 	e = GetFirstEffect(player);
+	str = loc_global_name(player,"fatigue");
+	SetGlobalInt(str, 0);
 	
 	while (GetIsEffectValid(e)) {
-		/* fatigue */
-		if ((GetEffectType(e) == 49) && (GetEffectSubType(e) == 24))
-			RemoveEffect(player, e);
-			
-		/* exhaustion */
-		if ((GetEffectType(e) == 39) && (GetEffectSubType(e) == 24))
+	
+		SendMessageToPC(player, "("+IntToString(GetEffectType(e)) + "," + IntToString(GetEffectSubType(e)) + ")");
+		
+		/* fix fatigue effects */
+		if (is_fatigue_effect(e))
 			RemoveEffect(player, e);
 		
 		e = GetNextEffect(player);
 	}
+	
+	ACR_ModuleOnPlayerRest();
+		
+	// Custom code goes below this line.
 }

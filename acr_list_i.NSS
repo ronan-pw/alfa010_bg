@@ -91,6 +91,10 @@ void remove_at_index(string id, int index, object src=OBJECT_INVALID)
 	prev = get_prev_index(id,index,src);
 	
 	_incr_count(id, -1, src);
+	
+	DeleteLocalObject(src,id+"_"+IntToString(index));
+	DeleteLocalInt(src,id+"_"+IntToString(index)+"_"+"N");
+	DeleteLocalInt(src,id+"_"+IntToString(index)+"_"+"P");
 
 	SetLocalInt(src, id+"_"+IntToString(prev)+"_"+"N", next);
 	SetLocalInt(src, id+"_"+IntToString(next)+"_"+"P", prev);
