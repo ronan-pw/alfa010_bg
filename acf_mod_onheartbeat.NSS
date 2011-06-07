@@ -65,6 +65,6 @@ void main()
 {
 	ACR_ModuleOnHeartbeat();
 	
-	DelayCommand(HB_DELAY, _hb_loc_players());
+	//DelayCommand(HB_DELAY, _hb_loc_players());
 	DelayCommand(HB_DELAY*2, _hb_weather());
 }
