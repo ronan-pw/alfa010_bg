@@ -11,7 +11,6 @@ if(GetSkillRank(SKILL_HEAL, PCclick, TRUE) >= 7 || GetSkillRank(SKILL_SURVIVAL, 
     SpeakOneLinerConversation("Fsck, invalid item");
   DestroyObject(OBJECT_SELF);
 }
-//else SpeakOneLinerConversation("This odd plant almost feels warm to the touch.");
-//GetClickingObject()
+else SendMessageToPC(PCclick,"This odd plant has remarkably distinctive leaves.  But you can't see anything worthwhile to harvest.");
 
 }

@@ -50,13 +50,17 @@ void main();
 
 void main() {
 
-if(Random(5) > 0)
- 	{ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);}
-else if(Random(10) > 2)
- 	{ACR_SpawnObject("batguanopile", OBJECT_TYPE_PLACEABLE);}
-else if(Random(10) < 1)
- 	{ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);}
-  
-	ACR_DestroySpawnPoint(OBJECT_SELF);
+	int spawned = 1;
 
+	if(Random(5) > 0)
+		ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);
+	else if(Random(10) > 2)
+		ACR_SpawnObject("batguanopile", OBJECT_TYPE_PLACEABLE);
+	else if(Random(10) < 1)
+		ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);
+	else
+		spawned = 0;
+
+	if (spawned)
+		ACR_DestroySpawnPoint(OBJECT_SELF);
 }

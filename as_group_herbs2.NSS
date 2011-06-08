@@ -49,14 +49,18 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
+	int spawned = 1;
 
-if(Random(5) > 2)
- 	{ACR_SpawnObject("firefern", OBJECT_TYPE_PLACEABLE);}
-else if(Random(5) > 2)
- 	{ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);}
-else if(Random(5) > 3)
- 	{ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);}
+	if(Random(5) > 2)
+	 	{ACR_SpawnObject("firefern", OBJECT_TYPE_PLACEABLE);}
+	else if(Random(5) > 2)
+	 	{ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);}
+	else if(Random(5) > 3)
+	 	{ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);}
+	else
+		spawned = 0;
  
-	ACR_DestroySpawnPoint(OBJECT_SELF);
+	if (spawned)
+		ACR_DestroySpawnPoint(OBJECT_SELF);
 
 }
