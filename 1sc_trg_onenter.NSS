@@ -114,6 +114,7 @@ void main()
 	SendMessageToPC(oEntering, "You discover something!");
 	
 	SetLocalInt(o, "spawn_chest", 0);		
+	SetLocalObject(o, "oChest", oChest);
 		
 	iUnlockDC = GetLocalInt(oChest, "iUnlockDC");
 	
