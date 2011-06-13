@@ -11,7 +11,7 @@ DPSS CATEGORY 01 - Brokenshield Goblins
 
 
 //insert the area tags of the areas to be spawned here
-string sAreaA="cloakwood_02_caves";
+string sAreaA="cloakwood_02_cave0";
 string sAreaB="cloakwood_02";
 string sAreaC="cloakwood_03";
 string sAreaD="cloakwood_01";
