@@ -53,6 +53,7 @@ void main()
 	object o = OBJECT_SELF;
 	object oChest = GetLocalObject(o, "oChest");
 	object oEntering = GetEnteringObject();
+	object oArea = GetArea(o);
 	int iUseableDC = 15 + Random(11) - Random(11);
 	int iUnlockDC;
 	int iDetectDC;
@@ -75,9 +76,8 @@ void main()
 	if (!GetIsPC(oEntering))
 		return;
 
-	o = GetArea(OBJECT_SELF);
-	WriteTimestampedLogEntry("phat_lewt: checking for "+GetName(oEntering)+" in "+GetName(o) + " (" + GetTag(o) + ")");
-	
+	WriteTimestampedLogEntry("phat_lewt: checking for "+GetName(oEntering)+" in "+GetName(oArea) + " (" + GetTag(o) + ")");
+
 	// check was already done for player
 	if (GetLocalString(o, GetName(oEntering)) == GetName(oEntering))
 		return;
@@ -114,7 +114,7 @@ void main()
 	SendMessageToPC(oEntering, "You discover something!");
 	
 	SetLocalInt(o, "spawn_chest", 0);		
-	SetLocalObject(o, "oChest", oChest);
+	SetLocalObject(OBJECT_SELF, "oChest", oChest);
 		
 	iUnlockDC = GetLocalInt(oChest, "iUnlockDC");
 	

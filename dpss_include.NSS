@@ -185,6 +185,8 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 			SetLocalInt(oCreature, "ACR_FLOCKING", 1);
 		}
 		
+		ChangeToStandardFaction(oCreature,STANDARD_FACTION_HOSTILE);
+		
 		INDIVIDUAL_CR=FloatToInt(GetChallengeRating(oCreature));
 		SPAWNED_CR=SPAWNED_CR+INDIVIDUAL_CR;
 		if (DEBUG)
