@@ -56,7 +56,8 @@ void main() {
  	{ 
  	//sCountTag=GetTag(oCount); 
  	if (iCheck==1) 
- 		{ 
+ 		{
+		CopyItem(oCount, GetNearestObject(OBJECT_TYPE_STORE,oPC), TRUE);
  		DestroyObject(oCount); 
  		} 
  	 

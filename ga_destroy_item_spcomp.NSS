@@ -63,7 +63,7 @@ void main(string sItemTag)
     DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,10,10 );
 	
 	nTotalItem = GetNumItems( oPC,"010_it_misc_rtooth" );
-    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,50,50 );
+    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,100,50 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_electrum" );
     DestroyItems( oPC,"it_plot_gear_electrum",nTotalItem,5,5 );
