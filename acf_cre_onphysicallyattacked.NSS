@@ -46,19 +46,22 @@ void main()
 	object attacker = GetLastAttacker();
     ACR_CreatureOnPhysicallyAttacked();
 	
-	SendMessageToAllDMs("Creature was attacked.");
+	SendMessageToAllDMs("Creature "+GetName(OBJECT_SELF)+" was attacked.");
 	
 	if (GetAttackTarget() == OBJECT_INVALID)
-		SendMessageToAllDMs("No valid object");
+		SendMessageToAllDMs("Not attacking anything");
 		
 	if (GetNumActions(OBJECT_SELF) == 0)
-		SendMessageToAllDMs("No valid object");
+		SendMessageToAllDMs("No queued actions");
 
     // Custom code goes here.
 	
 	/* force an attack if not responding */
 	if ((GetAttackTarget() == OBJECT_INVALID) && (GetNumActions(OBJECT_SELF) == 0))
+	{
+		DelayCommand(2.0,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
 		ActionAttack(attacker);
+	}
 	
 	if(GetLocalInt(OBJECT_SELF, "Fleeing") == 1) 
 	{
