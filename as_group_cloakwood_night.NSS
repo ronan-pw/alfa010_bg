@@ -140,8 +140,8 @@ void main() {
 			}
 			break;		
 		case 16:
-			spawn_group("010_cr_wolf0");
-			spawn_group("010_cr_wolf0");
+			spawn_group("010_cr_an_wolf_timber");
+			spawn_group("010_cr_an_wolf_timber");
             break;
 		case 17:
             spawn_hostile_npc("abr_cr_vm_beetle_stag");

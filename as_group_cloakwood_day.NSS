@@ -62,14 +62,14 @@ void main() {
 			spawn_group("trolls",0.5);
             break;
 		case 2:
-			spawn_hostile_npc("tg_stirge01");
-			spawn_hostile_npc("tg_stirge01");
-			spawn_hostile_npc("tg_stirge01",0.5);
-			spawn_hostile_npc("tg_stirge01",0.5);
-			spawn_hostile_npc("tg_stirge01",0.5);
-			spawn_hostile_npc("tg_stirge01",0.5);
-			spawn_hostile_npc("tg_stirge01",0.5);
-			spawn_hostile_npc("tg_stirge01",0.5);
+			spawn_hostile_npc("010_cr_an_stirge");
+			spawn_hostile_npc("010_cr_an_stirge");
+			spawn_hostile_npc("010_cr_an_stirge",0.5);
+			spawn_hostile_npc("010_cr_an_stirge",0.5);
+			spawn_hostile_npc("010_cr_an_stirge",0.5);
+			spawn_hostile_npc("010_cr_an_stirge",0.5);
+			spawn_hostile_npc("010_cr_an_stirge",0.5);
+			spawn_hostile_npc("010_cr_an_stirge",0.5);
 			break;
 		case 3:	
             spawn_group("gibberlings");
@@ -158,10 +158,10 @@ void main() {
 		    spawn_hostile_npc("010_sand_orc11");
 			break;		
 		case 16:
-			spawn_hostile_npc("010_cr_wolf0");
-			spawn_hostile_npc("010_cr_wolf0");
-			spawn_hostile_npc("010_cr_wolf0",0.5);
-			spawn_hostile_npc("010_cr_wolf0",0.5);
+			spawn_hostile_npc("010_cr_an_wolf_timber");
+			spawn_hostile_npc("010_cr_an_wolf_timber");
+			spawn_hostile_npc("010_cr_an_wolf_timber",0.5);
+			spawn_hostile_npc("010_cr_an_wolf_timber",0.5);
             break;
 		case 17:
             spawn_hostile_npc("abr_cr_vm_beetle_stag");

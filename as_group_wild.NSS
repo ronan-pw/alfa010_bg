@@ -50,30 +50,31 @@ void main();
 void main() {
 	switch(Random(20)) {
         case 0:
-            ACR_SpawnObject("010_cr_boar", OBJECT_TYPE_CREATURE);
+            ACR_SpawnObject("010_cr_an_boar", OBJECT_TYPE_CREATURE);
             break;
         case 1:
             ACR_SpawnObject("010_cr_wolverinedire", OBJECT_TYPE_CREATURE);
             break;
         case 2:
-            ACR_SpawnObject("c_deermale", OBJECT_TYPE_CREATURE);
+            ACR_SpawnObject("010_cr_an_deer_male", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_deer_female", OBJECT_TYPE_CREATURE);
             break;
         case 3:
-			ACR_SpawnObject("010_cr_brownbear", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_brownbear", OBJECT_TYPE_CREATURE);
             break;			
 	    case 4:
-            ACR_SpawnObject("010_cr_weasel1", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_weasel1", OBJECT_TYPE_CREATURE);
+            ACR_SpawnObject("010_cr_an_wildcat", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_wildcat", OBJECT_TYPE_CREATURE);
             break;
         case 5:
-            ACR_SpawnObject("010_cr_weasel", OBJECT_TYPE_CREATURE);
+            ACR_SpawnObject("010_cr_an_weasel", OBJECT_TYPE_CREATURE);
             break;
         case 6:
-            ACR_SpawnObject("010_cr_wolverine", OBJECT_TYPE_CREATURE);
+            ACR_SpawnObject("010_cr_an_wolverine", OBJECT_TYPE_CREATURE);
             break;
         case 7:
-			ACR_SpawnObject("010_cr_bunny", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_bunny", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_bunny", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_bunny", OBJECT_TYPE_CREATURE);
             break;			
 	    case 8:
             ACR_SpawnObject("010_cr_badgerdire2", OBJECT_TYPE_CREATURE);
@@ -81,15 +82,15 @@ void main() {
 			ACR_SpawnObject("010_cr_badgerdire1", OBJECT_TYPE_CREATURE);
             break;
         case 9:
-            ACR_SpawnObject("010_cr_wolf0", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_wolf0", OBJECT_TYPE_CREATURE);
+            ACR_SpawnObject("010_cr_an_wolf_timber", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_wolf_timber", OBJECT_TYPE_CREATURE);
 			break;
 		case 10:
-			ACR_SpawnObject("010_cr_wolf0", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_wolf_timber", OBJECT_TYPE_CREATURE);
             break;
 		case 11:	
-			ACR_SpawnObject("010_cr_wolf", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_wolf0", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_wolf_timber", OBJECT_TYPE_CREATURE);
 			break;
 		case 12:	
 			ACR_SpawnObject("010_cr_badgerdire2", OBJECT_TYPE_CREATURE);
@@ -98,20 +99,21 @@ void main() {
 			ACR_SpawnObject("010_cr_wolverinedire0", OBJECT_TYPE_CREATURE);
             break;			
 		case 14:
-			ACR_SpawnObject("010_cr_boar", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_sow", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_boar_male", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_boar_female", OBJECT_TYPE_CREATURE);
             break;			
 		case 15:	
-			ACR_SpawnObject("010_cr_wolf", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
             break;			
 		case 16:	
-			ACR_SpawnObject("010_cr_badger", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_badger", OBJECT_TYPE_CREATURE);
 			break;
 		case 17:
-			ACR_SpawnObject("010_cr_boar0", OBJECT_TYPE_CREATURE);	
+			ACR_SpawnObject("010_cr_an_boar", OBJECT_TYPE_CREATURE);	
             break;			
 		case 18:	
-			ACR_SpawnObject("010_cr_berrygobbler", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_berrygobbler", OBJECT_TYPE_CREATURE);
+			ACR_SpawnObject("010_cr_an_berrygobbler", OBJECT_TYPE_CREATURE);
             break;			
 		default:
 		
@@ -124,8 +126,8 @@ void main() {
 					break;
 				case 2:
             		ACR_SpawnObject("010_cr_wolfdire", OBJECT_TYPE_CREATURE);
-					ACR_SpawnObject("010_cr_wolf", OBJECT_TYPE_CREATURE);
-					ACR_SpawnObject("010_cr_wolf", OBJECT_TYPE_CREATURE);
+					ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
+					ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
 					break;
 					}
         }

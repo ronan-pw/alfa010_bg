@@ -60,12 +60,12 @@ void main()
 	// animal hack 
 	tmp = GetLevelByClass(CLASS_TYPE_ANIMAL);
 	
-	if (tmp > 0) {
+	if (GetLocalInt(OBJECT_SELF,"ACR_CRE_WILD_ANIMAL") && (tmp > 0)) {
 		SetBehaviorState(NW_FLAG_BEHAVIOR_SPECIAL,TRUE);
-		if (tmp > 2)
-			    SetBehaviorState(NW_FLAG_BEHAVIOR_HERBIVORE,TRUE);
+		if (tmp > 1)
+			SetBehaviorState(NW_FLAG_BEHAVIOR_OMNIVORE,TRUE);
 		else
-			    SetBehaviorState(NW_FLAG_BEHAVIOR_OMNIVORE,TRUE);
+			SetBehaviorState(NW_FLAG_BEHAVIOR_HERBIVORE,TRUE);	    
 	}
 		
 	//animation code

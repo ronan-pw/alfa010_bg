@@ -42,7 +42,7 @@ void main()
 		}
 	  }
 	  else if ((randflag <= 60) && (randflag > 50)){
-	    CreateObject(OBJECT_TYPE_CREATURE,"cr_dcrab",GetLocation(oPC));
+	    CreateObject(OBJECT_TYPE_CREATURE,"010_cr_an_dcrab",GetLocation(oPC));
 		SendMessageToPC(oPC, "A crab leaps out from the bottom silt"); 
 		//crab 
 	  }

@@ -153,7 +153,7 @@ void main() {
 		else if (nRoll <= 95)
 		{
 			int nWolves = d4();
-			for (i=0; i < nWolves; i++) ACR_SpawnObject("010_cr_wolf", OBJECT_TYPE_CREATURE);
+			for (i=0; i < nWolves; i++) ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
 		}
 		//5% Wild animal
 		else 
@@ -309,7 +309,7 @@ void main() {
 		else if (nRoll <= 94)
 		{
 			int nWolves = d4();
-			for (i=0; i < nWolves; i++) ACR_SpawnObject("010_cr_wolf", OBJECT_TYPE_CREATURE);
+			for (i=0; i < nWolves; i++) ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
 		}
 		//	2% Worg 1d2
 		else if (nRoll <= 96)
