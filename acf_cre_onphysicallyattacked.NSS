@@ -43,18 +43,20 @@
 
 void main()
 {
+	object attacker = GetLastAttacker();
     ACR_CreatureOnPhysicallyAttacked();
+	
+	SendMessageToAllDMs("Creature was attacked.");
 
     // Custom code goes here.
 	
 	/* force an attack if not responding */
 	if ((GetAttackTarget() == OBJECT_INVALID) && (GetNumActions(OBJECT_SELF) == 0))
-		ActionAttack(GetLastAttacker());
+		ActionAttack(attacker);
 	
 	if(GetLocalInt(OBJECT_SELF, "Fleeing") == 1) 
-		{ClearAllActions(TRUE);
-		 ActionMoveAwayFromObject(GetLastAttacker(), TRUE, 200.0);
-		
-		}
-	
+	{
+		ClearAllActions(TRUE);
+		ActionMoveAwayFromObject(attacker, TRUE, 200.0);	
+	}
 }
