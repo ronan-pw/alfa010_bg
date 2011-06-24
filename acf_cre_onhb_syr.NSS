@@ -43,7 +43,22 @@
 
 void main()
 {
-    ACR_CreatureOnSpawnIn();
+    ACR_CreatureOnHeartBeat();
+	float time = 0.5;
 	
-	PlayCustomAnimation(OBJECT_SELF,"dance02", 1, 0.43);
+	switch (d6()) {
+		case 0:
+			break;
+		case 1:
+			PlayCustomAnimation(OBJECT_SELF,"dance01", 1, time);
+			break;
+		case 2:
+			PlayCustomAnimation(OBJECT_SELF,"flirt", 1, time);
+			break;
+		case 3:
+			PlayCustomAnimation(OBJECT_SELF,"curtsey", 1, time);
+			break;
+		default:
+			PlayCustomAnimation(OBJECT_SELF,"dance02", 1, time);
+	}
 }

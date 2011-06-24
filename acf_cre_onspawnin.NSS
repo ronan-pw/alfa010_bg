@@ -21,6 +21,8 @@
 // Includes ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #include "acr_creature_i"
+#include "NW_I0_GENERIC"
+#include "NW_O2_CONINCLUDE"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -48,27 +50,36 @@ int USE_SPECIAL_ABILITY=75;
 
 void main()
 {
+	int tmp;
 	if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
 		{SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);}
+		
+	ACR_CreatureOnSpawnIn();
+
 				
-    ACR_CreatureOnSpawnIn();
+	// animal hack 
+	tmp = GetLevelByClass(CLASS_TYPE_ANIMAL);
 	
-	
+	if (tmp > 0) {
+		SetBehaviorState(NW_FLAG_BEHAVIOR_SPECIAL,TRUE);
+		if (tmp > 2)
+			    SetBehaviorState(NW_FLAG_BEHAVIOR_HERBIVORE,TRUE);
+		else
+			    SetBehaviorState(NW_FLAG_BEHAVIOR_OMNIVORE,TRUE);
+	}
+		
 	//animation code
-	if (GetLocalInt(OBJECT_SELF,"USE_IMMOBILE_AMBIENT_ANIM")==1)
-		{
+	if (GetLocalInt(OBJECT_SELF,"USE_IMMOBILE_AMBIENT_ANIM"))
+	{
 		float fRand=IntToFloat(d6(3));
 		DelayCommand(fRand,ExecuteScript("dpss_ambient_anim",OBJECT_SELF));
 	}
 
-	
-	
-	
 
     // Custom code goes here.
 	
 	// add glow if glowing
-	if(GetLocalInt(OBJECT_SELF, "ACR_EFFECT_GLOW_BLUE") == 1) 
+	if (GetLocalInt(OBJECT_SELF, "ACR_EFFECT_GLOW_BLUE")) 
 	{
 		
 		effect eGlow = SupernaturalEffect( EffectVisualEffect( VFX_DUR_GLOW_LIGHT_BLUE ) );
@@ -80,7 +91,7 @@ void main()
 	}
 	
 	// freeze if needed
-	if(GetLocalInt(OBJECT_SELF, "ACR_EFFECT_FREEZE") == 1) 
+	if (GetLocalInt(OBJECT_SELF, "ACR_EFFECT_FREEZE")) 
 	{	
 	    effect eFreeze = SupernaturalEffect( EffectVisualEffect( VFX_DUR_FREEZE_ANIMATION ) );
 	    ApplyEffectToObject( DURATION_TYPE_PERMANENT,eFreeze,OBJECT_SELF );
