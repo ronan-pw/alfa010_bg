@@ -45,6 +45,7 @@ void main()
 {
 	object attacker = GetLastAttacker();
     ACR_CreatureOnPhysicallyAttacked();
+	float delay = 2.0;
 	
 	SendMessageToAllDMs("Creature "+GetName(OBJECT_SELF)+" was attacked.");
 	
@@ -55,17 +56,18 @@ void main()
 		SendMessageToAllDMs("No queued actions");
 
     // Custom code goes here.
-	
-	/* force an attack if not responding */
-	if ((GetAttackTarget() == OBJECT_INVALID) && (GetNumActions(OBJECT_SELF) == 0))
-	{
-		DelayCommand(2.0,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
-		ActionAttack(attacker);
-	}
+
 	
 	if(GetLocalInt(OBJECT_SELF, "Fleeing") == 1) 
 	{
 		ClearAllActions(TRUE);
 		ActionMoveAwayFromObject(attacker, TRUE, 200.0);	
+	}
+	/* force an attack if not responding */
+	else if ((GetAttackTarget() == OBJECT_INVALID) && (GetNumActions(OBJECT_SELF) == 0))
+	{
+		ActionAttack(attacker);
+		DelayCommand(delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
+		DelayCommand(5*delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
 	}
 }
