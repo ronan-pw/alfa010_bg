@@ -47,6 +47,12 @@ void main()
     ACR_CreatureOnPhysicallyAttacked();
 	
 	SendMessageToAllDMs("Creature was attacked.");
+	
+	if (GetAttackTarget() == OBJECT_INVALID)
+		SendMessageToAllDMs("No valid object");
+		
+	if (GetNumActions(OBJECT_SELF) == 0)
+		SendMessageToAllDMs("No valid object");
 
     // Custom code goes here.
 	
