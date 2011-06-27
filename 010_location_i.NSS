@@ -112,6 +112,10 @@ void loc_damage_player(object player, int time)
 		str = loc_global_name(player,"fatigue");
 		tmp = GetGlobalInt(str);
 		
+		// TODO: Change so this accepts fatigue from _any_source and changes to exhaustion
+		// ALSO: Create central fatigue function that automatically handles this,
+		// so exhaustion is always correctly added
+		
 		switch (tmp) {
 			case 0:
 				ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectFatigue(), player);

@@ -1,5 +1,6 @@
 #include "010_area_ex"
 
+/* mild weather */
 
 const string wmat_mild =
 /*          C    R    L    +    -  */
@@ -19,6 +20,8 @@ const string wmat_mild =
 /* L4 */ "0.01,1.50,1.00,1.00,1.50;"+
 /* L5 */ "0.01,1.00,1.00,0.00,2.00;";
 
+/* rainy weather */
+
 const string wmat_rainy =
 /*          C    R    L    +    -  */
 /* C1 */ "1.00,1.70,0.05,1.00,0.00;"+
@@ -37,6 +40,7 @@ const string wmat_rainy =
 /* L4 */ "0.01,1.50,1.00,1.00,1.50;"+
 /* L5 */ "0.01,1.00,1.00,0.00,2.00;";
 
+/* dependence of regions on other regions (Y->X) */
 const string rmat_dependence =
 /*        0    1    2    3    4    5    6   */
 /* 0 */ "0.00,0.10,0.10,0.00,0.10,0.50,0.00;"+
@@ -302,9 +306,9 @@ void process_weather()
 		SetGlobalInt("weather_threshold", TICKS_PER_CHANGE);
 
 	
-		/* DEBUG
-		SendMessageToPC(GetPrimaryPlayer(), "Initializing weather");
-		*/
+		/* DEBUG */
+		//SendMessageToPC(GetPrimaryPlayer(), "Initializing weather");
+		
 		return;
 	}
 	
@@ -341,7 +345,7 @@ void process_weather()
 	while (GetIsObjectValid(area)) {
 	
 		if (!GetIsAreaInterior(area)) {
-			region = get_area_type(area) - 1;
+			region = get_area_region(area) - 1;
 						
 			type = get_region_weather_type(region);				
 			power = get_region_weather_power(region);

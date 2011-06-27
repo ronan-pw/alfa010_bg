@@ -73,7 +73,7 @@ void main() {
 			spawn_group("shadows_low",0.5);
             break;			
 	    case 5:
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else 
 	            spawn_group("gnoll_hunters",0.5);
@@ -81,7 +81,7 @@ void main() {
             break;
 		case 6:
 		case 7:	
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else 
 				spawn_group("fey");
@@ -89,7 +89,7 @@ void main() {
         case 8:
 			spawn_placeable("phat_lewt_crate");
 			
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else {
 				spawn_group("goblins_low");
@@ -101,7 +101,7 @@ void main() {
 			}
             break;
 		case 9:	
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else {
             	spawn_hostile_npc("tg_treant1");
@@ -133,7 +133,7 @@ void main() {
 			spawn_group("abr_cr_gt_ogre_war");
 			break;
 		case 15:	
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else {
             	spawn_hostile_npc("tg_treant1");
@@ -155,7 +155,7 @@ void main() {
 		default:
 			switch (Random(5)) {
 				case 0:
-					if (get_area_type() == 5)
+					if (get_area_region() == 5)
 					{
 						spawn_hostile_npc("abr_cr_drow_fighter01");
 						spawn_hostile_npc("abr_cr_drow_fighter02");

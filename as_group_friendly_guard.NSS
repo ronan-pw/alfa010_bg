@@ -50,8 +50,8 @@ void main();
 
 void main() {
 
-	int n = get_area_type();
-	WriteTimestampedLogEntry("ACR_Spawn: get_area_type(): retval = "+IntToString(n));
+	int n = get_area_region();
+	WriteTimestampedLogEntry("ACR_Spawn: get_area_region(): retval = "+IntToString(n));
 
 	switch (n) {
 		// beregost

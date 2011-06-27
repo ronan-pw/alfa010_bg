@@ -7,14 +7,18 @@
    7 - gullykin
    8 - snowy amn
 */
-int get_area_type(object area=OBJECT_SELF)
+
+// TODO: rename to get_area_region
+// 
+
+int get_area_region(object area=OBJECT_SELF)
 {
 	string str;
 	int n;
 	
 	str = GetTag(area);
 	
-	//WriteTimestampedLogEntry("010_areas: get_area_type(): "+GetName(area) + " (" + GetTag(area) + ")");
+	//WriteTimestampedLogEntry("010_areas: get_area_region(): "+GetName(area) + " (" + GetTag(area) + ")");
 	
 	if (GetLocalInt(area,"region_number") > 0)
 		return GetLocalInt(area,"region_number");

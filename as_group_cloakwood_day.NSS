@@ -79,7 +79,7 @@ void main() {
 			spawn_group("bandits");
             break;
         case 5:
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else 
 	            spawn_group("gnoll_hunters",0.5);
@@ -88,7 +88,7 @@ void main() {
 		case 6:	
 			spawn_placeable("phat_lewt_crate");
 			
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else {
 				spawn_group("kobolds_low");
@@ -103,7 +103,7 @@ void main() {
 		case 7:	
 			spawn_placeable("phat_lewt_crate");
 						
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else {
 				spawn_group("goblins_low");
@@ -115,7 +115,7 @@ void main() {
 			}
 			break;
         case 8:
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else {
             	spawn_hostile_npc("tg_treant1");
@@ -123,7 +123,7 @@ void main() {
             break;
 		case 9:
 		case 10:
-			if (get_area_type() == 4)
+			if (get_area_region() == 4)
 				spawn_group("lycanthrope");
 			else 
 				spawn_group("fey");
