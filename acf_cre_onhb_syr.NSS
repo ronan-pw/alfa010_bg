@@ -46,19 +46,25 @@ void main()
     ACR_CreatureOnHeartBeat();
 	float time = 0.5;
 	
-	switch (d6()) {
-		case 0:
-			break;
-		case 1:
-			PlayCustomAnimation(OBJECT_SELF,"dance01", 1, time);
-			break;
-		case 2:
-			PlayCustomAnimation(OBJECT_SELF,"flirt", 1, time);
-			break;
-		case 3:
-			PlayCustomAnimation(OBJECT_SELF,"curtsey", 1, time);
-			break;
-		default:
-			PlayCustomAnimation(OBJECT_SELF,"dance02", 1, time);
+	if (GetLocalInt(OBJECT_SELF,"dance") == 0) {
+		
+		switch (d6()) {
+			case 0:
+				break;
+			case 1:
+				PlayCustomAnimation(OBJECT_SELF,"dance01", 1, time);
+				break;
+			case 2:
+				PlayCustomAnimation(OBJECT_SELF,"flirt", 1, time);
+				break;
+			default:
+				PlayCustomAnimation(OBJECT_SELF,"dance02", 1, time);
+		}
+	}
+	
+	SetLocalInt(OBJECT_SELF,"dance",GetLocalInt(OBJECT_SELF,"dance")+1);
+	
+	if (GetLocalInt(OBJECT_SELF,"dance") == 2) {
+		SetLocalInt(OBJECT_SELF,"dance",0);
 	}
 }
