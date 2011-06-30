@@ -2,7 +2,7 @@
 
 void main()
 {
-	object o = GetLastSpeaker();
+	object o = OBJECT_SELF;
 	object pc = GetPCSpeaker();
 	int cmd,arg,region;
 	string stype,spower;

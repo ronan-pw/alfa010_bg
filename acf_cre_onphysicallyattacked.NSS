@@ -47,14 +47,15 @@ void main()
     ACR_CreatureOnPhysicallyAttacked();
 	float delay = 2.0;
 	
-	SendMessageToAllDMs("Creature "+GetName(OBJECT_SELF)+" was attacked.");
+	/*SendMessageToAllDMs("Creature "+GetName(OBJECT_SELF)+" was attacked.");
 	
 	if (GetAttackTarget() == OBJECT_INVALID)
 		SendMessageToAllDMs("Not attacking anything");
 		
 	if (GetNumActions(OBJECT_SELF) == 0)
 		SendMessageToAllDMs("No queued actions");
-
+	*/
+	
     // Custom code goes here.
 
 	
