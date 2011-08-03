@@ -92,20 +92,21 @@ void loc_damage_player(object player, int time)
 	string str;
 	effect e;
 	
-	/* replace with logging for now */
-	//ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
-
-    //SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
-	
-	//return;
-	
 	dc = 10+time;
 	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player);
 	roll = d20();
 	
-	SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
+	//SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
 	
+		
+	/* replace with logging for now */
+	SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
+	ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
+	WriteTimestampedLogEntry(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
+	return;
+		
 	if ((roll+mod) < dc) {
+		
 		ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(d6()), player);
 		
 		SendMessageToPC(player, "The forceful pace you have taken wears on you.");

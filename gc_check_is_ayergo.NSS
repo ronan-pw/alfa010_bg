@@ -6,8 +6,9 @@
 int StartingConditional()
 {
 object oPC = GetPCSpeaker();
-if(GetPCPlayerName(oPC) == "ayergovich") return TRUE;
-if(GetPCPlayerName(oPC) == "HEEGZ") return TRUE;
+/*if(GetPCPlayerName(oPC) == "ayergovich") return TRUE;
+if(GetPCPlayerName(oPC) == "HEEGZ") return TRUE;*/
+if(GetPCPlayerName(oPC) == "paazin") return TRUE;
 
 else return FALSE;
 
