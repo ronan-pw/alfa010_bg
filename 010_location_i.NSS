@@ -182,7 +182,7 @@ void loc_update_player(object player)
 		vel_ratio += GetGlobalFloat(str);
 		SetGlobalFloat(str, vel_ratio);
 		
-		SendMessageToPC(player," "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
+		// SendMessageToPC(player," "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
 		
 		/* check velocity */
 		if (tick >= TICK_LIMIT) {
@@ -201,7 +201,7 @@ void loc_update_player(object player)
 				SetGlobalInt(str, 0);
 			}
 			
-			SendMessageToPC(player,FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
+			// SendMessageToPC(player,FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
 			
 			str = loc_global_name(player,"loc_tick");
 			SetGlobalInt(str, 0);
