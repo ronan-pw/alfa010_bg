@@ -100,9 +100,9 @@ void loc_damage_player(object player, int time)
 	
 		
 	/* replace with logging for now */
-	SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
+	SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)));
 	ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
-	WriteTimestampedLogEntry(GetName(player)+" is running for an extended period in "+GetName(GetArea(OBJECT_SELF)));
+	WriteTimestampedLogEntry(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)));
 	return;
 		
 	if ((roll+mod) < dc) {
