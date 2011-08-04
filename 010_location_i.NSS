@@ -96,14 +96,7 @@ void loc_damage_player(object player, int time)
 	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player);
 	roll = d20();
 	
-	//SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
-	
-		
-	/* replace with logging for now */
-	SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "}");
-	ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
-	WriteTimestampedLogEntry(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "}");
-	return;
+	SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
 		
 	if ((roll+mod) < dc) {
 		
@@ -193,7 +186,11 @@ void loc_update_player(object player)
 				str = loc_global_name(player,"loc_fatigue");
 				SetGlobalInt(str, GetGlobalInt(str)+1);
 				
-				loc_damage_player(player, GetGlobalInt(str));
+				/* Do not do damage, simply log */
+				//loc_damage_player(player, GetGlobalInt(str));
+				SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "]");
+				//ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
+				WriteTimestampedLogEntry(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "]");
 			}
 			/* stopped, reset fatigue */
 			else {
