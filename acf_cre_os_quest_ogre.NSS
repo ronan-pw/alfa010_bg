@@ -54,14 +54,14 @@ void main()
 	int tmp;
 	if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
 		{SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);}
-		
+/*		
 	ACR_CreatureOnSpawnIn();
 
 	l = GetLocation(GetWaypointByTag("candlekeep_ogre_quest"));
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre0",l);
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre1",l);
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre2",l);
-	
+	*/
 	
 		l = GetLocation(OBJECT_SELF);
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre0",l);
