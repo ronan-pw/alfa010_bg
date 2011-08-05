@@ -61,4 +61,10 @@ void main()
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre0",l);
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre1",l);
 	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre2",l);
+	
+	
+		l = GetLocation(OBJECT_SELF);
+	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre0",l);
+	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre1",l);
+	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_candlekeep_ogre2",l);
 }
