@@ -142,7 +142,7 @@ void loc_update_player(object player)
 	location l;
 	object last_area, cur_area;
 	float dist,vel,vel_ratio;
-	int tick;
+	int tick, is_interior;
 	string str;
 	
 	tick = GetGlobalInt("loc_hb_tick");
@@ -158,8 +158,11 @@ void loc_update_player(object player)
 	cur_area = GetArea(player);
 	last_area = GetLocalObject(player, "loc_last_area");
 	
+	/* for simplicity's sake, eliminate calculatino of interior areas as well */
+	is_interior = GetIsAreaInterior(cur_area);
+	
 	/* calculate velocity and set as globals to prevent abuse */
-	if (last_area == cur_area) {
+	if ((last_area == cur_area) && (!is_interior)) {
 	
 		dist = fabs(GetDistanceBetweenLocations(l,GetLocalLocation(player, "loc_last_loc")));
 		vel = dist/LOCATION_POLLING_TIME;

@@ -8,8 +8,27 @@
    8 - snowy amn
 */
 
+const int NUM_REGIONS = 9;
+
 // TODO: rename to get_area_region
 // 
+
+string get_region_name(int region)
+{
+	switch (region) {
+		case 0: return "other";
+		case 1: return "baldursgate";
+		case 2: return "beregost";
+		case 3: return "candlekeep";
+		case 4: return "nashkel";
+		case 5: return "sharpteeth";
+		case 6: return "cloakwood";
+		case 7: return "gullykin";
+		case 8: return "cloudpeaks";
+		default:
+	}
+	return "invalid";
+}
 
 int get_area_region(object area=OBJECT_SELF)
 {
@@ -63,4 +82,10 @@ int get_area_region(object area=OBJECT_SELF)
 			return 2;
 	}
 	return 1;
+}
+
+
+int get_area_region_test(object owner=OBJECT_SELF)
+{
+	return get_area_region(GetArea(owner));
 }

@@ -6,6 +6,7 @@ void main()
 	object pc = GetPCSpeaker();
 	int cmd,arg,region;
 	string stype,spower;
+	int i;
 	
 	cmd = GetLocalInt(o,"command");
 	arg = GetLocalInt(o,"arg");
@@ -13,6 +14,14 @@ void main()
 	
 	switch (cmd) {
 		case 0:
+			/* reuse func to iterate through */
+			if (region == -1) {
+				for (i=0; i<NUM_REGIONS; ++i) {
+					SetLocalInt(o,"region",i);
+					main();
+				}
+				return;
+			}
 			break;
 		case 1:
 			set_region_weather(region,arg,get_region_weather_power(region));
@@ -54,5 +63,5 @@ void main()
 			spower = "extreme";
 			break;
 	}
-	SendMessageToPC(pc,"Region "+IntToString(region)+" is "+spower + " " + stype+".");
+	SendMessageToPC(pc,"Region "+get_region_name(region)+"("+IntToString(region)+") is "+spower + " " + stype+".");
 }
