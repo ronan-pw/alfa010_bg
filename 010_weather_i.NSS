@@ -297,6 +297,7 @@ void set_weather(object area,int type,int power)
 		AmbientSoundChangeNight(area, track);
 	}
 	
+	WriteTimestampedLogEntry("Setting weather ["+GetTag(area)+"] ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
 	//SendMessageToPC(GetPrimaryPlayer(), "Setting weather ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
 	
 	AmbientSoundSetDayVolume(area,volume);
