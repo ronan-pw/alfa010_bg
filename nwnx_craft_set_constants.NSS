@@ -14,7 +14,7 @@
   \*--------------------------------------------------------------------------*/
 
 void main() {
-	object oModule = GetModule();
+	object oModule = GetObjectByTag("DPSS_Control_Room");
 	object oSpawnWP = GetWaypointByTag( "XC_HIDDEN_WP" );
 	object oHiddenContainer = CreateObject( OBJECT_TYPE_PLACEABLE, "plc_colbox", GetLocation( oSpawnWP ) );
 	SetLocalObject( oModule, "XC_HIDDEN_CONTAINER", oHiddenContainer );

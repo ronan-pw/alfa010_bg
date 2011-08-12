@@ -218,7 +218,7 @@ object XPCraft_RetrieveAndEquipCraftedItem(object oPC, object oOldItem, int iSlo
 	object oCraftedItem;
 	object oInventoryItem;
 	
-	object oHiddenContainer = GetLocalObject(GetModule(),"XC_HIDDEN_CONTAINER");
+	object oHiddenContainer = GetLocalObject(GetObjectByTag("DPSS_Control_Room"),"XC_HIDDEN_CONTAINER");
 	if(oHiddenContainer!= OBJECT_INVALID)
 	{
 		oCraftedItem =  XPCraft_RetrieveCraftedItem(oPC, GetLocation(oHiddenContainer));

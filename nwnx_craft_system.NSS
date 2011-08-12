@@ -361,7 +361,7 @@ int XPCraft_GetNewVariationValue(object oPC, int iBaseItemType, int iAction)
 	int iNewVariationValue;
  	
 	string sListName = XPCraft_GetVariation_ListName(oPC, GetLocalInt(oPC,"XC_AVT_VALUE"), iBaseItemType);
-	string sVariationList = GetLocalString(GetModule(), sListName);
+	string sVariationList = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName);
 	string sBlacklist;
 	if(sVariationList=="")
 	{
@@ -369,7 +369,7 @@ int XPCraft_GetNewVariationValue(object oPC, int iBaseItemType, int iAction)
 		return iCurrentVariationValue;
 	}
 
-	sBlacklist = GetLocalString(GetModule(), sListName + "_BLACKLIST");
+	sBlacklist = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName + "_BLACKLIST");
 	iNewVariationValue = iCurrentVariationValue;
 
 	do {
@@ -391,7 +391,7 @@ int XPCraft_GetNewArmorPartValue(object oPC, string sRoadMap, int iAction)
 	int iNewArmorPartValue;
  	
 	string sListName = XPCraft_GetArmorPart_ListName(oPC, sRoadMap);
-	string sArmorPartList = GetLocalString(GetModule(), sListName);
+	string sArmorPartList = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName);
 	string sBlacklist;
 	if(sArmorPartList=="")
 	{
@@ -399,7 +399,7 @@ int XPCraft_GetNewArmorPartValue(object oPC, string sRoadMap, int iAction)
 		return iCurrentArmorPartValue;
 	}
 
-	sBlacklist = GetLocalString(GetModule(), sListName + "_BLACKLIST");
+	sBlacklist = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName + "_BLACKLIST");
 	iNewArmorPartValue = iCurrentArmorPartValue;
 	
 	do {
@@ -422,7 +422,7 @@ int XPCraft_GetNewModelPartValue(object oPC, int iBaseItemType, int iModelPartID
 	int iNewModelPartValue;
 	
 	string sListName =  XPCraft_GetModelPart_ListName(oPC, iBaseItemType, iModelPartID);
-	string sModelPartList = GetLocalString(GetModule(), sListName);
+	string sModelPartList = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName);
 	string sBlacklist;
 	
 	if(sModelPartList=="")
@@ -431,7 +431,7 @@ int XPCraft_GetNewModelPartValue(object oPC, int iBaseItemType, int iModelPartID
 		return iCurrentModelPartValue;
 	}
 
-	sBlacklist = GetLocalString(GetModule(), sListName + "_BLACKLIST");
+	sBlacklist = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName + "_BLACKLIST");
 	iNewModelPartValue = iCurrentModelPartValue;
 	
 	do {
@@ -861,7 +861,7 @@ object XPCraft_ActionChangeColor(object oPC, int iNewColorValue)
 object XPCraft_ActionCancelChanges(object oPC)
 {
 	//get the saved-before-changes-item
-	object oSavedItem = GetLocalObject(GetModule(),"XC_TEMP_" + XPCraft_GetPCID(oPC));
+	object oSavedItem = GetLocalObject(GetObjectByTag("DPSS_Control_Room"),"XC_TEMP_" + XPCraft_GetPCID(oPC));
 	object oItemToEquip = OBJECT_INVALID;
 	
 	if(oSavedItem != OBJECT_INVALID)
@@ -902,9 +902,9 @@ void XPCraft_CleanLocals(object oPC, int bEraseDatafile=TRUE)
 	
 	//destroy the saved item
 	string sSavedItemVarName = "XC_TEMP_" + XPCraft_GetPCID(oPC);
-	object oSavedItem = GetLocalObject(GetModule(),sSavedItemVarName);
+	object oSavedItem = GetLocalObject(GetObjectByTag("DPSS_Control_Room"),sSavedItemVarName);
 	DestroyObject(oSavedItem);
-	DeleteLocalObject(GetModule(),sSavedItemVarName);
+	DeleteLocalObject(GetObjectByTag("DPSS_Control_Room"),sSavedItemVarName);
 	
 	if(bEraseDatafile)
 	{
@@ -1063,7 +1063,7 @@ void XPCraft_InitArmorVisualTypeValues(object oPC)
 
 	
 //XPCraft_Debug(oPC,"INIT : AVT_Listname = " + sAVT_Listname);
-//XPCraft_Debug(oPC,"INIT : AVT_List = " + GetLocalString(GetModule(),sAVT_Listname));
+//XPCraft_Debug(oPC,"INIT : AVT_List = " + GetLocalString(GetObjectByTag("DPSS_Control_Room"),sAVT_Listname));
 			
 	SetLocalString(oPC,"XC_AVT_LISTNAME",sAVT_Listname);
 }

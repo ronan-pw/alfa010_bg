@@ -14,7 +14,7 @@
 // GNU GENERAL PUBLIC LICENSE (GPL) Version 2
 
 void main() {
-	object oModule = GetModule();
+	object oModule = GetObjectByTag("DPSS_Control_Room");
 
 	//
 	// Forbid duplicate initialization.

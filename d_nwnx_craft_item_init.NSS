@@ -32,8 +32,8 @@ void main(int bStore, int iInventorySlot, string sRoadMap)
 			XPCraft_StoreItemToCraft(oPC,oItemToCraft);
 			SetLocalInt(oPC,"XC_INVENT_SLOT",iInventorySlot);
 			SetLocalObject(oPC,"XC_ITEM_TO_CRAFT", oItemToCraft);
-			object oSavedItem = CopyItem(oItemToCraft,GetLocalObject(GetModule(),"XC_HIDDEN_CONTAINER"),TRUE);
-			SetLocalObject(GetModule(),"XC_TEMP_" + XPCraft_GetPCID(oPC),oSavedItem);
+			object oSavedItem = CopyItem(oItemToCraft,GetLocalObject(GetObjectByTag("DPSS_Control_Room"),"XC_HIDDEN_CONTAINER"),TRUE);
+			SetLocalObject(GetObjectByTag("DPSS_Control_Room"),"XC_TEMP_" + XPCraft_GetPCID(oPC),oSavedItem);
 
 			//
 			// Figure out which armor pieces are part of this items armor set in case
