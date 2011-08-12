@@ -297,7 +297,7 @@ void set_weather(object area,int type,int power)
 		AmbientSoundChangeNight(area, track);
 	}
 	
-	WriteTimestampedLogEntry("Setting weather ["+GetTag(area)+"] ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
+	//WriteTimestampedLogEntry("Setting weather ["+GetTag(area)+"] ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
 	//SendMessageToPC(GetPrimaryPlayer(), "Setting weather ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
 	
 	AmbientSoundSetDayVolume(area,volume);
@@ -368,7 +368,7 @@ void process_weather()
 	while (GetIsObjectValid(area)) {
 	
 		if (!GetIsAreaInterior(area)) {
-			region = get_area_region(area) - 1;
+			region = get_area_region(area);
 						
 			type = get_region_weather_type(region);				
 			power = get_region_weather_power(region);
