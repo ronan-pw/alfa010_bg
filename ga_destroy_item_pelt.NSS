@@ -43,35 +43,34 @@ void main(string sItemTag)
     object oItem;       // Items in inventory
 
 
-
-    nTotalItem = GetNumItems( oPC,"it_plot_hide_badger" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_badger" ));
     DestroyItems( oPC,"it_plot_hide_badger",nTotalItem,2,2 );
 
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_bear" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_bear" ));
     DestroyItems( oPC,"it_plot_hide_bear",nTotalItem,10,10 );
 	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_boar" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_boar" ));
     DestroyItems( oPC,"it_plot_hide_boar",nTotalItem,5,5 );
 			
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_berry" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_berry" ));
     DestroyItems( oPC,"it_plot_hide_berry",nTotalItem,1,1 );
 	
-    nTotalItem = GetNumItems( oPC,"it_plot_hide_cat" );
+    nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_cat" ));
     DestroyItems( oPC,"it_plot_hide_cat",nTotalItem,2,2 );	
 	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_deer" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_deer" ));
     DestroyItems( oPC,"it_plot_hide_deer",nTotalItem,3,3 );	
 	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_rabbit" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_rabbit" ));
     DestroyItems( oPC,"it_plot_hide_rabbit",nTotalItem,1,1 );
 	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_weasel" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_weasel" ));
     DestroyItems( oPC,"it_plot_hide_weasel",nTotalItem,1,1 );
 	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_wolf" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_wolf" ));
     DestroyItems( oPC,"it_plot_hide_wolf",nTotalItem,5,5 );	
 	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_wolverine" );
+	nTotalItem = GetNumStackedItems(GetItemPossessedBy( oPC,"it_plot_hide_wolverine" ));
     DestroyItems( oPC,"it_plot_hide_wolverine",nTotalItem,3,3 );	
 	
 	GiveGoldToCreature(oPC,Ggold);
