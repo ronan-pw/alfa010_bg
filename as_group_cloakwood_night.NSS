@@ -172,6 +172,8 @@ void main() {
 					spawn_hostile_npc("abr_cr_gt_ogre");
 					spawn_hostile_npc("abr_cr_gt_ogre_war");
 					break;
+				case 3:
+					spawn_hostile_npc("abr_cr_mb_basilisk");
 				default:
 					spawn_hostile_npc("010_cr_hillgiant");
 					break;
