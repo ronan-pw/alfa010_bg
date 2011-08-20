@@ -92,6 +92,7 @@ void main(int iAction, int iAvtValue)
 		case XP_CRAFT_ACTION_TINT_2 ://it'll execute whatever comes after ;) )
 		case XP_CRAFT_ACTION_TINT_3 ://
 			SetLocalInt(oPC,"XC_ACTION_TINT",iAction);
+			SetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED",0);
 			DisplayGuiScreen(oPC,"SCREEN_COLOR_TLS",TRUE,"elechos_colortls.xml");
 			break;
 			

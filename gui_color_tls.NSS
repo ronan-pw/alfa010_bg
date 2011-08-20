@@ -12,11 +12,18 @@
 
 void main (int iTeinte, int iLuminosite, int iSaturation)
 {	
-	//XPCraft_Debug(OBJECT_SELF,"TLS : \n T = " + IntToString(iTeinte) + "\n L = " + IntToString(iLuminosite) + "\n S = " + IntToString(iSaturation));
+	XPCraft_Debug(OBJECT_SELF,"TLS : \n T = " + IntToString(iTeinte) + "\n L = " + IntToString(iLuminosite) + "\n S = " + IntToString(iSaturation));
 	object oPC = OBJECT_SELF;
 	
 	struct strTint strMyTint = XPCraft_HLSToTintStruct(iTeinte, iLuminosite, iSaturation);
 	int iNewColorValue =  XPCraft_strTintToInt(strMyTint);
+	
+	if (GetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED")) {
+		DisplayMessageBox(oPC, 1, "Exit the dialog and select tint area to modify color again.");
+		return;
+	}
+		
 	SetLocalObject(oPC, "XC_ITEM_TO_CRAFT", XPCraft_ActionChangeColor(oPC, iNewColorValue));
+	SetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED",1);
 		
 }
