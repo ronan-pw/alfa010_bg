@@ -849,7 +849,10 @@ object XPCraft_ActionChangeColor(object oPC, int iNewColorValue)
 		sRedRoadMap+= "ArmorTint|" + IntToString(iTintID) + "|r";
 	}
 	
-//	XPCraft_Debug(oPC,"RedRoadMap : " + sRedRoadMap);
+	XPCraft_Debug(oPC,"RedRoadMap : " + sRedRoadMap);
+	XPCraft_Debug(oPC,"iTintID : " + IntToString(iTintID));
+	XPCraft_Debug(oPC,"iIntToString : " + IntToString(iNewColorValue));
+	XPCraft_Debug(oPC,"sDatafileName : " + sDatafileName);
 	
 	XPCraft_SetColor(IntToString(iNewColorValue), sPieceName + sRedRoadMap, 0, sDatafileName);
 	XPCraft_ClearMemory();
