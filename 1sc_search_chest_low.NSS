@@ -20,8 +20,12 @@
 
 void main()
 	{
-	// This is the Low version of the loot script, it generates
-	FillContainer(TREASURE_TYPE_LOW,TREASURE_TYPE_LOW,TREASURE_TYPE_LOW,TREASURE_TYPE_MED);
+	
+	if (!GetLocalInt(OBJECT_SELF,"searched")) {
+		// This is the Low version of the loot script, it generates
+		FillContainer(TREASURE_TYPE_LOW,TREASURE_TYPE_LOW,TREASURE_TYPE_LOW,TREASURE_TYPE_MED);
+	}
+	
 	// Do a search check and show it to the openingobject
 	int iCheck = d20(1);
 	int iSkill = GetSkillRank(SKILL_SEARCH, GetLastOpenedBy(), FALSE);
@@ -32,5 +36,6 @@ void main()
 	// Fill the chest with items that can be found with the 
 	// DC that has been rolled							
 	SearchChest(iTotalDC);
+	SetLocalInt(OBJECT_SELF,"searched",1);
 
 	}

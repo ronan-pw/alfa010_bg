@@ -25,7 +25,9 @@ void main()
 	// 25% chance of items of Low quality
 	// 25% chance of items of High quality
 	// 12.5% chance of items of Unique quality
-	FillContainer(TREASURE_TYPE_MED,TREASURE_TYPE_MED,TREASURE_TYPE_MED,TREASURE_TYPE_MED);
+	if (!GetLocalInt(OBJECT_SELF,"searched")) {
+		FillContainer(TREASURE_TYPE_MED,TREASURE_TYPE_MED,TREASURE_TYPE_MED,TREASURE_TYPE_MED);
+	}
 	// Do a search check and show it to the openingobject
 	int iCheck = d20(1);
 	int iSkill = GetSkillRank(SKILL_SEARCH, GetLastOpenedBy(), FALSE);
@@ -36,4 +38,5 @@ void main()
 	// Fill the chest with items that can be found with the 
 	// DC that has been rolled							
 	SearchChest(iTotalDC);
+		SetLocalInt(OBJECT_SELF,"searched",1);
 	}
