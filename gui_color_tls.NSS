@@ -24,6 +24,7 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	}
 		
 	SetLocalObject(oPC, "XC_ITEM_TO_CRAFT", XPCraft_ActionChangeColor(oPC, iNewColorValue));
+	XPCraft_ActionChangeColor(oPC, iNewColorValue);
 	SetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED",1);
 		
 }
