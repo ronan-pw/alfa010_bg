@@ -48,6 +48,9 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	
 	iNewColorValue = XPCraft_RGBAToInt(iRed,iGreen,iBlue,iAlpha);
 	
+	DisplayMessageBox(oPC, 1, "Red: "+IntToString(iRed) + "\nGreen: "+IntToString(iGreen)+"\nBlue: "+IntToString(iBlue)+"\nCol:"+IntToString(iNewColorValue));
+	
+	
 	if (GetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED")) {
 		DisplayMessageBox(oPC, 1, "Exit the dialog and select tint area to modify color again.");
 		return;
