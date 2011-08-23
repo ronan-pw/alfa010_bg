@@ -128,11 +128,11 @@ void set_region_weather(int region, int type, int power)
 
 string calc_next_state(int region, int cur_type, int cur_power, string matrix)
 {
-	int i, dep_type, dep_power, diff_power;
+	int i, dep_type, dep_power;
 	int new_type = cur_type;
 	int new_power = cur_power;
 	string row = get_wmat_row(cur_type, cur_power, matrix);
-	float sum,f0,f1,f2,f3,f4,val,d,eps=1.0/MAX_RND;
+	float diff_power, sum,f0,f1,f2,f3,f4,val,d,eps=1.0/MAX_RND;
 
 	f0 = get_wmat_entry(0,row);
 	f1 = get_wmat_entry(1,row);
@@ -158,12 +158,12 @@ string calc_next_state(int region, int cur_type, int cur_power, string matrix)
 				break;
 		}
 		
-		diff_power = (dep_power - cur_power);
+		diff_power = IntToFloat(dep_power - cur_power);
 		
-		if (diff_power > 0)
+		if (diff_power > 0.0)
 			f3 *= 1.0+d*diff_power*POWER_COEF;
 			
-		else if (diff_power < 0)
+		else if (diff_power < 0.0)
 			f4 *= 1.0+d*(-diff_power)*POWER_COEF;
 	}
 	
@@ -180,7 +180,7 @@ string calc_next_state(int region, int cur_type, int cur_power, string matrix)
 	//SendMessageToPC(GetPrimaryPlayer(), "Generate path, (f0: "+FloatToString(f0)+"), (f1: "+FloatToString(f1)+"), (f2: "+FloatToString(f2)+"), (f3: "+FloatToString(f3)+"), (f4: "+FloatToString(f4)+")");
 	
 	
-	val = (Random(MAX_RND)*1.0)/(MAX_RND);
+	val = IntToFloat(Random(MAX_RND))/IntToFloat(MAX_RND);
 	
 	/* DEBUG */
 	//SendMessageToPC(GetPrimaryPlayer(), "Path:" + FloatToString(val));
