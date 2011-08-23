@@ -17,13 +17,13 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	float T,L,S;
 	float R,G,B, q1,q2;
 
-	XPCraft_Debug(OBJECT_SELF,"TLS : \n T = " + IntToString(iTeinte) + "\n L = " + IntToString(iLuminosite) + "\n S = " + IntToString(iSaturation));
+	//XPCraft_Debug(OBJECT_SELF,"TLS : \n T = " + IntToString(iTeinte) + "\n L = " + IntToString(iLuminosite) + "\n S = " + IntToString(iSaturation));
 	
 	T = IntToFloat(iTeinte);
 	L = IntToFloat(iLuminosite) / 100.0;
 	S = IntToFloat(iSaturation) / 100.0;
 	
-	XPCraft_Debug(OBJECT_SELF,"T = " + FloatToString(T) + "\n L = " + FloatToString(L) + "\n T = " + FloatToString(T));
+	//XPCraft_Debug(OBJECT_SELF,"T = " + FloatToString(T) + "\n L = " + FloatToString(L) + "\n T = " + FloatToString(T));
 	
 	if (L <= 0.5)
 		q2 = L * (1.0 + S);
@@ -32,7 +32,7 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	
 	q1 = (2 * L) - q2;
 	
-	XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n L = " + FloatToString(L));
+	//XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n L = " + FloatToString(L));
 	
 	if(S == 0.0) {
 		R = L;
@@ -45,7 +45,7 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 		B = XPCraft_QqhToRgb(q1,q2,T-120.0);
 	}
 	
-	XPCraft_Debug(OBJECT_SELF,"R = " + FloatToString(R) + "\n G = " + FloatToString(G) + "\n B = " + FloatToString(B));
+	//XPCraft_Debug(OBJECT_SELF,"R = " + FloatToString(R) + "\n G = " + FloatToString(G) + "\n B = " + FloatToString(B));
 
 	iRed = FloatToInt(R*255.0);
 	iGreen = FloatToInt(G*255.0);
@@ -54,7 +54,7 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	
 	iNewColorValue = XPCraft_RGBAToInt(iRed,iGreen,iBlue,iAlpha);
 	
-	DisplayMessageBox(oPC, 1, "Red: "+IntToString(iRed) + "\nGreen: "+IntToString(iGreen)+"\nBlue: "+IntToString(iBlue)+"\nCol:"+IntToString(iNewColorValue));
+	//DisplayMessageBox(oPC, 1, "Red: "+IntToString(iRed) + "\nGreen: "+IntToString(iGreen)+"\nBlue: "+IntToString(iBlue)+"\nCol:"+IntToString(iNewColorValue));
 	
 	
 	if (GetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED")) {

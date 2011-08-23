@@ -4,7 +4,8 @@
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
-const float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
+//const float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
+const float LOCATION_POLLING_TIME = HEARTBEAT_TIME;
 const float RUN_LIMIT_FACTOR = 0.9;
 const int TICK_LIMIT = 20;
 
@@ -38,9 +39,9 @@ void loc_cache_speed(object player)
 	float factor = 1.0;
 	int monk_lvs=GetLevelByClass(CLASS_TYPE_MONK,player),barb_lvs=GetLevelByClass(CLASS_TYPE_BARBARIAN,player);
 	
-	factor *= 1.0 + (MONK_SPEED_BONUS*(monk_lvs/MONK_LVL_PER_BONUS));
-	factor *= 1.0 + (BARB_SPEED_BONUS*(barb_lvs > 0));
-	factor *= 1.0 + (WOOD_SPEED_BONUS*(GetHasFeat(FEAT_WOODLAND_STRIDE, player) > 0));
+	factor *= 1.0 + (MONK_SPEED_BONUS*IntToFloat(monk_lvs/MONK_LVL_PER_BONUS));
+	factor *= 1.0 + (BARB_SPEED_BONUS*IntToFloat(barb_lvs > 0));
+	factor *= 1.0 + (WOOD_SPEED_BONUS*IntToFloat(GetHasFeat(FEAT_WOODLAND_STRIDE, player) > 0));
 	
 	SetLocalFloat(player,"speed_factor",factor);
 }

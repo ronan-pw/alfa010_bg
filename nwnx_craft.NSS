@@ -321,14 +321,14 @@ struct strTint XPCraft_HLSToTintStruct(int iHue, int iLum, int iSat)
 float XPCraft_QqhToRgb(float q1, float q2, float Hue)//Hue = T
 {
 
-	XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n Hue = " + FloatToString(Hue));
+	//XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n Hue = " + FloatToString(Hue));
 
 	if(Hue > 360.0) 		Hue -= 360.0;
 	else if(Hue < 0.0) 		Hue += 360.0;
 	
-	XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n L = " + FloatToString(Hue));
+	//XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n L = " + FloatToString(Hue));
 
-	XPCraft_Debug(OBJECT_SELF,"return0 = " + FloatToString((q1 + ((q2 - q1) * (Hue/60.0)))) + "\n return1 = " + FloatToString((q1 + ((q2 - q1) * ((240-Hue)/60.0)))));
+	//XPCraft_Debug(OBJECT_SELF,"return0 = " + FloatToString((q1 + ((q2 - q1) * (Hue/60.0)))) + "\n return1 = " + FloatToString((q1 + ((q2 - q1) * ((240-Hue)/60.0)))));
 
 	
 	if(Hue <  60.0) 		return (q1 + ((q2 - q1) * (Hue/60.0)));
