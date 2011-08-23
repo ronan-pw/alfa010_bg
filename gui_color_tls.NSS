@@ -19,9 +19,10 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	float R,G,B, q1,q2;
 	
 	T = IntToFloat(iTeinte);
-	L = iLuminosite / 100.0;
-	S = iSaturation / 100.0;
+	L = (iLuminosite*1.0) / 100.0;
+	S = (iSaturation*1.0) / 100.0;
 	
+	XPCraft_Debug(OBJECT_SELF,"T = " + FloatToString(T) + "\n L = " + FloatToString(L) + "\n T = " + FloatToString(T));
 	
 	if (L <= 0.5)
 		q2 = L * (1.0 + S);
