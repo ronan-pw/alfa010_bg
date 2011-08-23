@@ -30,6 +30,8 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	
 	q1 = (2 * L) - q2;
 	
+	XPCraft_Debug(OBJECT_SELF,"q1 = " + FloatToString(q1) + "\n q2 = " + FloatToString(q2) + "\n L = " + FloatToString(L));
+	
 	if(S == 0.0) {
 		R = L;
 		G = L;
@@ -40,6 +42,8 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 		G = XPCraft_QqhToRgb(q1,q2,T);
 		B = XPCraft_QqhToRgb(q1,q2,T-120.0);
 	}
+	
+	XPCraft_Debug(OBJECT_SELF,"R = " + FloatToString(R) + "\n G = " + FloatToString(G) + "\n B = " + FloatToString(B));
 
 	iRed = FloatToInt(R*255.0);
 	iGreen = FloatToInt(G*255.0);
