@@ -12,15 +12,16 @@
 
 void main (int iTeinte, int iLuminosite, int iSaturation)
 {	
-	XPCraft_Debug(OBJECT_SELF,"TLS : \n T = " + IntToString(iTeinte) + "\n L = " + IntToString(iLuminosite) + "\n S = " + IntToString(iSaturation));
 	object oPC = OBJECT_SELF;
 	int iRed,iGreen,iBlue,iAlpha,iNewColorValue;
 	float T,L,S;
 	float R,G,B, q1,q2;
+
+	XPCraft_Debug(OBJECT_SELF,"TLS : \n T = " + IntToString(iTeinte) + "\n L = " + IntToString(iLuminosite) + "\n S = " + IntToString(iSaturation));
 	
 	T = IntToFloat(iTeinte);
-	L = (iLuminosite*1.0) / 100.0;
-	S = (iSaturation*1.0) / 100.0;
+	L = IntToFloat(iLuminosite) / 100.0;
+	S = IntToFloat(iSaturation) / 100.0;
 	
 	XPCraft_Debug(OBJECT_SELF,"T = " + FloatToString(T) + "\n L = " + FloatToString(L) + "\n T = " + FloatToString(T));
 	
