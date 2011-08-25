@@ -46,6 +46,7 @@ const float HB_DELAY  = 0.1;
 
 void _hb_weather();
 void _hb_loc_players();
+void _hb_cursed_items();
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Definitions ////////////////////////////////////////////////////////
@@ -61,10 +62,47 @@ void _hb_loc_players()
 	loc_update_players();
 }
 
+void _hb_cursed_items()
+{
+	object bag,o;
+	int i;
+	int num_ticks = 50; // 1 per every 5 min
+	
+	SetGlobalInt("cursed_timer",GetGlobalInt("cursed_timer")+1);
+
+	if (GetGlobalInt("cursed_timer") <= GetGlobalInt("cursed_threshold"))
+		return;
+		
+	if (GetGlobalInt("cursed_threshold") == 0) {
+		SetGlobalInt("cursed_threshold", num_ticks);
+		return;
+	}
+	
+	SetGlobalInt("cursed_threshold", num_ticks);
+	SetGlobalInt("cursed_timer",0);
+	
+	
+	for (i=0; ; ++i) {
+		bag = GetObjectByTag("010_it_magic_cursed_boh",i);
+		
+		if (!GetIsObjectValid(bag))
+			break;
+			
+		o = GetFirstItemInInventory(bag);
+		
+		while (GetIsObjectValid(o)) {
+			DestroyObject(o);
+			o = GetNextItemInInventory(bag);
+			SendMessageToPC(GetItemPossessor(bag),"There is a puff of smoke from the bag of holding.");
+		}
+	}
+}
+
 void main()
 {
 	ACR_ModuleOnHeartbeat();
 	
 	DelayCommand(HB_DELAY, _hb_loc_players());
 	DelayCommand(HB_DELAY*2, _hb_weather());
+	DelayCommand(HB_DELAY*3, _hb_cursed_items());
 }
