@@ -290,7 +290,7 @@ void main()
                 if (d4() ==1)
                 {
                       BehClearState();
-                      ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,FALSE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
+                      ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,TRUE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
                 }
                 else
                 {
@@ -308,7 +308,7 @@ void main()
                         if (!TryToLevitateAway(oIntruder))
                         {
                             BehClearState();
-                            ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,FALSE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
+                            ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,TRUE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
                         }else
                         {
                             TurnToFaceObject(oIntruder);
@@ -328,7 +328,7 @@ void main()
                 if (!TryToLevitateAway(oIntruder))
                 {
                     BehClearState();
-                    ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,FALSE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
+                    ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,TRUE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
                 }
                 else
                 {
@@ -352,7 +352,7 @@ void main()
                 {
                     BehClearState();
                     BehClearFleeState();
-                    ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,FALSE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
+                    ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,TRUE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
                 }
             }
 
@@ -360,7 +360,7 @@ void main()
         else
         {
                BehClearState();
-               ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,FALSE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
+               ActionCastSpellAtObject(SPELL_FLESH_TO_STONE,oIntruder,METAMAGIC_ANY,TRUE,0,PROJECTILE_PATH_TYPE_DEFAULT,TRUE);
 
         }
 
