@@ -67,6 +67,7 @@ void _hb_cursed_items()
 	object bag,o;
 	int i;
 	int num_ticks = 50; // 1 per every 5 min
+	string str;
 	
 	SetGlobalInt("cursed_timer",GetGlobalInt("cursed_timer")+1);
 
@@ -91,9 +92,12 @@ void _hb_cursed_items()
 		o = GetFirstItemInInventory(bag);
 		
 		while (GetIsObjectValid(o)) {
+			str = GetTag(o) + "(" + GetName(o) + ") destroyed in cursed bag of holding";
 			DestroyObject(o);
 			o = GetNextItemInInventory(bag);
 			SendMessageToPC(GetItemPossessor(bag),"There is a puff of smoke from the bag of holding.");
+			SendMessageToAllDMs(str);
+			WriteTimestampedLogEntry(str);
 		}
 	}
 }
