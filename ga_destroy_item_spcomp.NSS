@@ -51,10 +51,10 @@ void main(string sItemTag)
     DestroyItems( oPC,"vampirebatfang",nTotalItem,8,8 );
 	
 	nTotalItem = GetNumItems( oPC,"batguano" );
-    DestroyItems( oPC,"batguano",nTotalItem,10,10 );
+    DestroyItems( oPC,"batguano",nTotalItem,3,3 );
 	
 	nTotalItem = GetNumItems( oPC,"pmoss" );
-    DestroyItems( oPC,"pmoss",nTotalItem,3,3 );
+    DestroyItems( oPC,"pmoss",nTotalItem,10,10 );
 	
 	nTotalItem = GetNumItems( oPC,"it_sulfur" );
     DestroyItems( oPC,"it_sulfur",nTotalItem,15,15 );
