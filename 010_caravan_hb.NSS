@@ -61,12 +61,9 @@ void main();
    3 - unloading
 */
 
-void caravan_message(string str)
+void caravan_message(string str, object o)
 {
-	object o;
-	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
-		if (GetIsPC(o))
-			SendChatMessage(o, OBJECT_INVALID, CHAT_MODE_TALK, str);
+	SendChatMessage(o, OBJECT_INVALID, CHAT_MODE_TALK, str);
 }
 
 void let_out_players()
@@ -100,40 +97,48 @@ object get_waypoint(string tag)
 
 void main()
 {
-	object snd,wp;
+	object snd,wp,o;
 	int ticks;
 	
     ACR_AreaOnHeartbeat();
 
     // Custom code goes below this line.
 	
-	wp = get_waypoint("inside_caravan");
-	snd = GetNearestObjectByTag("wagon_sound",wp);
+	if (!GetIsObjectValid(GetLocalObject(OBJECT_SELF,"waypoint"))) {
+		wp = get_waypoint("inside_caravan");
+		SetLocalObject(OBJECT_SELF,"waypoint",wp);
+	}
+	else
+		wp = GetLocalObject(OBJECT_SELF,"waypoint");
+		
+	o = GetNearestObjectByTag("010_cr_caravan",wp);
+	
 	
 	ticks = GetLocalInt(OBJECT_SELF,"ticks");
-	
-	caravan_message(GetName(snd));
-	caravan_message("ticks: " + IntToString(ticks) + " state: " + IntToString(GetLocalInt(OBJECT_SELF,"state")));
 	
 	switch (GetLocalInt(OBJECT_SELF,"state")) {
 		case 1:
 			if (ticks == 0) {
-				caravan_message("All aboard!  Setting off in one minute to "+GetLocalString(OBJECT_SELF, "dest_name")+".");
+				caravan_message("All aboard!  Setting off in one minute to "+GetLocalString(OBJECT_SELF, "dest_name")+".",o);
 			}
 			else if (ticks > CARAVAN_LOADING_TICKS) {
-				caravan_message("Hold on tight, we're heading out.");
+				caravan_message("Hold on tight, we're heading out.",o);
+				
 				ticks = -1;
 				SetLocalInt(OBJECT_SELF,"state",2);
+				
+				snd = GetNearestObjectByTag("wagon_sound",wp);
 				SoundObjectPlay(snd);
+				
 				shake_players();
 			}
 			break;
 		case 2:
 			if (ticks == CARAVAN_TRAVEL_TICKS/2) {
-				caravan_message("We're about halfway to "+GetLocalString(OBJECT_SELF, "dest_name")+".");
+				caravan_message("We're about halfway to "+GetLocalString(OBJECT_SELF, "dest_name")+".",o);
 			}
 			else if (ticks > CARAVAN_TRAVEL_TICKS) {
-				caravan_message("We're almost at "+GetLocalString(OBJECT_SELF, "dest_name")+".  Get your things ready.");
+				caravan_message("We're almost at "+GetLocalString(OBJECT_SELF, "dest_name")+".  Get your things ready.",o);
 				ticks = -1;
 				SetLocalInt(OBJECT_SELF,"state",3);
 			}
@@ -141,13 +146,15 @@ void main()
 			break;
 		case 3:
 			if (ticks == 0) {
-				caravan_message("Please wait while we begin unloading.  You'll be let out soon.");
+				caravan_message("Please wait while we begin unloading.  You'll be let out soon.",o);
+				
+				snd = GetNearestObjectByTag("wagon_sound",wp);
 				SoundObjectStop(snd);
 			}
 			else if (ticks > CARVAAN_UNLOADING_TICKS) {
 				ticks = -1;
 				SetLocalInt(OBJECT_SELF,"state",0);
-				caravan_message("Watch your step!");
+				caravan_message("Watch your step!",o);
 			}
 			break;
 		default:
