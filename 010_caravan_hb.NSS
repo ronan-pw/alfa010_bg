@@ -31,8 +31,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const int CARAVAN_TRAVEL_TICKS = 50;
-const int CARAVAN_LOADING_TICKS = 10;
-const int CARVAAN_UNLOADING_TICKS = 5;
+const int CARAVAN_LOADING_TICKS = 9;
+const int CARVAAN_UNLOADING_TICKS = 3;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Structures //////////////////////////////////////////////////////////////////
@@ -63,7 +63,10 @@ void main();
 
 void caravan_message(string str)
 {
-	SendChatMessage(OBJECT_SELF, OBJECT_SELF, CHAT_MODE_TALK, str);
+	object o;
+	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
+		if (GetIsPC(o))
+			SendChatMessage(o, OBJECT_INVALID, CHAT_MODE_TALK, str);
 }
 
 void let_out_players()
@@ -75,21 +78,42 @@ void let_out_players()
 			AssignCommand(o, ActionJumpToLocation(l));
 }
 
+void shake_players()
+{
+	object o;
+	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
+		if (GetIsPC(o)) {
+			ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SCREEN_SHAKE), GetLocation(o));
+			DelayCommand(3.0,ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SCREEN_SHAKE), GetLocation(o)));
+		}
+}
+
+object get_waypoint(string tag)
+{
+	object o;
+	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
+		if ((GetObjectType(o) == OBJECT_TYPE_WAYPOINT) && (GetTag(o) == tag))
+			return o;
+			
+	return OBJECT_INVALID;
+}
+
 void main()
 {
-	location loc;
-	object wp;
+	object snd,wp;
 	int ticks;
 	
     ACR_AreaOnHeartbeat();
 
     // Custom code goes below this line.
 	
-	wp = GetNearestObjectByTag("inside_caravan");
-	
-	loc = GetLocation(wp);
+	wp = get_waypoint("inside_caravan");
+	snd = GetNearestObjectByTag("wagon_sound",wp);
 	
 	ticks = GetLocalInt(OBJECT_SELF,"ticks");
+	
+	caravan_message(GetName(snd));
+	caravan_message("ticks: " + IntToString(ticks) + " state: " + IntToString(GetLocalInt(OBJECT_SELF,"state")));
 	
 	switch (GetLocalInt(OBJECT_SELF,"state")) {
 		case 1:
@@ -100,10 +124,12 @@ void main()
 				caravan_message("Hold on tight, we're heading out.");
 				ticks = -1;
 				SetLocalInt(OBJECT_SELF,"state",2);
+				SoundObjectPlay(snd);
+				shake_players();
 			}
 			break;
 		case 2:
-			if (ticks == CARAVAN_LOADING_TICKS/2) {
+			if (ticks == CARAVAN_TRAVEL_TICKS/2) {
 				caravan_message("We're about halfway to "+GetLocalString(OBJECT_SELF, "dest_name")+".");
 			}
 			else if (ticks > CARAVAN_TRAVEL_TICKS) {
@@ -111,13 +137,14 @@ void main()
 				ticks = -1;
 				SetLocalInt(OBJECT_SELF,"state",3);
 			}
-			ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SCREEN_SHAKE), loc, 6.0);
+			shake_players();
 			break;
 		case 3:
 			if (ticks == 0) {
 				caravan_message("Please wait while we begin unloading.  You'll be let out soon.");
+				SoundObjectStop(snd);
 			}
-			else if (ticks > CARAVAN_LOADING_TICKS) {
+			else if (ticks > CARVAAN_UNLOADING_TICKS) {
 				ticks = -1;
 				SetLocalInt(OBJECT_SELF,"state",0);
 				caravan_message("Watch your step!");

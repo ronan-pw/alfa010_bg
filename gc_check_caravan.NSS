@@ -1,4 +1,4 @@
-int StartingConditional()
+int StartingConditional(string dest)
 {
     object oPC = GetPCSpeaker();
 	object wp;
@@ -8,6 +8,9 @@ int StartingConditional()
 	area = GetArea(wp);
 	
 	if (GetLocalInt(area,"state") > 1)
+		return TRUE;
+	
+	if ((GetLocalInt(area,"state") == 1) && (dest != GetLocalString(area,"dest_name")))
 		return TRUE;
 		
 	return FALSE;
