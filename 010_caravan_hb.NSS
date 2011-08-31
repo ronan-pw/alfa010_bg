@@ -80,8 +80,8 @@ void shake_players()
 	object o;
 	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
 		if (GetIsPC(o)) {
-			ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SCREEN_SHAKE), GetLocation(o));
-			DelayCommand(3.0,ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SCREEN_SHAKE), GetLocation(o)));
+			ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_STRIKE_HOLY), GetLocation(o));
+			DelayCommand(3.0,ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_STRIKE_HOLY), GetLocation(o)));
 		}
 }
 
