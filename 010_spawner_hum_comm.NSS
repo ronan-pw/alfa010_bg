@@ -1,8 +1,7 @@
 void main()
 {
-int iD20=d20(1);
 string sResRef;
-switch (iD20)
+switch (Random(25))
 	{
 	case 1:sResRef="010_cr_comm_human";break;
 	case 2:sResRef="010_cr_comm_human0";break;
@@ -24,11 +23,18 @@ switch (iD20)
 	case 18:sResRef="010_cr_comm_human70";break;
 	case 19:sResRef="010_cr_comm_human80";break;
 	case 20:sResRef="010_cr_comm_human11";break;
+	case 21:sResRef="010_cr_comm_human_f0";break;
+	case 22:sResRef="010_cr_comm_human_f1";break;
+	case 23:sResRef="010_cr_comm_human_m0";break;
+	default:
+		sResRef="010_cr_comm_human_m1";
 	}
 
 object oSpawned=CreateObject(OBJECT_TYPE_CREATURE,sResRef,GetLocation(OBJECT_SELF),FALSE,GetTag(OBJECT_SELF));	
 DelayCommand(0.1,DestroyObject(OBJECT_SELF));
 SetLocalInt(oSpawned, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
-SetLocalInt(oSpawned, "X2_L_SPAWN_USE_AMBIENT", 1);
+
+if (Random(100) > 50)
+	SetLocalInt(oSpawned, "X2_L_SPAWN_USE_AMBIENT", 1);
 
 }

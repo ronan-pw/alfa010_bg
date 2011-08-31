@@ -50,7 +50,7 @@ void main();
 
 void main() {
 
-	switch(Random(19)) {
+	switch(Random(24)) {
         case 0:
             spawn_npc("010_cr_comm_human");
             break;
@@ -107,6 +107,18 @@ void main() {
             break;
 	    case 18:
             spawn_npc("010_cr_comm_human8");
+            break;
+        case 19:
+            spawn_npc("010_cr_comm_human_f0");
+            break;			
+	    case 20:
+            spawn_npc("010_cr_comm_human_f1");
+            break;		
+	    case 21:
+            spawn_npc("010_cr_comm_human_m0");
+            break;
+	    case 22:
+            spawn_npc("010_cr_comm_human_m1");
             break;
         default:
             spawn_npc("010_cr_comm_human7");

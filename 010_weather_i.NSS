@@ -203,9 +203,12 @@ string calc_next_state(int region, int cur_type, int cur_power, string matrix)
 void set_weather(object area,int type,int power)
 {
 	int track=0,volume=25;
+	float tmp;
 	
 	/* convert power/type */
 	power++;
+	
+	ResetNWN2Fog(area,FOG_TYPE_BOTH);
 	
 	switch (type) {
 		case 0:
@@ -215,8 +218,13 @@ void set_weather(object area,int type,int power)
 			SetWeather(area,2,power);
 			
 			/* leave if unchanged */
-			if (GetWeather(area, WEATHER_TYPE_RAIN) == 0)
+			if (GetWeather(area, WEATHER_TYPE_RAIN) == 0) {
+				if (power > 2) {
+					tmp = IntToFloat(power-1);
+					SetNWN2Fog(area,FOG_TYPE_BOTH,FOG_COLOR_WHITE,20.0/tmp,50.0/tmp);
+				}
 				return;
+			}
 			break;
 		case 1:
 			type = 0;
