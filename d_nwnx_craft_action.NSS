@@ -44,7 +44,7 @@ void main(int iAction, int iAvtValue)
 	object oLast;
 	object oItemToCraft = GetItemInSlot(iInventorySlot,oPC);
 	
-	SendMessageToAllDMs("Crafting attempt {"+GetName(oPC)+","+GetName(oItemToCraft)+","+IntToString(iAction)+"}");
+	// SendMessageToAllDMs("Crafting attempt {"+GetName(oPC)+","+GetName(oItemToCraft)+","+IntToString(iAction)+"}");
 		
 	if((oItemToCraft==OBJECT_INVALID) && (iAction!=XP_CRAFT_ACTION_EXIT))
 	{
@@ -128,5 +128,5 @@ void main(int iAction, int iAvtValue)
 			break;	
 	}
 	
-	SendMessageToAllDMs("Crafting completed {"+GetName(oPC)+","+GetName(oItemToCraft)+","+IntToString(iAction)+"}");
+	//SendMessageToAllDMs("Crafting completed {"+GetName(oPC)+","+GetName(oItemToCraft)+","+IntToString(iAction)+"}");
 }
