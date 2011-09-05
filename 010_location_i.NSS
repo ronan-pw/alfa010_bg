@@ -1,5 +1,5 @@
 #include "acr_list_i"
-#include "nwn2_inc_spells"
+//#include "acr_effects_i"
 //#include "acr_1984_i"
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
@@ -23,13 +23,6 @@ const int EXPED_RET_SPEED_FACTOR = 2;
 const string CHECK_COLOUR1 = "<color=#98FFFF>";
 const string CHECK_COLOUR2 = "<color=#0166FF>";
 const string CHECK_COLOUR_END = "</c>";
-
-int is_fatigue_effect(effect e)
-{
-	return		(GetEffectType(e) == EFFECT_TYPE_MOVEMENT_SPEED_DECREASE)
-			&&	(GetEffectSubType(e) == SUBTYPE_EXTRAORDINARY)
-			&&	(GetEffectDurationType(e) == DURATION_TYPE_PERMANENT);
-}
 
 /* calculates monk, barb bonus, does simple kludge for woodland stride
  * (assumption is always active)
@@ -87,6 +80,7 @@ string loc_format_check(object creature, string stat, int roll, int mod, int dc)
 			IntToString(dc)+")"+CHECK_COLOUR_END;
 }
 
+/*
 void loc_damage_player(object player, int time)
 {
 	int roll,dc,mod,tmp;
@@ -113,10 +107,10 @@ void loc_damage_player(object player, int time)
 		
 		switch (tmp) {
 			case 0:
-				ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectFatigue(), player);
+				//ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectFatigue(), player);
 				break;
 			case 1:
-				/* clear fatigue */
+				// clear fatigue 
 				e = GetFirstEffect(player);
 				
 				while (GetIsEffectValid(e)) {
@@ -136,7 +130,7 @@ void loc_damage_player(object player, int time)
 		
 		SetGlobalInt(str, tmp+1);
 	}
-}
+}*/
 
 void loc_update_player(object player)
 {
