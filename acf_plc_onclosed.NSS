@@ -50,4 +50,7 @@ void main() {
     ACR_PlaceableOnClose();
 
     // Custom code goes here.
+	
+	if (FindSubString(GetTag(OBJECT_SELF),"wpchest",0) > -1)
+		DelayCommand(0.5,SetLocked(OBJECT_SELF,1));
 }
