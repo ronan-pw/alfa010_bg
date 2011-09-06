@@ -65,7 +65,16 @@ void main() {
     object oOwner = GetItemPossessor(oItem);
     object oPC = oOwner;
 	
-	if (sItem == "abr_it_gr_oil")
+	if (sItem == "009_it_devilweed")
+	{
+		effect DevilweedDMG = EffectAbilityDecrease (ABILITY_WISDOM, 2);
+		effect DevilweedSTR = EffectAbilityIncrease (ABILITY_STRENGTH, 2);
+	
+		ApplyEffectToObject(DURATION_TYPE_PERMANENT, ExtraordinaryEffect(DevilweedDMG), oPC);
+		ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ExtraordinaryEffect(DevilweedSTR), oPC, HoursToSeconds(d3()));
+		SendMessageToPC(oPC, "You feel a little stronger, though your head feels cloudy.");
+	}
+	else if (sItem == "abr_it_gr_oil")
 	{
 		if (GetDistanceBetween(oPC,oTarget) > 3.0)
 			SendMessageToPC(oPC, "You spill some oil.  You need to get closer.");
@@ -73,7 +82,7 @@ void main() {
 			ApplyEffectToObject(DURATION_TYPE_INSTANT,EffectDamage(1,DAMAGE_TYPE_FIRE),oTarget);
 	}
 	
-	if (sItem == "010_it_misc_leech")
+	else if (sItem == "010_it_misc_leech")
 	{
         if(GetDistanceBetween(oPC,oTarget) <= 3.0)
         {
