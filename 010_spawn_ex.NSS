@@ -87,6 +87,10 @@ void spawn_placeable(string resref, float prob=1.0, float deg=0.0, float deg2=18
 		SetImmortal(o,FALSE);
 		DestroyObject(o);
 		
-		ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
+		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
+		
+		SetLocked(o,1);
+		SetLockLockDC(o,100);
+		SetPlotFlag(o,1);
 	}
 }
