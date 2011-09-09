@@ -89,8 +89,10 @@ void spawn_placeable(string resref, float prob=1.0, float deg=0.0, float deg2=18
 		
 		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
 		
-		SetLocked(o,1);
-		SetLockLockDC(o,100);
-		SetPlotFlag(o,1);
+		if (FindSubString(GetTag(o),"phat_lewt") == -1) {
+			SetLocked(o,1);
+			SetLockLockDC(o,100);
+			SetPlotFlag(o,1);
+		}
 	}
 }
