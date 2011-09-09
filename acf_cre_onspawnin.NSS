@@ -78,6 +78,8 @@ void main()
 
     // Custom code goes here.
 	
+	SetLocalInt(OBJECT_SELF, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
+	
 	// add glow if glowing
 	if (GetLocalInt(OBJECT_SELF, "ACR_EFFECT_GLOW_BLUE")) 
 	{

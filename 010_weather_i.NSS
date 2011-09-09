@@ -221,9 +221,8 @@ void set_weather(object area,int type,int power)
 			if (GetWeather(area, WEATHER_TYPE_RAIN) == 0) {
 				if (power > 2) {
 					tmp = IntToFloat(power-1);
-					SetNWN2Fog(area,FOG_TYPE_BOTH,FOG_COLOR_WHITE,20.0/tmp,50.0/tmp);
+					SetNWN2Fog(area,FOG_TYPE_BOTH,FOG_COLOR_WHITE,10.0/tmp,50.0/tmp);
 				}
-				return;
 			}
 			break;
 		case 1:
