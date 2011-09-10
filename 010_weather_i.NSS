@@ -200,6 +200,27 @@ string calc_next_state(int region, int cur_type, int cur_power, string matrix)
 	return IntToString(new_type)+","+IntToString(new_power);
 }
 
+void set_fog( object oTarget, int nColor, float fFogStart, float fFogEnd)
+{
+	SetNWN2Fog( oTarget, FOG_TYPE_NWN2_SUNRISE, nColor, fFogStart, fFogEnd );
+	SetNWN2Fog( oTarget, FOG_TYPE_NWN2_DAYTIME, nColor, fFogStart, fFogEnd );
+	SetNWN2Fog( oTarget, FOG_TYPE_NWN2_SUNSET, nColor, fFogStart, fFogEnd );
+	SetNWN2Fog( oTarget, FOG_TYPE_NWN2_MOONRISE, nColor, fFogStart, fFogEnd );
+	SetNWN2Fog( oTarget, FOG_TYPE_NWN2_NIGHTTIME, nColor, fFogStart, fFogEnd );
+	SetNWN2Fog( oTarget, FOG_TYPE_NWN2_MOONSET, nColor, fFogStart, fFogEnd );
+}
+
+void reset_fog(object oTarget )
+{
+	ResetNWN2Fog( oTarget, FOG_TYPE_NWN2_SUNRISE);
+	ResetNWN2Fog( oTarget, FOG_TYPE_NWN2_DAYTIME);
+	ResetNWN2Fog( oTarget, FOG_TYPE_NWN2_SUNSET);
+	ResetNWN2Fog( oTarget, FOG_TYPE_NWN2_MOONRISE);
+	ResetNWN2Fog( oTarget, FOG_TYPE_NWN2_NIGHTTIME);
+	ResetNWN2Fog( oTarget, FOG_TYPE_NWN2_MOONSET);
+}
+
+
 void set_weather(object area,int type,int power)
 {
 	int track=0,volume=25;
@@ -208,7 +229,7 @@ void set_weather(object area,int type,int power)
 	/* convert power/type */
 	power++;
 	
-	ResetNWN2Fog(area,FOG_TYPE_BOTH);
+	reset_fog(area);
 	
 	switch (type) {
 		case 0:
@@ -221,7 +242,7 @@ void set_weather(object area,int type,int power)
 			if (GetWeather(area, WEATHER_TYPE_RAIN) == 0) {
 				if (power > 2) {
 					tmp = IntToFloat(power-1);
-					SetNWN2Fog(area,FOG_TYPE_BOTH,FOG_COLOR_WHITE,10.0/tmp,50.0/tmp);
+					set_fog(area,FOG_TYPE_BOTH,FOG_COLOR_WHITE,50.0/tmp,150.0/tmp);
 				}
 			}
 			break;
