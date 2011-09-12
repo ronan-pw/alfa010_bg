@@ -2,11 +2,11 @@
 
 /* mild weather */
 
-const string wmat_mild =
+string wmat_mild =
 /*          C    R    L    +    -  */
-/* C1 */ "1.00,0.30,0.05,1.00,0.00;"+
-/* C2 */ "1.00,0.20,0.05,1.00,1.00;"+
-/* C3 */ "1.00,0.15,0.10,1.00,1.20;"+
+/* C1 */ "1.00,0.15,0.05,1.00,0.00;"+
+/* C2 */ "1.00,0.10,0.05,1.00,1.00;"+
+/* C3 */ "1.00,0.10,0.10,1.00,1.20;"+
 /* C4 */ "1.00,0.10,0.15,1.00,1.50;"+
 /* C5 */ "1.00,0.10,0.20,0.00,2.00;"+
 /* R1 */ "1.00,1.00,0.20,1.00,0.00;"+
@@ -22,9 +22,9 @@ const string wmat_mild =
 
 /* rainy weather */
 
-const string wmat_rainy =
+string wmat_rainy =
 /*          C    R    L    +    -  */
-/* C1 */ "1.00,1.70,0.05,1.00,0.00;"+
+/* C1 */ "1.00,1.30,0.05,1.00,0.00;"+
 /* C2 */ "1.00,1.20,0.05,1.00,1.00;"+
 /* C3 */ "1.00,1.15,0.10,1.00,1.20;"+
 /* C4 */ "1.00,0.50,0.15,1.00,1.50;"+
@@ -40,7 +40,7 @@ const string wmat_rainy =
 /* L4 */ "0.01,1.50,1.00,1.00,1.50;"+
 /* L5 */ "0.01,1.00,1.00,0.00,2.00;";
 
-const string wmat_empty =
+string wmat_empty =
 /*          C    R    L    +    -  */
 /* C1 */ "1.00,0.00,0.00,0.00,0.00;"+
 /* C2 */ "0.00,0.00,0.00,0.00,0.00;"+
@@ -59,7 +59,7 @@ const string wmat_empty =
 /* L5 */ "0.00,0.00,0.00,0.00,0.00;";
 
 /* dependence of regions on other regions (Y->X) */
-const string rmat_dependence =
+string rmat_dependence =
 /*        0    1    2    3    4    5    6   */
 /* 0 */ "0.00,0.10,0.10,0.00,0.10,0.50,0.00;"+
 /* 1 */ "0.10,0.00,0.20,0.10,0.20,0.20,0.20;"+
@@ -241,8 +241,8 @@ void set_weather(object area,int type,int power)
 			/* leave if unchanged */
 			if (GetWeather(area, WEATHER_TYPE_RAIN) == 0) {
 				if (power > 2) {
-					tmp = IntToFloat(power-1);
-					set_fog(area,FOG_TYPE_BOTH,FOG_COLOR_WHITE,50.0/tmp,150.0/tmp);
+					tmp = IntToFloat(power-1)+0.1;
+					set_fog(area,FOG_COLOR_WHITE,50.0/(tmp),150.0/(tmp));
 				}
 			}
 			break;
