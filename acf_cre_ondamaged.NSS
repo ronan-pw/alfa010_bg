@@ -45,5 +45,11 @@ void main()
 {
     ACR_CreatureOnDamaged();
 
+	
     // Custom code goes here.
+	
+	if (GetLocalInt(OBJECT_SELF,"ACR_MAKE_HOSTILE"))
+	{
+		ChangeToStandardFaction(OBJECT_SELF,STANDARD_FACTION_HOSTILE);
+	}
 }
