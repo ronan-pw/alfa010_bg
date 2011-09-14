@@ -300,6 +300,7 @@ void set_weather(object area,int type,int power)
 			break;
 	}
 	
+	/* why is this here? */
 	if (GetLocalInt(area,"ambient_tmp_day_track") != track) {
 		AmbientSoundStop(area);
 		SetLocalInt(area,"ambient_tmp_day_track",track);
