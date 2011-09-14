@@ -55,17 +55,6 @@ void main()
 	str = loc_global_name(player,"fatigue");
 	SetGlobalInt(str, 0);
 	
-	while (GetIsEffectValid(e)) {
-	
-		SendMessageToPC(player, "("+IntToString(GetEffectType(e)) + "," + IntToString(GetEffectSubType(e)) + ")");
-		
-		/* fix fatigue effects */
-		if (is_fatigue_effect(e))
-			RemoveEffect(player, e);
-		
-		e = GetNextEffect(player);
-	}
-	
 	ACR_ModuleOnPlayerRest();
 		
 	// Custom code goes below this line.

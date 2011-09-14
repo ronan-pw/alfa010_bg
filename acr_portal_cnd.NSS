@@ -30,7 +30,7 @@ int StartingConditional(string sFunction) {
 
 	object oPC = GetPCSpeaker();
 	int nDestID = GetLocalInt(oPC, "ACR_PORTAL_DEST_SERVER");
-	string sServerID = IntToString(ACR_SERVER_ID);
+	string sServerID = IntToString(10);
 	string sDestID = IntToString(nDestID);
 	int bAdjacency = GetLocalInt(oPC, "ACR_PORTAL_ADJACENT");
 	// SendMessageToPC(oPC, "Querying SQL DB; funtion "+sFunction);
