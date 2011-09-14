@@ -51,13 +51,16 @@ int USE_SPECIAL_ABILITY=75;
 void main()
 {
 	int tmp;
-	if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
-		{SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);}
-		
+	
+	/*if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
+	{
+		SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);
+	}*/
+			
 	ACR_CreatureOnSpawnIn();
 
 				
-	// animal hack 
+	// animal hack. modify AI for animals 
 	tmp = GetLevelByClass(CLASS_TYPE_ANIMAL);
 	
 	if (GetLocalInt(OBJECT_SELF,"ACR_CRE_WILD_ANIMAL") && (tmp > 0)) {
@@ -78,6 +81,7 @@ void main()
 
     // Custom code goes here.
 	
+	// This may cause lag per hb.  Not sure.
 	SetLocalInt(OBJECT_SELF, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
 	
 	// add glow if glowing
@@ -108,7 +112,9 @@ void main()
 	    ApplyEffectToObject( DURATION_TYPE_INSTANT,eFX,OBJECT_SELF );
 	}
 	
-	
+		
+	// bye bye focking 
+	/*
 	
 	if (!GetIsObjectValid(GetLocalObject(OBJECT_SELF, "ACR_SPAWN_PARENT_WP"))) {
 		// creature was not spawned by a waypoint, so likely was DM-created.  Disable flocking.
@@ -132,7 +138,7 @@ void main()
 				}		
 				 
 	
-	
+
 	if(GetLocalInt(oFlocker, "ACR_FLOCKING") == 1) 
 		{object oMobDestination = GetNearestObject(OBJECT_TYPE_ALL, oFlocker, 1);
 		 string sArea = GetName(GetArea(oFlocker));
@@ -318,5 +324,5 @@ void main()
 								 SetLocalInt(oDM, "iAreaFlocking", 0);
 								  }
 							}			 
-
+*/
 }

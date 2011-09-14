@@ -46,8 +46,6 @@
 
 void main()
 {
-    ACR_CreatureOnSpawnIn();
-	
 	///RANDOM NAME/////
 	string sSuffix;
 	if (GetGender(OBJECT_SELF)==1)
@@ -126,4 +124,6 @@ void main()
 	object oBoots=CreateItemOnObject(sBootType);
 	AssignCommand(OBJECT_SELF,ActionEquipItem(oBoots,2)); 
 
+	ACR_CreatureOnSpawnIn();
+	
 }

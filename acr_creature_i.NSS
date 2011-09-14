@@ -124,12 +124,12 @@ int GetIsSmart(object oCreature);
 
 int GetIsSmart(object oCreature=OBJECT_SELF)
 {
-int iRet=FALSE;
-if ((GetLocalInt(oCreature,"X2_L_BEH_MAGIC")>0)||
-	(GetLocalInt(oCreature,"ALFA_SMART_AI")==1)||
-	(GetAbilityScore(oCreature,3)>10))
-	{iRet=TRUE;}
-return iRet;
+	int iRet=FALSE;
+	if ((GetLocalInt(oCreature,"X2_L_BEH_MAGIC")>0)||
+		(GetLocalInt(oCreature,"ALFA_SMART_AI")==1)||
+		(GetAbilityScore(oCreature,3)>10))
+		{iRet=TRUE;}
+	return iRet;
 }
 
 void ACR_CreatureOnSpawnIn()
@@ -187,63 +187,68 @@ void ACR_CreatureOnSpawnIn()
 	
 	//Sandermann 03/06/2010 - Are we smart? if so then run separate AI set up for spellcasting and other
 	//variables
-	if GetIsSmart();
+	
+	// this obviously doesn't work so I'll just comment it out
+	/*if GetIsSmart();
 		{
 		ExecuteScript("acf_advanced_spawn", OBJECT_SELF);
 		}
+	*/
 }
 
 void ACR_CreatureOnSpellCastAt()
 {
-    object oCaster = GetLastSpellCaster();
+    //object oCaster = GetLastSpellCaster();
+	string ai_script = "nw_c2_defaultb";
 
     // apply any effects on the creature
     //ACR_VFXOnSpellCastAt(oCaster, OBJECT_SELF);
+	
     if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-		{
-		//if we are using smart AI, call the OE associate script
+	{
+		// if we are using smart AI, call the OE associate script
+		// otherwise call the nw_c2 AI script
 		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_spell", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_defaultb", OBJECT_SELF);}
-		}  
+			ai_script = "gb_assoc_spell";
+	
+		ExecuteScript(ai_script, OBJECT_SELF);
+	}  
 }
 
 void ACR_CreatureOnPhysicallyAttacked()
 {
-    object oAttacker = GetLastAttacker();
+    //object oAttacker = GetLastAttacker();
+	string ai_script = "nw_c2_default5";
     
     // apply any effects on the creature
     //ACR_VFXOnAttack(oAttacker, OBJECT_SELF);
     if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 
-		//if we are using smart AI, call the OE associate script
+	{ 	
+		// if we are using smart AI, call the OE associate script
+		// otherwise call the nw_c2 AI script
 		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_attack", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default5", OBJECT_SELF);}
+			ai_script = "gb_assoc_attack";
+	
+		ExecuteScript(ai_script, OBJECT_SELF);
 	}
 }
 
 void ACR_CreatureOnDamaged()
 {
-    object oDamager = GetLastDamager();
+    //object oDamager = GetLastDamager();
+	string ai_script = "nw_c2_default6";
 
     //DoNonlethalOnDamaged();
     
     // apply any effects on the creature
     //ACR_VFXOnDamage(oDamager, OBJECT_SELF);
-	//if we are using smart AI, call the OE associate script
+
+	// if we are using smart AI, call the OE associate script
+	// otherwise call the nw_c2 AI script
 	if (GetIsSmart())
-		{
-		ExecuteScript("gb_assoc_damage", OBJECT_SELF);
-		}
-	//other wise call the nw_c2 AI script	
-	else {ExecuteScript("nw_c2_default6", OBJECT_SELF);}	}    
+		ai_script = "gb_assoc_damage";
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnDeath()
@@ -279,27 +284,31 @@ void ACR_CreatureOnDeath()
 
 void ACR_CreatureOnBlocked()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		//if we are using smart AI, call the OE associate script
+	string ai_script = "nw_c2_defaulte";
+    
+    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
+	{ 	
+		// if we are using smart AI, call the OE associate script
+		// otherwise call the nw_c2 AI script
 		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_block", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_defaulte", OBJECT_SELF);}
+			ai_script = "gb_assoc_block";
+	
+		ExecuteScript(ai_script, OBJECT_SELF);
 	}
 }
 
 void ACR_CreatureOnEndCombatRound()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		//if we are using smart AI, call the OE associate script
+	string ai_script = "nw_c2_default3";
+    
+    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
+	{ 	
+		// if we are using smart AI, call the OE associate script
+		// otherwise call the nw_c2 AI script
 		if (GetIsSmart())
-			{
-			ExecuteScript("gb_comp_combat", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default3", OBJECT_SELF);}
+			ai_script = "gb_comp_combat";
+	
+		ExecuteScript(ai_script, OBJECT_SELF);
 	}
 }
 
@@ -373,22 +382,25 @@ void ACR_CreatureOnHeartBeat()
             if (GetObjectSeen(oTarget)) { ACR_CreatureIdentify(OBJECT_SELF, oTarget); }
             oTarget = GetNextObjectInShape(SHAPE_SPELLCONE, fLength, lLocation, TRUE);
         }
+		
+		return;
     }
-    else
-    {
-        // apply any effects on the creature
-        ACR_VFXOnHeartBeat(OBJECT_SELF);
+	
+    // apply any effects on the creature
+    ACR_VFXOnHeartBeat(OBJECT_SELF);
     */
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		//if we are using smart AI, call the OE associate script
+	
+	string ai_script = "nw_c2_default1";
+    
+    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
+	{ 	
+		// if we are using smart AI, call the OE associate script
+		// otherwise call the nw_c2 AI script
 		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_heart", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default1", OBJECT_SELF);}
+			ai_script = "gb_assoc_heart";
+	
+		ExecuteScript(ai_script, OBJECT_SELF);
 	}
-    //}
 }
 
 void ACR_CreatureOnRested()
@@ -401,18 +413,17 @@ void ACR_CreatureOnRested()
 
 void ACR_CreatureOnPerception()
 {
-    object oPerceived = GetLastPerceived();
-
-    // apply any effects on the creature
-    //ACR_VFXOnPerception(oPerceived, OBJECT_SELF);
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {    
-		//if we are using smart AI, call the OE associate script
+    //object oPerceived = GetLastPerceived();
+	string ai_script = "nw_c2_default2";
+	
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
+	{ 	
+		// if we are using smart AI, call the OE associate script
+		// otherwise call the nw_c2 AI script
 		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_percep", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default2", OBJECT_SELF);}
+			ai_script = "gb_assoc_percep";
+	
+		ExecuteScript(ai_script, OBJECT_SELF);
 	}
 }
 
