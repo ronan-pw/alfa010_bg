@@ -2928,7 +2928,7 @@ void HSS_PCTools_CustomButton(object oPC, int nButton, float fX = 0.0, float fY 
    location lTargetLoc = Location(GetAreaFromLocation(GetLocation(oPC)),
                          vTargetPos, 0.0);
 	string	PlayerDescription2, PlayerDescription3;
-	int DoOnce;
+	//int DoOnce;
 			
 	effect eBeltProp = SupernaturalEffect(SetEffectSpellId(EffectNWN2SpecialEffectFile("fx_at_back_grsword02"), 1992));
     effect e6First = GetFirstEffect(oPC);   
