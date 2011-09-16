@@ -11,7 +11,7 @@ DPSS CATEGORY 01 - Brokenshield Goblins
 
 
 //insert the area tags of the areas to be spawned here
-string sAreaA="cloakwood_02_cave0";
+string sAreaA="cloakwood_02_0";
 string sAreaB="cloakwood_02";
 string sAreaC="cloakwood_03";
 string sAreaD="cloakwood_01";
@@ -40,59 +40,59 @@ float fUpdateInterval = 3600.0;
 //MAIN CODE BELOW
 void main()
 {
-
-//the current CR value of the category - For testing this is set at this value every server reset
-int CURRENT_CR=GetCampaignInt(sDataBase,"CURRENT_CR");
-SetLocalInt(OBJECT_SELF,"CURRENT_CR",CURRENT_CR);
-SetLocalInt(OBJECT_SELF,"MAX_CR_SPAWN",iCR_Threshold);
-SetLocalInt(OBJECT_SELF,"CR_INCREASE",iCR_Increase);
-SetLocalFloat(OBJECT_SELF,"UPDATE_INTERVAL",fUpdateInterval);
-SetLocalString(OBJECT_SELF,"DATABASE",sDataBase);
-
-
-WriteTimestampedLogEntry("Generating DPSS (database="+sDataBase+", incr="+IntToString(iCR_Increase)+", thrs="+IntToString(iCR_Threshold)+", tick="+FloatToString(fUpdateInterval)+", cur="+IntToString(CURRENT_CR)+")");
-
-//link the controller to the areas it controls and set up thresholds for CR spawning
-object AreaA=GetObjectByTag(sAreaA);
-object AreaB=GetObjectByTag(sAreaB);
-object AreaC=GetObjectByTag(sAreaC);
-object AreaD=GetObjectByTag(sAreaD);
-object AreaE=GetObjectByTag(sAreaE);
-
-//AREA_A
-SetLocalObject(OBJECT_SELF,"AREA_A",AreaA);
-SetLocalObject(AreaA,"CONTROLLER",OBJECT_SELF);
-SetLocalInt(AreaA,"DPSS_CR_THRESHOLD",1);//sanity check, dont spawn if CR pool is less than 1
-
-//AREA_B
-SetLocalObject(OBJECT_SELF,"AREA_B",AreaB);
-SetLocalObject(AreaB,"CONTROLLER",OBJECT_SELF);
-SetLocalInt(AreaB,"DPSS_CR_THRESHOLD",(iCR_Threshold));
-
-//AREA_C
-SetLocalObject(OBJECT_SELF,"AREA_C",AreaC);
-SetLocalObject(AreaC,"CONTROLLER",OBJECT_SELF);
-SetLocalInt(AreaC,"DPSS_CR_THRESHOLD",(iCR_Threshold*2));
-
-//AREA_D
-SetLocalObject(OBJECT_SELF,"AREA_D",AreaD);
-SetLocalObject(AreaD,"CONTROLLER",OBJECT_SELF);
-SetLocalInt(AreaD,"DPSS_CR_THRESHOLD",(iCR_Threshold*3));
-
-//AREA_E
-SetLocalObject(OBJECT_SELF,"AREA_E",AreaE);
-SetLocalObject(AreaE,"CONTROLLER",OBJECT_SELF);
-SetLocalInt(AreaE,"DPSS_CR_THRESHOLD",(iCR_Threshold*4));
-
-
-//set up the resref strings on the controller
-SetLocalString(OBJECT_SELF,"CREATURE_1",sCreatureA);
-SetLocalString(OBJECT_SELF,"CREATURE_2",sCreatureB);
-SetLocalString(OBJECT_SELF,"CREATURE_3",sCreatureC);
-SetLocalString(OBJECT_SELF,"CREATURE_4",sCreatureD);
-SetLocalString(OBJECT_SELF,"CREATURE_5",sCreatureE);
-SetLocalString(OBJECT_SELF,"CREATURE_6",sCreatureF);
-
-ExecuteScript("dpss_phb",OBJECT_SELF);
+	
+	//the current CR value of the category - For testing this is set at this value every server reset
+	int CURRENT_CR=GetCampaignInt(sDataBase,"CURRENT_CR");
+	SetLocalInt(OBJECT_SELF,"CURRENT_CR",CURRENT_CR);
+	SetLocalInt(OBJECT_SELF,"MAX_CR_SPAWN",iCR_Threshold);
+	SetLocalInt(OBJECT_SELF,"CR_INCREASE",iCR_Increase);
+	SetLocalFloat(OBJECT_SELF,"UPDATE_INTERVAL",fUpdateInterval);
+	SetLocalString(OBJECT_SELF,"DATABASE",sDataBase);
+	
+	
+	WriteTimestampedLogEntry("Generating DPSS (database="+sDataBase+", incr="+IntToString(iCR_Increase)+", thrs="+IntToString(iCR_Threshold)+", tick="+FloatToString(fUpdateInterval)+", cur="+IntToString(CURRENT_CR)+")");
+	
+	//link the controller to the areas it controls and set up thresholds for CR spawning
+	object AreaA=GetObjectByTag(sAreaA);
+	object AreaB=GetObjectByTag(sAreaB);
+	object AreaC=GetObjectByTag(sAreaC);
+	object AreaD=GetObjectByTag(sAreaD);
+	object AreaE=GetObjectByTag(sAreaE);
+	
+	//AREA_A
+	SetLocalObject(OBJECT_SELF,"AREA_A",AreaA);
+	SetLocalObject(AreaA,"CONTROLLER",OBJECT_SELF);
+	SetLocalInt(AreaA,"DPSS_CR_THRESHOLD",1);//sanity check, dont spawn if CR pool is less than 1
+	
+	//AREA_B
+	SetLocalObject(OBJECT_SELF,"AREA_B",AreaB);
+	SetLocalObject(AreaB,"CONTROLLER",OBJECT_SELF);
+	SetLocalInt(AreaB,"DPSS_CR_THRESHOLD",(iCR_Threshold));
+	
+	//AREA_C
+	SetLocalObject(OBJECT_SELF,"AREA_C",AreaC);
+	SetLocalObject(AreaC,"CONTROLLER",OBJECT_SELF);
+	SetLocalInt(AreaC,"DPSS_CR_THRESHOLD",(iCR_Threshold*2));
+	
+	//AREA_D
+	SetLocalObject(OBJECT_SELF,"AREA_D",AreaD);
+	SetLocalObject(AreaD,"CONTROLLER",OBJECT_SELF);
+	SetLocalInt(AreaD,"DPSS_CR_THRESHOLD",(iCR_Threshold*3));
+	
+	//AREA_E
+	SetLocalObject(OBJECT_SELF,"AREA_E",AreaE);
+	SetLocalObject(AreaE,"CONTROLLER",OBJECT_SELF);
+	SetLocalInt(AreaE,"DPSS_CR_THRESHOLD",(iCR_Threshold*4));
+	
+	
+	//set up the resref strings on the controller
+	SetLocalString(OBJECT_SELF,"CREATURE_1",sCreatureA);
+	SetLocalString(OBJECT_SELF,"CREATURE_2",sCreatureB);
+	SetLocalString(OBJECT_SELF,"CREATURE_3",sCreatureC);
+	SetLocalString(OBJECT_SELF,"CREATURE_4",sCreatureD);
+	SetLocalString(OBJECT_SELF,"CREATURE_5",sCreatureE);
+	SetLocalString(OBJECT_SELF,"CREATURE_6",sCreatureF);
+	
+	ExecuteScript("dpss_phb",OBJECT_SELF);
 
 }

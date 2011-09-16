@@ -24,13 +24,13 @@ string wmat_mild =
 
 string wmat_rainy =
 /*          C    R    L    +    -  */
-/* C1 */ "1.00,1.30,0.05,1.00,0.00;"+
-/* C2 */ "1.00,1.20,0.05,1.00,1.00;"+
-/* C3 */ "1.00,1.15,0.10,1.00,1.20;"+
+/* C1 */ "1.00,1.00,0.05,1.00,0.00;"+
+/* C2 */ "1.00,0.80,0.05,1.00,1.00;"+
+/* C3 */ "1.00,0.70,0.10,1.00,1.20;"+
 /* C4 */ "1.00,0.50,0.15,1.00,1.50;"+
 /* C5 */ "1.00,0.10,0.20,0.00,2.00;"+
-/* R1 */ "1.00,1.00,0.20,1.00,0.00;"+
-/* R2 */ "0.50,1.00,0.30,1.00,1.00;"+
+/* R1 */ "1.50,1.00,0.20,1.00,0.00;"+
+/* R2 */ "1.00,1.00,0.30,1.00,1.00;"+
 /* R3 */ "0.10,1.00,0.40,1.00,1.20;"+
 /* R4 */ "0.05,1.00,0.70,1.00,1.50;"+
 /* R5 */ "0.01,1.00,1.00,0.00,2.00;"+
@@ -75,7 +75,7 @@ const int BW_TYPE_LIGHTNING = 2;
 
 const float POWER_COEF = 0.5;
 
-const int MAX_RND = 65535/2;
+int MAX_RND = 65535/2;
 const int TICKS_PER_CHANGE = 20;
 
 const int num_types = 3;
@@ -240,8 +240,8 @@ void set_weather(object area,int type,int power)
 			
 			/* leave if unchanged */
 			if (GetWeather(area, WEATHER_TYPE_RAIN) == 0) {
-				if (power > 2) {
-					tmp = IntToFloat(power-1)+0.1;
+				if (power >= 3) {
+					tmp = IntToFloat(power-2)+0.1;
 					set_fog(area,FOG_COLOR_WHITE,50.0/(tmp),150.0/(tmp));
 				}
 			}
@@ -300,11 +300,14 @@ void set_weather(object area,int type,int power)
 			break;
 	}
 	
-	/* why is this here? */
+	/* stop if it is a different track */
 	if (GetLocalInt(area,"ambient_tmp_day_track") != track) {
 		AmbientSoundStop(area);
 		SetLocalInt(area,"ambient_tmp_day_track",track);
 		SetLocalInt(area,"ambient_tmp_night_track",track);
+		
+		AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_day_track"));
+		AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_night_track"));
 	}
 	
 	/* set back to original/clear track */

@@ -51,7 +51,7 @@ void main();
 void main() {
 
 	int n = get_area_region();
-	WriteTimestampedLogEntry("ACR_Spawn: get_area_region(): retval = "+IntToString(n));
+	WriteTimestampedLogEntry("ACR_Spawn(guard): get_area_region(): retval = "+IntToString(n));
 
 	switch (n) {
 		// beregost
@@ -96,11 +96,11 @@ void main() {
 		default:
 			switch (Random(3)) {
 		        case 0:
-					spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
+					spawn_npc("10_ksiel_flamingfist_cleric01", 0.5);
+					spawn_npc("10_ksiel_flamingfist_archer01", 0.5);
 					spawn_npc("ffm_sword", 0.5);
-					spawn_npc("ffm_sword", 0.5);
-					spawn_npc("ffm_sword", 0.5);
-					spawn_npc("ffm_sword", 0.5);
+					spawn_npc("10_ksiel_flamingfist_scout01", 0.5);
+					spawn_npc("10_ksiel_flamingfist_sergeant01", 0.5);
 					spawn_npc("ffm_sword", 0.5);
 		            break;
 			    case 1:
