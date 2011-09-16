@@ -45,16 +45,16 @@ void main(string sItemTag)
 
 
     nTotalItem = GetNumItems( oPC,"firefernfrond" );
-    DestroyItems( oPC,"firefernfrond",nTotalItem,8,8 );
+    DestroyItems( oPC,"firefernfrond",nTotalItem,8,4 );
 	
 	nTotalItem = GetNumItems( oPC,"magmush" );
-    DestroyItems( oPC,"magmush",nTotalItem, 2,2);
+    DestroyItems( oPC,"magmush",nTotalItem, 2,1);
 	
 	nTotalItem = GetNumItems( oPC,"seaweed" );
-    DestroyItems( oPC,"seaweed",nTotalItem,10,10 );
+    DestroyItems( oPC,"seaweed",nTotalItem,10,5 );
      
     nTotalItem = GetNumItems( oPC,"it_cassil" );
-    DestroyItems( oPC,"it_cassil",nTotalItem,15,15 ); 
+    DestroyItems( oPC,"it_cassil",nTotalItem,15,8 ); 
 	
 	GiveGoldToCreature(oPC,Ggold);
 	ACR_AwardStaticQuestXP(oPC,"Herbs",Gxp); 

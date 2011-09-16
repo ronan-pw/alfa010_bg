@@ -45,37 +45,37 @@ void main(string sItemTag)
 
 
     nTotalItem = GetNumItems( oPC,"firerattail" );
-    DestroyItems( oPC,"firerattail",nTotalItem,5,5 );
+    DestroyItems( oPC,"firerattail",nTotalItem,5,3 );
 	
 	nTotalItem = GetNumItems( oPC,"vampirebatfang" );
-    DestroyItems( oPC,"vampirebatfang",nTotalItem,8,8 );
+    DestroyItems( oPC,"vampirebatfang",nTotalItem,8,4 );
 	
 	nTotalItem = GetNumItems( oPC,"batguano" );
-    DestroyItems( oPC,"batguano",nTotalItem,3,3 );
+    DestroyItems( oPC,"batguano",nTotalItem,3,2 );
 	
 	nTotalItem = GetNumItems( oPC,"pmoss" );
-    DestroyItems( oPC,"pmoss",nTotalItem,10,10 );
+    DestroyItems( oPC,"pmoss",nTotalItem,10,5 );
 	
 	nTotalItem = GetNumItems( oPC,"it_sulfur" );
-    DestroyItems( oPC,"it_sulfur",nTotalItem,15,15 );
+    DestroyItems( oPC,"it_sulfur",nTotalItem,15,8 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_hide_troll" );
-    DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,10,10 );
+    DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,10,5 );
 	
 	nTotalItem = GetNumItems( oPC,"010_it_misc_rtooth" );
-    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,100,50 );
+    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,100,25 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_electrum" );
-    DestroyItems( oPC,"it_plot_gear_electrum",nTotalItem,5,5 );
+    DestroyItems( oPC,"it_plot_gear_electrum",nTotalItem,5,3 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_gold" );
-    DestroyItems( oPC,"it_plot_gear_gold",nTotalItem,15,15 );
+    DestroyItems( oPC,"it_plot_gear_gold",nTotalItem,15,8 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_platinum" );
-    DestroyItems( oPC,"it_plot_gear_platinum",nTotalItem,50,50 );
+    DestroyItems( oPC,"it_plot_gear_platinum",nTotalItem,50,25 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_adamantine" );
-    DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,150,150 );
+    DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,150,75 );
      
     GiveGoldToCreature(oPC,Ggold);
 	ACR_AwardStaticQuestXP(oPC,"Components",Gxp);  

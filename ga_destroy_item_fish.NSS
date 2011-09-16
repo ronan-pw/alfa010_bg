@@ -45,13 +45,13 @@ void main(string sItemTag)
 
 
     nTotalItem = GetNumItems( oPC,"it_dcrab" );
-    DestroyItems( oPC,"it_dcrab",nTotalItem,2,2 );
+    DestroyItems( oPC,"it_dcrab",nTotalItem,2,1 );
 	
 	nTotalItem = GetNumItems( oPC,"it_fish" );
-    DestroyItems( oPC,"it_fish",nTotalItem,5,5 );
+    DestroyItems( oPC,"it_fish",nTotalItem,5,3 );
 	
 	nTotalItem = GetNumItems( oPC,"it_scallop" );
-    DestroyItems( oPC,"it_scallop",nTotalItem,4,4 );
+    DestroyItems( oPC,"it_scallop",nTotalItem,4,2 );
     
 	
 	GiveGoldToCreature(oPC,Ggold);
