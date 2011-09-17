@@ -1,17 +1,20 @@
 void main()
 {
-object PCclick;
+	object PCclick;
+	object resval;
+	
+	PCclick = GetLastUsedBy();
 
-PCclick = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC);
-
-if(GetDistanceToObject(PCclick) > 2.0) return;
-
-if(GetSkillRank(SKILL_SPELLCRAFT, PCclick, TRUE) >= 3 || GetSkillRank(SKILL_SURVIVAL, PCclick, TRUE) >= 8){
-  if(CreateItemOnObject("batguano",PCclick) == OBJECT_INVALID) 
-    SpeakOneLinerConversation("Fsck, invalid item");
-  DestroyObject(OBJECT_SELF);
-}
-else SendMessageToPC(PCclick,"You reach around in the guano but find nothing worth salvaging.");
-//GetClickingObject()
-
+	if (GetSkillRank(SKILL_SPELLCRAFT, PCclick, TRUE) < 3 && GetSkillRank(SKILL_SURVIVAL, PCclick, TRUE) < 3)
+	{
+		SendMessageToPC(PCclick,"You reach around in the guano but find nothing worth salvaging, instead just getting a smelly hand.");
+		return;
+	}
+	
+	resval = CreateItemOnObject("batguano",PCclick);
+		
+	if (!GetIsObjectValid(resval)) 
+		SpeakOneLinerConversation("Fsck, invalid item");
+	
+	DestroyObject(OBJECT_SELF);
 }

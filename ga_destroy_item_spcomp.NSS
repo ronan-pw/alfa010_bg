@@ -54,10 +54,10 @@ void main(string sItemTag)
     DestroyItems( oPC,"batguano",nTotalItem,3,2 );
 	
 	nTotalItem = GetNumItems( oPC,"pmoss" );
-    DestroyItems( oPC,"pmoss",nTotalItem,10,5 );
+    DestroyItems( oPC,"pmoss",nTotalItem,15,10 );
 	
 	nTotalItem = GetNumItems( oPC,"it_sulfur" );
-    DestroyItems( oPC,"it_sulfur",nTotalItem,15,8 );
+    DestroyItems( oPC,"it_sulfur",nTotalItem,20,10 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_hide_troll" );
     DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,10,5 );
