@@ -85,13 +85,13 @@ const int num_regions = 7;
 const int rows_per_type = num_powers;
 
 const int wmat_n = 5;
-const int wmat_m = rows_per_type * num_types;
+int wmat_m = rows_per_type * num_types;
 
 const int rmat_n = num_regions;
 const int rmat_m = rmat_n;
 
 const int chars_per_entry = 5;
-const int wmat_chars_per_row = wmat_n * chars_per_entry;
+int wmat_chars_per_row = wmat_n * chars_per_entry;
 
 string get_wmat_row(int type, int power, string matrix)
 {
