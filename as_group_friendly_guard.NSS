@@ -50,7 +50,7 @@ void main();
 
 void main() {
 
-	int n = get_area_region();
+	int n = get_area_region(GetArea(OBJECT_SELF));
 	WriteTimestampedLogEntry("ACR_Spawn(guard): get_area_region(): retval = "+IntToString(n));
 
 	switch (n) {

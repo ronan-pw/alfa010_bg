@@ -39,8 +39,8 @@ int get_area_region(object area=OBJECT_SELF)
 	
 	//WriteTimestampedLogEntry("010_areas: get_area_region(): "+GetName(area) + " (" + GetTag(area) + ")");
 	
-	if (GetLocalInt(area,"region_number") > 0)
-		return GetLocalInt(area,"region_number");
+	if (GetLocalInt(area,"region") > 0)
+		return GetLocalInt(area,"region");
 	
 	if (FindSubString(str,"beregost") != -1) 
 		return 2;
