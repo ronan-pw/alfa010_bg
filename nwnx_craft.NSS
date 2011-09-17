@@ -284,20 +284,26 @@ struct strTint XPCraft_IntToTintStruct(int iColorValue)
 struct strTint XPCraft_HLSToTintStruct(int iHue, int iLum, int iSat)
 {
 	struct strTint strMyTint;
+	float R;
+	float G;
+	float B;
+	float q1;
+	float q2;
+	float T;
+	float L;
+	float Sat;
 	
-	float T,L,S;
 	T = IntToFloat(iHue);
-	L = iLum / 100.0;
-	S = iSat / 100.0;
+	L = IntToFloat(iLum) / 100.0;
+	Sat = IntToFloat(iSat) / 100.0;
+
 	
-	float R,G,B, q1,q2;
-	
-	if(L <= 0.5) q2 = L * (1.0 + S);
-	else 		 q2 = L + S - (L * S);
+	if(L <= 0.5) q2 = L * (1.0 + Sat);
+	else 		 q2 = L + Sat - (L * Sat);
 	
 	q1 = (2 * L) - q2;
 	
-	if(S == 0.0)
+	if (Sat < 0.001)
 	{
 		R = L;
 		G = L;
