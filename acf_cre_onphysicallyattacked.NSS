@@ -59,7 +59,7 @@ void main()
     // Custom code goes here.
 
 	
-	if(GetLocalInt(OBJECT_SELF, "Fleeing") == 1) 
+	if (GetLocalInt(OBJECT_SELF, "Fleeing") == 1) 
 	{
 		ClearAllActions(TRUE);
 		ActionMoveAwayFromObject(attacker, TRUE, 200.0);	
@@ -67,6 +67,13 @@ void main()
 	/* force an attack if not responding */
 	else if ((GetAttackTarget() == OBJECT_INVALID) && (GetNumActions(OBJECT_SELF) == 0))
 	{
+		/* doesn't fight back */
+		if (GetLocalInt(OBJECT_SELF,"ACR_DOCILE")) {
+			SetLocalInt(OBJECT_SELF, "Fleeing",1);
+			ActionMoveAwayFromObject(attacker, TRUE, 200.0);
+			return;
+		}
+			
 		ActionAttack(attacker);
 		DelayCommand(delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
 		DelayCommand(5*delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
