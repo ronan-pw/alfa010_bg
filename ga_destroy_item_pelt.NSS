@@ -16,23 +16,17 @@ int Ggold = 0;
 
 void DestroyItems(object oTarget,string sItem,int nNumItems,int gold, int xp)
 {
-    int nCount = 0;
     object oItem = GetFirstItemInInventory(oTarget);
 
-    while (GetIsObjectValid(oItem) == TRUE && nCount < nNumItems)
-    {
-        if (GetTag(oItem) == sItem)
-        {
-            //ActionTakeItem(oItem,oTarget);
-			DestroyObject(oItem,0.0f);
-			Gxp = Gxp + xp;
-			Ggold = Ggold + gold;
-            nCount++;
+    while (GetIsObjectValid(oItem) == TRUE)  {
+        if (GetTag(oItem) == sItem)  {
+            
+			DestroyObject(oItem);
+			Gxp = Gxp + xp*nNumItems;
+			Ggold = Ggold + gold*nNumItems;
         }
         oItem = GetNextItemInInventory(oTarget);
     }
-
-   return;
 }
 
 
