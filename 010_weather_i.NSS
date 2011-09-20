@@ -310,18 +310,29 @@ void set_weather(object area,int type,int power)
 		AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_night_track"));
 	}
 	
+	WriteTimestampedLogEntry("Examining ambient for "+GetTag(area));
+	
 	/* set back to original/clear track */
 	if (track == 0) {
-		if (GetLocalInt(area,"ambient_day_track"))
+		WriteTimestampedLogEntry("Changing ambient for "+GetTag(area)+" to "+IntToString(GetLocalInt(area,"ambient_day_track")));
+		
+		if (GetLocalInt(area,"ambient_day_track")) {
 			AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_day_track"));
-		else
+			WriteTimestampedLogEntry("Changed to track day");
+		}
+		else {
 			AmbientSoundChangeDay(area, 138);
+			WriteTimestampedLogEntry("Changed to default day");
+		}
 			
-		if (GetLocalInt(area,"ambient_night_track"))
+		if (GetLocalInt(area,"ambient_night_track")) {
+			WriteTimestampedLogEntry("Changed to track night");
 			AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_night_track"));
+		}
 		else {
 			volume = 10; // this thing was sampled SUPER loud
 			AmbientSoundChangeDay(area, 128);
+			WriteTimestampedLogEntry("Changed to default night");
 		}
 	}
 	else {

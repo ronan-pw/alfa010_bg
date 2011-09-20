@@ -4,8 +4,7 @@
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
-//const float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
-const float LOCATION_POLLING_TIME = HEARTBEAT_TIME;
+float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
 const float RUN_LIMIT_FACTOR = 0.9;
 const int TICK_LIMIT = 20;
 
@@ -153,11 +152,13 @@ void loc_update_player(object player)
 	cur_area = GetArea(player);
 	last_area = GetLocalObject(player, "loc_last_area");
 	
-	/* for simplicity's sake, eliminate calculatino of interior areas as well */
-	is_interior = GetIsAreaInterior(cur_area);
+	
+	/* for simplicity's sake, eliminate calculation of interior/invalid areas as well */
+	if ((!GetIsObjectValid(cur_area)) || GetIsAreaInterior(cur_area))
+		return;
 	
 	/* calculate velocity and set as globals to prevent abuse */
-	if ((last_area == cur_area) && (!is_interior)) {
+	if (last_area == cur_area) {
 	
 		dist = fabs(GetDistanceBetweenLocations(l,GetLocalLocation(player, "loc_last_loc")));
 		vel = dist/LOCATION_POLLING_TIME;

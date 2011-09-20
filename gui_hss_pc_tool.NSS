@@ -2657,6 +2657,8 @@ void HSS_PCToools_RollDie(object oPC)
 		   	  SendChatMessage(oPC, oPC, CHAT_MODE_TALK, "<color=#EFD4AC>ACR Skill check: </c>"+sSkill, FALSE);
 			  ACR_SkillCheck(nSkillIndex, oPC, 0, TRUE, TRUE);
 		   }
+		   
+		   SendMessageToAllDMs("<color=#EFD4AC>"+GetName(oPC)+" ACR Skill check: </c>"+sSkill);
 	   }		   		   		   		   		   		   
 	   SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_SKILL, "TRUE");	   
 	   break;	   	   	   

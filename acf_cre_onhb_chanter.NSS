@@ -44,20 +44,22 @@
 void main()
 {
 	string str;
-	int i,j;
+	int i,j,k;
 	
     ACR_CreatureOnHeartBeat();
 
 	i = GetLocalInt(OBJECT_SELF,"i");
 	j = GetLocalInt(OBJECT_SELF,"j");
+	k = GetLocalInt(OBJECT_SELF,"k");
 	
 	i++;
 	
 	SetLocalInt(OBJECT_SELF,"i",i);
+	
 	if (i < 5)
 		return;
 	
-	i = 0;
+	SetLocalInt(OBJECT_SELF,"i",0);
 	
 	switch (j) {
 		case 0:
@@ -117,11 +119,12 @@ void main()
 	}
 	
 	j++;
+	k++;
 	
 	SetLocalInt(OBJECT_SELF,"j",j);
 	
 	str += "  So sayeth the ";
-	str += ((i%2) ? "wise" : "great");
+	str += ((k%2) ? "wise" : "great");
 	str += " Alaundo.";
 
 	ActionSpeakString(str);
