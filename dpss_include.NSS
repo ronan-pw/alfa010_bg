@@ -172,6 +172,7 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 		lSpawn=GetLocation(oSpawn);
 		
 		// spawn creature and set up link to controller
+		WriteTimestampedLogEntry("DPSS: "+sCreatureType+" in "+GetName(oArea) + " ("+GetTag(oArea)+")");
 		oCreature = CreateObject(OBJECT_TYPE_CREATURE,sCreatureType,lSpawn,FALSE,"DPSS_CREATURE");
 		
 		SetLocalObject(oCreature,"CONTROLLER",oController);
