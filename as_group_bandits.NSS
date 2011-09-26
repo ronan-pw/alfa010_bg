@@ -56,6 +56,7 @@ void main();
 // 7,634
 void main() {
 	int i;
+	object o;
 		
 	spawn_placeable("phat_lewt_corpse_female",0.5);
 	
@@ -64,17 +65,19 @@ void main() {
 		switch(Random(4)) 
 		{
 		case 0:
-			spawn_hostile_npc("abr_cr_npc_brb_3");
+			o = spawn_hostile_npc("abr_cr_npc_brb_3");
 			break;
 		case 1:
-			spawn_hostile_npc("abr_cr_npc_ftr_3");
+			o = spawn_hostile_npc("abr_cr_npc_ftr_3");
 			break;
 		case 2:
-			spawn_hostile_npc("abr_cr_npc_rog_3");
+			o = spawn_hostile_npc("abr_cr_npc_rog_3");
 			break;
 		default:
-			spawn_hostile_npc("abr_cr_npc_wiz_3");
+			o = spawn_hostile_npc("abr_cr_npc_wiz_3");
 		}
+		SetFirstName(o,"Highwayman");
+		SetLastName(o,"");
 	}
 
 }
