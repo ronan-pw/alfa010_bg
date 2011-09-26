@@ -137,7 +137,7 @@ void loc_update_player(object player)
 	object last_area, cur_area;
 	float dist,vel,vel_ratio;
 	int tick, is_interior;
-	string str;
+	string str,msg;
 	
 	tick = GetGlobalInt("loc_hb_tick");
 	tick++;
@@ -187,9 +187,11 @@ void loc_update_player(object player)
 				
 				/* Do not do damage, simply log */
 				//loc_damage_player(player, GetGlobalInt(str));
-				SendMessageToAllDMs(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "]");
-				//ACR_LogEvent(player, ACR_LOG_ACTIVATE, ACR_SQLEncodeSpecialChars(GetPCPlayerName(player))+" ran with PC: "+ACR_SQLEncodeSpecialChars(GetName(player)));
-				WriteTimestampedLogEntry(GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "]");
+				
+				msg = (GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "/" + FloatToString(get_std_speed(player)) + "]");
+				
+				SendMessageToAllDMs(msg);
+				WriteTimestampedLogEntry(msg);
 			}
 			/* stopped, reset fatigue */
 			else {
