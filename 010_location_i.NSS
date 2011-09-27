@@ -146,16 +146,15 @@ void loc_update_player(object player)
 	if (tick < LOCATION_HEARTBEATS_PER_POLL)
 		return;
 		
+	/* for simplicity's sake, eliminate calculation of interior/invalid areas as well */
+	if ((!GetIsObjectValid(cur_area)) || GetIsAreaInterior(cur_area))
+		return;
+		
 	SetGlobalInt("loc_hb_tick",0);
 	
 	l = GetLocation(player);
 	cur_area = GetArea(player);
 	last_area = GetLocalObject(player, "loc_last_area");
-	
-	
-	/* for simplicity's sake, eliminate calculation of interior/invalid areas as well */
-	if ((!GetIsObjectValid(cur_area)) || GetIsAreaInterior(cur_area))
-		return;
 	
 	/* calculate velocity and set as globals to prevent abuse */
 	if (last_area == cur_area) {
@@ -188,7 +187,7 @@ void loc_update_player(object player)
 				/* Do not do damage, simply log */
 				//loc_damage_player(player, GetGlobalInt(str));
 				
-				msg = (GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "/" + FloatToString(get_std_speed(player)) + "]");
+				msg = (GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "*" + FloatToString(get_std_speed(player)) + "]");
 				
 				SendMessageToAllDMs(msg);
 				WriteTimestampedLogEntry(msg);

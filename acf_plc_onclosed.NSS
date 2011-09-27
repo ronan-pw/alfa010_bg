@@ -49,8 +49,7 @@ void main();
 void main() {
     ACR_PlaceableOnClose();
 
-    // Custom code goes here.
-	
-	if (FindSubString(GetTag(OBJECT_SELF),"wpchest",0) > -1)
+    // autolock doors/chests that require keys
+	if (GetLockKeyRequired(OBJECT_SELF))
 		DelayCommand(0.5,SetLocked(OBJECT_SELF,1));
 }
