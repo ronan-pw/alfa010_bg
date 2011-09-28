@@ -6,7 +6,7 @@ const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
 float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
 const float RUN_LIMIT_FACTOR = 0.9;
-const int TICK_LIMIT = 15;
+const int TICK_LIMIT = 25;
 
 const float STD_SPEED = 4.0;
 
@@ -139,6 +139,12 @@ void loc_update_player(object player)
 	int tick, is_interior;
 	string str,msg;
 	
+	cur_area = GetArea(player);
+		
+	/* for simplicity's sake, eliminate calculation of interior/invalid areas as well */
+	if ((!GetIsObjectValid(cur_area)) || GetIsAreaInterior(cur_area))
+		return;
+	
 	tick = GetGlobalInt("loc_hb_tick");
 	tick++;
 	SetGlobalInt("loc_hb_tick",tick);
@@ -146,14 +152,9 @@ void loc_update_player(object player)
 	if (tick < LOCATION_HEARTBEATS_PER_POLL)
 		return;
 		
-	/* for simplicity's sake, eliminate calculation of interior/invalid areas as well */
-	if ((!GetIsObjectValid(cur_area)) || GetIsAreaInterior(cur_area))
-		return;
-		
 	SetGlobalInt("loc_hb_tick",0);
 	
 	l = GetLocation(player);
-	cur_area = GetArea(player);
 	last_area = GetLocalObject(player, "loc_last_area");
 	
 	/* calculate velocity and set as globals to prevent abuse */
