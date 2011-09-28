@@ -217,6 +217,7 @@ object XPCraft_RetrieveAndEquipCraftedItem(object oPC, object oOldItem, int iSlo
 {
 	object oCraftedItem;
 	object oInventoryItem;
+	string sTag;
 	
 	object oHiddenContainer = GetLocalObject(GetObjectByTag("DPSS_Control_Room"),"XC_HIDDEN_CONTAINER");
 	if(oHiddenContainer!= OBJECT_INVALID)
@@ -238,9 +239,13 @@ object XPCraft_RetrieveAndEquipCraftedItem(object oPC, object oOldItem, int iSlo
 		
 		//Crafted Item in On The Ground (or at spawnWaypoint) => copy the new one in oPC's inventory
 		oInventoryItem = CopyItem(oCraftedItem,oPC,TRUE);
+		
+		sTag = GetTag(oInventoryItem);
+		SetTag(oInventoryItem,"acr_ignore_acquire");
 		//Equip the copied Item
 		AssignCommand(oPC,ActionEquipItem(oInventoryItem, iSlotToEquip));
 		
+		DelayCommand(0.1,SetTag(oInventoryItem,sTag));
 		//destroy the one on the ground		
 		DestroyObject(oCraftedItem);		
 
