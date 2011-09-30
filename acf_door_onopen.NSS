@@ -48,5 +48,17 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
+	object o;
+	int i;
     ACR_DoorOnOpen();
+	
+	o = GetLastOpenedBy();
+	i = GetLocalInt(o,"010_door_align");
+	
+	if (i < -10) {
+		i = 0;
+		AdjustAlignment(o,ALIGNMENT_CHAOTIC,1);
+	}
+	
+	SetLocalInt(o,"010_door_align", i-1);
 }
