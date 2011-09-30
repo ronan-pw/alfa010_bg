@@ -53,6 +53,7 @@ void main() {
 	switch(Random(20)) {
         case 0:
             spawn_hostile_npc("010_cr_humanoid_gargoyle");
+			spawn_hostile_npc("010_cr_humanoid_gargoyle",0.5);
             break;
         case 1:
 			spawn_group("trolls",0.5);
@@ -67,6 +68,7 @@ void main() {
 			break;	
         case 3:
             spawn_hostile_npc("abr_cr_dragon_wyvern");
+			spawn_hostile_npc("abr_cr_dragon_wyvern",0.5);
             break;
         case 4:
             spawn_group("shadows_low");
@@ -142,6 +144,7 @@ void main() {
 		case 16:
 			spawn_group("010_cr_an_wolf_timber");
 			spawn_group("010_cr_an_wolf_timber");
+			spawn_group("010_cr_an_wolf_timber",0.5);
             break;
 		case 17:
             spawn_hostile_npc("abr_cr_vm_beetle_stag");
