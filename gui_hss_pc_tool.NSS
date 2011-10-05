@@ -2203,11 +2203,11 @@ void HSS_PCToools_RollDie(object oPC)
 		   break;		   		   		   		   		   
 		   }
 
-	   sMsg = sSkill + HSS_PCTOOLS_COLOUR2 + " Check: " + HSS_PCTOOLS_COLOUR1 +
-	   "Bonus: " + HSS_PCTOOLS_COLOUR2 + IntToString(nRank) +
-	   HSS_PCTOOLS_COLOUR1 + " + Roll: " + HSS_PCTOOLS_COLOUR2 +
-	   IntToString(nRoll) + HSS_PCTOOLS_COLOUR1 + " = " + HSS_PCTOOLS_COLOUR2 + 
-	   IntToString(nRank + nRoll) + HSS_PCTOOLS_COLOUR1 + ".";
+	   sMsg = sSkill + _Colorize(" Check: ", HSS_PCTOOLS_COLOUR2) +
+	   _Colorize("Bonus: ", HSS_PCTOOLS_COLOUR1) + _Colorize(IntToString(nRank), HSS_PCTOOLS_COLOUR2) +
+	   _Colorize(" + Roll: ", HSS_PCTOOLS_COLOUR1) + _Colorize(IntToString(nRoll),HSS_PCTOOLS_COLOUR2) +
+	   _Colorize(" = ",HSS_PCTOOLS_COLOUR1) + _Colorize(IntToString(nRank + nRoll), HSS_PCTOOLS_COLOUR2) + 
+	   _Colorize(".", HSS_PCTOOLS_COLOUR1);
 	   		   	   
        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_ABILITY, "TRUE");	   
 	   break;
@@ -2695,6 +2695,7 @@ void HSS_PCToools_RollDie(object oPC)
 		  DelayCommand(fAnimDelay, SpeakString(sMsg));
 		  }
 
+		  	   _BroadcastToDMs(sMsg);
        HSS_PCTools_CleanPCLocals(oPC, FALSE);		  		  
        DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   
 }
