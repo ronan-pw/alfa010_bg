@@ -60,10 +60,10 @@ void main(string sItemTag)
     DestroyItems( oPC,"it_sulfur",nTotalItem,20,10 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_hide_troll" );
-    DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,10,5 );
+    DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,50,25 );
 	
 	nTotalItem = GetNumItems( oPC,"010_it_misc_rtooth" );
-    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,100,25 );
+    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,100,50 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_electrum" );
     DestroyItems( oPC,"it_plot_gear_electrum",nTotalItem,5,3 );
@@ -76,6 +76,12 @@ void main(string sItemTag)
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_adamantine" );
     DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,150,75 );
+	
+	nTotalItem = GetNumItems( oPC,"it_misc_ankheg_acid_gland" );
+    DestroyItems( oPC,"it_misc_ankheg_acid_gland",nTotalItem,20,10 );
+	
+	nTotalItem = GetNumItems( oPC,"it_misc_wyvern_stinger" );
+    DestroyItems( oPC,"it_misc_wyvern_stinger",nTotalItem,40,20 );
      
     GiveGoldToCreature(oPC,Ggold);
 	ACR_AwardStaticQuestXP(oPC,"Components",Gxp);  

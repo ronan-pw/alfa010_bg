@@ -1,5 +1,26 @@
 #include "010_area_ex"
 
+void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string sSpotFailMessage, string sSpotSuccessMessage, string sListenFailMessage, string sListenSuccessMessage, int bDisplayRolls = TRUE) {
+	object oPC = GetFirstPC();
+	while(GetIsObjectValid(oPC)) {
+		float fDistance = GetDistanceBetweenLocations(lLoc, GetLocation(oPC));
+		
+		if(fDistance > 0.0 && fDistance < 50.0) {
+			int nDCMod = FloatToInt(fDistance * 3.0)/10 + GetIsInCombat(oPC) ? 5 : 0;
+			
+			if(GetIsSkillSuccessful(oPC, SKILL_SPOT, nSpotDC + nDCMod, bDisplayRolls))
+				FloatingTextStringOnCreature(sSpotSuccessMessage, oPC, FALSE, 6.0);
+			else FloatingTextStringOnCreature(sSpotFailMessage, oPC, FALSE, 6.0);
+			
+			if(GetIsSkillSuccessful(oPC, SKILL_LISTEN, nListenDC + nDCMod, bDisplayRolls))
+				FloatingTextStringOnCreature(sListenSuccessMessage, oPC, FALSE, 6.0);
+			else FloatingTextStringOnCreature(sListenFailMessage, oPC, FALSE, 6.0);
+		}
+	
+		oPC = GetNextPC();
+	}
+}
+
 object spawn_npc_internal(string resref, float prob, float prob_walk, int use_ambient)
 {
 	float f = (Random(1000)*1.0)/1000;
