@@ -1,5 +1,11 @@
 #include "010_area_ex"
 
+int CanPerceive(int nSpot, int nListen, object oTarget) {
+	return GetStealthMode(oTarget) == STEALTH_MODE_DISABLED ||
+		!GetIsSkillSuccessful(oTarget, SKILL_HIDE, d20() + nSpot, TRUE) ||
+		!GetIsSkillSuccessful(oTarget, SKILL_MOVE_SILENTLY, d20() + nListen, TRUE);
+}
+
 void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string sSpotFailMessage, string sSpotSuccessMessage, string sListenFailMessage, string sListenSuccessMessage, int bDisplayRolls = TRUE) {
 	object oPC = GetFirstPC();
 	while(GetIsObjectValid(oPC)) {

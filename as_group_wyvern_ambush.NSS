@@ -61,10 +61,18 @@ void Spawn(location lLoc, int nNum) {
 
 void main() {
 	
-	int nNum = 1 + Random(6);
+	int nNum = Random(5) + Random(5) + Random(5) - 5;
+	if(nNum <= 0) nNum = 1;
 
-	object oNearest = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, ACR_GetSpawnLocation());
+	object oNearest = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, ACR_GetSpawnLocation(), 1);
+	int i=2;
+	while(!CanPerceive(16, 13, oNearest) && GetIsObjectValid(oNearest)) {
+		oNearest = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, ACR_GetSpawnLocation(), i);
+		i++;
+	}
+	
 	if(GetIsObjectValid(oNearest)) {
+	
 		location lLoc = GetLocation(oNearest);
 		PerformPerceptionChecks(lLoc, 15, 10, "", "You see " + IntToString(nNum) + " wyverns swooping down on your position!", "", "You hear the beating of large wings above you!");
 		DelayCommand(6.0, Spawn(lLoc, nNum));		
