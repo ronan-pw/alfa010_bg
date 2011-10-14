@@ -6,7 +6,7 @@ const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
 float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
 const float RUN_LIMIT_FACTOR = 0.825;
-const int TICK_LIMIT = 25;
+const int TICK_LIMIT = 20;
 
 const float STD_SPEED = 4.0;
 
@@ -156,6 +156,12 @@ void loc_update_player(object player)
 	
 	l = GetLocation(player);
 	last_area = GetLocalObject(player, "loc_last_area");
+	
+	/* ignore if we get here via dimension door */
+	if (GetLocalInt(player,"DIMENSION_DOOR_USED")) {
+		SetLocalInt(player,"DIMENSION_DOOR_USED",0);
+		return;
+	}
 	
 	/* calculate velocity and set as globals to prevent abuse */
 	if (last_area == cur_area) {
