@@ -38,7 +38,7 @@
 
 void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string sSpotFailMessage, string sSpotSuccessMessage, string sListenFailMessage, string sListenSuccessMessage, int bDisplayRolls = TRUE);
 
-void AmbushCreature(object oCreature,
+//void AmbushCreature(object oCreature,
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Definitions ////////////////////////////////////////////////////////
