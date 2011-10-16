@@ -47,4 +47,6 @@ void main(int nActType, int nAlignmentShiftRule)
 	
 	PrettyMessage("Alignment shifted on Good-Evil Axis by " + IntToString(nNewAdjustment));
 	PrettyMessage("Overall Alignment on this axis = " + IntToString(GetLawChaosValue(oPC)));
+	
+	WriteTimestampedLogEntry("Used improved law/chaos alignment");
 }
