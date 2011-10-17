@@ -359,6 +359,8 @@ const string HSS_PCTOOLS_CUSTOM36_TEXT = "Target 18";
 const int HSS_PCTOOLS_DMFI_PLUGIN_PC = 1;
 
 //Colour strings for feedback messages.
+const string HSS_PCTOOLS_COL1 = "#C1AB89";
+const string HSS_PCTOOLS_COL2 = "#EFD4AC";
 const string HSS_PCTOOLS_COLOUR1 = "<color=#C1AB89>";
 const string HSS_PCTOOLS_COLOUR2 = "<color=#EFD4AC>";
 const string HSS_PCTOOLS_COLOUR_END = "</c>";
@@ -2203,11 +2205,11 @@ void HSS_PCToools_RollDie(object oPC)
 		   break;		   		   		   		   		   
 		   }
 
-	   sMsg = sSkill + _Colorize(" Check: ", HSS_PCTOOLS_COLOUR2) +
-	   _Colorize("Bonus: ", HSS_PCTOOLS_COLOUR1) + _Colorize(IntToString(nRank), HSS_PCTOOLS_COLOUR2) +
-	   _Colorize(" + Roll: ", HSS_PCTOOLS_COLOUR1) + _Colorize(IntToString(nRoll),HSS_PCTOOLS_COLOUR2) +
-	   _Colorize(" = ",HSS_PCTOOLS_COLOUR1) + _Colorize(IntToString(nRank + nRoll), HSS_PCTOOLS_COLOUR2) + 
-	   _Colorize(".", HSS_PCTOOLS_COLOUR1);
+	   sMsg = sSkill + _Colorize(" Check: ", HSS_PCTOOLS_COL2) +
+	   _Colorize("Bonus: ", HSS_PCTOOLS_COL1) + _Colorize(IntToString(nRank), HSS_PCTOOLS_COL2) +
+	   _Colorize(" + Roll: ", HSS_PCTOOLS_COL1) + _Colorize(IntToString(nRoll),HSS_PCTOOLS_COL2) +
+	   _Colorize(" = ",HSS_PCTOOLS_COL1) + _Colorize(IntToString(nRank + nRoll), HSS_PCTOOLS_COL2) + 
+	   _Colorize(".", HSS_PCTOOLS_COL1);
 	   		   	   
        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_ABILITY, "TRUE");	   
 	   break;
@@ -2695,7 +2697,7 @@ void HSS_PCToools_RollDie(object oPC)
 		  DelayCommand(fAnimDelay, SpeakString(sMsg));
 		  }
 
-		  	   _BroadcastToDMs(sMsg);
+       _BroadcastToDMs("[" + GetName(oPC) + "]"+ sMsg);
        HSS_PCTools_CleanPCLocals(oPC, FALSE);		  		  
        DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   
 }
