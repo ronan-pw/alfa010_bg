@@ -1,26 +1,36 @@
 #include "010_area_ex"
 
-int CanPerceive(int nSpot, int nListen, object oTarget) {
-	return GetStealthMode(oTarget) == STEALTH_MODE_DISABLED ||
-		!GetIsSkillSuccessful(oTarget, SKILL_HIDE, d20() + nSpot, TRUE) ||
-		!GetIsSkillSuccessful(oTarget, SKILL_MOVE_SILENTLY, d20() + nListen, TRUE);
+int GetHasEffectType(object oObject, int iEffectType) {
+	effect eEff = GetFirstEffect(oObject);
+	while(GetIsEffectValid(eEff)) {
+		if(GetEffectType(eEff) == iEffectType) return TRUE;
+		eEff = GetNextEffect(oObject);
+	}
+	return FALSE;
 }
 
-void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string sSpotFailMessage, string sSpotSuccessMessage, string sListenFailMessage, string sListenSuccessMessage, int bDisplayRolls = TRUE) {
+int CanSee(int nSpot, int nListen, object oTarget) {
+
+	if(GetHasEffectType(oTarget, EFFECT_TYPE_INVISIBILITY) || GetHasEffectType(oTarget, EFFECT_TYPE_GREATERINVISIBILITY))
+		return FALSE;
+	
+	return GetStealthMode(oTarget) == STEALTH_MODE_DISABLED ||
+		!GetIsSkillSuccessful(oTarget, SKILL_HIDE, d20() + nSpot, TRUE);
+}
+
+void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string sFailMessage, string sSuccessMessage, int bDisplayRolls = TRUE) {
 	object oPC = GetFirstPC();
 	while(GetIsObjectValid(oPC)) {
 		float fDistance = GetDistanceBetweenLocations(lLoc, GetLocation(oPC));
 		
-		if(fDistance > 0.0 && fDistance < 50.0) {
+		if(fDistance >= 0.0 && fDistance < 50.0) {
 			int nDCMod = FloatToInt(fDistance * 3.0)/10 + GetIsInCombat(oPC) ? 5 : 0;
 			
 			if(GetIsSkillSuccessful(oPC, SKILL_SPOT, nSpotDC + nDCMod, bDisplayRolls))
-				FloatingTextStringOnCreature(sSpotSuccessMessage, oPC, FALSE, 6.0);
-			else FloatingTextStringOnCreature(sSpotFailMessage, oPC, FALSE, 6.0);
-			
-			if(GetIsSkillSuccessful(oPC, SKILL_LISTEN, nListenDC + nDCMod, bDisplayRolls))
-				FloatingTextStringOnCreature(sListenSuccessMessage, oPC, FALSE, 6.0);
-			else FloatingTextStringOnCreature(sListenFailMessage, oPC, FALSE, 6.0);
+				FloatingTextStringOnCreature(sSuccessMessage, oPC, FALSE, 6.0);
+			else if(GetIsSkillSuccessful(oPC, SKILL_LISTEN, nListenDC + nDCMod, bDisplayRolls))
+				FloatingTextStringOnCreature(sSuccessMessage, oPC, FALSE, 6.0);
+			else FloatingTextStringOnCreature(sFailMessage, oPC, FALSE, 6.0);
 		}
 	
 		oPC = GetNextPC();
