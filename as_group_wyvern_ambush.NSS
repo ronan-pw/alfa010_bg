@@ -48,33 +48,36 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void Spawn(location lLoc, int nNum) {
+void Spawn(object oSpawnPoint, location lLoc, int nNum) {
 	int i;
 	
 	for(i=0; i < nNum; i++) {
-		object oWyvern = ACR_SpawnObject("abr_cr_dragon_wyvern", OBJECT_TYPE_CREATURE);
-		location lSafe = CalcSafeLocation(oWyvern, lLoc, 20.0, FALSE, TRUE);
-		AssignCommand(oWyvern, ActionJumpToLocation(lSafe));
+		object oWyvern = ACR_SpawnObjectAtLocation("abr_cr_dragon_wyvern", OBJECT_TYPE_CREATURE, lLoc, oSpawnPoint);
 		AssignCommand(oWyvern, SpeakString("*<i>swoops down</i>*"));
 	}
 }
 
 void main() {
+
+	// 1% chance to spawn.
+	if(Random(100)) return;
 	
-	int nNum = Random(5) + Random(5) + Random(5) - 5;
+	int nNum = Random(5) + Random(5) + Random(5) - 6;
 	if(nNum <= 0) nNum = 1;
 
 	object oNearest = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, ACR_GetSpawnLocation(), 1);
-	int i=2;
-	while(!CanPerceive(16, 13, oNearest) && GetIsObjectValid(oNearest)) {
-		oNearest = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, ACR_GetSpawnLocation(), i);
-		i++;
-	}
-	
-	if(GetIsObjectValid(oNearest)) {
-	
+	int i = 1;
+	while(GetIsObjectValid(oNearest)) {
 		location lLoc = GetLocation(oNearest);
-		PerformPerceptionChecks(lLoc, 15, 10, "", "You see " + IntToString(nNum) + " wyverns swooping down on your position!", "", "You hear the beating of large wings above you!");
-		DelayCommand(6.0, Spawn(lLoc, nNum));		
+		if(CanSee(16, 13, oNearest) && !GetIsDM(oNearest) && !GetIsDMPossessed(oNearest)) {
+			PerformPerceptionChecks(lLoc, 15, 10, "", "You see " + IntToString(nNum) + " wyverns swooping down near you!");
+			AssignCommand(oNearest, DelayCommand(6.0, Spawn(OBJECT_SELF, lLoc, nNum)));
+			return;
+		} else {
+			PerformPerceptionChecks(lLoc, 15, 10, "", "You see " + IntToString(nNum) + " wyverns pass over you.");
+		}
+		
+		i++;
+		oNearest = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, ACR_GetSpawnLocation(), i);
 	}
 }	
