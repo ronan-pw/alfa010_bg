@@ -6,7 +6,7 @@ void DoNothing() {
 
 void PortToLocation(location lLoc) {
 	object oPC = GetLastUsedBy();
-	ApplyEffectAtLocation(0, EffectVisualEffect(33), GetLocation(oPC));
+	ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(33), GetLocation(oPC));
 	DelayCommand(0.5, AssignCommand(oPC, ActionJumpToLocation(lLoc)));
 }
 
@@ -60,7 +60,7 @@ void ChangeDestination() {
 
 void main() {
 
-	if(GetLocalInt(OBJECT_SELF, "010_PORTAL_RECHARGING")) {
+	if(GetLocalInt(OBJECT_SELF, "010_PORTAL_RECHARGING") && !GetIsDM(GetLastUsedBy())) {
 		DoNothing();
 		return;
 	}
