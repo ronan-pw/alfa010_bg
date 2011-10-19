@@ -160,10 +160,12 @@ void main() {
 				case 0:
 					if (get_area_region() == 5)
 					{
-						spawn_hostile_npc("abr_cr_drow_fighter01");
-						spawn_hostile_npc("abr_cr_drow_fighter02");
-						spawn_hostile_npc("abr_cr_drow_cleric01");
-						spawn_hostile_npc("abr_cr_drow_wizard01");
+						spawn_hostile_npc("abr_cr_drow_ftr1");
+						spawn_hostile_npc("abr_cr_drow_ftr3");
+						spawn_hostile_npc("abr_cr_drow_ftr1");
+						spawn_hostile_npc("abr_cr_drow_wiz6");
+						spawn_hostile_npc("abr_cr_drow_ftr1");
+						spawn_hostile_npc("abr_cr_drow_ftr1");
 						break;
 					}
 				case 1:
