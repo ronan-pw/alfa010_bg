@@ -40,13 +40,13 @@
 // BMA-OEI 9/02/05
 
 #include "ginc_param_const"
+#include "acr_skills_i"
 
 int StartingConditional(int nSkill, int nDC)
 {
 	object oPC = GetPCSpeaker();
-	int nSkillVal = GetSkillConstant(nSkill);
-	
-	if (GetIsSkillSuccessful(oPC, nSkillVal, nDC) == TRUE)
+
+	if (ACR_SkillCheck(nSkill, oPC, nDC, TRUE) == TRUE)
 	{
 		return TRUE;
 	}
