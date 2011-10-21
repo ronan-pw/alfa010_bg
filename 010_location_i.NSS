@@ -1,6 +1,5 @@
 #include "acr_list_i"
-//#include "acr_effects_i"
-//#include "acr_1984_i"
+#include "acr_effects_i"
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
@@ -79,7 +78,7 @@ string loc_format_check(object creature, string stat, int roll, int mod, int dc)
 			IntToString(dc)+")"+CHECK_COLOUR_END;
 }
 
-/*
+
 void loc_damage_player(object player, int time)
 {
 	int roll,dc,mod,tmp;
@@ -93,34 +92,18 @@ void loc_damage_player(object player, int time)
 	SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
 		
 	if ((roll+mod) < dc) {
-		
-		ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(d6()), player);
+		ACR_ApplyNonlethalDamageToCreature(player, d6());
 		
 		SendMessageToPC(player, "The forceful pace you have taken wears on you.");
 		str = loc_global_name(player,"fatigue");
 		tmp = GetGlobalInt(str);
 		
-		// TODO: Change so this accepts fatigue from _any_source and changes to exhaustion
-		// ALSO: Create central fatigue function that automatically handles this,
-		// so exhaustion is always correctly added
-		
 		switch (tmp) {
 			case 0:
-				//ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectFatigue(), player);
+				ACR_SetIsFatigued(player, 1);
 				break;
 			case 1:
-				// clear fatigue 
-				e = GetFirstEffect(player);
-				
-				while (GetIsEffectValid(e)) {
-				
-					if (is_fatigue_effect(e)) {
-						RemoveEffect(player, e);
-						break;
-					}
-					
-					e = GetNextEffect(player);
-				}
+				ACR_SetIsFatigued(player, 0);
 				
 				ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectExhausted(), player);
 				break;
@@ -129,7 +112,7 @@ void loc_damage_player(object player, int time)
 		
 		SetGlobalInt(str, tmp+1);
 	}
-}*/
+}
 
 void loc_update_player(object player)
 {
@@ -192,7 +175,7 @@ void loc_update_player(object player)
 				SetGlobalInt(str, GetGlobalInt(str)+1);
 				
 				/* Do not do damage, simply log */
-				//loc_damage_player(player, GetGlobalInt(str));
+				loc_damage_player(player, GetGlobalInt(str));
 				
 				msg = (GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "*" + FloatToString(get_std_speed(player)) + "]");
 				
