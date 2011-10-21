@@ -58,6 +58,7 @@ void main() {
 	if (i < -10) {
 		i = 0;
 		AdjustAlignment(o,ALIGNMENT_CHAOTIC,1);
+		WriteTimestampedLogEntry("DOOR_ALIGN: +1 Chaotic for " + GetName(o));
 	}
 	
 	SetLocalInt(o,"010_door_align", i-1);
