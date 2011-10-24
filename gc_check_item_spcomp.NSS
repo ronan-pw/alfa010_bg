@@ -23,6 +23,8 @@ int StartingConditional()
 	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_plot_gear_adamantine"))) return TRUE;
 	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_plot_hide_troll"))) return TRUE;
 	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"010_it_misc_rtooth"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_misc_ankheg_acid_gland"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_misc_wyvern_stinger"))) return TRUE;
   
    // return GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),sItem));
     
