@@ -50,6 +50,11 @@
 
 void main()
 {
+	ACR_CreatureOnPerception();
+}
+
+void ignoreme()
+{
     ACR_CreatureOnPerception();
 	object oPC = GetFirstPC();
 	object oSeen = GetLastPerceived();
