@@ -123,6 +123,13 @@ void main()
 		ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(EffectImmunity(IMMUNITY_TYPE_ENTANGLE)), oCreature);
 		ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(EffectImmunity(IMMUNITY_TYPE_KNOCKDOWN)), oCreature);
 		FeatAdd(oCreature, FEAT_WEAPON_FINESSE, FALSE, FALSE, FALSE);
+		// no collision because we're cool.
+		SetCollision(OBJECT_SELF,0);
+	}
+	
+	if (GetLocalInt(OBJECT_SELF, "ACR_EFFECT_NO_COLLISION"))
+	{
+		SetCollision(OBJECT_SELF,0);
 	}
 	
 		
