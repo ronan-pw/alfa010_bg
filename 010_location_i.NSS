@@ -4,7 +4,7 @@
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
 float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
-const float RUN_LIMIT_FACTOR = 0.825;
+const float RUN_LIMIT_FACTOR = 0.9;
 const int TICK_LIMIT = 20;
 
 const float STD_SPEED = 4.0;
@@ -81,12 +81,14 @@ string loc_format_check(object creature, string stat, int roll, int mod, int dc)
 
 void loc_damage_player(object player, int time)
 {
-	int roll,dc,mod,tmp;
+	int roll,dc,mod,tmp,tuff;
 	string str;
 	effect e;
 	
 	dc = 10+time;
-	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player);
+	// emulate endurance
+	tuff = GetHasFeat(FEAT_TOUGHNESS);
+	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player) + 4*tuff;
 	roll = d20();
 	
 	SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
@@ -163,10 +165,12 @@ void loc_update_player(object player)
 		vel_ratio += GetGlobalFloat(str);
 		SetGlobalFloat(str, vel_ratio);
 		
-		// SendMessageToPC(player," "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
+		WriteTimestampedLogEntry(" "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
 		
 		/* check velocity */
 		if (tick >= TICK_LIMIT) {
+			WriteTimestampedLogEntry("checking ticks for "+GetName(player));
+		
 			vel_ratio /= TICK_LIMIT;
 		
 			/* running, increase fatigue */
