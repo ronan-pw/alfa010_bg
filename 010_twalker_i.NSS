@@ -20,9 +20,9 @@ void start_walk()
 	GetLocalInt(o,"reverse");
 	
 	if (reverse)
-		next = TWALK_UPPER_BOUND;
-	else
 		next = TWALK_LOWER_BOUND;
+	else
+		next = TWALK_UPPER_BOUND;
 		
 	next_step(next);
 }
@@ -75,10 +75,8 @@ void port_to_next()
 	DeleteLocalLocation(o,"loc");
 	t = GetNearestObjectToLocation(OBJECT_TYPE_TRIGGER,l);
 	
-	ActionInteractObject(t);
+	ActionJumpToObject(GetTransitionTarget(t));
 	DelayCommand(TWALK_TRANS, start_walk());
-	
-	SendMessageToAllDMs("attempting to use AT");
 }
 
 void check_status(object o)
