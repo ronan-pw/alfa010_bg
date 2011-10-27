@@ -1,7 +1,7 @@
 const int TWALK_LOWER_BOUND = 1;
 const int TWALK_UPPER_BOUND = 10;
 const float eps = 0.01;
-const float TWALK_LOC_BUF = 1.0;
+const float TWALK_LOC_BUF = 1.5;
 const float TWALK_POLL = 3.0;
 const float TWALK_TRANS = 2.0;
 
@@ -20,9 +20,9 @@ void start_walk()
 	GetLocalInt(o,"reverse");
 	
 	if (reverse)
-		next = TWALK_LOWER_BOUND;
-	else
 		next = TWALK_UPPER_BOUND;
+	else
+		next = TWALK_LOWER_BOUND;
 		
 	next_step(next);
 }
@@ -30,7 +30,7 @@ void start_walk()
 void next_step(int step)
 {
 	object o = OBJECT_SELF,area=GetArea(o),t;
-	string tag = GetTag(o);
+	string tag = GetTag(area);
 	
 	SetLocalInt(o,"step",step);
 	
@@ -49,6 +49,11 @@ void next_step(int step)
 		tag = tag + "0" + IntToString(step);
 		
 	t = GetNearestObjectByTag(tag);
+	
+	if (t == OBJECT_INVALID) {
+		WriteTimestampedLogEntry("invalid location for "+tag);
+		SendMessageToAllDMs("invalid location for "+tag);
+	}
 	SetLocalObject(o,"t_target",t);
 
 	move_to_next();
@@ -59,7 +64,7 @@ void move_to_next()
 	object o=OBJECT_SELF,t;
 	t = GetLocalObject(o,"t_target");
 	
-	AssignCommand(o, ActionMoveToObject(t));
+	ActionMoveToObject(t);
 }
 
 void port_to_next()
@@ -70,8 +75,10 @@ void port_to_next()
 	DeleteLocalLocation(o,"loc");
 	t = GetNearestObjectToLocation(OBJECT_TYPE_TRIGGER,l);
 	
-	AssignCommand(o, ActionInteractObject(t));
+	ActionInteractObject(t);
 	DelayCommand(TWALK_TRANS, start_walk());
+	
+	SendMessageToAllDMs("attempting to use AT");
 }
 
 void check_status(object o)
@@ -80,6 +87,7 @@ void check_status(object o)
 	object area,t;
 	location l = GetLocation(o),l_prev,l_next;
 	float diff;
+
 	
 	//DelayCommand(TWALK_POLL,check_status(o));
 	
@@ -96,7 +104,7 @@ void check_status(object o)
 	l_next = GetLocation(t);
 	
 	diff = GetDistanceBetweenLocations(l,l_next);
-	
+
 	// someone blocked me!
 	if (diff > TWALK_LOC_BUF) {
 		move_to_next();
