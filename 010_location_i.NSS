@@ -165,11 +165,11 @@ void loc_update_player(object player)
 		vel_ratio += GetGlobalFloat(str);
 		SetGlobalFloat(str, vel_ratio);
 		
-		WriteTimestampedLogEntry(" "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
+		WriteTimestampedLogEntry(" "+GetName(player)+" "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
 		
 		/* check velocity */
 		if (tick >= TICK_LIMIT) {
-			WriteTimestampedLogEntry("checking ticks for "+GetName(player));
+			WriteTimestampedLogEntry(GetName(player)+" checking ticks");
 		
 			vel_ratio /= TICK_LIMIT;
 		
