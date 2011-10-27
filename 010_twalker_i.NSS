@@ -1,9 +1,9 @@
 const int TWALK_LOWER_BOUND = 1;
 const int TWALK_UPPER_BOUND = 10;
-const float eps = 0.01;
-const float TWALK_LOC_BUF = 1.5;
+const float EPS = 0.01;
+const float TWALK_LOC_BUF = 6.0;
 const float TWALK_POLL = 3.0;
-const float TWALK_TRANS = 2.0;
+const float TWALK_TRANS = 1.0;
 
 void start_walk();
 void next_step(int step);
@@ -17,7 +17,7 @@ void start_walk()
 	int next,reverse;
 	object o = OBJECT_SELF;
 	
-	GetLocalInt(o,"reverse");
+	reverse = GetLocalInt(o,"reverse");
 	
 	if (reverse)
 		next = TWALK_LOWER_BOUND;
@@ -50,10 +50,14 @@ void next_step(int step)
 		
 	t = GetNearestObjectByTag(tag);
 	
+	// no location here, just flip around
 	if (t == OBJECT_INVALID) {
 		WriteTimestampedLogEntry("invalid location for "+tag);
-		SendMessageToAllDMs("invalid location for "+tag);
+		SetLocalInt(o,"reverse",1^GetLocalInt(o,"reverse"));
+		
+		port_to_next();
 	}
+		
 	SetLocalObject(o,"t_target",t);
 
 	move_to_next();
@@ -69,13 +73,15 @@ void move_to_next()
 
 void port_to_next()
 {
-	object o=OBJECT_SELF, t;
+	object o=OBJECT_SELF, t,area=GetArea(o);
 	location l = GetLocation(o);
 	
 	DeleteLocalLocation(o,"loc");
 	t = GetNearestObjectToLocation(OBJECT_TYPE_TRIGGER,l);
 	
-	ActionJumpToObject(GetTransitionTarget(t));
+	ClearAllActions();
+	AssignCommand(o,JumpToObject(GetTransitionTarget(t)));
+	
 	DelayCommand(TWALK_TRANS, start_walk());
 }
 
@@ -86,8 +92,6 @@ void check_status(object o)
 	location l = GetLocation(o),l_prev,l_next;
 	float diff;
 
-	
-	//DelayCommand(TWALK_POLL,check_status(o));
 	
 	l_prev = GetLocalLocation(o,"loc");
 	SetLocalLocation(o,"loc",l);

@@ -56,6 +56,7 @@ void main()
 			SetLocalInt(o, "tw_travel_started",1);
 		}
 		check_status(o);
+		DelayCommand(3.0,check_status(o));
 	}
 
     // Custom code goes here.
