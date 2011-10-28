@@ -4,10 +4,10 @@
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
 float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
-const float RUN_LIMIT_FACTOR = 0.9;
+const float RUN_LIMIT_FACTOR = 0.75;
 const int TICK_LIMIT = 20;
 
-const float STD_SPEED = 4.0;
+const float STD_SPEED = 5.0;
 
 const float MONK_SPEED_BONUS = 0.1;
 const float BARB_SPEED_BONUS = 0.1;
