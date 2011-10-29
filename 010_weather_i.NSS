@@ -401,7 +401,7 @@ void process_weather()
 		set_region_weather(i,type,power);
 			
 		/* DEBUG */
-		WriteTimestampedLogEntry("Setting weather: "+get_region_name(i)+" ("+IntToString(i)+") -> ("+IntToString(type)+","+IntToString(power)+")");
+		//WriteTimestampedLogEntry("Setting weather: "+get_region_name(i)+" ("+IntToString(i)+") -> ("+IntToString(type)+","+IntToString(power)+")");
 		//SendMessageToPC(GetPrimaryPlayer(), "Setting weather for "+IntToString(i)+" to ("+IntToString(type)+","+IntToString(power)+")");
 	}
 			
