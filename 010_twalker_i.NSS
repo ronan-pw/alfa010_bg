@@ -52,7 +52,7 @@ void next_step(int step)
 	
 	// no location here, just flip around
 	if (t == OBJECT_INVALID) {
-		WriteTimestampedLogEntry("invalid location for "+tag);
+		WriteTimestampedLogEntry("TWALK: Leaving invalid, "+tag);
 		SetLocalInt(o,"reverse",1^GetLocalInt(o,"reverse"));
 		
 		port_to_next();

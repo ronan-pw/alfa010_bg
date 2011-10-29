@@ -178,7 +178,6 @@ void loc_update_player(object player)
 				str = loc_global_name(player,"loc_fatigue");
 				SetGlobalInt(str, GetGlobalInt(str)+1);
 				
-				/* Do not do damage, simply log */
 				loc_damage_player(player, GetGlobalInt(str));
 				
 				msg = (GetName(player)+" is running for an extended period in "+GetName(GetArea(player)) + " {"+GetTag(GetArea(player)) + "} [" + FloatToString(vel_ratio) + "*" + FloatToString(get_std_speed(player)) + "]");
