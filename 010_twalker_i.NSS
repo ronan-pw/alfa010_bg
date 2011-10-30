@@ -10,7 +10,39 @@ void next_step(int step);
 void move_to_next();
 void check_status(object o);
 void port_to_next();
+void handle_follow(object o);
 
+void handle_follow(object o)
+{
+	object f;
+	int i;
+	
+	if (!GetLocalInt(o, "tw_follow_started")) {
+			
+		SetLocalInt(o, "tw_follow_started",1);
+				
+		i = 1;
+				
+		do {			
+			f = GetNearestObject(OBJECT_TYPE_CREATURE,o,i++);
+			if (GetLocalInt(f,"tw_id") == GetLocalInt(o,"tw_follow")) {
+				SetLocalObject(o, "tw_follow_obj", f);
+			}
+		} while (f != OBJECT_INVALID);
+		
+		if (GetLocalFloat(o,"tw_distance") < 0.1)
+			SetLocalFloat(o,"tw_distance",6.0);
+	}
+			
+	f = GetLocalObject(o, "tw_follow_obj");
+			
+	if (GetArea(o) != GetArea(f)) {
+		ClearAllActions();
+		ActionJumpToObject(f);
+	}
+			
+	ActionForceFollowObject(f,GetLocalFloat(o,"tw_distance"));
+}
 
 void start_walk()
 {

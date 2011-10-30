@@ -50,6 +50,12 @@ void main()
 	
 	if (GetLocalInt(o, "tw_travel"))
 	{
+		if (GetLocalInt(o, "tw_follow")) {
+		
+			handle_follow(o);
+			return;
+		}
+		
 		if (!GetLocalInt(o, "tw_travel_started"))
 		{
 			start_walk();
