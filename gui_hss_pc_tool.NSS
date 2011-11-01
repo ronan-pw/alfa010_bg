@@ -1961,10 +1961,14 @@ void HSS_PCTools_ToggleAFK(object oPC)
    ApplyEffectToObject(DURATION_TYPE_PERMANENT, eAFK, oPC);   
 }
 
+void _SimpleRoll(object oPC, int nDieNum, int nDieType, int nBroadcast)
+{
+	ACR_SimpleRoll(oPC, nDieNum, nDieType, TRUE, nBroadcast);
+}
+
 void HSS_PCToools_RollDie(object oPC)
 {
 	int nRollType,nDieNum,nDieType,nSaveType,nAbilityType,nSkillType,nBroadcast,nSkillIndex;
-    float fAnimDelay;
 	
     nRollType = GetLocalInt(oPC, "HSS_PCTOOLS_ROLL_TYPE");
    
@@ -1989,8 +1993,15 @@ void HSS_PCToools_RollDie(object oPC)
 	
 	        if (nDieType == 0)
 	            nDieType = 20;
-	
-	        ACR_SimpleRoll(oPC, nDieNum, nDieType, TRUE, nBroadcast);
+				
+	        if (nBroadcast)
+		        _SimpleRoll(oPC,nDieNum,nDieType,TRUE);
+		    else {
+                HSS_PCTools_PlayCustomAnim(oPC, "gettable", FALSE, 2.0);
+                DelayCommand(1.0, PlaySound("it_generictiny"));
+                DelayCommand(1.5, HSS_PCTools_PlayCustomAnim(oPC, "getground", FALSE, 2.0));
+                DelayCommand(2.0, _SimpleRoll(oPC,nDieNum,nDieType,FALSE));
+			}
 	       
 	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_STANDARD, "TRUE");               
 	        break;
@@ -2251,16 +2262,7 @@ void HSS_PCToools_RollDie(object oPC)
 	    default:
 	        SendMessageToPC(oPC,HSS_PCTOOLS_COLOUR1 + "Select a die roll type before rolling.");
     }
-
-    if ((nRollType == HSS_PC_TOOLS_DIE_STANDARD) && (!nBroadcast))
-    {
-          HSS_PCTools_PlayCustomAnim(oPC, "gettable", FALSE, 2.0);
-          DelayCommand(1.0, PlaySound("it_generictiny"));
-          DelayCommand(1.5, HSS_PCTools_PlayCustomAnim(oPC, "getground", FALSE, 2.0));
-          fAnimDelay = 2.0;
-    }          
-       
-    //DelayCommand(fAnimDelay, DoCheck());
+		
 
     HSS_PCTools_CleanPCLocals(oPC, FALSE);                    
     DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   
