@@ -1963,6 +1963,7 @@ void HSS_PCTools_ToggleAFK(object oPC)
 
 void HSS_PCToools_RollDie(object oPC)
 {
+/*
     int nRollType = GetLocalInt(oPC, "HSS_PCTOOLS_ROLL_TYPE");
    
     int nDieNum = GetLocalInt(oPC, "HSS_PCTOOLS_DIE_NUM");
@@ -2266,7 +2267,7 @@ void HSS_PCToools_RollDie(object oPC)
     //DelayCommand(fAnimDelay, DoCheck());
 
     HSS_PCTools_CleanPCLocals(oPC, FALSE);                    
-    DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   
+    DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   */
 }
 
 void HSS_PCTools_SetGUIDieRollType(object oPC, int nType = HSS_PC_TOOLS_DIE_STANDARD)
