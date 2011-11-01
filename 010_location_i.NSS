@@ -1,4 +1,5 @@
 #include "acr_list_i"
+#include "acr_skills_i"
 #include "acr_effects_i"
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
@@ -17,10 +18,6 @@ const int MONK_LVL_PER_BONUS = 3;
 
 const int HASTE_SPEED_FACTOR = 2;
 const int EXPED_RET_SPEED_FACTOR = 2;
-
-const string CHECK_COLOUR1 = "<color=#98FFFF>";
-const string CHECK_COLOUR2 = "<color=#0166FF>";
-const string CHECK_COLOUR_END = "</c>";
 
 /* calculates monk, barb bonus, does simple kludge for woodland stride
  * (assumption is always active)
@@ -64,36 +61,17 @@ float get_std_speed(object player)
 	return STD_SPEED * factor * tmp_factor;
 }
 
-string loc_format_check(object creature, string stat, int roll, int mod, int dc)
-{
-	string res = "success";
-	
-	if ((roll+mod) < dc)
-		res = "failure";
-		
-	return 	CHECK_COLOUR1 + GetName(creature) + CHECK_COLOUR_END +
-			CHECK_COLOUR2 + " : "+stat+" : *"+res+"* : "+
-	 		"(" + IntToString(roll)+" + "+IntToString(mod)+
-			" = "+IntToString(roll+mod)+" vs. DC: "+
-			IntToString(dc)+")"+CHECK_COLOUR_END;
-}
-
 
 void loc_damage_player(object player, int time)
 {
-	int roll,dc,mod,tmp,tuff;
+	int dc,tmp,res;
 	string str;
 	effect e;
 	
 	dc = 10+time;
-	// emulate endurance
-	tuff = GetHasFeat(FEAT_TOUGHNESS);
-	mod = GetAbilityModifier(ABILITY_CONSTITUTION, player) + 4*tuff;
-	roll = d20();
-	
-	SendMessageToPC(player, loc_format_check(player,"Constitution",roll,mod,dc));
+	// emulate Endurance via Toughness feat
 		
-	if ((roll+mod) < dc) {
+	if (ACR_StatCheck(ABILITY_CONSTITUTION, player, dc, TRUE, FALSE, GetHasFeat(FEAT_TOUGHNESS) * 4)) {
 		ACR_ApplyNonlethalDamageToCreature(player, d6());
 		
 		SendMessageToPC(player, "The forceful pace you have taken wears on you.");
@@ -106,8 +84,7 @@ void loc_damage_player(object player, int time)
 				break;
 			case 1:
 				ACR_SetIsFatigued(player, 0);
-				
-				ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectExhausted(), player);
+				ACR_SetIsExhausted(player, 1);
 				break;
 			default:
 		}
@@ -213,7 +190,7 @@ void loc_update_players()
 	pc = GetFirstPC();
 	
 	while (GetIsObjectValid(pc)) {
-		if (!GetIsDM(pc))
+		if (!GetIsDM(pc) && !GetIsDMPossessed(pc))
 			loc_update_player(pc);
 
 		pc = GetNextPC();
