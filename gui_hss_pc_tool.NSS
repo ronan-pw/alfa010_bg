@@ -1963,300 +1963,296 @@ void HSS_PCTools_ToggleAFK(object oPC)
 
 void HSS_PCToools_RollDie(object oPC)
 {
-/*
-    int nRollType = GetLocalInt(oPC, "HSS_PCTOOLS_ROLL_TYPE");
-   
-    int nDieNum = GetLocalInt(oPC, "HSS_PCTOOLS_DIE_NUM");
-    int nDieType = GetLocalInt(oPC, "HSS_PCTOOLS_DIE_TYPE");
-   
-    int nSaveType = GetLocalInt(oPC, "HSS_PCTOOLS_SAVE_TYPE");
-    int nAbilityType = GetLocalInt(oPC, "HSS_PCTOOLS_ABILITY_TYPE");
-    int nSkillType = GetLocalInt(oPC, "HSS_PCTOOLS_SKILL_TYPE");
-   
-    int nBroadcast = GetLocalInt(oPC, "HSS_PCTOOLS_BROADCAST_TYPE");
-
-    int nVal1;
-    int nRoll;
-    int nRank;
-    int nSkillIndex = 0;
-    string sSkill;
+	int nRollType,nDieNum,nDieType,nSaveType,nAbilityType,nSkillType,nBroadcast,nSkillIndex;
     float fAnimDelay;
-    int bSkillCheck = FALSE;
+	
+    nRollType = GetLocalInt(oPC, "HSS_PCTOOLS_ROLL_TYPE");
+   
+    nDieNum = GetLocalInt(oPC, "HSS_PCTOOLS_DIE_NUM");
+    nDieType = GetLocalInt(oPC, "HSS_PCTOOLS_DIE_TYPE");
+   
+    nSaveType = GetLocalInt(oPC, "HSS_PCTOOLS_SAVE_TYPE");
+    nAbilityType = GetLocalInt(oPC, "HSS_PCTOOLS_ABILITY_TYPE");
+    nSkillType = GetLocalInt(oPC, "HSS_PCTOOLS_SKILL_TYPE");
+   
+    nBroadcast = GetLocalInt(oPC, "HSS_PCTOOLS_BROADCAST_TYPE");
+
+    nSkillIndex = 0;
+
 
     switch (nRollType)  {
-    
-    // standard die
-    case HSS_PC_TOOLS_DIE_STANDARD:
-        if (nDieNum == 0)
-            nDieNum = 1;
-
-        if (nDieType == 0)
-            nDieType = 20;
-
-        ACR_SimpleRoll(oPC, nDieNum, nDieType, TRUE, nBroadcast);
-       
-        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_STANDARD, "TRUE");               
-        break;
-       
-    // saves
-    case HSS_PC_TOOLS_DIE_SAVE:
-       
-        ACR_SaveCheck(nSaveType, oPC, 0, TRUE, nBroadcast);
-    
-        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_SAVE, "TRUE");                 
-        break;
-
-    // ability       
-    case HSS_PC_TOOLS_DIE_ABILITY:
-
-        ACR_StatCheck(nAbilityType, oPC, 0, TRUE, nBroadcast);
-       
-        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_ABILITY, "TRUE");       
-        break;
-       
-    // skill
-    case HSS_PC_TOOLS_DIE_SKILL:
-        switch (nSkillType) {
-            // appraise
-            case 1:
-                nSkillIndex = SKILL_APPRAISE;
-                break;
-            // balance
-            case 2:
-                nSkillIndex = SKILL_BALANCE;
-                break;              
-            // bluff
-            case 3:
-                nSkillIndex = SKILL_BLUFF;
-                break;
-            // climb
-            case 4:
-                nSkillIndex = SKILL_CLIMB;
-                break;
-            // concentration
-            case 5:
-                nSkillIndex = SKILL_CONCENTRATION;
-                break;
-            // craft alchemy
-            case 6:
-                nSkillIndex = SKILL_CRAFT__ALCHEMY;
-                break;
-            // craft armour
-            case 7:
-                nSkillIndex = SKILL_CRAFT_ARMORSMITHING;
-                break;
-            // craft bows
-            case 8:
-                nSkillIndex = SKILL_CRAFT_BOWMAKING;
-                break;
-            // craft weapon
-            case 9:
-                nSkillIndex = SKILL_CRAFT_WEAPONSMITHING;
-                break;
-            // decipher script
-            case 10:
-                nSkillIndex = SKILL_DECIPHER_SCRIPT;
-                break;
-            // diplomacy
-            case 11:
-                nSkillIndex = SKILL_DIPLOMACY;
-                break;
-            // disable trap
-            case 12:
-                nSkillIndex = SKILL_DISABLE_TRAP;
-                break;
-            // disguise
-            case 13:
-                nSkillIndex = SKILL_DISGUISE;
-                break;
-            // escape artist
-            case 14:
-                nSkillIndex = SKILL_ESCAPE_ARTIST;
-                break;
-            // forgery
-            case 15:
-                nSkillIndex = SKILL_FORGERY;
-                break;
-            // gather information
-            case 16:
-                nSkillIndex = SKILL_GATHER_INFORMATION;
-                break;
-            // handle animal
-            case 17:
-                nSkillIndex = SKILL_HANDLE_ANIMAL;
-                break;
-            // heal
-            case 18:
-                nSkillIndex = SKILL_HEAL;
-                break;
-            // hide
-            case 19:
-                nSkillIndex = SKILL_HIDE;
-                break;
-            // intimidate
-            case 20:
-                nSkillIndex = SKILL_INTIMIDATE;
-                break;
-            // jump
-            case 21:
-                nSkillIndex = SKILL_JUMP;
-                break;
-            // knowledge (arcana)
-            case 22:
-                nSkillIndex = SKILL_KNOWLEDGE_ARCANA;
-                break;
-            // knowledge (architecture/engineering)
-            case 23:
-                nSkillIndex = SKILL_KNOWLEDGE_ENGINEERING;
-                break;
-            // knowledge (dungeoneering)
-            case 24:
-                nSkillIndex = SKILL_KNOWLEDGE_DUNGEONEERING;
-                break;
-            // knowledge (geography)
-            case 25:
-                nSkillIndex = SKILL_KNOWLEDGE_GEOGRAPHY;
-                break;        
-            // knowledge (history)
-            case 26:
-                nSkillIndex = SKILL_KNOWLEDGE_HISTORY;
-                break;        
-            // knowledge (local)
-            case 27:
-                nSkillIndex = SKILL_KNOWLEDGE_LOCAL;
-                break;                    
-            // knowledge (nature)
-            case 28:
-                nSkillIndex = SKILL_KNOWLEDGE_NATURE;
-                break;
-            // knowledge (nobility)
-            case 29:
-                nSkillIndex = SKILL_KNOWLEDGE_NOBILITY;
-                break;
-            // knowledge (religion)
-            case 30:
-                nSkillIndex = SKILL_KNOWLEDGE_RELIGION;
-                break;
-            // knowledge (the planes)
-            case 31:
-                nSkillIndex = SKILL_KNOWLEDGE_THE_PLANES;
-                break;                    
-            // listen
-            case 32:
-                nSkillIndex = SKILL_LISTEN;
-                break;
-            // move silently
-            case 33:
-                nSkillIndex = SKILL_MOVE_SILENTLY;
-                break;
-            // open lock
-            case 34:
-                nSkillIndex = SKILL_OPEN_LOCK;
-                break;
-            // parry
-            case 35:
-                nSkillIndex = SKILL_PARRY;
-                break;
-            // perform (acting)
-            case 36:
-                nSkillIndex = SKILL_PERFORM_ACT;
-                break;
-            // perform (comedy)
-            case 37:
-                nSkillIndex = SKILL_PERFORM_COMEDY;
-                break;
-            // perform (dance)
-            case 38:
-                nSkillIndex = SKILL_PERFORM_DANCE;
-                break;
-            // perform (keyboards)
-            case 39:
-                nSkillIndex = SKILL_PERFORM_KEYBOARD;
-                break;    
-            // perform (oratory)
-            case 40:
-                nSkillIndex = SKILL_PERFORM_ORATORY;
-                break;    
-            // perform (percussion)
-            case 41:
-                nSkillIndex = SKILL_PERFORM_PERCUSSION;
-                break;    
-            // perform (strings)
-            case 42:
-                nSkillIndex = SKILL_PERFORM_STRING_INSTRUMENTS;
-                break;    
-            // perform (wind instruments)
-            case 43:
-                nSkillIndex = SKILL_PERFORM_WIND_INSTRUMENTS;
-                break;    
-            // perform (sing)
-            case 44:
-                nSkillIndex = SKILL_PERFORM_SING;
-                break;    
-            // profession
-            case 45:
-                nSkillIndex = SKILL_PROFESSION;
-                break;                        
-            // ride
-            case 46:
-                nSkillIndex = SKILL_RIDE;
-                break;    
-            // search       
-            case 47:
-                nSkillIndex = SKILL_SEARCH;
-                break;    
-            // sense motive
-            case 48:
-                nSkillIndex = SKILL_SENSE_MOTIVE;
-                break;
-            // sleight of hand
-            case 49:
-                nSkillIndex = SKILL_SLEIGHT_OF_HAND;
-                break;
-            // speak language
-            case 50:
-                nSkillIndex = SKILL_SPEAK_LANGUAGE;
-                break;
-            // spellcraft
-            case 51:
-                nSkillIndex = SKILL_SPELLCRAFT;
-                break;
-            // spot
-            case 52:
-                nSkillIndex = SKILL_SPOT;
-                break;
-            // survival
-            case 53:
-                nSkillIndex = SKILL_SURVIVAL;
-                break;
-            // swim
-            case 54:
-                nSkillIndex = SKILL_SWIM;
-                break;
-            // tumble
-            case 55:
-                nSkillIndex = SKILL_TUMBLE;
-                break;
-            // umd
-            case 56:
-                nSkillIndex = SKILL_USE_MAGIC_DEVICE;
-                break;
-            // use rope
-            case 57:
-                nSkillIndex = SKILL_USE_ROPE;
-                break;                                                                                              
-        }
-      
-        ACR_SkillCheck(nSkillIndex, oPC, 0, TRUE, nBroadcast);
-                                                              
-        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_SKILL, "TRUE");       
-        break;                     
-    default:
-        SendMessageToPC(oPC,HSS_PCTOOLS_COLOUR1 + "Select a die roll type before rolling.");
-        nBroadcast = 1;
+	    
+	    // standard die
+	    case HSS_PC_TOOLS_DIE_STANDARD:
+	        if (nDieNum == 0)
+	            nDieNum = 1;
+	
+	        if (nDieType == 0)
+	            nDieType = 20;
+	
+	        ACR_SimpleRoll(oPC, nDieNum, nDieType, TRUE, nBroadcast);
+	       
+	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_STANDARD, "TRUE");               
+	        break;
+	       
+	    // saves
+	    case HSS_PC_TOOLS_DIE_SAVE:
+	       
+	        ACR_SaveCheck(nSaveType, oPC, 0, TRUE, nBroadcast);
+	    
+	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_SAVE, "TRUE");                 
+	        break;
+	
+	    // ability       
+	    case HSS_PC_TOOLS_DIE_ABILITY:
+	
+	        ACR_StatCheck(nAbilityType, oPC, 0, TRUE, nBroadcast);
+	       
+	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_ABILITY, "TRUE");       
+	        break;
+	       
+	    // skill
+	    case HSS_PC_TOOLS_DIE_SKILL:
+	        switch (nSkillType) {
+	            // appraise
+	            case 1:
+	                nSkillIndex = SKILL_APPRAISE;
+	                break;
+	            // balance
+	            case 2:
+	                nSkillIndex = SKILL_BALANCE;
+	                break;              
+	            // bluff
+	            case 3:
+	                nSkillIndex = SKILL_BLUFF;
+	                break;
+	            // climb
+	            case 4:
+	                nSkillIndex = SKILL_CLIMB;
+	                break;
+	            // concentration
+	            case 5:
+	                nSkillIndex = SKILL_CONCENTRATION;
+	                break;
+	            // craft alchemy
+	            case 6:
+	                nSkillIndex = SKILL_CRAFT__ALCHEMY;
+	                break;
+	            // craft armour
+	            case 7:
+	                nSkillIndex = SKILL_CRAFT_ARMORSMITHING;
+	                break;
+	            // craft bows
+	            case 8:
+	                nSkillIndex = SKILL_CRAFT_BOWMAKING;
+	                break;
+	            // craft weapon
+	            case 9:
+	                nSkillIndex = SKILL_CRAFT_WEAPONSMITHING;
+	                break;
+	            // decipher script
+	            case 10:
+	                nSkillIndex = SKILL_DECIPHER_SCRIPT;
+	                break;
+	            // diplomacy
+	            case 11:
+	                nSkillIndex = SKILL_DIPLOMACY;
+	                break;
+	            // disable trap
+	            case 12:
+	                nSkillIndex = SKILL_DISABLE_TRAP;
+	                break;
+	            // disguise
+	            case 13:
+	                nSkillIndex = SKILL_DISGUISE;
+	                break;
+	            // escape artist
+	            case 14:
+	                nSkillIndex = SKILL_ESCAPE_ARTIST;
+	                break;
+	            // forgery
+	            case 15:
+	                nSkillIndex = SKILL_FORGERY;
+	                break;
+	            // gather information
+	            case 16:
+	                nSkillIndex = SKILL_GATHER_INFORMATION;
+	                break;
+	            // handle animal
+	            case 17:
+	                nSkillIndex = SKILL_HANDLE_ANIMAL;
+	                break;
+	            // heal
+	            case 18:
+	                nSkillIndex = SKILL_HEAL;
+	                break;
+	            // hide
+	            case 19:
+	                nSkillIndex = SKILL_HIDE;
+	                break;
+	            // intimidate
+	            case 20:
+	                nSkillIndex = SKILL_INTIMIDATE;
+	                break;
+	            // jump
+	            case 21:
+	                nSkillIndex = SKILL_JUMP;
+	                break;
+	            // knowledge (arcana)
+	            case 22:
+	                nSkillIndex = SKILL_KNOWLEDGE_ARCANA;
+	                break;
+	            // knowledge (architecture/engineering)
+	            case 23:
+	                nSkillIndex = SKILL_KNOWLEDGE_ENGINEERING;
+	                break;
+	            // knowledge (dungeoneering)
+	            case 24:
+	                nSkillIndex = SKILL_KNOWLEDGE_DUNGEONEERING;
+	                break;
+	            // knowledge (geography)
+	            case 25:
+	                nSkillIndex = SKILL_KNOWLEDGE_GEOGRAPHY;
+	                break;        
+	            // knowledge (history)
+	            case 26:
+	                nSkillIndex = SKILL_KNOWLEDGE_HISTORY;
+	                break;        
+	            // knowledge (local)
+	            case 27:
+	                nSkillIndex = SKILL_KNOWLEDGE_LOCAL;
+	                break;                    
+	            // knowledge (nature)
+	            case 28:
+	                nSkillIndex = SKILL_KNOWLEDGE_NATURE;
+	                break;
+	            // knowledge (nobility)
+	            case 29:
+	                nSkillIndex = SKILL_KNOWLEDGE_NOBILITY;
+	                break;
+	            // knowledge (religion)
+	            case 30:
+	                nSkillIndex = SKILL_KNOWLEDGE_RELIGION;
+	                break;
+	            // knowledge (the planes)
+	            case 31:
+	                nSkillIndex = SKILL_KNOWLEDGE_THE_PLANES;
+	                break;                    
+	            // listen
+	            case 32:
+	                nSkillIndex = SKILL_LISTEN;
+	                break;
+	            // move silently
+	            case 33:
+	                nSkillIndex = SKILL_MOVE_SILENTLY;
+	                break;
+	            // open lock
+	            case 34:
+	                nSkillIndex = SKILL_OPEN_LOCK;
+	                break;
+	            // parry
+	            case 35:
+	                nSkillIndex = SKILL_PARRY;
+	                break;
+	            // perform (acting)
+	            case 36:
+	                nSkillIndex = SKILL_PERFORM_ACT;
+	                break;
+	            // perform (comedy)
+	            case 37:
+	                nSkillIndex = SKILL_PERFORM_COMEDY;
+	                break;
+	            // perform (dance)
+	            case 38:
+	                nSkillIndex = SKILL_PERFORM_DANCE;
+	                break;
+	            // perform (keyboards)
+	            case 39:
+	                nSkillIndex = SKILL_PERFORM_KEYBOARD;
+	                break;    
+	            // perform (oratory)
+	            case 40:
+	                nSkillIndex = SKILL_PERFORM_ORATORY;
+	                break;    
+	            // perform (percussion)
+	            case 41:
+	                nSkillIndex = SKILL_PERFORM_PERCUSSION;
+	                break;    
+	            // perform (strings)
+	            case 42:
+	                nSkillIndex = SKILL_PERFORM_STRING_INSTRUMENTS;
+	                break;    
+	            // perform (wind instruments)
+	            case 43:
+	                nSkillIndex = SKILL_PERFORM_WIND_INSTRUMENTS;
+	                break;    
+	            // perform (sing)
+	            case 44:
+	                nSkillIndex = SKILL_PERFORM_SING;
+	                break;    
+	            // profession
+	            case 45:
+	                nSkillIndex = SKILL_PROFESSION;
+	                break;                        
+	            // ride
+	            case 46:
+	                nSkillIndex = SKILL_RIDE;
+	                break;    
+	            // search       
+	            case 47:
+	                nSkillIndex = SKILL_SEARCH;
+	                break;    
+	            // sense motive
+	            case 48:
+	                nSkillIndex = SKILL_SENSE_MOTIVE;
+	                break;
+	            // sleight of hand
+	            case 49:
+	                nSkillIndex = SKILL_SLEIGHT_OF_HAND;
+	                break;
+	            // speak language
+	            case 50:
+	                nSkillIndex = SKILL_SPEAK_LANGUAGE;
+	                break;
+	            // spellcraft
+	            case 51:
+	                nSkillIndex = SKILL_SPELLCRAFT;
+	                break;
+	            // spot
+	            case 52:
+	                nSkillIndex = SKILL_SPOT;
+	                break;
+	            // survival
+	            case 53:
+	                nSkillIndex = SKILL_SURVIVAL;
+	                break;
+	            // swim
+	            case 54:
+	                nSkillIndex = SKILL_SWIM;
+	                break;
+	            // tumble
+	            case 55:
+	                nSkillIndex = SKILL_TUMBLE;
+	                break;
+	            // umd
+	            case 56:
+	                nSkillIndex = SKILL_USE_MAGIC_DEVICE;
+	                break;
+	            // use rope
+	            case 57:
+	                nSkillIndex = SKILL_USE_ROPE;
+	                break;                                                                                              
+	        }
+	      
+	        ACR_SkillCheck(nSkillIndex, oPC, 0, TRUE, nBroadcast);
+	                                                              
+	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_SKILL, "TRUE");       
+	        break;                     
+	    default:
+	        SendMessageToPC(oPC,HSS_PCTOOLS_COLOUR1 + "Select a die roll type before rolling.");
     }
 
-    if (nRollType == HSS_PC_TOOLS_DIE_STANDARD && !nBroadcast)
+    if ((nRollType == HSS_PC_TOOLS_DIE_STANDARD) && (!nBroadcast))
     {
           HSS_PCTools_PlayCustomAnim(oPC, "gettable", FALSE, 2.0);
           DelayCommand(1.0, PlaySound("it_generictiny"));
@@ -2267,7 +2263,7 @@ void HSS_PCToools_RollDie(object oPC)
     //DelayCommand(fAnimDelay, DoCheck());
 
     HSS_PCTools_CleanPCLocals(oPC, FALSE);                    
-    DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   */
+    DelayCommand(0.2, HSS_PCTools_DeleteGUIDieRollType(oPC));   
 }
 
 void HSS_PCTools_SetGUIDieRollType(object oPC, int nType = HSS_PC_TOOLS_DIE_STANDARD)
