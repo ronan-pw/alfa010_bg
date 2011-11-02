@@ -1979,7 +1979,7 @@ void HSS_PCToools_RollDie(object oPC)
     nAbilityType = GetLocalInt(oPC, "HSS_PCTOOLS_ABILITY_TYPE");
     nSkillType = GetLocalInt(oPC, "HSS_PCTOOLS_SKILL_TYPE");
    
-    nBroadcast = GetLocalInt(oPC, "HSS_PCTOOLS_BROADCAST_TYPE");
+    nBroadcast = !GetLocalInt(oPC, "HSS_PCTOOLS_BROADCAST_TYPE");
 
     nSkillIndex = 0;
 
