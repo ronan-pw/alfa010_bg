@@ -1,4 +1,5 @@
 #include "010_area_ex"
+#include "acr_tools_i"
 
 int GetHasEffectType(object oObject, int iEffectType) {
 	effect eEff = GetFirstEffect(oObject);
@@ -37,21 +38,47 @@ void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string s
 	}
 }
 
+location randomize_location(location l, float dist=5.0)
+{
+	float dir,range,x,y,face;
+	vector v;
+	
+    dir = 360.0 * ACR_RandomFloat();
+	face = 360.0 * ACR_RandomFloat();
+	range = dist * ACR_RandomFloat();
+	
+    v = GetPositionFromLocation(l);
+	
+    x = sin(dir) * range;
+    y = cos(dir) * range;
+	
+    v = Vector(v.x+x, v.y+y, v.z);
+
+    return Location(GetAreaFromLocation(l), v, face);
+}
+
 object spawn_npc_internal(string resref, float prob, float prob_walk, int use_ambient)
 {
-	float f = (Random(1000)*1.0)/1000;
+	float calc;
 	object o = OBJECT_INVALID;
+	location loc = ACR_GetSpawnLocation();
 	
-	if (f <= prob) {
-		o = ACR_SpawnObject(resref, OBJECT_TYPE_CREATURE);
+	// Randomize location
+	calc = ACR_RandomFloat();
+	
+	loc = randomize_location(loc, 5.0);
+	
+	if (calc <= prob) {
+		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
+
 
 		if (use_ambient > 0) {
 			SetLocalInt(o, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
 		}
 		SetLocalInt(o, "X2_L_SPAWN_USE_AMBIENT", 0);
 		
-		f = (Random(1000)*1.0)/1000;
-		if (f <= prob_walk) {
+		calc = ACR_RandomFloat();
+		if (calc <= prob_walk) {
 			SetLocalInt(o, "X2_L_SPAWN_USE_AMBIENT", 1);
 		}
 	}

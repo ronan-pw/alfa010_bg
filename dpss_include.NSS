@@ -1,4 +1,5 @@
 
+#include "010_spawn_ex"
 
 const int DEBUG=0;
 const float DESPAWN_DELAY=600.0;
@@ -15,7 +16,7 @@ int GetIsAreaEmpty(object oArea);
 
 
 int GetIsAreaEmpty(object oArea)
-	{
+{
 	object oFirst=GetFirstObjectInArea(oArea);
 	while (GetIsObjectValid(oFirst))
 		{
@@ -24,7 +25,7 @@ int GetIsAreaEmpty(object oArea)
 		oFirst=GetNextObjectInArea(oArea);	
 		}
 	return TRUE;
-	}
+}
 
 void internal_dpss_despawn_area(object oArea)
 {
@@ -141,7 +142,7 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 	int D10;
 	string sCreatureType;
 	object oSpawn;
-	location lSpawn;
+	location lSpawn,l;
 	object oCreature;
 			
 	object oBase=GetFirstObjectInArea(OBJECT_SELF);
@@ -173,7 +174,8 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 		
 		// spawn creature and set up link to controller
 		WriteTimestampedLogEntry("DPSS: "+sCreatureType+" in "+GetName(oArea) + " ("+GetTag(oArea)+")");
-		oCreature = CreateObject(OBJECT_TYPE_CREATURE,sCreatureType,lSpawn,FALSE,"DPSS_CREATURE");
+		l = randomize_location(lSpawn, 3.0);
+		oCreature = CreateObject(OBJECT_TYPE_CREATURE,sCreatureType,l,FALSE,"DPSS_CREATURE");
 		
 		SetLocalObject(oCreature,"CONTROLLER",oController);
 		SetLocalInt(oCreature,"DPSS_CREATURE",1);
@@ -181,9 +183,13 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 		SetLocalInt(oCreature, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
 		SetLocalInt(oCreature, "X2_L_SPAWN_USE_AMBIENT", 1);
 		
-		if (((Random(1000)*1.0)/1000) <= DPSS_WALK_PROB) {
+		if (ACR_RandomFloat() <= DPSS_WALK_PROB) {
 			SetLocalInt(oCreature, "X2_L_SPAWN_USE_AMBIENT", 0);
 			SetLocalInt(oCreature, "ACR_FLOCKING", 1);
+		}
+		
+		if (ACR_RandomFloat() <= DPSS_WALK_PROB) {
+			SetActionMode(oCreature, ACTION_MODE_STEALTH, 1);
 		}
 		
 		ChangeToStandardFaction(oCreature,STANDARD_FACTION_HOSTILE);
@@ -195,3 +201,4 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 				
 	}
 }
+
