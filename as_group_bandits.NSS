@@ -56,28 +56,40 @@ void main();
 // 7,634
 void main() {
 	int i;
-	object o;
+	object o,leader;
 		
 	spawn_placeable("phat_lewt_corpse_female",0.5);
+	
+	o = spawn_hostile_npc("abr_cr_bandit_cl");
+	SetFirstName(o,"Mercenary Leader");
+	SetLastName(o,"");
+	SetTag(o,"highwayman");
+	
+	leader = o;
 	
 	for (i=0; i<Random(4)+1; ++i) {
 
 		switch(Random(4)) 
 		{
 		case 0:
-			o = spawn_hostile_npc("abr_cr_npc_brb_3");
+			o = spawn_hostile_npc("abr_cr_bandit_brb");
 			break;
 		case 1:
-			o = spawn_hostile_npc("abr_cr_npc_ftr_3");
+			o = spawn_hostile_npc("abr_cr_bandit_ftr");
 			break;
 		case 2:
-			o = spawn_hostile_npc("abr_cr_npc_rog_3");
+			o = spawn_hostile_npc("abr_cr_bandit_rog");
 			break;
 		default:
-			o = spawn_hostile_npc("abr_cr_npc_wiz_3");
+			o = spawn_hostile_npc("abr_cr_bandit_wiz");
 		}
-		SetFirstName(o,"Highwayman");
+		SetFirstName(o,"Mercenary");
 		SetLastName(o,"");
+		SetTag(o,"highwayman");
+		
+		AssignCommand(o, ActionForceFollowObject(leader, 2.0));
+		
+		leader = o;
 	}
 
 }
