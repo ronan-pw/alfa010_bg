@@ -41,7 +41,9 @@ void handle_follow(object o)
 		ActionJumpToObject(f);
 	}
 			
+	// follow (slowly)
 	ActionForceFollowObject(f,GetLocalFloat(o,"tw_distance"));
+	SetActionMode(o,ACTION_MODE_DETECT,1);
 }
 
 void start_walk()
