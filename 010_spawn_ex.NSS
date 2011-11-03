@@ -66,10 +66,10 @@ object spawn_npc_internal(string resref, float prob, float prob_walk, int use_am
 	// Randomize location
 	calc = ACR_RandomFloat();
 	
-	loc = randomize_location(loc, 5.0);
+	loc = randomize_location(loc, 5.0*calc);
 	
 	if (calc <= prob) {
-		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
+		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_CREATURE, loc);
 
 
 		if (use_ambient > 0) {
