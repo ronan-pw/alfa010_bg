@@ -2017,7 +2017,7 @@ void HSS_PCToools_RollDie(object oPC)
 	    // ability       
 	    case HSS_PC_TOOLS_DIE_ABILITY:
 	
-	        ACR_StatCheck(nAbilityType, oPC, 0, TRUE, nBroadcast);
+	        ACR_StatCheck(nAbilityType-1, oPC, 0, TRUE, nBroadcast);
 	       
 	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_ABILITY, "TRUE");       
 	        break;
