@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,14 +50,6 @@ void main();
 
 void main() {
 
-	switch(Random(3)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_orcbattlepriest", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_orcberserker", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_orctracker", OBJECT_TYPE_CREATURE);
-            break;
-}}
+		spawn_hostile_npc("abr_cr_hu_orcbattlepriest",0.5);
+		spawn_hostile_npc("abr_cr_hu_orcbattlepriest",0.5);
+}

@@ -55,7 +55,7 @@ void main() {
 	o = GetLastOpenedBy();
 	i = GetLocalInt(o,"010_door_align");
 	
-	if (i < -10) {
+	if (i < -5) {
 		i = 0;
 		AdjustAlignment(o,ALIGNMENT_CHAOTIC,1);
 		WriteTimestampedLogEntry("DOOR_ALIGN: +1 Chaotic for " + GetName(o));

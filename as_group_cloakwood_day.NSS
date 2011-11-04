@@ -146,17 +146,7 @@ void main() {
             spawn_hostile_npc("abr_cr_gt_ogre");
 			break;
 		case 15:	
-			spawn_placeable("phat_lewt_crate",0.5);
-			spawn_placeable("plc_ml_cauldrong", 1.0, 0.0, 180.0, 1.0);
-		
-			spawn_placeable("plc_br_tentm01", 1.0, 30.0);
-			spawn_placeable("plc_bl_tentm02", 1.0, 80.0);
-			spawn_placeable("plc_br_tentm01", 1.0, 120.0);
-		
-		    spawn_hostile_npc("010_sand_orc1");
-		    spawn_hostile_npc("010_sand_orc2");
-		    spawn_hostile_npc("010_sand_orc3");
-		    spawn_hostile_npc("010_sand_orc11");
+			spawn_group("complex");
 			break;		
 		case 16:
 			spawn_hostile_npc("010_cr_an_wolf_timber");

@@ -27,6 +27,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -58,71 +59,24 @@ void main() {
     // warrior orcs, a shaman, some tents, a cookpot and a few poor
     // goblin runts for the orcs to kick around.
 
-    // First, lets place the cookpot in the middle of the spawn point.
-    ACR_SpawnObject("plc_ml_cauldrong", OBJECT_TYPE_PLACEABLE);
-
-    // Now lets place 3 tents in a circle around it.
-    location lLoc = ACR_GetSpawnLocationFromDirectionAndFacing(
-        0.0,    // zero degrees, put this one at 12 o'clock.
-        6.0,    // Six meters out, so the radius of the circle is 6m.
-        180.0); // Flipped around 180 degrees, so it faces the center of the
-                // spawn point, and therefore the firepot.
-    ACR_SpawnObjectAtLocation("plc_br_tentm01", OBJECT_TYPE_PLACEABLE, lLoc);
-
-    lLoc = ACR_GetSpawnLocationFromDirectionAndFacing(
-        120.0,  // 120 degrees, put this one at 4 o'clock.
-        6.0,    // Six meters out, so the radius of the circle is 6m.
-        300.0); // Turned 180 + 120 degrees, so it faces the center.
-    ACR_SpawnObjectAtLocation("plc_bl_tentm02", OBJECT_TYPE_PLACEABLE, lLoc);
-
-    lLoc = ACR_GetSpawnLocationFromDirectionAndFacing(
-        240.0,  // 240 degrees, put this one at 8 o'clock.
-        6.0,    // Six meters out, so the radius of the circle is 6m.
-        60.0); // Turned 180 + 240 degrees, so it faces the center.
-    ACR_SpawnObjectAtLocation("plc_br_tentm01", OBJECT_TYPE_PLACEABLE, lLoc);
-
-    // Lets spawn the orcs in the center.
-    ACR_SpawnObject("010_sand_orc1", OBJECT_TYPE_CREATURE);
-    ACR_SpawnObject("010_sand_orc2", OBJECT_TYPE_CREATURE);
-    ACR_SpawnObject("010_sand_orc3", OBJECT_TYPE_CREATURE);
-    ACR_SpawnObject("010_sand_orc11", OBJECT_TYPE_CREATURE);
-
-    // This one is the shaman:
-    //ACR_SpawnObject("abr_cr_hu_orcbattlepriest", OBJECT_TYPE_CREATURE);
-
-    // As usual, the goblins have been bullied into doing the job no one wants:
-    // keeping watch. So they are scattered about on at three waypoints which the
-    // builder has placed and tagged "gobo_scouts". Lets find these waypoints.
-    int i;
-    // We loop three times, one for each possible waypoint.
-    for(i = 1; i <= 3; i++) {
-        // Lets find the ith nearest waypoint to the center of the spawn point,
-        // and place the ith group of goblins there.
-        object oWP = GetNearestObjectByTag("gobo_scouts", OBJECT_SELF, i);
-
-        // Lets make sure this waypoint actually exists in this area. If it
-        // doesn't, we don't want to try to spawn anything at it. That would be
-        // Very Bad.
-        location lLoc;
-        if(oWP != OBJECT_INVALID) {
-            // Waypoint found in area, spawn the goblins there.
-            lLoc = GetLocation(oWP);
-        } else {
-            // No waypoint found, buider error. Lets just put them back at the
-            // camp.
-            lLoc = GetLocation(OBJECT_SELF);
-            PrintString("Hey! Someone forgot a waypoint of tag 'gobo_scouts' for"
-                        + " my orc camp spawn group in area " + GetName(GetArea(OBJECT_SELF))
-                        + "! I bet this is Fionn's fault.");
-        }
-
-        // Now lets actually spawn the goblins at whichever location we've
-        // decided on.
-        ACR_SpawnObjectAtLocation("010_cr_goblin1", OBJECT_TYPE_CREATURE, lLoc);
-        ACR_SpawnObjectAtLocation("010_cr_goblin2", OBJECT_TYPE_CREATURE, lLoc);
-        ACR_SpawnObjectAtLocation("010_cr_goblin0", OBJECT_TYPE_CREATURE, lLoc);
-    }
-
+			spawn_placeable("phat_lewt_crate",0.5);
+			spawn_placeable("plc_ml_cauldrong", 1.0, 0.0, 180.0, 1.0);
+		
+			spawn_placeable("plc_br_tentm01", 1.0, 30.0);
+			spawn_placeable("plc_bl_tentm02", 1.0, 80.0);
+			spawn_placeable("plc_br_tentm01", 1.0, 120.0);
+		
+		    spawn_hostile_npc("010_sand_orc1");
+		    spawn_hostile_npc("010_sand_orc2");
+		    spawn_hostile_npc("010_sand_orc3");
+		    spawn_hostile_npc("010_sand_orc11");
+			spawn_hostile_npc("010_sand_orc1",0.5);
+		    spawn_hostile_npc("010_sand_orc2",0.5);
+		    spawn_hostile_npc("010_sand_orc3",0.5);
+		    spawn_hostile_npc("010_sand_orc11",0.5);
+			spawn_hostile_npc("abr_cr_hu_orcbattlepriest",0.5);
+			spawn_hostile_npc("abr_cr_hu_orctracker",0.5);
+			
     // We're done! This spawn group spawned both placeables and creatures in the
     // same group. But you don't have to do this, you can place each of these in
     // their own seperate spawn groups. Why do this? Because it allows the

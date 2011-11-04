@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -48,51 +49,13 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
+		    spawn_hostile_npc("010_sand_orc1",0.5);
+		    spawn_hostile_npc("010_sand_orc2",0.5);
+		    spawn_hostile_npc("010_sand_orc3",0.5);
+		    spawn_hostile_npc("010_sand_orc11",0.5);
+			spawn_hostile_npc("010_sand_orc1",0.5);
+		    spawn_hostile_npc("010_sand_orc2",0.5);
+		    spawn_hostile_npc("010_sand_orc3",0.5);
+		    spawn_hostile_npc("010_sand_orc11",0.5);
 
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_orcbasher01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_orcbasher02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_orcbasher03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_orcbasher04", OBJECT_TYPE_CREATURE);
-            break;}			
-	
-
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_orcfighter01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_orcfighter02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_orcfighter03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_orcfighter04", OBJECT_TYPE_CREATURE);
-            break;}			
-	
-	
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_orcambusher01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-           ACR_SpawnObject("abr_cr_hu_orcambusher02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_orcambusher03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_orcambusher04", OBJECT_TYPE_CREATURE);
-            break;}	
-    
-			
-    
 }

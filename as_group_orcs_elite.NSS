@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,36 +50,14 @@ void main();
 
 void main() {
 
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior04", OBJECT_TYPE_CREATURE);
-            break;}			
-	
-
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_orcwarrior04", OBJECT_TYPE_CREATURE);
-            break;}	
-	
-	
-		
-    
+		    spawn_hostile_npc("010_sand_orc1",0.5);
+		    spawn_hostile_npc("010_sand_orc2",0.5);
+		    spawn_hostile_npc("010_sand_orc3",0.5);
+		    spawn_hostile_npc("010_sand_orc11",0.5);
+			spawn_hostile_npc("010_sand_orc1",0.5);
+		    spawn_hostile_npc("010_sand_orc2",0.5);
+		    spawn_hostile_npc("010_sand_orc3",0.5);
+		    spawn_hostile_npc("010_sand_orc11",0.5);
+	spawn_hostile_npc("abr_cr_hu_orctracker",0.5);
+	spawn_hostile_npc("abr_cr_hu_orctracker",0.5);
 }
