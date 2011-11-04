@@ -41,13 +41,13 @@
 //!! nMode defaults to 0, to check PC region versus the one passed
 //!! nMode = 1 checks if PC is a foreigner (TRUE = foreign)
 //!!  Regions:  Amn(3503), TSM(3548), WHL(3559), etc
-int StartingConditional(int nRegion, int nMode=0);
+int StartingConditional(int nRegion, int nMode);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-int StartingConditional(int nRegion, int nMode=0)
+int StartingConditional(int nRegion, int nMode)
 {
 	// nMode=0; check if PC is from nRegion
 	// nMode=1; check if PC is foreign

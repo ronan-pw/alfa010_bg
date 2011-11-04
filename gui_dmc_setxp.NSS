@@ -45,7 +45,7 @@ const string ACR_GUI_FILENAME_DM_SETXP = "dmsetxp.xml";
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main(int nXP=-1)
+void main(int nXP)
 {
     object oDM = OBJECT_SELF;
     object oTarget = GetPlayerCurrentTarget(oDM);

@@ -4,6 +4,7 @@
 *****                             04/09/11                                *****
 ******************************************************************************/
 
+#include "nwnx_craft"
 
 // Name     : NWNX Crafter Initialization Wrapper
 // Purpose  : Wrapper script that must be run to initialize xp_craft once at startup
@@ -27,7 +28,8 @@ void main() {
 
 	SetLocalInt(oModule, "XP_CRAFT_INITIALIZED", TRUE);
 
-	WriteTimestampedLogEntry("nwnx_craft_init:  Craft system initializing.");
+	ACR_CreateDebugSystem(_CRAFT_SYSTEM_NAME, DEBUG_TARGET_NONE, DEBUG_TARGET_LOG | DEBUG_TARGET_DMS, DEBUG_TARGET_LOG | DEBUG_TARGET_DMS);
+	ACR_PrintDebugMessage("Craft system initializing.", _CRAFT_SYSTEM_NAME, DEBUG_LEVEL_INFO);
 
 	//
 	// Execute the base xp_craft initialization script.

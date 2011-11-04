@@ -115,7 +115,7 @@ void ACR_CreatureIdentify(object oPC, object oTarget);
 //default as without smart AI the creature will never cast a spell. This behaviour is default for any creature
 //with an intelligence score over 10.
 //to set smart AI behaviour manually set the variable ALFA_SMART_AI on the creature
-int GetIsSmart(object oCreature);
+int GetIsSmart(object oCreature=OBJECT_SELF);
 
 
 ////////////////////////////////////////////////////////////////////////////////

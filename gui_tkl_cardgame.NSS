@@ -11,7 +11,7 @@ brockfanning, 1/21/08: fixed bugs with view cards in hand, and with cards being 
 
 #include "tkl_cardgame_include"
 
-void main(string sOption, int iRow = 0)
+void main(string sOption, int iRow)
 {
 	// Set up some basic objects and variables that will be used in most of the options.
 	// These variables are set on the PC when the PC sits in a card chair.

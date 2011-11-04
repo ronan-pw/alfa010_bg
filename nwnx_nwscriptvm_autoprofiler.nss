@@ -19,7 +19,7 @@ Abstract:
 // Define how long we wait between profile intervals.  The default is one day.
 //
 
-const float NWScriptVM_AutoProfiler_Interval = 60.0f * 60.0f * 24.0f;
+const float NWScriptVM_AutoProfiler_Interval = 86400.0f; // (60.0f * 60.0f * 24.0f);
 float NWScriptVM_AutoProfiler_Cycles = 0.0f;
 
 void

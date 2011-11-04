@@ -1,4 +1,5 @@
 #include "010_area_ex"
+#include "acr_debug_i"
 
 /* mild weather */
 
@@ -75,6 +76,7 @@ const int BW_TYPE_LIGHTNING = 2;
 
 const float POWER_COEF = 0.5;
 
+const string _WEATHER_SYSTEM_NAME = "010_weather_i";
 int MAX_RND = 65535/2;
 const int TICKS_PER_CHANGE = 20;
 
@@ -310,29 +312,23 @@ void set_weather(object area,int type,int power)
 		AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_night_track"));
 	}
 	
-	//WriteTimestampedLogEntry("Examining ambient for "+GetTag(area));
 	
 	/* set back to original/clear track */
 	if (track == 0) {
-		//WriteTimestampedLogEntry("Changing ambient for "+GetTag(area)+" to "+IntToString(GetLocalInt(area,"ambient_day_track")));
 		
 		if (GetLocalInt(area,"ambient_day_track")) {
 			AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_day_track"));
-			//WriteTimestampedLogEntry("Changed to track day");
 		}
 		else {
 			AmbientSoundChangeDay(area, 138);
-			//WriteTimestampedLogEntry("Changed to default day");
 		}
 			
 		if (GetLocalInt(area,"ambient_night_track")) {
-			//WriteTimestampedLogEntry("Changed to track night");
 			AmbientSoundChangeDay(area, GetLocalInt(area,"ambient_night_track"));
 		}
 		else {
 			volume = 10; // this thing was sampled SUPER loud
 			AmbientSoundChangeDay(area, 128);
-			//WriteTimestampedLogEntry("Changed to default night");
 		}
 	}
 	else {
@@ -340,8 +336,7 @@ void set_weather(object area,int type,int power)
 		AmbientSoundChangeNight(area, track);
 	}
 	
-	//WriteTimestampedLogEntry("Setting weather ["+GetTag(area)+"] ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
-	//SendMessageToPC(GetPrimaryPlayer(), "Setting weather ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")");
+	ACR_PrintDebugMessage("Setting weather ["+GetTag(area)+"] ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")", _WEATHER_SYSTEM_NAME, DEBUG_LEVEL_INFO);
 	
 	AmbientSoundSetDayVolume(area,volume);
 	AmbientSoundSetNightVolume(area,volume);
@@ -365,11 +360,12 @@ void process_weather()
 			
 	/* initialize */
 	if (GetGlobalInt("weather_threshold") == 0) {
+		ACR_CreateDebugSystem(_WEATHER_SYSTEM_NAME, DEBUG_TARGET_NONE, DEBUG_TARGET_LOG | DEBUG_TARGET_DMS, DEBUG_TARGET_LOG | DEBUG_TARGET_DMS);
+
 		SetGlobalInt("weather_threshold", TICKS_PER_CHANGE);
 
 	
-		/* DEBUG */
-		WriteTimestampedLogEntry("Initializing weather system");
+		ACR_PrintDebugMessage("Initializing weather system...", _WEATHER_SYSTEM_NAME, DEBUG_LEVEL_INFO);
 		
 		return;
 	}
@@ -400,9 +396,7 @@ void process_weather()
 					
 		set_region_weather(i,type,power);
 			
-		/* DEBUG */
-		//WriteTimestampedLogEntry("Setting weather: "+get_region_name(i)+" ("+IntToString(i)+") -> ("+IntToString(type)+","+IntToString(power)+")");
-		//SendMessageToPC(GetPrimaryPlayer(), "Setting weather for "+IntToString(i)+" to ("+IntToString(type)+","+IntToString(power)+")");
+		ACR_PrintDebugMessage(get_region_name(i)+" ("+IntToString(i)+") -> ("+IntToString(type)+","+IntToString(power)+")", _WEATHER_SYSTEM_NAME, DEBUG_LEVEL_INFO);
 	}
 			
 			

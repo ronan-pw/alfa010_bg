@@ -4,6 +4,8 @@
 *****                             11/29/07                                *****
 ******************************************************************************/
 
+#include "acr_debug_i"
+
 
 // Name     : NWNX Crafter include
 // Purpose  : Various functions for accessing the Crafter plugin
@@ -34,6 +36,7 @@
 /*****************************************************************************/
 //Constants
 const string XPCraft_DATABASE_PREFIX = "xp_craft";//set it to whatever you want
+const string _CRAFT_SYSTEM_NAME = "xp_craft";
 
 /*****************************************************************************/
 //Bioware Database related functions
@@ -89,7 +92,7 @@ float XPCraft_QqhToRgb(float q1, float q2, float Hue);
 
 /*****************************************************************************/
 //Debuggin function
-void XPCraft_Debug(object oPC, string sStringToDebug);
+void XPCraft_Debug(object oPC, string sStringToDebug, int nLevel=0);
 
 
 /*****************************************************************************/
@@ -192,7 +195,7 @@ int XPCraft_StoreItemToCraft(object oPC, object oItem, int bSafeStore = TRUE)
 	
 	if(!bStorageSuccess)
 	{
-		XPCraft_Debug(oPC,"Unable to store " + GetName(oItem) + " as a campaign object.");
+		XPCraft_Debug(oPC,"Unable to store " + GetName(oItem) + " as a campaign object.",1);
 	}
 	return bStorageSuccess;
 }
@@ -207,7 +210,7 @@ object XPCraft_RetrieveCraftedItem(object oPC, location lSpawnLocation)
 
 	if(oCampaignObject==OBJECT_INVALID)
 	{
-		XPCraft_Debug(oPC,"Unable to retrieve object from database.");	
+		XPCraft_Debug(oPC,"Unable to retrieve object from database.",1);	
 	}
 
 	return oCampaignObject;
@@ -351,9 +354,14 @@ float XPCraft_QqhToRgb(float q1, float q2, float Hue)//Hue = T
 /*****************************************************************************/
 //Debuggin functions
 
-void XPCraft_Debug(object oPC, string sStringToDebug)
+void XPCraft_Debug(object oPC, string sStringToDebug, int nLevel=0)
 {
-	WriteTimestampedLogEntry(GetName(oPC) + " : " + sStringToDebug);
+	if (nLevel > 0)
+		nLevel = DEBUG_LEVEL_FATAL;
+	else
+		nLevel = DEBUG_LEVEL_INFO;
+
+	ACR_PrintDebugMessage(GetName(oPC) + " - " + sStringToDebug, _CRAFT_SYSTEM_NAME, nLevel);
 	SendMessageToPC(oPC,"XPCraft : <color=steelblue>" + sStringToDebug + "</color>");
 }
 

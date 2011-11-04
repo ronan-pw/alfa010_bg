@@ -4,7 +4,7 @@
 
 #include "acr_db_persist_i"
 
-void main(string sVariableName, int nVariableValue=TRUE, int bDeleteVar=FALSE)
+void main(string sVariableName, int nVariableValue, int bDeleteVar)
 {   
 	object oPC = GetPCSpeaker(); 
 

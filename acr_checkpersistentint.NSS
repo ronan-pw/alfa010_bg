@@ -3,7 +3,7 @@
 
 #include "acr_db_persist_i"
 
-int StartingConditional(string sVariableName, int sVariableValue=TRUE)
+int StartingConditional(string sVariableName, int sVariableValue)
 {   
 	object oPC = GetPCSpeaker(); 
 

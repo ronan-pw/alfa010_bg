@@ -55,7 +55,7 @@ void main() {
 	o = GetLastClosedBy();
 	i = GetLocalInt(o,"010_door_align");
 	
-	if (i > 7) {
+	if (i > 5) {
 		i = 0;
 		AdjustAlignment(o,ALIGNMENT_LAWFUL,1);
 		WriteTimestampedLogEntry("DOOR_ALIGN: +1 Lawful for " + GetName(o));

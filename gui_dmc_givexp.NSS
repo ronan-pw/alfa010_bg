@@ -51,7 +51,7 @@ const string ACR_GUI_FILENAME_DM_GIVEXP = "dmgivexp.xml";
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main(int nQuestRating=0, int nRPRating=15, float fSessionLength=0.5, int nRPBonus=0, int bInit=FALSE, int bAwardXP=FALSE, int bPartyXP=FALSE)
+void main(int nQuestRating, int nRPRating, float fSessionLength, int nRPBonus, int bInit, int bAwardXP, int bPartyXP)
 {
     object oDM = OBJECT_SELF;
     object oTarget = GetPlayerCurrentTarget(oDM);
