@@ -69,8 +69,7 @@ void next_step(int step)
 	SetLocalInt(o,"step",step);
 	
 	// port me out to next area
-	if ((step < TWALK_LOWER_BOUND) || (step > TWALK_UPPER_BOUND))
-	{
+	if ((step < TWALK_LOWER_BOUND) || (step > TWALK_UPPER_BOUND)) {
 		port_to_next();
 		return;
 	}
