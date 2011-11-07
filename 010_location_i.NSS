@@ -138,7 +138,7 @@ void loc_update_player(object player)
 		vel_ratio = vel/get_std_speed(player);
 
 		if (vel_ratio > 1.0f) {
-			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel at faster than MAX_SPEED: "+FloatToString(vel_ratio));
+			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel in "+GetTag(cur_area)+" at faster than MAX_SPEED: "+FloatToString(vel_ratio));
 			PrintVector(GetPositionFromLocation(l),1);
 			PrintVector(GetPositionFromLocation(old_loc),1);
 		}
