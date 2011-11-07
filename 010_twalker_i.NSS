@@ -27,6 +27,7 @@ void handle_follow(object o)
 			f = GetNearestObject(OBJECT_TYPE_CREATURE,o,i++);
 			if (GetLocalInt(f,"tw_id") == GetLocalInt(o,"tw_follow")) {
 				SetLocalObject(o, "tw_follow_obj", f);
+				break;
 			}
 		} while (f != OBJECT_INVALID);
 		
@@ -85,7 +86,7 @@ void next_step(int step)
 	
 	// no location here, just flip around
 	if (t == OBJECT_INVALID) {
-		WriteTimestampedLogEntry("TWALK: Leaving invalid, "+tag);
+		WriteTimestampedLogEntry("TWALK: "+GetName(o)+" leaving invalid, "+tag);
 		SetLocalInt(o,"reverse",1^GetLocalInt(o,"reverse"));
 		
 		port_to_next();
@@ -149,10 +150,7 @@ void check_status(object o)
 	step = GetLocalInt(o,"step");
 	rev = GetLocalInt(o,"reverse");
 	
-	if (rev)
-		step++;
-	else
-		step--;
+	rev ? step++ : step--;
 		
 	next_step(step);
 }

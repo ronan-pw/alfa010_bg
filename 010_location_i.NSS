@@ -118,14 +118,6 @@ void loc_update_player(object player)
 		return;
 	}
 	
-	tick = GetLocalInt(player,"loc_hb_tick");
-	SetLocalInt(player,"loc_hb_tick",++tick);
-	
-	if (tick < LOCATION_HEARTBEATS_PER_POLL)
-		return;
-		
-	SetLocalInt(player,"loc_hb_tick",0);
-	
 	l = GetLocation(player);
 	old_loc = GetLocalLocation(player,"loc_last_loc");
 	last_area = GetAreaFromLocation(old_loc);
@@ -144,6 +136,12 @@ void loc_update_player(object player)
 		
 		/* vel_ratio = current/max */
 		vel_ratio = vel/get_std_speed(player);
+
+		if (vel_ratio > 1.0f) {
+			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel at faster than MAX_SPEED: "+FloatToString(vel_ratio));
+			PrintVector(GetPositionFromLocation(l),1);
+			PrintVector(GetPositionFromLocation(old_loc),1);
+		}
 
 		str = loc_global_name(player,"loc_tick");
 		tick = GetGlobalInt(str)+1;
