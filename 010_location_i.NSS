@@ -1,6 +1,7 @@
 #include "acr_list_i"
 #include "acr_skills_i"
 #include "acr_effects_i"
+#include "nwnx_time"
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
 const float HEARTBEAT_TIME = 6.0;
@@ -121,7 +122,11 @@ void loc_update_player(object player)
 	l = GetLocation(player);
 	old_loc = GetLocalLocation(player,"loc_last_loc");
 	last_area = GetAreaFromLocation(old_loc);
+
 	
+	str = StopTimer(player,"loc_timer");
+	StartTimer(player,"loc_timer");
+
 	/* ignore if we get here via dimension door */
 	if (GetLocalInt(player,"DIMENSION_DOOR_USED")) {
 		DeleteLocalInt(player,"DIMENSION_DOOR_USED");
@@ -141,6 +146,7 @@ void loc_update_player(object player)
 			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel in "+GetTag(cur_area)+" at faster than MAX_SPEED: "+FloatToString(vel_ratio));
 			PrintVector(GetPositionFromLocation(l),1);
 			PrintVector(GetPositionFromLocation(old_loc),1);
+			WriteTimestampedLogEntry(str);
 		}
 
 		str = loc_global_name(player,"loc_tick");
