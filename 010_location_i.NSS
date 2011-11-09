@@ -114,7 +114,7 @@ void loc_update_player(object player)
 	cur_area = GetArea(player);
 		
 	/* for simplicity's sake, eliminate calculation of interior/invalid areas as well */
-	if ((cur_area == OBJECT_INVALID) || GetIsAreaInterior(cur_area)) {
+	if ((cur_area == OBJECT_INVALID) || GetIsAreaInterior(cur_area) || GetScriptHidden(player)) {
 		DeleteLocalLocation(player,"loc_last_loc");
 		return;
 	}
@@ -126,6 +126,7 @@ void loc_update_player(object player)
 	
 	str = StopTimer(player,"loc_timer");
 	StartTimer(player,"loc_timer");
+	WriteTimestampedLogEntry(" "+GetName(player)+" tick: "+str);
 
 	/* ignore if we get here via dimension door */
 	if (GetLocalInt(player,"DIMENSION_DOOR_USED")) {

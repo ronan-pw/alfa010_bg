@@ -278,13 +278,13 @@ void FillContainer(int iChance37, int iChance25one, int iChance25two, int iChanc
 		 	{SetLocalInt(oArea, sStoreTag + "iDelay", 1);
 		 	 //AssignCommand(oArea, SendMessageToAllDMs(sStoreTag + " can populate bonus items no sooner than " + IntToString(iPopHr) + " hr and " + IntToString(iMinLeft) + " min from now")); 
 			 AssignCommand(oArea, DelayCommand(IntToFloat(iPop), SetLocalInt(oArea, sStoreTag + "iDelay", 2)));
-			 AssignCommand(oArea, DelayCommand(IntToFloat(iPop), SendMessageToAllDMs(sStoreTag + " able to randomly populate bonus items."))); 
+			 //AssignCommand(oArea, DelayCommand(IntToFloat(iPop), SendMessageToAllDMs(sStoreTag + " able to randomly populate bonus items."))); 
 			 return;
 			 }
 		 if(GetLocalInt(oArea, sStoreTag + "iDelay") == 2)
 		 	{SetLocalInt(oArea, sStoreTag + "iDelay", 1);
 		 	 AssignCommand(oArea, DelayCommand(IntToFloat(iPop), SetLocalInt(oArea, sStoreTag + "iDelay", 2)));
-			 AssignCommand(oArea, DelayCommand(IntToFloat(iPop), SendMessageToAllDMs(sStoreTag + " ripe to randomly populate bonus items."))); 
+			 //AssignCommand(oArea, DelayCommand(IntToFloat(iPop), SendMessageToAllDMs(sStoreTag + " ripe to randomly populate bonus items."))); 
 			 //AssignCommand(oArea, SendMessageToAllDMs(sStoreTag + " will repopulate no sooner than " + IntToString(iPopHr) + " hr and " + IntToString(iMinLeft) + " min from now")); 
 			 }
 		 }
@@ -6046,7 +6046,7 @@ void SearchChest(int SearchDC)
 			if((GetObjectType(OBJECT_SELF) == OBJECT_TYPE_STORE) && (GetName(oShownItem) != "") && (GetLocalString(OBJECT_SELF, GetName(oShownItem)) != GetName(oShownItem)))
 				{SetLocalString(OBJECT_SELF, GetName(oShownItem), GetName(oShownItem));
 				 DelayCommand(10.0, SetLocalString(OBJECT_SELF, GetName(oShownItem), ""));
-				 SendMessageToAllDMs(GetName(GetLastOpenedBy()) + " populates "  + GetTag(OBJECT_SELF) + " with " + IntToString(GetItemStackSize(oShownItem)) + " " + GetName(oShownItem) + "/" + GetTag(oShownItem));
+				 //SendMessageToAllDMs(GetName(GetLastOpenedBy()) + " populates "  + GetTag(OBJECT_SELF) + " with " + IntToString(GetItemStackSize(oShownItem)) + " " + GetName(oShownItem) + "/" + GetTag(oShownItem));
 				}
 			
 			DestroyObject(oFoundItem);

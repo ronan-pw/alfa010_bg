@@ -27,6 +27,7 @@ void handle_follow(object o)
 			f = GetNearestObject(OBJECT_TYPE_CREATURE,o,i++);
 			if (GetLocalInt(f,"tw_id") == GetLocalInt(o,"tw_follow")) {
 				SetLocalObject(o, "tw_follow_obj", f);
+				SetLocalObject(f, "tw_follower_obj", o);
 				break;
 			}
 		} while (f != OBJECT_INVALID);
@@ -38,7 +39,7 @@ void handle_follow(object o)
 	f = GetLocalObject(o, "tw_follow_obj");
 			
 	if (GetArea(o) != GetArea(f)) {
-		ClearAllActions();
+		ClearAllActions(TRUE);
 		ActionJumpToObject(f);
 	}
 			
@@ -107,14 +108,21 @@ void move_to_next()
 
 void port_to_next()
 {
-	object o=OBJECT_SELF, t,area=GetArea(o);
+	object o=OBJECT_SELF, t,area=GetArea(o),f;
 	location l = GetLocation(o);
 	
 	DeleteLocalLocation(o,"loc");
 	t = GetNearestObjectToLocation(OBJECT_TYPE_TRIGGER,l);
 	
-	ClearAllActions();
+	ClearAllActions(TRUE);
 	AssignCommand(o,JumpToObject(GetTransitionTarget(t)));
+
+	// move followers too
+	f = o;
+	while ((f = GetLocalObject(f,"tw_follower_obj")) != OBJECT_INVALID) {
+		AssignCommand(f,ClearAllActions(TRUE));
+		AssignCommand(f,JumpToObject(GetTransitionTarget(t)));
+	}
 	
 	DelayCommand(TWALK_TRANS, start_walk());
 }
