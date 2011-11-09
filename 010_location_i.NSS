@@ -4,8 +4,7 @@
 #include "nwnx_time"
 
 const int LOCATION_HEARTBEATS_PER_POLL = 1;
-const float HEARTBEAT_TIME = 6.0;
-float LOCATION_POLLING_TIME = LOCATION_HEARTBEATS_PER_POLL*HEARTBEAT_TIME;
+const float SECONDS_PER_MICRO = 1000000.0;
 const int TICK_LIMIT = 20;
 
 // 50% faster than walk speed is fatigue barrier (pnp hustle speed, 60 ft/rd)
@@ -124,9 +123,9 @@ void loc_update_player(object player)
 	last_area = GetAreaFromLocation(old_loc);
 
 	
+	/* use timer for exact result */
 	str = StopTimer(player,"loc_timer");
 	StartTimer(player,"loc_timer");
-	WriteTimestampedLogEntry(" "+GetName(player)+" tick: "+str);
 
 	/* ignore if we get here via dimension door */
 	if (GetLocalInt(player,"DIMENSION_DOOR_USED")) {
@@ -138,16 +137,18 @@ void loc_update_player(object player)
 	if ((last_area == cur_area) && (last_area != OBJECT_INVALID)) {
 	
 		dist = loc_dist(GetPositionFromLocation(l),GetPositionFromLocation(old_loc));
-		vel = dist/LOCATION_POLLING_TIME;
+
+		vel = dist/(StringToFloat(str)/SECONDS_PER_MICRO);
 		
 		/* vel_ratio = current/max */
 		vel_ratio = vel/get_std_speed(player);
+;
 
 		if (vel_ratio > 1.0f) {
 			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel in "+GetTag(cur_area)+" at faster than MAX_SPEED: "+FloatToString(vel_ratio));
+			WriteTimestampedLogEntry("Covered in: "+FloatToString(StringToFloat(str)/SECONDS_PER_MICRO));
 			PrintVector(GetPositionFromLocation(l),1);
 			PrintVector(GetPositionFromLocation(old_loc),1);
-			WriteTimestampedLogEntry(str);
 		}
 
 		str = loc_global_name(player,"loc_tick");
@@ -183,8 +184,6 @@ void loc_update_player(object player)
 				str = loc_global_name(player,"loc_fatigue");
 				SetGlobalInt(str, 0);
 			}
-			
-			// SendMessageToPC(player,FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetGlobalInt(str)));
 			
 			str = loc_global_name(player,"loc_tick");
 			SetGlobalInt(str, 0);
