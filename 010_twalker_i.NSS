@@ -3,7 +3,7 @@ const int TWALK_UPPER_BOUND = 10;
 const float EPS = 0.01;
 const float TWALK_LOC_BUF = 6.0;
 const float TWALK_POLL = 3.0;
-const float TWALK_TRANS = 1.0;
+const float TWALK_TRANS = 0.1;
 
 void start_walk();
 void next_step(int step);
@@ -124,7 +124,7 @@ void port_to_next()
 		AssignCommand(f,JumpToObject(GetTransitionTarget(t)));
 	}
 	
-	DelayCommand(TWALK_TRANS, start_walk());
+	SetLocalInt(o,"tw_transitioned",1);
 }
 
 void check_status(object o)
@@ -134,6 +134,12 @@ void check_status(object o)
 	location l = GetLocation(o),l_prev,l_next;
 	float diff;
 
+	// just transitioned, start walking
+	if (GetLocalInt(o,"tw_transitioned")) {
+		start_walk();
+		DeleteLocalInt(o,"tw_transitioned");
+		return;
+	}
 	
 	l_prev = GetLocalLocation(o,"loc");
 	SetLocalLocation(o,"loc",l);
