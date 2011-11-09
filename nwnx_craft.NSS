@@ -239,16 +239,18 @@ object XPCraft_RetrieveAndEquipCraftedItem(object oPC, object oOldItem, int iSlo
 		
 		//destroy the old one. 
 		DestroyObject(oOldItem);
+
+		sTag = GetTag(oInventoryItem);
+		SetTag(oInventoryItem,"acr_ignore_acquire");
 		
 		//Crafted Item in On The Ground (or at spawnWaypoint) => copy the new one in oPC's inventory
 		oInventoryItem = CopyItem(oCraftedItem,oPC,TRUE);
 		
-		sTag = GetTag(oInventoryItem);
-		SetTag(oInventoryItem,"acr_ignore_acquire");
 		//Equip the copied Item
 		AssignCommand(oPC,ActionEquipItem(oInventoryItem, iSlotToEquip));
 		
 		DelayCommand(0.1,SetTag(oInventoryItem,sTag));
+
 		//destroy the one on the ground		
 		DestroyObject(oCraftedItem);		
 
@@ -422,6 +424,7 @@ int XPCraft_GetItemProperty(object oPC,object oItem, string sRoadMap)
 int XPCraft_SetItemProperty(object oPC,object oItem, string sRoadMap, int iNewValue)
 {
 	
+	string sTag;
 	int bCraftSuccess = FALSE;
 
 	//all kind of checks
@@ -463,10 +466,16 @@ int XPCraft_SetItemProperty(object oPC,object oItem, string sRoadMap, int iNewVa
 		 
 		DestroyObject(oItem);
 		//copy the new one in oPC's inventory
+		
+		sTag = GetTag(oCampaignObject);
+		SetTag(oCampaignObject,"acr_ignore_acquire");
+
 		CopyItem(oCampaignObject,oPC,TRUE);		
+
 		DestroyObject(oCampaignObject);
 		
 		bCraftSuccess=TRUE;
+		DelayCommand(0.1,SetTag(oCampaignObject,sTag));
 	}
 	
 	//destruction of the database
