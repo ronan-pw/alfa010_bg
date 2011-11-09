@@ -40,12 +40,12 @@ void PerformPerceptionChecks(location lLoc, int nSpotDC, int nListenDC, string s
 
 location randomize_location(location l, float dist=5.0)
 {
-	float dir,range,x,y,face;
-	vector v;
+    float dir,range,x,y,face;
+    vector v;
 	
     dir = 360.0 * ACR_RandomFloat();
-	face = 360.0 * ACR_RandomFloat();
-	range = dist * ACR_RandomFloat();
+    face = 360.0 * ACR_RandomFloat();
+    range = dist * ACR_RandomFloat();
 	
     v = GetPositionFromLocation(l);
 	
@@ -66,7 +66,7 @@ object spawn_npc_internal(string resref, float prob, float prob_walk, int use_am
 	// Randomize location
 	calc = ACR_RandomFloat();
 	
-	loc = randomize_location(loc, 5.0*calc);
+	loc = randomize_location(loc,10.0);
 	
 	if (calc <= prob) {
 		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_CREATURE, loc);
