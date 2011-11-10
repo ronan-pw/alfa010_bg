@@ -6,6 +6,7 @@
 
 
 #include "acr_spawn_i"
+#include "acr_effects_i"
 
 void main()
 {
@@ -16,6 +17,7 @@ void main()
 	int nKnockdown = GetLocalInt(oDM, "DM_Knockdown");
 	int nDaze = GetLocalInt(oDM, "DM_Daze");
 	int nSleep = GetLocalInt(oDM, "DM_Sleep");
+	int nFatigue = GetLocalInt(oDM, "DM_Fatigue");
 	int nParalyze = GetLocalInt(oDM, "DM_Paralyze");
 	int nTrap = GetLocalInt(oDM, "DM_Trap");
 	int nQuake = GetLocalInt(oDM, "DM_Quake");
@@ -36,6 +38,10 @@ void main()
 	SetLocalInt(oDM, "DM_Damage", 0);
 	
 	
+	if(nFatigue == 1)
+		{ACR_AddFatigueToCreature(oObject);
+		 SetLocalInt(oDM, "DM_Fatigue", 0);
+		 }
 	if(nKnockdown == 1)
 		{ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eKnockdown, oObject, 3.0);
 		 SetLocalInt(oDM, "DM_Knockdown", 0);
