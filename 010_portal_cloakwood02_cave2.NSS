@@ -21,7 +21,7 @@ void ChangeDestination() {
 		// Portal works, take PC to the Underdark.
 	} else if(nWorks <= 4) {
 		// Portal doesn't work, take PC to another random portal.
-		int nRandomPortal = Random(10);
+		int nRandomPortal = Random(11);
 		string sDest;
 		switch(nRandomPortal) {
 			case 0: sDest = "WP_PORTAL_UDA4_A";
@@ -35,6 +35,7 @@ void ChangeDestination() {
 			case 8: sDest = "WP_PORTAL_UDA5_C";
 			case 9: sDest = "WP_PORTAL_UDX1_A";
 			case 10: sDest = "WP_PORTAL_UDA6_A";
+			case 11: sDest = "010_portal_cloakwood13_dest";
 		}
 		lDest = GetLocation(GetObjectByTag(sDest));
 	} else if(nWorks <= 8) {
