@@ -51,9 +51,7 @@ void main()
 	string str;
 	
 	/* remove fatigue/exhaustion */
-	e = GetFirstEffect(player);
-	str = loc_global_name(player,"fatigue");
-	SetGlobalInt(str, 0);
+	SetLocalInt(player, "loc_flevel", 0);
 	
 	ACR_ModuleOnPlayerRest();
 		
