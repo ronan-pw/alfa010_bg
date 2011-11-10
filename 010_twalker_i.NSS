@@ -55,10 +55,7 @@ void start_walk()
 	
 	reverse = GetLocalInt(o,"reverse");
 	
-	if (reverse)
-		next = TWALK_LOWER_BOUND;
-	else
-		next = TWALK_UPPER_BOUND;
+	next = (reverse ? TWALK_LOWER_BOUND : TWALK_UPPER_BOUND);
 		
 	next_step(next);
 }
@@ -68,7 +65,7 @@ void next_step(int step)
 	object o = OBJECT_SELF,area=GetArea(o),t;
 	string tag = GetTag(area);
 	
-	SetLocalInt(o,"step",step);
+	SetLocalInt(o,"tw_step",step);
 	
 	// port me out to next area
 	if ((step < TWALK_LOWER_BOUND) || (step > TWALK_UPPER_BOUND)) {
@@ -84,6 +81,7 @@ void next_step(int step)
 		tag = tag + "0" + IntToString(step);
 		
 	t = GetNearestObjectByTag(tag);
+	SetLocalObject(o,"tw_target",t);
 	
 	// no location here, just flip around
 	if (t == OBJECT_INVALID) {
@@ -91,17 +89,16 @@ void next_step(int step)
 		SetLocalInt(o,"reverse",1^GetLocalInt(o,"reverse"));
 		
 		port_to_next();
+		return;
 	}
 		
-	SetLocalObject(o,"t_target",t);
-
 	move_to_next();
 }
 
 void move_to_next()
 {
 	object o=OBJECT_SELF,t;
-	t = GetLocalObject(o,"t_target");
+	t = GetLocalObject(o,"tw_target");
 	
 	ActionMoveToObject(t);
 }
@@ -111,7 +108,7 @@ void port_to_next()
 	object o=OBJECT_SELF, t,area=GetArea(o),f;
 	location l = GetLocation(o);
 	
-	DeleteLocalLocation(o,"loc");
+	DeleteLocalLocation(o,"tw_loc");
 	t = GetNearestObjectToLocation(OBJECT_TYPE_TRIGGER,l);
 	
 	ClearAllActions(TRUE);
@@ -136,13 +133,13 @@ void check_status(object o)
 
 	// just transitioned, start walking
 	if (GetLocalInt(o,"tw_transitioned")) {
-		start_walk();
 		DeleteLocalInt(o,"tw_transitioned");
+		start_walk();
 		return;
 	}
 	
-	l_prev = GetLocalLocation(o,"loc");
-	SetLocalLocation(o,"loc",l);
+	l_prev = GetLocalLocation(o,"tw_loc");
+	SetLocalLocation(o,"tw_loc",l);
 	
 	diff = GetDistanceBetweenLocations(l,l_prev);
 	
@@ -150,7 +147,7 @@ void check_status(object o)
 	if (diff > TWALK_LOC_BUF)
 		return;
 	
-	t = GetLocalObject(o,"t_target");
+	t = GetLocalObject(o,"tw_target");
 	l_next = GetLocation(t);
 	
 	diff = GetDistanceBetweenLocations(l,l_next);
@@ -161,7 +158,7 @@ void check_status(object o)
 		return;
 	}
 	
-	step = GetLocalInt(o,"step");
+	step = GetLocalInt(o,"tw_step");
 	rev = GetLocalInt(o,"reverse");
 	
 	rev ? step++ : step--;
