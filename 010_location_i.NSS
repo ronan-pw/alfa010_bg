@@ -12,6 +12,8 @@ const float RUN_LIMIT_FACTOR = 0.75;
 // Standard PC max speed, 4.0 m/sec (78.86 ft/rd)
 const float STD_SPEED = 4.0;
 
+const float LOC_EPS = 0.001;
+
 const float MONK_SPEED_BONUS = 0.1;
 const float BARB_SPEED_BONUS = 0.1;
 const float WOOD_SPEED_BONUS = 0.1;
@@ -92,20 +94,7 @@ void loc_damage_player(object player, int time)
 		ACR_ApplyNonlethalDamageToCreature(player, d6());
 		
 		SendMessageToPC(player, "The forceful pace you have taken wears on you.");
-		tmp = GetLocalInt(player,"loc_flevel");
-		
-		switch (tmp) {
-			case 0:
-				ACR_SetIsFatigued(player, 1);
-				break;
-			case 1:
-				ACR_SetIsFatigued(player, 0);
-				ACR_SetIsExhausted(player, 1);
-				break;
-			default:
-		}
-		
-		SetLocalInt(player, "loc_flevel", tmp+1);
+		ACR_AddFatigueToCreature(player);
 	}
 }
 
@@ -144,7 +133,7 @@ void loc_update_player(object player)
 		/* vel_ratio = current/max */
 		vel_ratio = vel/get_std_speed(player);
 
-		if (vel_ratio > 1.0f) {
+		if (vel_ratio > (1.0f + LOC_EPS)) {
 			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel "+GetTag(cur_area)+" in "+FloatToString(t) +" sec at faster than MAX_SPEED: "+FloatToString(vel_ratio));
 			PrintVector(GetPositionFromLocation(l),1);
 			PrintVector(GetPositionFromLocation(old_loc),1);
@@ -156,11 +145,11 @@ void loc_update_player(object player)
 		SetLocalInt(player, "loc_seq", seq_tick);
 		SetLocalFloat(player, "loc_speed", vel_ratio);
 		
-		WriteTimestampedLogEntry(" "+GetName(player)+" "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetLocalInt(player,"loc_fatigue")));
+		// WriteTimestampedLogEntry(" "+GetName(player)+" "+FloatToString(vel_ratio) + ", fatigue: "+IntToString(GetLocalInt(player,"loc_fatigue")));
 		
 		/* check velocity */
 		if (seq_tick >= TICK_LIMIT) {
-			WriteTimestampedLogEntry(GetName(player)+" checking ticks");
+			// WriteTimestampedLogEntry(GetName(player)+" checking ticks");
 		
 			vel_ratio /= TICK_LIMIT;
 		
