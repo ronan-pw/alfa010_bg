@@ -64,27 +64,17 @@ void main()
 
 		// filter out the extras in the name of the creature
 		if ((p = FindSubString(sName, ", CR ")) != -1)
-		{
 			nEnd = p - 1;
-		}
 		else if ((p = FindSubString(sName, " CR ")) != -1)
-		{
 			nEnd = p - 1;
-		}
-		else
-		{
-			// check alternate formatting
-			for (i=0; i<9; i++)
-			{
-				// get the position of the Challenge Rating (marks the end of the name)
-				if ((p = FindSubString(sName, " CR" + IntToString(i))) != -1) { nEnd = p + 1; break; }
-			}
-		}
+		// check alternate formatting
+		else if ((p = FindSubString(sName, " CR") != -1))
+			nEnd = p - 1;
 		
 		// compose the name to report to the player
-		sName = ((sFirstChar == "A") || (sFirstChar == "E") || (sFirstChar == "I") ||
+		sName = (((sFirstChar == "A") || (sFirstChar == "E") || (sFirstChar == "I") ||
 				 (sFirstChar == "O") || (sFirstChar == "U"))
-				? "an " + GetSubString(sName, 1, nEnd) : "a " + GetSubString(sName, 1, nEnd);
+				? "an " : "a ") + GetSubString(sName, 1, nEnd);
 		
 		
 		// report the filtered creature name
