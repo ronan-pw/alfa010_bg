@@ -215,6 +215,7 @@ No (2)
 #include "x0_i0_position"
 #include "nwnx_sql"
 #include "acr_skills_i"
+#include "acr_time_i"
 #include "acr_resting_i"
 #include "acr_pps_i"
 #include "acr_game_loc_i"
@@ -1491,35 +1492,6 @@ void HSS_PCTools_OnGUICreate(object oPC, int nGUI = 1)
 			    SetLocalString(oPC, "PC_TOOLS_MACRO_BUTTON_" + HSS_IntToLeadingZeroString(nCount), sText);
 			}
 		}
-		/*  Commented out by AcadiusLost for ALFA
-	   while (nCount <= 45)
-	       {
-		   sHelp = HSS_PCTools_RetrievePersistentData(oPC, "PC_TOOLS_MACRO_BUTTON_" +
-						       HSS_IntToLeadingZeroString(nCount) + "_LABEL", "pctools--" + sPCID, HSS_PC_TOOLS_STRING);
-							
-		   if (sHelp != "")
-		      {
-		      SetGUIObjectText(oPC, SCREEN_HSS_PC_TOOLS_TM_V, "PC_TOOLS_MACRO_BUTTON_" + HSS_IntToLeadingZeroString(nCount),
-		                      -1, sHelp);			  
-			  }
-			  
-		   sHelp = HSS_PCTools_RetrievePersistentData(oPC, "PC_TOOLS_MACRO_BUTTON_" +
-						       HSS_IntToLeadingZeroString(nCount), "pctools--" + sPCID, HSS_PC_TOOLS_STRING);
-		   if (sHelp != "")
-		      {
-			  SetLocalString(oPC, "PC_TOOLS_MACRO_BUTTON_" + HSS_IntToLeadingZeroString(nCount), sHelp);				  			  
-			  }
-
-		   sHelp = HSS_PCTools_RetrievePersistentData(oPC, "PC_TOOLS_MACRO_BUTTON_" +
-						       HSS_IntToLeadingZeroString(nCount) + "_VOLUME", "pctools--" + sPCID, HSS_PC_TOOLS_INT);
-		   if (sHelp != "")
-		      {
-			  				  			  
-			  }
-			  							   			  			  			  					
-		   nCount++;
-		   }
-		*/
 	   //we're on page 1 -- need a space or single quotes when passing
 	   //a pure int -- engine bug	   
 	   SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS_TM_V, 55, "'1'");
@@ -1627,16 +1599,6 @@ void HSS_PCTools_OnGUIAdd(object oPC, int nGUI = 1)
 
 void HSS_PCTools_SaveCharacter(object oPC, string sPCID)
 {
-   //string sMsg = HSS_SAVE_MESSAGE;
-   //
-   //if (HSS_PCTOOLS_SAVE_LOC)
-   //   {
-   //   HSS_PCTools_StorePersistentData(oPC, HSS_PCTOOLS_LOC_VAR, "pctools--" + sPCID,
-   //                        HSS_PC_TOOLS_LOC, LocationToString(GetLocation(oPC)));
-   //	  sMsg = HSS_SAVE_MESSAGE_W_LOC;	  
-   //	  }
-
-   //ExportSingleCharacter(oPC);
    SendMessageToPC(oPC, "Saving PC location and exporting character data.");
    ACR_PCSave(oPC, TRUE, TRUE);
 }
@@ -1645,147 +1607,25 @@ void HSS_PCTools_GetTime(object oPC)
 {
    int nHour = GetTimeHour();
    int nMinute = FloatToInt(60.0 * (IntToFloat(GetTimeMinute()*60 + GetTimeSecond()) / (HoursToSeconds(1))));
-   int nDay = GetCalendarDay();
-   int nMonth = GetCalendarMonth();
-   int nYear = GetCalendarYear();
-   string sDay;
-   string sMonth;
    string sAm;
+   string sDate;
    string sMsg;
 
-   //Gregorian(ish) Calendar   	  
-   switch (nDay)
-       {
-       case 1:
-       case 11:
-       case 21:
-       case 31:
-           sDay = "First-day";
-           break;
+   sDate = ACR_FRDateToString();
 	   
-       case 2:
-       case 12:
-       case 22:
-           sDay = "Second-day";
-           break;
-	   
-       case 3:
-       case 13:
-       case 23:
-           sDay = "Third-day";
-           break;
-	   
-       case 4:
-       case 14:
-       case 24:
-           sDay = "Fourth-day";
-           break;
-	   
-       case 5:
-       case 15:
-       case 25:
-           sDay = "Fifth-day";
-           break;
-	   
-       case 6:
-       case 16:
-       case 26:
-           sDay = "Sixth-day";
-           break;
-	   
-       case 7:
-       case 17:
-       case 27:
-           sDay = "Seventh-day";
-	   break;
-
-       case 8:
-       case 18:
-       case 28:
-           sDay = "Eighth-day";
-	   break;
-	   
-       case 9:
-       case 19:
-       case 29:
-           sDay = "Ninth-day";
-           break;	   	   	   	   	  	   	   
-
-       case 10:
-       case 20:
-       case 30:
-           sDay = "Tenth-day";
-           break;	   	   	   	   	  	   	   
-       }
-   
-   switch (nMonth)
-       {
-       case 1:
-       sMonth = "Hammer";
-       break;
-	   
-       case 2:
-       sMonth = "Alturiak";
-       break;
-	   
-       case 3:
-       sMonth = "Ches";
-       break;
-	   
-       case 4:
-       sMonth = "Tarsakh";
-       break;
-	   
-       case 5:
-       sMonth = "Mirtul";
-       break;
-	   
-       case 6:
-       sMonth = "Kythorn";
-       break;
-	   
-       case 7:
-       sMonth = "Flamerule";
-       break;
-	   
-       case 8:
-       sMonth = "Eleasis";
-       break;
-	   
-       case 9:
-       sMonth = "Eleint";
-       break;
-	   
-       case 10:
-       sMonth = "Marpenoth";
-       break;
-	   
-       case 11:
-       sMonth = "Uktar";
-       break;
-	   
-       case 12:
-       sMonth = "Nightal";
-       break;	   	   	   	   	   	   	   	   	   	  	   	   
-       }
-	   
-   if (nHour > 12)
-      {
+   if (nHour > 12) {
       nHour = nHour - 12;
       sAm = "pm";
-      }
-      else
-      {
+   }
+   else
       sAm = "am";
-      }	
      
-   sMsg = sDay + ", " + sMonth + " " + HSS_IntToLeadingZeroString(nDay) + 
-          ", " + IntToString(nYear) + "." + "   " + IntToString(nHour) +
+   sMsg = sDate + "." +
+	  "   " + IntToString(nHour) +
      	  " : " + HSS_IntToLeadingZeroString(nMinute) + " " + sAm;
 
 
    SendMessageToPC(oPC, HSS_PCTOOLS_COLOUR1 + "Date/Time is:  " + sMsg);
-
 }
 
 void HSS_PCTools_MakeSafeLocation(object oPC)
@@ -1968,7 +1808,7 @@ void _SimpleRoll(object oPC, int nDieNum, int nDieType, int nBroadcast)
 
 void HSS_PCToools_RollDie(object oPC)
 {
-	int nRollType,nDieNum,nDieType,nSaveType,nAbilityType,nSkillType,nBroadcast,nSkillIndex;
+    int nRollType,nDieNum,nDieType,nSaveType,nAbilityType,nSkillType,nBroadcast,nSkillIndex;
 	
     nRollType = GetLocalInt(oPC, "HSS_PCTOOLS_ROLL_TYPE");
    
@@ -1996,12 +1836,12 @@ void HSS_PCToools_RollDie(object oPC)
 				
 	        if (nBroadcast)
 		        _SimpleRoll(oPC,nDieNum,nDieType,TRUE);
-		    else {
-                HSS_PCTools_PlayCustomAnim(oPC, "gettable", FALSE, 2.0);
-                DelayCommand(1.0, PlaySound("it_generictiny"));
-                DelayCommand(1.5, HSS_PCTools_PlayCustomAnim(oPC, "getground", FALSE, 2.0));
-                DelayCommand(2.0, _SimpleRoll(oPC,nDieNum,nDieType,FALSE));
-			}
+		else {
+			HSS_PCTools_PlayCustomAnim(oPC, "gettable", FALSE, 2.0);
+			DelayCommand(1.0, PlaySound("it_generictiny"));
+			DelayCommand(1.5, HSS_PCTools_PlayCustomAnim(oPC, "getground", FALSE, 2.0));
+			DelayCommand(2.0, _SimpleRoll(oPC,nDieNum,nDieType,FALSE));
+		}
 	       
 	        SetLocalGUIVariable(oPC, SCREEN_HSS_PC_TOOLS, HSS_PC_TOOLS_DIE_STANDARD, "TRUE");               
 	        break;
@@ -2548,10 +2388,10 @@ void HSS_PCTools_CustomButton(object oPC, int nButton, float fX = 0.0, float fY 
 		   
 		   //custom button 5
 		   case 5:
-           //  Activate Subdual
-		       ACR_ToggleNLDMode(oPC);
-			   
-     	   break;
+			//  Activate Subdual
+			ACR_ToggleNLDMode(oPC);
+		   
+			break;
 		   
 		   //custom button 6
 		   case 6:
@@ -2573,7 +2413,7 @@ void HSS_PCTools_CustomButton(object oPC, int nButton, float fX = 0.0, float fY 
 		   
 		   //custom button 9
 		   case 9:
-           		//your custom button code goes here
+		   		// Activate Shield VFX
 		  		ACR_HSS_ToggleShield(oPC);		   
 		   		break;
 
