@@ -17,7 +17,7 @@ void main()
 {
 	object 	oDoor1 			= OBJECT_SELF;
 	object 	oDoor2 			= GetTransitionTarget(oDoor1);
-	float	fShutDefault	= 30.0;
+	float	fShutDefault	= 120.0;
 	float  	fShutDelay 		= GetLocalFloat(oDoor1, "AUTO_SHUT_DELAY");
 	
 	ActionUnlockObject(OBJECT_SELF);

@@ -8,10 +8,10 @@
 // EPF 3/13/06 -- second parameter now used to check and see if the item is held by anyone in the party
 //				  also checks the PC Speaker instead of the first PC if bCheckParty is FALSE.
 
-int StartingConditional(string checker, string NPCtoCheck)
+int StartingConditional(string checker)
 {
 
-    object otarget = GetObjectByTag(NPCtoCheck);
+    object otarget = GetLastSpeaker();
 	if(GetIsObjectValid(GetItemPossessedBy(otarget,checker))) return TRUE;
 	//if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"magmush"))) return TRUE;
   

@@ -52,8 +52,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
-	string id = "players";
-	int index;
 	object oEnterer;
 	
     ACR_ModuleOnClientEnter();
@@ -65,8 +63,5 @@ void main() {
 	   ACR_PCUpdateStatus(oEnterer, TRUE);
 	}
 	
-	index = insert_at_tail(id);
-	set_element_object(id,index,oEnterer);
-
 	loc_cache_speed(oEnterer);
 }

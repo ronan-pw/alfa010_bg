@@ -46,14 +46,9 @@
 
 void main() {
 	object o;
-	string id;
-	int resval;
 	
     ACR_ModuleOnClientLeave();
 
     // Custom code goes below this line.
 	o = GetExitingObject();
-	id = "players";
-	
-	resval = remove_at_element_object(id, o);
 }

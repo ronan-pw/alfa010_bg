@@ -1,4 +1,5 @@
 #include "acr_list_i"
+#include "acr_time_i"
 #include "acr_skills_i"
 #include "acr_effects_i"
 #include "nw_i0_spells"
@@ -12,7 +13,7 @@ const float RUN_LIMIT_FACTOR = 0.75;
 // Standard PC max speed, 4.0 m/sec (78.86 ft/rd)
 const float STD_SPEED = 4.0;
 
-const float LOC_EPS = 0.001;
+const float LOC_EPS = 0.02;
 
 const float MONK_SPEED_BONUS = 0.1;
 const float BARB_SPEED_BONUS = 0.1;
@@ -26,19 +27,6 @@ const float EXPED_RET_SPEED_FACTOR = 2.0;
 
 const int FEAT_RACIAL_LONG_GAIT = 2248;
 
-int time()
-{
-	int time;
-	
-	time = 12*GetCalendarYear();
-	time = 28*(GetCalendarMonth()+time);
-	time = 24*(GetCalendarDay()+time);
-	time = 60*(GetTimeHour()+time);
-	time = 60*(GetTimeMinute()+time);
-	time = 1000*(GetTimeSecond()+time) + GetTimeMillisecond();
-
-	return time;
-}
 
 /* calculates monk, barb bonus, does simple kludge for woodland stride
  * (assumption is always active)
@@ -116,7 +104,7 @@ void loc_update_player(object player)
 	old_loc = GetLocalLocation(player,"loc_last_loc");
 	last_area = GetAreaFromLocation(old_loc);
 
-	tick = time();
+	tick = ACR_GetGameMillisecondsSinceStart();
 
 	/* ignore if we get here via dimension door */
 	if (GetLocalInt(player,"DIMENSION_DOOR_USED")) {
@@ -137,6 +125,7 @@ void loc_update_player(object player)
 			WriteTimestampedLogEntry(" "+GetName(player)+" calculated to travel "+GetTag(cur_area)+" in "+FloatToString(t) +" sec at faster than MAX_SPEED: "+FloatToString(vel_ratio));
 			PrintVector(GetPositionFromLocation(l),1);
 			PrintVector(GetPositionFromLocation(old_loc),1);
+			vel_ratio = 1.0f;
 		}
 
 		seq_tick = GetLocalInt(player,"loc_seq")+1;

@@ -8,10 +8,10 @@
 // EPF 3/13/06 -- second parameter now used to check and see if the item is held by anyone in the party
 //				  also checks the PC Speaker instead of the first PC if bCheckParty is FALSE.
 
-void main(string checker, string NPCtoCheck)
+void main(string checker)
 {
 
-  object oNPC = GetObjectByTag(NPCtoCheck);
+  object oNPC = GetLastSpeaker();
   object oInventory = GetItemPossessedBy(oNPC, checker); 
 
   //if(oInventory != OBJECT_INVALID){ 
