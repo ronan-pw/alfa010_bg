@@ -11,7 +11,7 @@
 int StartingConditional(string checker)
 {
 
-    object otarget = GetLastSpeaker();
+    object otarget = OBJECT_SELF;
 	if(GetIsObjectValid(GetItemPossessedBy(otarget,checker))) return TRUE;
 	//if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"magmush"))) return TRUE;
   

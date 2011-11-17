@@ -11,7 +11,7 @@
 void main(string checker)
 {
 
-  object oNPC = GetLastSpeaker();
+  object oNPC = OBJECT_SELF;
   object oInventory = GetItemPossessedBy(oNPC, checker); 
 
   //if(oInventory != OBJECT_INVALID){ 
