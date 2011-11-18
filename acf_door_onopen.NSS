@@ -23,6 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "acr_door_i"
+#include "010_door_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,17 +50,9 @@ void main();
 
 void main() {
 	object o;
-	int i;
     ACR_DoorOnOpen();
 	
 	o = GetLastOpenedBy();
-	i = GetLocalInt(o,"010_door_align");
-	
-	if (i < -5) {
-		i = 0;
-		AdjustAlignment(o,ALIGNMENT_CHAOTIC,1);
-		WriteTimestampedLogEntry("DOOR_ALIGN: +1 Chaotic for " + GetName(o));
-	}
-	
-	SetLocalInt(o,"010_door_align", i-1);
+
+	door_shift_align(o, -1);
 }

@@ -23,6 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "acr_door_i"
+#include "010_door_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,17 +50,9 @@ void main();
 
 void main() {
 	object o;
-	int i;
     ACR_DoorOnClose();
 	
 	o = GetLastClosedBy();
-	i = GetLocalInt(o,"010_door_align");
 	
-	if (i > 5) {
-		i = 0;
-		AdjustAlignment(o,ALIGNMENT_LAWFUL,1);
-		WriteTimestampedLogEntry("DOOR_ALIGN: +1 Lawful for " + GetName(o));
-	}
-	
-	SetLocalInt(o,"010_door_align", i+1);
+	door_shift_align(o, 1);
 }
