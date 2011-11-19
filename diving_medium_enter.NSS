@@ -1,33 +1,13 @@
-#include "acr_nonlethal_i"
+#include "010_swim_i"
 
 void main()
 {
 	object oPC=GetEnteringObject();
-	object oFlag=GetObjectByTag("diveflag");
-	location flagloc = GetLocation(oFlag);
 	int randflag = 0;
+
+	if (!enter_water(oPC,1))
+		return;
 	
-	effect eBlind =  EffectBlindness();
-	
-	
-	effect eDeaf = EffectDeaf();
-	effect eVis = EffectVisualEffect(VFX_DUR_DARKNESS);
-	
-	effect eLink = EffectLinkEffects(eBlind, eDeaf);
-	eLink = EffectLinkEffects(eLink, eVis);
-	if(GetFirstObjectInArea() == OBJECT_INVALID) return;
-	
-	if(GetIsPC(oPC)){
-	  if(GetWeight(oPC)>=300) {
-	    SendMessageToPC(oPC, "You are carrying too much to move well in the water"); 
-	    ACR_ApplyNonlethalDamageToCreature(oPC,d8());
-	  }
-	  //else{
-	    if(GetTag(GetItemInSlot(INVENTORY_SLOT_HEAD,oPC))!="goggles"){
-	      ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oPC, 50.00);
-	    }
-	    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectSlow(), oPC, 50.0);
-	  
 	    randflag = Random(100);
 	
 	  if(randflag <= 40){
@@ -96,14 +76,4 @@ void main()
 		//Sea Monster
 		//Salt Water Croc
 	  }
-	  
-	    ACR_ApplyNonlethalDamageToCreature(oPC, d2());
-	    SendMessageToPC(oPC, "The cold, motion, and swell of the water wears on you.");
-	  
-	  
-	  
-	
-	  //}
-	  
-	}  
 }
