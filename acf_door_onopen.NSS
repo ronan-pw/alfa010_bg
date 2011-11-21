@@ -54,5 +54,5 @@ void main() {
 	
 	o = GetLastOpenedBy();
 
-	door_shift_align(o, -1);
+	door_shift_align(o, 0);
 }

@@ -25,7 +25,7 @@ void door_shift_align(object o, int lawful)
 	else
 		return;
 		
-	msg += "for " + GetName(o);
+	msg += " for " + GetName(o);
 	
 	DeleteLocalInt(o,"010_door_align");
 	WriteTimestampedLogEntry(msg);
