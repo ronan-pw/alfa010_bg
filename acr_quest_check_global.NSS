@@ -4,7 +4,7 @@
 
 int StartingConditional(string plot)
 {
-    object oPC = GetPCSpeaker();
+	object oPC = GetPCSpeaker();
 	string name = "i_qst_"+plot;
 	
 	if (ACR_GetPersistentInt(oPC, name) != 0)

@@ -3,7 +3,7 @@
 
 int StartingConditional(string plot)
 {
-    object oPC = GetPCSpeaker();
+	object oPC = GetPCSpeaker();
 	string name = "i_rst_"+plot;
 	int days = ACR_GetPersistentInt(oPC, name);
 	

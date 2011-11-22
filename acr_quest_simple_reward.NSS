@@ -4,7 +4,7 @@
 
 void main(string plot, int gp, int xp, int reset_days)
 {
-    object oPC = GetPCSpeaker();
+	object oPC = GetPCSpeaker();
 	string name = "i_rst_"+plot;
 	int val = ACR_GetGameDaysSinceStart() + reset_days;
 	

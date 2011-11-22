@@ -35,6 +35,11 @@ void handle_follow(object o)
 		if (GetLocalFloat(o,"tw_distance") < 0.1)
 			SetLocalFloat(o,"tw_distance",6.0);
 	}
+
+	// If in combat, ignore all this
+	if (GetIsInCombat(o))
+		return;
+			
 			
 	f = GetLocalObject(o, "tw_follow_obj");
 			
@@ -42,7 +47,7 @@ void handle_follow(object o)
 		ClearAllActions(TRUE);
 		ActionJumpToObject(f);
 	}
-			
+
 	// follow (slowly)
 	ActionForceFollowObject(f,GetLocalFloat(o,"tw_distance"));
 	SetActionMode(o,ACTION_MODE_DETECT,1);
@@ -130,6 +135,10 @@ void check_status(object o)
 	object area,t;
 	location l = GetLocation(o),l_prev,l_next;
 	float diff;
+
+	// If in combat, ignore all this
+	if (GetIsInCombat(o))
+		return;
 
 	// just transitioned, start walking
 	if (GetLocalInt(o,"tw_transitioned")) {

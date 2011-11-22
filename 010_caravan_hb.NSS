@@ -70,7 +70,7 @@ void let_out_players()
 {
 	object o;
 	location l = GetLocalLocation(OBJECT_SELF, "dest_loc");
-	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
+	for (ObjectToInt(o = GetFirstObjectInArea(OBJECT_SELF)); o != OBJECT_INVALID; ObjectToInt(o = GetNextObjectInArea()))
 		if (GetIsPC(o))
 			AssignCommand(o, ActionJumpToLocation(l));
 }
@@ -78,7 +78,7 @@ void let_out_players()
 void shake_players()
 {
 	object o;
-	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
+	for (ObjectToInt(o = GetFirstObjectInArea(OBJECT_SELF)); o != OBJECT_INVALID; ObjectToInt(o = GetNextObjectInArea()))
 		if (GetIsPC(o)) {
 			ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_STRIKE_HOLY), GetLocation(o));
 			DelayCommand(3.0,ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_STRIKE_HOLY), GetLocation(o)));
@@ -88,7 +88,7 @@ void shake_players()
 object get_waypoint(string tag)
 {
 	object o;
-	for (o = GetFirstObjectInArea(OBJECT_SELF); o != OBJECT_INVALID; o = GetNextObjectInArea())
+	for (ObjectToInt(o = GetFirstObjectInArea(OBJECT_SELF)); o != OBJECT_INVALID; ObjectToInt(o = GetNextObjectInArea()))
 		if ((GetObjectType(o) == OBJECT_TYPE_WAYPOINT) && (GetTag(o) == tag))
 			return o;
 			
