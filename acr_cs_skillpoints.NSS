@@ -1,4 +1,5 @@
 #include "acr_db_persist_i"
+#include "acr_resting_i"
 #include "acr_skills_i"
 #include "acr_language_i"
 #include "acr_xp_i"
