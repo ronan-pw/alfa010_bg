@@ -30,6 +30,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "acr_spelltrack_i"
 #include "acr_tradescroll_i"
+#include "acr_wildmagic_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -55,13 +56,15 @@ void ACR_PotionUse(object oOwner, object oDrinker, int nSpellID);
 
 void main()
 {
-    int nSpellId = GetSpellId();
-    object oCaster = OBJECT_SELF;
-    object oItem = GetSpellCastItem();
-    object oTarget = GetSpellTargetObject();
-    location lTarget = GetSpellTargetLocation();
+	int nSpellId = GetSpellId();
+	object oCaster = OBJECT_SELF;
+	object oItem = GetSpellCastItem();
+	object oTarget = GetSpellTargetObject();
+	location lTarget = GetSpellTargetLocation();
 	int nItemType = GetBaseItemType(oItem);
 	effect eFailure = EffectSpellFailure(100);
+	int nRes;
+
 	// Hook spells cast by wizards at spellbooks for tradescrolls.
 	_DoTradeScrollSpellHook();	
 	// if it is a familiar casting, and the master is unconscious, the spell fails.
@@ -75,6 +78,22 @@ void main()
 		}
 	}
 	
+	if (GetLocalInt(oCaster, "ACR_WILD_MAGIC_ZONE")) {
+		nRes = ACR_DetermineWildMagic(oCaster,oTarget,nSpellId,oItem);
+
+		if (nRes != _WILD_MAGIC_NORMAL)
+			SendMessageToPC(oCaster,"Something goes awry!");
+
+		switch (nRes) {
+			case _WILD_MAGIC_REBOUND:
+				oTarget = oCaster;
+				break;
+			case _WILD_MAGIC_FAIL:
+			case _WILD_MAGIC_FAIL_NOEX:
+				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eFailure, oCaster, 1.0f);
+				break;
+		}
+	}
 	
 	//SendMessageToPC(oCaster, "Debug: spell item is "+GetName(oItem)+", with base item type "+IntToString(GetBaseItemType(oItem)));
 	// scroll hook
