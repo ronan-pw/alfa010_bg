@@ -86,12 +86,30 @@ void main()
 
 		switch (nRes) {
 			case _WILD_MAGIC_REBOUND:
+			case _WILD_MAGIC_RANDOM:
 				oTarget = oCaster;
+				break;
+			case _WILD_MAGIC_RGRAV:
+				SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>*Suddenly everything around "+GetName(oCaster)+" begins floating up -- then shortly after slams down back into the ground.*");
+				ACR_DamageInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, 2, "For a moment you float into the air, then you slam down back onto the ground painfully."); 
+				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eFailure, oCaster, _WILD_MAGIC_TEMP_DUR);
+				break;
+			case _WILD_MAGIC_PIT:
+				SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>* A gaping pit opens under "+GetName(oCaster)+", causing the person to tumble down within and slam painfully into the bottom.  Almost as soon as it appears it vanishes, leaving everything as it was before.*");
+				ACR_DamageInRadius(oCaster, _WILD_MAGIC_PIT_RADIUS, GetCasterLevel(oCaster), "A gaping hole opens underneath you and you slam into the ground, causing a great deal of pain."); 
+				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eFailure, oCaster, _WILD_MAGIC_TEMP_DUR);
 				break;
 			case _WILD_MAGIC_FAIL:
 			case _WILD_MAGIC_FAIL_NOEX:
-				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eFailure, oCaster, 1.0f);
+			case _WILD_MAGIC_HEAL:
+			case _WILD_MAGIC_DARK:
+			case _WILD_MAGIC_GLITTER:
+			case _WILD_MAGIC_RAIN:
+				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eFailure, oCaster, _WILD_MAGIC_TEMP_DUR);
 				break;
+			case _WILD_MAGIC_MAX:
+			case _WILD_MAGIC_NOEX:
+				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectLinkEffects(EffectAbilityIncrease(ABILITY_WISDOM, 4), EffectLinkEffects(EffectAbilityIncrease(ABILITY_CHARISMA, 4), EffectAbilityIncrease(ABILITY_INTELLIGENCE, 4))), oCaster, _WILD_MAGIC_TEMP_DUR);
 		}
 	}
 	

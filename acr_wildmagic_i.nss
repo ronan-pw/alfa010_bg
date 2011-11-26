@@ -12,6 +12,27 @@ const int _WILD_MAGIC_RGRAV	= 10;
 const int _WILD_MAGIC_GLITTER	= 11;
 const int _WILD_MAGIC_PIT	= 12;
 
+
+const float _WILD_MAGIC_TEMP_DUR	= 1.0f;
+const float _WILD_MAGIC_PIT_RADIUS	= 7.5f;
+const float _WILD_MAGIC_EFFECT_RADIUS	= 30.0f;
+
+void ACR_DamageInRadius(object oCaster, float fRadius, int nMagnitude, string sMsg)
+{
+	location loc = GetLocation(oCaster);
+	object o;
+
+	for (ObjectToInt(o = GetFirstObjectInShape(SHAPE_SPHERE, fRadius, loc)); GetIsObjectValid(o); ObjectToInt(o = GetNextObjectInShape(SHAPE_SPHERE, fRadius, loc))) {
+		SendMessageToPC(o, sMsg);
+		ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(d6()*nMagnitude, DAMAGE_TYPE_BLUDGEONING), o);
+	}
+}
+
+object ACR_PickRandomTarget(object oCaster)
+{
+	return OBJECT_INVALID;
+}
+
 int ACR_DetermineWildMagic(object oCaster, object oTarget, int nSpellId, object oItem)
 {
 	int n = Random(100)+1;
