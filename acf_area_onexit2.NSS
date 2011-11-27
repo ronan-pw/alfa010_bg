@@ -47,22 +47,17 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
-    ACR_AreaOnExit();
- object oPC=GetExitingObject(); 
- object oCount=GetFirstItemInInventory(oPC); 
- int iCheck=GetLocalInt(oCount,"REMOVE_ON_AREA_EXIT"); 
- while (GetIsObjectValid(oCount)) 
- 	{ 
- 	//sCountTag=GetTag(oCount); 
- 	if (iCheck==1) 
- 		{
-		CopyItem(oCount, GetNearestObject(OBJECT_TYPE_STORE,oPC), TRUE);
- 		DestroyObject(oCount); 
- 		} 
- 	 
- 	oCount=GetNextItemInInventory(oPC); 
- 	iCheck=GetLocalInt(oCount,"REMOVE_ON_AREA_EXIT"); 
+void main()
+{
+	ACR_AreaOnExit();
+	object oPC=GetExitingObject(),o,s;
+	int iCheck=GetLocalInt(oCount,"REMOVE_ON_AREA_EXIT"); 
+
+	for (ObjectToInt(o = GetFirstItemInInventory(oPC)); o != OBJECT_INVAID; ObjectToInt(o = GetNextItemInInventory(oPC))) {
+ 		if (GetLocalInt(o,"REMOVE_ON_AREA_EXIT")) {
+			//if ((s=GetNearestObject(OBJECT_TYPE_STORE,oPC)) != OBJECT_INVALID)
+			//	CopyItem(o, s, TRUE);
+ 			DestroyObject(o); 
+		}
  	} 
-    // Custom code goes below this line.
 }
