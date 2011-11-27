@@ -79,71 +79,7 @@ void main()
 	}
 	
 	if (GetLocalInt(oCaster, "ACR_WILD_MAGIC_ZONE")) {
-		nRes = ACR_DetermineWildMagic(oCaster,oTarget,nSpellId,oItem);
-
-		if (nRes != _WILD_MAGIC_NORMAL) {
-			SendMessageToPC(oCaster,"Something goes awry!");
-			SetModuleOverrideSpellScriptFinished();
-		}
-
-		switch (nRes) {
-			case _WILD_MAGIC_REBOUND:
-				lTarget = GetLocation(oCaster);
-
-				if (oTarget != OBJECT_INVALID)
-					AssignCommand(oCaster, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtObject(nSpellId, oCaster, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
-				else
-					AssignCommand(oCaster, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
-				break;
-				
-			case _WILD_MAGIC_RANDOM:
-				lTarget = GetLocation(oCaster);
-
-				if (oTarget != OBJECT_INVALID)
-					AssignCommand(oCaster, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtObject(nSpellId, ACR_PickRandomTargetInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS), METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
-				else
-					AssignCommand(oCaster, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtLocation(nSpellId, ACR_PickRandomLocation(oCaster), METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
-				break;
-
-			case _WILD_MAGIC_RGRAV:
-				SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>*Suddenly everything around "+GetName(oCaster)+" begins floating up -- then shortly after slams down back into the ground.*");
-				ACR_DamageInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, 2, "For a moment you float into the air, then you slam down back onto the ground painfully."); 
-				break;
-
-			case _WILD_MAGIC_PIT:
-				SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>* A gaping pit opens under "+GetName(oCaster)+", causing the person to tumble down within and slam painfully into the bottom.  Almost as soon as it appears it vanishes, leaving everything as it was before.*");
-				ACR_DamageInRadius(oCaster, _WILD_MAGIC_PIT_RADIUS, GetCasterLevel(oCaster), "A gaping hole opens underneath you and you slam into the ground, causing a great deal of pain."); 
-				break;
-
-			case _WILD_MAGIC_FAIL:
-			case _WILD_MAGIC_FAIL_NOEX:
-			case _WILD_MAGIC_RAIN:
-				break;
-
-			case _WILD_MAGIC_HEAL:
-				ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectHeal(999), "A surge of healing energy flows through you.", DURATION_TYPE_INSTANT);
-				break;
-
-			case _WILD_MAGIC_DARK:
-				ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectDarkness(), "A cloud of blackness surrounds you.", DURATION_TYPE_TEMPORARY, IntToFloat(d4()+d4())*_WILD_MAGIC_SHORT_DUR);
-				break;
-
-			case _WILD_MAGIC_GLITTER:
-				ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectLinkEffects(EffectVisualEffect(VFX_DUR_SPELL_PREMONITION), EffectBlindness()), "Glittering lights fill the surrounding area, blinding you.", DURATION_TYPE_TEMPORARY, IntToFloat(d4())*_WILD_MAGIC_SHORT_DUR);
-				ACR_RemoveInvisInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS);
-				break;
-
-			case _WILD_MAGIC_MAX:
-			case _WILD_MAGIC_NOEX:
-
-				ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectLinkEffects(EffectAbilityIncrease(ABILITY_WISDOM, 4), EffectLinkEffects(EffectAbilityIncrease(ABILITY_CHARISMA, 4), EffectAbilityIncrease(ABILITY_INTELLIGENCE, 4))), oCaster, _WILD_MAGIC_TEMP_DUR);
-
-				if (oTarget != OBJECT_INVALID)
-
-					AssignCommand(oCaster, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtObject(nSpellId, oTarget, METAMAGIC_MAXIMIZE, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
-				else
-					AssignCommand(oCaster, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_MAXIMIZE, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
-		}
+		nRes = ACR_HandleWildMagic(oCaster,oTarget,lTarget,nSpellId,oItem);
 	}
 	
 	//SendMessageToPC(oCaster, "Debug: spell item is "+GetName(oItem)+", with base item type "+IntToString(GetBaseItemType(oItem)));
