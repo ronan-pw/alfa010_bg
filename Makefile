@@ -1,5 +1,5 @@
 NSC	= nsc
-NSFLAGS	= -x " error " -q -e -v1.69 -i ../include/:../ALFA-Base-Resources/alfa2_acr.hak/
+NSFLAGS	= -q -e -g -a -v1.69 -i ../include/:../ALFA-Base-Resources/alfa2_acr.hak/ -x " ERROR "
 
 RM	= rm -f
 
@@ -10,7 +10,7 @@ OBJS	= $(patsubst %.nss,%.ncs,$(wildcard *.nss))
 .SUFFIXES: .nss .ncs
 
 all:	$(OBJS)
-	echo $(OBJS)
+	echo Finished.
 
 .nss.ncs:
 	echo Compiling $<

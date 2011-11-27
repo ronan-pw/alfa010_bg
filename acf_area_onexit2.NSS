@@ -49,14 +49,14 @@ void main();
 
 void main()
 {
-	ACR_AreaOnExit();
-	object oPC=GetExitingObject(),o,s;
-	int iCheck=GetLocalInt(oCount,"REMOVE_ON_AREA_EXIT"); 
+	object oPC,o,s;
 
-	for (ObjectToInt(o = GetFirstItemInInventory(oPC)); o != OBJECT_INVAID; ObjectToInt(o = GetNextItemInInventory(oPC))) {
+	ACR_AreaOnExit();
+
+	oPC=GetExitingObject();
+
+	for (ObjectToInt(o = GetFirstItemInInventory(oPC)); o != OBJECT_INVALID; ObjectToInt(o = GetNextItemInInventory(oPC))) {
  		if (GetLocalInt(o,"REMOVE_ON_AREA_EXIT")) {
-			//if ((s=GetNearestObject(OBJECT_TYPE_STORE,oPC)) != OBJECT_INVALID)
-			//	CopyItem(o, s, TRUE);
  			DestroyObject(o); 
 		}
  	} 
