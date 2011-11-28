@@ -16,6 +16,8 @@ void main()
 		 
 		 
 	string sDeity;
+	if(iDeity == 0)
+		{sDeity = "No Deity";}
 	if(iDeity == 1)
 		{sDeity = "Akadi";}
 	if(iDeity == 2)
@@ -231,7 +233,7 @@ void main()
 	
 	
 	
-	if(iDeity > 0)
+	if(iDeity >= 0)
 		{SetDeity(oObject, sDeity);
 		 SendMessageToPC(oDM, "Deity changed to: " + GetDeity(oObject));
 		 SetLocalInt(oDM, "SetPCDeity", 0);

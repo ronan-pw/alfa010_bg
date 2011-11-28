@@ -78,11 +78,13 @@ void main()
 
 
 // Custom code goes here.
-object oPC = GetLocalObject(OBJECT_SELF, "Object_Target");
+object oDM = OBJECT_SELF;
+object oPC = GetLocalObject(oDM, "Object_Target");
 object oPartyLeader = GetFactionLeader(oPC);
 object oPartyMember = GetFirstFactionMember(oPartyLeader, TRUE);
 object oTrigger = GetNearestObject(OBJECT_TYPE_TRIGGER, oPC, 1);
 int iAreaNumber = GetLocalInt(oTrigger, "AreaNumber");
+int iAreaSub = GetLocalInt(oTrigger, "AreaSub");
 SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName(oPC));
 
 //Define permanent trigger specific variables, if hasn't been done yet, including SendText strings, DC ints, Destination objects.
@@ -114,26 +116,43 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 	object oMeet2;
 			
 	if(sArea == "")
-		{if(iAreaNumber == 1)
+		{if((iAreaNumber == 1)&& (iAreaSub == 0))
 			  {DCSpot = 12;
 			   sArea = "Orphanage";
 			   DCListen = 12;
 			   sSpotPC = "At least one distant figure strolls the grounds of the Orphanage to the north.";
-			   sListenPC = "Relaxed voices and the distant sound of inhabitants going about day to day life drift down to the road from the Orphanage." ;
+			   sListenPC = "Voices and the distant sound of inhabitants going about day to day life drift down to the road from the Orphanage." ;
 			   sSpotListenPC = "You can both hear and see those going about their day to day workings at the Orphanage to the north.";
 			   sPCCombat = "You see people in combat near the Orphanage!";
 			   sDest1 = "west";
    			   sDest3 = "east";
 			   sDragonDirection = "a hill overlooking the road to the east";
 			  }
-			else if((iAreaNumber == 2) || (iAreaNumber == 4))
-			   {sArea = "Western_Highway";
-				DCSpot = 10;
-				DCListen = 10;
-				sDest1 = "west";
+			else if((iAreaNumber == 2)&& (iAreaSub == 0))
+			   {sArea = "Wendover";
+				DCSpot = 15;
+				DCListen = 15;
+				sSpotPC = "Shapes move in the murk to the north.";
+			    sListenPC = "Is that the eery moan of a disembodied voice you hear from the direction of the haunted crypt?" ;
+			    sSpotListenPC = "Movement too purposeful and voices too loud to belong to the dead disturb the area north of the highway.";
+			    sPCCombat = "You see people in combat near Wendover Crypt!";
+			    sDragonDirection = "perched on a drowned ruined tower in the middle of the lake";
+			    sDest1 = "west";
 				sDest3 = "east";
 				}
-			else if(iAreaNumber == 3)
+			else if((iAreaNumber == 2) && (iAreaSub == 3))
+				{DCSpot = 10;
+				 sArea = "River Road";
+				 DCListen = 10;
+				 sSpotPC = "Although distant from any major settlement, ahead you see others who seem to have cause to wander the Surbrin's shores between Winter's Edge and the Frost Hills.";
+				 sListenPC = "The babble of the Surbrin, here broad and shallow, does not cover the sounds of travellers nearby.";
+				 sSpotListenPC = "A party of travellers walks the road beside the Surbrin River.";
+				 sPCCombat = "Another party has met battle somewhere nearby, on the banks of the Surbrin!";
+				 sDest1 = "east";
+				 sDest3 = "west";
+				 sDragonDirection = "top of a hill in sight of the Surbrin's waters";
+				}
+			else if((iAreaNumber == 3)&& (iAreaSub == 0))
 				{DCSpot = 20;
 				 sArea = "Great_Oak";
 				 DCListen = 20;
@@ -145,7 +164,7 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 				 sDest3 = "east";
 				 sDragonDirection = "a hill north of the road to the east";
 				}
-			else if(iAreaNumber == 5)
+			else if((iAreaNumber == 4)&& (iAreaSub == 0))
 				{DCSpot = 12;
 				 sArea = "Blasted_Tower";
 				 DCListen = 12;
@@ -157,33 +176,55 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 				 sDest3 = "east";
 				 sDragonDirection = "a tall pillar of rock east of the Blasted Tower";
 				}
-			else if(iAreaNumber == 6)
+			else if((iAreaNumber == 4)&& (iAreaSub == 1))
 				{sArea = "North_Road";
 				 DCSpot = 10;
 				 DCListen = 10;
+				 sSpotPC = "Movement ahead--somebody travels the North Road." ;
+				 sListenPC = "A rattle of falling debris and the crunch of footsteps on this rocky stretch of road alerts you to company.";
+				 sSpotListenPC = "A party moves down the road, the sound of the passage and the party itself confined by high stone walls.";
+				 sPCCombat = "Your journey is interrupted by the clash and screams of unknown people's battle echoing amid the high cliffs!";
+				 sDragonDirection = "a plateau overlooking the road";
 				 sDest1 = "south";
 				 sDest3 = "north";
 				}
-			else if(iAreaNumber == 7)
+			else if((iAreaNumber == 4) && (iAreaSub == 2))
+				{sArea = "Silverymoon_Highway";
+				 DCSpot = 10;
+				 DCListen = 10;
+				 sSpotPC = "You spot travellers on this well-travelled stretch of road.";
+				 sListenPC = "The sounds of an adventuring back stand out from the creak of wagons and chatter of peasants.";
+				 sSpotListenPC = "Amid the bustle of commerce on this road, you both see and hear a party of travellers ahead who stand out from the crowd.";
+				 sPCCombat = "Ahead, another party has been waylaid on the road!";
+				 sDragonDirection = "a ledge overhanging both road and river";
+				 sDest1 = "west";
+				 sDest3 = "east";
+				}
+			else if(((iAreaNumber == 4) || (iAreaNumber == 3)) && (iAreaSub == 3))
+				{DCSpot = 15;
+				 sArea = "Moonwood";
+				 DCListen = 13;
+				 sSpotPC = "Shadows move among the trees, difficult to make out.";
+				 sListenPC = "Leaves crunch nearby, as if at an unwary step." ;
+				 sSpotListenPC = "You spot a party of travellers strolling through the woods.";
+				 sPCCombat = "Battle cries echo through the wood, and figures struggle amid the tree trunks.";
+				 sDragonDirection = "high atop a knoll to the north";
+				 sDest1 = "west";
+				 sDest3 = "east";
+				 }
+			else if((iAreaNumber == 5) && (iAreaSub == 1))
 				{DCSpot = 12;
 				 sArea = "NR2";
 				 DCListen = 12;
-				 sSpotPC = "A figure -- or the shadow of one -- passes across the rutted entrance to an island tower tower and its causeway." ;
+				 sSpotPC = "A figure -- or the shadow of one -- passes across the rutted entrance to an island tower and its causeway." ;
 				 sListenPC = "A flock of crows burst up from the ground, screeching their disapproval of someone moving through the crackling brush.";
 				 sSpotListenPC = "Sound and movement signal that the signposted tower of Wima Duvabiddle has visitors.";
 				 sPCCombat = "Your journey is interrupted by the clash and screams of unknown people's battle echoing amid the high cliffs!";
+				 sDragonDirection = "a plateau north of the sign pointing to the tower";
 				 sDest1 = "south";
 				 sDest3 = "north";
-				 sDragonDirection = "a plateau north of the sign pointing to the tower";
-				}
-			else if((iAreaNumber == 8)|| (iAreaNumber == 9))
-				{sArea = "Silverymoon_Highway";
-				DCSpot = 10;
-				DCListen = 10;
-				sDest1 = "west";
-				sDest3 = "east";
-				}
-		else if(iAreaNumber == 10)
+				 }
+			else if((iAreaNumber == 5) && (iAreaSub == 2))
 				{DCSpot = 10;
 				 sArea = "Meteor";
 				 DCListen = 10;
@@ -195,7 +236,32 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 				 sDest3 = "east";
 				 sDragonDirection = "the island of rock in the center of the lake";
 				}
-			else if(iAreaNumber == 11)
+				
+			else if((iAreaNumber == 6) && (iAreaSub == 0))
+				{DCSpot = 15;
+				 sArea = "MW_North";
+				 DCListen = 13;
+				 sSpotPC = "Shadows move among the trees, difficult to make out.";
+				 sListenPC = "Leaves crunch nearby, as if at an unwary step." ;
+				 sSpotListenPC = "You spot a party of travellers strolling through the woods.";
+				 sPCCombat = "Battle cries echo through the wood, and figures struggle amid the tree trunks.";
+				 sDragonDirection = "high atop a knoll to the north";
+				 sDest1 = "south";
+				 sDest3 = "north";
+				 }
+			else if((iAreaNumber == 8) && (GetTag(GetArea(OBJECT_SELF)) == "003_travel_map_east"))
+				{DCSpot = 10;
+				 sArea = "Nether_Slopes";
+				 DCListen = 10;
+				 sSpotPC = "You can see a party of travellers ahead for a long way before coming in range to hail them.";
+				 sListenPC = "Sounds echo off the rock face to the east, carrying ahead of some travelling party." ;
+				 sSpotListenPC = "A group of travellers walks the road, visible and audible from a distance.";
+				 sPCCombat = "Ahead, travellers have apparently been attacked on the road!";
+				 sDest1 = "south";
+				 sDest3 = "north";
+				 sDragonDirection = "on a plateau overlooking the road";
+				}
+			else if(iAreaNumber == 9) 
 				{DCSpot = 10;
 				 sArea = "Khelb";
 				 DCListen = 10;
@@ -207,14 +273,19 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 				 sDest3 = "north";
 				 sDragonDirection = "top of a cliff overlooking the waterfall to the south";
 				}
-			else if((iAreaNumber == 12) || (iAreaNumber == 14)|| (iAreaNumber == 15)|| (iAreaNumber == 16))
+			else if(((iAreaNumber == 10) || (iAreaNumber == 12) ||(iAreaNumber == 14)))
 				{sArea = "Silvy_Pass";
 				 DCSpot = 12;
 				 DCListen = 12;
+				 sSpotPC = "You spot travellers trudging either up or down on the steep incline of Silverymoon Pass Road.";
+				 sListenPC = "The sounds of travellers echo in the Pass long before you see them.";
+				 sSpotListenPC = "You have encountered another party of travellers on the narrow path of the Pass.";
+				 sPCCombat = "A party ahead of you has encountered trouble on their trip through Silverymoon Pass!";
+				 sDragonDirection = "a perch that commands full view of the Pass in both directions";
 				 sDest1 = "west";
 				 sDest3 = "east";
 				}
-			else if(iAreaNumber == 13)
+			else if(iAreaNumber == 11)
 				{DCSpot = 12;
 				 sArea = "Hawk_Nest";
 				 DCListen = 12;
@@ -226,7 +297,19 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 				 sDest3 = "east";
 				 sDragonDirection = "a plateau above the fort";
 				}
-			else if(iAreaNumber == 17)
+		   else if(iAreaNumber == 13)
+				{DCSpot = 12;
+				 sArea = "Nether_Summit";
+				 DCListen = 12;
+				 sSpotPC = "Amid the snow glare, you see movement.";
+				 sListenPC = "The thin, cold air carries the sounds of travellers.";
+				 sSpotListenPC = "Despite the altitude and freezing temperatures, others have ventured into this icy wilderness.";
+				 sPCCombat = "You see people in combat on the icy slopes!";
+				 sDragonDirection = "soaring amid the chasms and peaks of the Nether Mountains";
+				 sDest1 = "west";
+				 sDest3 = "east";
+				 }
+			else if(iAreaNumber == 15)
 				{DCSpot = 12;
 				 sArea = "Auvandell";
 				 DCListen = 12;
@@ -256,19 +339,32 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 			//Using sArea perma-local variables defined above, define the Generic and Specific Encounter Waypoints 
 			//for this trigger if hasn't been done yet        
 				
-			string sRegion = "Western_Highway";
-				if((iAreaNumber > 5) && (iAreaNumber < 8))
+			string sRegion = "";
+				if(((iAreaNumber <= 4) && (iAreaSub == 0)) || ((iAreaNumber == 2) && (iAreaSub == 3)))
+					{sRegion = "River_Road";
+					 }
+				else if((iAreaNumber >= 4) && (iAreaNumber <= 5) && (iAreaSub == 1))
 					{sRegion = "North_Road";
 					 }
-				if((iAreaNumber > 7) && (iAreaNumber < 11))
+				else if((iAreaNumber >= 4) && (iAreaNumber <= 5)&& (iAreaSub == 2))
 					{sRegion = "Silverymoon_Highway";
 					}
-				if(iAreaNumber >10)
+				else if((iAreaNumber == 6)  && (iAreaSub == 0))
+					{sRegion = "MW_North";
+					}
+			    else if((iAreaNumber >= 3) && (iAreaNumber <= 4)  && (iAreaSub == 3))
+					{sRegion = "Moonwood";
+					}
+			    else if((iAreaNumber >= 8) && (iAreaNumber <= 10))
+					{sRegion = "Nether_Slopes";
+					}  
+			    else if(iAreaNumber >10)
 					{sRegion = "Silvy_Pass";
 					}
-				
+			
+			 	
 			if(oDestinationGeneric1 == OBJECT_INVALID)
-				{object oGeneric = GetFirstObjectInArea(GetArea(GetWaypointByTag("TM_" + sRegion + "_WP")));
+				{object oGeneric = GetFirstObjectInArea(GetArea(GetWaypointByTag("TM_" + sRegion + "_Meet_1_WP")));
 				 while(oGeneric != OBJECT_INVALID)
 						{if(GetName(oGeneric) == sRegion + "_TM_Encounter_1")
 								{SetLocalObject(oTrigger, "oDestinationGeneric1", oGeneric);
@@ -288,12 +384,12 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 						 if(GetName(oGeneric) == "TM_" + sRegion + "_Meet_2_WP")
 								{SetLocalObject(oTrigger, "oMeet2Generic", oGeneric);
 								}
-						 oGeneric = GetNextObjectInArea(GetArea(GetWaypointByTag("TM_" + sRegion + "_WP")));
+						 oGeneric = GetNextObjectInArea(GetArea(GetWaypointByTag("TM_" + sRegion + "_Meet_1_WP")));
 						 }
 				}
 					
-			if((oDestination1 == OBJECT_INVALID) && ((iAreaNumber == 1) || (iAreaNumber == 3) || (iAreaNumber == 5) || (iAreaNumber == 7) || (iAreaNumber == 10) || (iAreaNumber == 11) || (iAreaNumber == 13) || (iAreaNumber == 17)))
-				{object oSpecific = GetFirstObjectInArea(GetArea(GetWaypointByTag("TM_" + sArea + "_WP")));
+			if(oDestination1 == OBJECT_INVALID)
+				{object oSpecific = GetFirstObjectInArea(GetArea(GetWaypointByTag("TM_" + sArea + "_Meet_1_WP")));
 				 while(oSpecific != OBJECT_INVALID)
 						{if(GetName(oSpecific) == sArea + "_TM_Encounter_1")
 								{SetLocalObject(oTrigger, "oDestination1", oSpecific);
@@ -313,7 +409,7 @@ SendMessageToAllDMs(GetName(oTrigger) + " triggering an encounter on " + GetName
 						  if(GetName(oSpecific) == "TM_" + sArea + "_Meet_2_WP")
 								{SetLocalObject(oTrigger, "oMeet2", oSpecific);
 								}
-						  oSpecific = GetNextObjectInArea(GetArea(GetWaypointByTag("TM_" + sArea + "_WP")));
+						  oSpecific = GetNextObjectInArea(GetArea(GetWaypointByTag("TM_" + sArea + "_Meet_1_WP")));
 						}
 					}
 		}
@@ -415,12 +511,15 @@ if(oPC == oPartyLeader)
 					}
 				}
 		
-		
+	SetLocalObject(oTrigger, "oPartyDestinationGeneric", oPartyDestinationGeneric);
+	SetLocalObject(oTrigger, "oPartyDestinationSpecific", oPartyDestinationSpecific);
+			
 	//Choose the Specific Destination, unless the Specific is invalid or the encounter is not appropriate to the Specific Destination	 	
 	oPartyDestination = oPartyDestinationSpecific;
 	oMobDestination = oMobDestinationSpecific;
 	oPartyMeet = oPartyMeetSpecific;
 	oOtherMeet = oOtherMeetSpecific;
+	
 	
 	
 	if((iGroup > 9) && (iGroup < 11))
@@ -437,7 +536,6 @@ if(oPC == oPartyLeader)
 				}
 			}
 			
-		SetLocalObject(oTrigger, "oPartyDestinationGeneric", oPartyDestinationGeneric);
 		SetLocalObject(oTrigger, "oPartyDestination", oPartyDestination);
 		SetLocalObject(oTrigger, "oMobDestination", oMobDestination);
 		SetLocalObject(oTrigger, "oPartyMeet", oPartyMeet);

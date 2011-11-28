@@ -108,12 +108,13 @@ if(nCache == 1)
 		 
 		}
 	
- 		 
+effect eShake = EffectVisualEffect(VFX_FNF_SCREEN_SHAKE, FALSE);
+effect eQuake = EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE, FALSE);
+effect eDebris = EffectVisualEffect(VFX_COM_CHUNK_STONE_MEDIUM, FALSE);
+		  		 
 if(nCache == 3)
 	{if(nSpell == 9999)
-		{effect eShake = EffectVisualEffect(VFX_FNF_SCREEN_SHAKE);
-		 effect eQuake = EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE);
-		 SetImmortal(oTarget, TRUE);
+		{SetImmortal(oTarget, TRUE);
 		 SetMovementRateFactor(oNPC, 0.0);
 		 ChangeToStandardFaction(oNPC, STANDARD_FACTION_HOSTILE);
 		 DelayCommand(1.0, AssignCommand(oTarget, ActionCastSpellAtObject(979, oTarget, -1, 1, 0, PROJECTILE_PATH_TYPE_DEFAULT, 1)));
@@ -181,7 +182,50 @@ if(nCache == 3)
 		 AssignCommand(oNPC, DelayCommand(11.0, ClearAllActions(TRUE)));
 		 }
 		 
-		 	 
+	 
+	//if(nSpell == 10003)
+	//	{DelayCommand(8.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(10.0, SendMessageToAllDMs("Epic Hellball"));
+	//	 DelayCommand(10.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(636, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(11.0, SendMessageToAllDMs("Grenade Holy"));
+	//	 DelayCommand(11.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(466, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(11.0, SendMessageToAllDMs("Storm of Vengeance"));
+	//	 DelayCommand(11.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(173, oNPC,  PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(11.0, SendMessageToAllDMs("Ice Storm"));
+	//	 DelayCommand(11.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(368, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(12.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDebris, oTarget, 5.0));
+	//	 DelayCommand(12.0, SendMessageToAllDMs("Greater Fireburst"));
+	//	 DelayCommand(12.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(869, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(12.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(13.0, SendMessageToAllDMs("Greater Fireburst"));
+	//	 DelayCommand(13.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(869, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(14.0, SendMessageToAllDMs("Greater Fireburst"));
+	//	 DelayCommand(14.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(869, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(14.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(15.0, SendMessageToAllDMs("Horrid Wilting"));
+	//	 DelayCommand(15.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(367, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(20.0, SendMessageToAllDMs("Greater Fireburst"));
+	//	 DelayCommand(20.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(869, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(20.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(21.0, SendMessageToAllDMs("Horrid Wilting"));
+	//	 DelayCommand(21.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(367, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(25.0, SendMessageToAllDMs("Greater Fireburst"));
+	//	 DelayCommand(25.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(869, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(25.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(26.0, SendMessageToAllDMs("Horrid Wilting"));
+	//	 DelayCommand(26.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(367, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(27.0, SendMessageToAllDMs("Wail of Banshee"));
+	//	 DelayCommand(27.0, AssignCommand(oNPC, ActionCastFakeSpellAtObject(190, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(27.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(28.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDebris, oTarget, 5.0));
+	//	 DelayCommand(30.0, SendMessageToAllDMs("Wail of Banshee"));
+	//	 DelayCommand(30.0, AssignCommand(oNPC, ActionCastSpellAtObject(190, oNPC, PROJECTILE_PATH_TYPE_DEFAULT)));
+	//	 DelayCommand(30.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eShake, oTarget, 5.0));
+	//	 DelayCommand(30.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDebris, oTarget, 5.0));
+	//	 DelayCommand(32.0, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eDebris, oTarget, 5.0));
+	//	 }
+		   
+		 	 	 
 	SetLocalInt(oTarget, "nCache_Count", 0);
 	SetLocalInt(oDM, "omega_cast_cache", 0);
     SetLocalInt(oDM, "omega_cast_target", 0);

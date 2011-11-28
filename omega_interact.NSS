@@ -6,6 +6,8 @@ void main()
 
 	
 	AssignCommand(oNPC, ActionForceMoveToObject(oPlaceable, FALSE));
-	AssignCommand(oNPC, ActionInteractObject(oPlaceable));
+	DelayCommand(2.0, AssignCommand(oNPC, ActionInteractObject(oPlaceable)));
+	
+	SendMessageToPC(oDM, GetName(oNPC) + " interacting with " + GetName(oPlaceable));
 	
 }		
