@@ -3,7 +3,7 @@ NSFLAGS	= -q -e -g -a -v1.69 -i ../include/:../ALFA-Base-Resources/alfa2_acr.hak
 
 RM	= rm -f
 
-OBJS	= $(patsubst %.nss,%.ncs,$(wildcard *.nss))
+OBJS	= $(patsubst %.nss,%.ncs,$(patsubst %.NSS,%.ncs,$(wildcard *.nss)))
 
 .IGNORE:
 .SILENT:
