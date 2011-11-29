@@ -48,7 +48,7 @@ void ACR_RemoveInvisInRadius(object oCaster, float fRadius)
 void ACR_DamageInRadius(object oCaster, float fRadius, int nMagnitude, string sMsg)
 {
 	effect e = EffectDamage(d6()*nMagnitude, DAMAGE_TYPE_BLUDGEONING);
-	ACR_EffectInRadius(oCaster, fRadius, e, sMsg);
+	ACR_EffectInRadius(oCaster, fRadius, e, sMsg, DURATION_TYPE_INSTANT, 0.0f);
 }
 
 
@@ -160,7 +160,7 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 	if (nRes == _WILD_MAGIC_NORMAL)
        		return nRes;
 
-	SendMessageToPC(oCaster,"Something goes awry!");
+	SendMessageToPC(oCaster,"You feel oddly disorented and something goes awry!");
 	SetModuleOverrideSpellScriptFinished();
 
 	switch (nRes) {
@@ -168,30 +168,34 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 			lTarget = GetLocation(oCaster);
 
 			if (oTarget != OBJECT_INVALID)
-				AssignCommand(oModule, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtObject(nSpellId, oCaster, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+				AssignCommand(oCaster, ActionCastSpellAtObject(nSpellId, oCaster, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
 			else
-				AssignCommand(oModule, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+				AssignCommand(oCaster, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
+			SendMessageToPC(oCaster,"The magical effect vanishes and rebounds upon you!");
+			SetLocalInt(oCaster,"ACR_TMP_IGNORE_WILD_MAGIC",1);
 			break;
 				
 		case _WILD_MAGIC_RANDOM:
 			lTarget = GetLocation(oCaster);
 
 			if (oTarget != OBJECT_INVALID)
-				AssignCommand(oModule, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtObject(nSpellId, ACR_PickRandomTargetInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS), METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+				AssignCommand(oCaster, ActionCastSpellAtObject(nSpellId, ACR_PickRandomTargetInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS), METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
 			else
-				AssignCommand(oModule, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtLocation(nSpellId, ACR_PickRandomLocation(oCaster), METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+				AssignCommand(oCaster, ActionCastSpellAtLocation(nSpellId, ACR_PickRandomLocation(oCaster), METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
+			SendMessageToPC(oCaster,"The magical effect vanishes and rebounds elsewhere!");
+			SetLocalInt(oCaster,"ACR_TMP_IGNORE_WILD_MAGIC",1);
 			break;
 
 		case _WILD_MAGIC_RGRAV:
+			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE), "You feel an intense sense of vertigo!", DURATION_TYPE_TEMPORARY, _WILD_MAGIC_SHORT_DUR);
 			SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>*Suddenly everything around "+GetName(oCaster)+" begins floating up -- then shortly after slams down back into the ground.*");
-			ACR_DamageInRadius(oModule, _WILD_MAGIC_EFFECT_RADIUS, 2, "For a moment you float into the air, then you slam down back onto the ground painfully."); 
-			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE), "You are disordented for a moment.", DURATION_TYPE_TEMPORARY, _WILD_MAGIC_SHORT_DUR);
+			ACR_DamageInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, 2, "For a moment you float into the air, then you slam down back onto the ground painfully."); 
 			break;
 
 		case _WILD_MAGIC_PIT:
+			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE), "The earth shakes about you.", DURATION_TYPE_TEMPORARY, _WILD_MAGIC_SHORT_DUR);
 			SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>* A gaping pit opens under "+GetName(oCaster)+", causing the person to tumble down within and slam painfully into the bottom.  Almost as soon as it appears it vanishes, leaving everything as it was before.*");
-			ACR_DamageInRadius(oModule, _WILD_MAGIC_PIT_RADIUS, GetCasterLevel(oCaster), "A gaping hole opens underneath you and you slam into the ground, causing a great deal of pain."); 
-			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE), "You are disordented for a moment.", DURATION_TYPE_TEMPORARY, _WILD_MAGIC_SHORT_DUR);
+			ACR_DamageInRadius(oCaster, _WILD_MAGIC_PIT_RADIUS, GetCasterLevel(oCaster), "A gaping hole opens underneath you and you slam into the ground, causing a great deal of pain."); 
 			break;
 
 		case _WILD_MAGIC_FAIL:
@@ -215,11 +219,14 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 		case _WILD_MAGIC_MAX:
 		case _WILD_MAGIC_NOEX:
 			if (oTarget != OBJECT_INVALID)
-				AssignCommand(oModule, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtObject(nSpellId, oTarget, METAMAGIC_MAXIMIZE, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+				AssignCommand(oCaster, ActionCastSpellAtObject(nSpellId, oTarget, METAMAGIC_MAXIMIZE, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
 			else
-				AssignCommand(oModule, DelayCommand(_WILD_MAGIC_TEMP_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_MAXIMIZE, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+				AssignCommand(oCaster, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_MAXIMIZE, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
+			SendMessageToPC(oCaster,"The magical effect intensifies, visibly!");
+			SetLocalInt(oCaster,"ACR_TMP_IGNORE_WILD_MAGIC",1);
 			break;
 	}
+	DelayCommand(_WILD_MAGIC_TEMP_DUR,DeleteLocalInt(oCaster,"ACR_TMP_IGNORE_WILD_MAGIC"));
 
 	return nRes;
 }
