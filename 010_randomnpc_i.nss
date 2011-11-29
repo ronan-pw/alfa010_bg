@@ -34,7 +34,15 @@ void RandomizeNPCName(object oNPC)
 
 void RandomizeNPCAppearance(object oNPC)
 {
-	ACR_RandomizeAppearance(oNPC);
+	float f = 0.3;
+	int rand = 999,skin=1;
+
+
+	// Give dwarves higher chance of beard
+	if (GetRacialType(oNPC) == RACIAL_TYPE_DWARF)
+		f = 0.8;
+
+	ACR_RandomizeAppearance(oNPC,rand,rand,rand,rand,rand,rand,skin,rand,f);
 }
 
 void RandomizeNPCScale(object oNPC)
