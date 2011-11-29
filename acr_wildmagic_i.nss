@@ -165,6 +165,8 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 
 	nRes = ACR_DetermineWildMagic();
 
+	WriteTimestampedLogEntry("WILD_MAGIC: ("+GetName(oCaster)+","+IntToString(nSpellId)+","+IntToString(nRes)+")");
+
 	if (nRes == _WILD_MAGIC_NORMAL)
        		return nRes;
 

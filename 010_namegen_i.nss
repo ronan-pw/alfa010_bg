@@ -194,7 +194,7 @@ string generate_gnome_name(int female,int last)
 	int i;
 
 	if (!last) {
-		for (i=0; Random(3); ++i) {
+		for (i=0; i<Random(3); ++i) {
 		
 			switch (Random(40)) {
 				case 0:
@@ -321,7 +321,6 @@ string generate_gnome_name(int female,int last)
 		}
 	}
 	else {
-	
 		switch (Random(20)) {
 			case 0:
 				str += "Wild";
@@ -459,12 +458,24 @@ string generate_human_name(int female)
 
 	if (female) {
 		switch (Random(6)) {
-			case 0: str += "a";break;
-			case 1: str += "ie";break;
-			case 2: str += "re";break;
-			case 3: str += "ele";break;
-			case 4: str += "na";break;
-			case 5: str += "ni";break;
+			case 0:
+				str += "a";
+				break;
+			case 1:
+				str += "ie";
+				break;
+			case 2:
+				str += "re";
+				break;
+			case 3:
+				str += "ele";
+				break;
+			case 4:
+				str += "na";
+				break;
+			case 5:
+				str += "ni";
+				break;
 		}	
 	}
 	return str;

@@ -35,7 +35,7 @@ void RandomizeNPCName(object oNPC)
 void RandomizeNPCAppearance(object oNPC)
 {
 	float f = 0.3;
-	int rand = 999,skin=1;
+	int rand = 999,skin=Random(3);
 
 
 	// Give dwarves higher chance of beard
