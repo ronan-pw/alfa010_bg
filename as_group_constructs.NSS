@@ -55,21 +55,21 @@ void main() {
 
 	switch(Random(9)) {
 		case 0:
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_blue");
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_green");
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_red");
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_blue",0.5);
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_green",0.5);
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_red",0.5);
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_blue",0.5);
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_green",0.5);
-			spawn_nonambient_npc("abr_cr_cn_animatedarmor_red",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue");
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green");
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red");
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.5);
 			break;
 		case 1:
-			spawn_nonambient_npc("abr_cr_cn_dreadguard");
-			spawn_nonambient_npc("abr_cr_cn_dreadguard",0.5);
-			spawn_nonambient_npc("abr_cr_cn_dreadguard",0.5);
-			spawn_nonambient_npc("abr_cr_cn_dreadguard",0.5);
+			spawn_hostile_npc("abr_cr_cn_dreadguard");
+			spawn_hostile_npc("abr_cr_cn_dreadguard",0.5);
+			spawn_hostile_npc("abr_cr_cn_dreadguard",0.5);
+			spawn_hostile_npc("abr_cr_cn_dreadguard",0.5);
 			break;
 		case 2:
 			spawn_nonambient_npc("abr_cr_cn_platinumhorror");
@@ -81,7 +81,7 @@ void main() {
 			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
 			break;
 		case 4:
-			spawn_nonambient_npc("abr_cr_cn_helmedhorror");
+			spawn_hostile_npc("abr_cr_cn_helmedhorror");
 			break;
 		case 5:
 			spawn_nonambient_npc("abr_cr_cn_goldhorror");
