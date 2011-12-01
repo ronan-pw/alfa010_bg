@@ -124,7 +124,7 @@ int GetIsSmart(object oCreature=OBJECT_SELF);
 
 int GetIsSmart(object oCreature=OBJECT_SELF)
 {
-	return (GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) > 5);
+	return ((GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) > 5) && (!GetLocalInt(oCreature, "ACR_NPC")));
 }
 
 void ACR_CreatureOnSpawnIn()
