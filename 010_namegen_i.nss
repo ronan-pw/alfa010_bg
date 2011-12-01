@@ -194,7 +194,7 @@ string generate_gnome_name(int female,int last)
 	int i;
 
 	if (!last) {
-		for (i=0; i<Random(3); ++i) {
+		for (i=0; i<=Random(3); ++i) {
 		
 			switch (Random(40)) {
 				case 0:
