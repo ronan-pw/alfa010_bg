@@ -467,48 +467,41 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 	// do a knowledge check - exit on failure
 	if (!ACR_SkillCheck(nKnowSkill, oPC, 10 + FloatToInt(GetChallengeRating(oTarget)), TRUE)) {
 		// alert the player - should we also save the attempt (db) to prevent retries?
-		SendMessageToPC(oPC, "You do not recognize this creature.");
+		SendMessageToPC(oPC, "You fail to notice anything remarkable about this creature.");
 		return;
 	}
 
-	// init variables - prepare to clean name
-	sOld = sName = GetName(oTarget); 
-
 	// Handle hidden text
 	if ((p = FindSubString(sName, "{")) != -1) {
-
-		end = GetStringLength(sName);
-		start = p;
+		start = p+1;
 
 		if ((p = FindSubString(sName, "}")) != -1)
-			end = p;
+			end = p-1;
 
+		sTmp = GetStringUpperCase(GetSubString(sName, start, end-start));
+
+		// Clean name-candidate
 		sName = GetSubString(sName, start, end-start);
 
-		sTmp = GetStringUpperCase(sName);
-
-		// filter out the extras in the name of the creature
-		if ((p = FindSubString(sTmp, ", CR")) != -1) {
+		// Proper cr declaration
+		if (TestStringAgainstPattern("**CR(*w|*n)**",sTmp)) {
+		
+			// imprecise, best 'guess' for cr formats
+			if      ((p = FindSubString(sTmp, ", CR")) != -1) ;
+			else if ((p = FindSubString(sTmp, "- CR")) != -1) ;
+			else if ((p = FindSubString(sTmp, ": CR")) != -1) ;
+			else if  ((p = FindSubString(sTmp, ":CR")) != -1) ;
+			else if  ((p = FindSubString(sTmp, "-CR")) != -1) ;
+			else if  ((p = FindSubString(sTmp, ",CR")) != -1) ;
+			else if  ((p = FindSubString(sTmp, " CR")) != -1) ;
+			// Panic, this is ONLY a cr no name
+			else {
+				sName = sOld;
+				p = GetStringLength(sName);
+			}
 			end = p;
 		}
-		else if ((p = FindSubString(sTmp, " CR")) != -1) {
-			end = p;
-		}
-		else if ((p = FindSubString(sTmp, ":CR")) != -1) {
-			end = p;
-		}
-		else if ((p = FindSubString(sTmp, "-CR")) != -1) {
-			end = p;
-		}
-		else if ((p = FindSubString(sTmp, ",CR")) != -1) {
-			end = p;
-		}
-		// Panic, this is the wrong name
-		else {
-			sName = sOld;
-			end = GetStringLength(sName);
-		}
-
+		
 		// compose the name to report to the player
 		sName = GetSubString(sName, 0, end);   
 		SetFirstName(oTarget, sName);
@@ -516,7 +509,6 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 	}
 
 	// report the filtered creature name
-	SendMessageToPC(oPC, "You recognize the creature, "+GetArticle(sName)+"<color=Magenta><i>"+sName+"!</i></color>");
-
-
+	SendMessageToPC(oPC, "You recognize the creature, "+"a(n)"+" <color=Magenta><i>"+sName+"</i></color>!");
 }
+
