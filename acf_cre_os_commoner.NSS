@@ -52,5 +52,6 @@ void main()
 	ACR_CreatureOnSpawnIn();
 
 	SetLocalInt(OBJECT_SELF,"ACR_NPC",1);
-	SetLocalInt(OBJECT_SELF, _CRE_NO_AI, 1);
+	// Scrap this.  Too many "environmental" interactions require basic AI
+	//SetLocalInt(OBJECT_SELF, _CRE_NO_AI, 1);
 }
