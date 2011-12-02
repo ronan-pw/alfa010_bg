@@ -46,6 +46,7 @@
 #include "acr_vfx_i"
 #include "acr_wealth_i"
 #include "acr_quest_i"
+#include "acr_skills_i"
 
 #define REMOVE_NO_AI
 
@@ -455,48 +456,67 @@ void ACR_CreatureOnUserDefined()
 void ACR_CreatureIdentify(object oPC, object oTarget)
 {
 	// first, determine which Knowledge skill applies.
-	int nKnowSkill = GetKnowlegeSkillOfRace(GetRacialType(oTarget));
+	int i,p,end,start,nKnowSkill = GetKnowlegeSkillOfRace(GetRacialType(oTarget));
+	string sName,sOld,sTmp;
+
+
 	if (nKnowSkill == -1) {
 		WriteTimestampedLogEntry("Unaccounted RacialType Error identifying "+GetName(oTarget)+" with ResRef: "+GetResRef(oTarget)+" by PC: "+GetName(oPC)+" in area: "+GetName(GetArea(oTarget))); 
 		nKnowSkill = SKILL_LORE;
 	}
 	// do a knowledge check - exit on failure
-	if (d20() + GetSkillRank(nKnowSkill, oPC) < 10 + FloatToInt(GetChallengeRating(oTarget)))
-	{
+	if (!ACR_SkillCheck(nKnowSkill, oPC, 10 + FloatToInt(GetChallengeRating(oTarget)), TRUE)) {
 		// alert the player - should we also save the attempt (db) to prevent retries?
-		SendMessageToPC(oPC, "You do not recognize this creature."); return;
+		SendMessageToPC(oPC, "You do not recognize this creature.");
+		return;
 	}
 
 	// init variables - prepare to clean name
-	string sName = GetName(oTarget);		 
-	string sFirstChar = GetSubString(sName, 1, 1);
-	int nEnd = GetStringLength(sName), i, p;
+	sOld = sName = GetName(oTarget); 
 
-	// filter out the extras in the name of the creature
-	if ((p = FindSubString(sName, ", CR ")) != -1)
-	{
-		nEnd = p - 1;
-	}
-	else if ((p = FindSubString(sName, " CR ")) != -1)
-	{
-		nEnd = p - 1;
-	}
-	else
-	{
-		// check alternate formatting
-		for (i=0; i<9; i++)
-		{
-			// get the position of the Challenge Rating (marks the end of the name)
-			if ((p = FindSubString(sName, " CR" + IntToString(i))) != -1) { nEnd = p + 1; break; }
+	// Handle hidden text
+	if ((p = FindSubString(sName, "{")) != -1) {
+
+		end = GetStringLength(sName);
+		start = p;
+
+		if ((p = FindSubString(sName, "}")) != -1)
+			end = p;
+
+		sName = GetSubString(sName, start, end-start);
+
+		sTmp = GetStringUpperCase(sName);
+
+		// filter out the extras in the name of the creature
+		if ((p = FindSubString(sTmp, ", CR")) != -1) {
+			end = p;
 		}
+		else if ((p = FindSubString(sTmp, " CR")) != -1) {
+			end = p;
+		}
+		else if ((p = FindSubString(sTmp, ":CR")) != -1) {
+			end = p;
+		}
+		else if ((p = FindSubString(sTmp, "-CR")) != -1) {
+			end = p;
+		}
+		else if ((p = FindSubString(sTmp, ",CR")) != -1) {
+			end = p;
+		}
+		// Panic, this is the wrong name
+		else {
+			sName = sOld;
+			end = GetStringLength(sName);
+		}
+
+		// compose the name to report to the player
+		sName = GetSubString(sName, 0, end);   
+		SetFirstName(oTarget, sName);
+		SetLastName(oTarget, "");
 	}
-	string sDisplayName = GetSubString(sName, 1, nEnd);   
-	// compose the name to report to the player
-	sName = ((sFirstChar == "A") || (sFirstChar == "E") || (sFirstChar == "I") ||
-			 (sFirstChar == "O") || (sFirstChar == "U"))
-			? "an " + GetSubString(sName, 1, nEnd) : "a " + GetSubString(sName, 1, nEnd);
-		
+
 	// report the filtered creature name
-	SendMessageToPC(oPC, "You recognize the creature - <color=Magenta><i>" + sName + "!</i></color>");
-	SetFirstName(oTarget, sDisplayName);
+	SendMessageToPC(oPC, "You recognize the creature, "+GetArticle(sName)+"<color=Magenta><i>"+sName+"!</i></color>");
+
+
 }
