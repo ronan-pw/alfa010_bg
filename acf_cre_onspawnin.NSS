@@ -53,11 +53,6 @@ void main()
 	int tmp;
 	object oCreature = OBJECT_SELF;
 	
-	/*if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
-	{
-		SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);
-	}*/
-			
 	ACR_CreatureOnSpawnIn();
 
 				
@@ -72,7 +67,7 @@ void main()
 			SetBehaviorState(NW_FLAG_BEHAVIOR_HERBIVORE,TRUE);	    
 	}
 		
-	//animation code
+	// animation code
 	if (GetLocalInt(OBJECT_SELF,"USE_IMMOBILE_AMBIENT_ANIM"))
 	{
 		float fRand=IntToFloat(d6(3));
@@ -80,9 +75,7 @@ void main()
 	}
 
 
-    // Custom code goes here.
-	
-	// This may cause lag per hb.  Not sure.
+	// This causes some lag per hb.  Probably not enough to worry, though. (and looks nice)
 	SetLocalInt(OBJECT_SELF, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
 	
 	// add glow if glowing
@@ -131,4 +124,9 @@ void main()
 	{
 		SetCollision(OBJECT_SELF,0);
 	}
+
+
+	// Hack to make NPC/friendlies not waste cycles on a good AI
+	if (!GetFactionEqual(OBJECT_SELF, GetObjectByTag("hostile_faction_pig")))
+		SetLocalInt(OBJECT_SELF,"ACR_NPC", 1);
 }

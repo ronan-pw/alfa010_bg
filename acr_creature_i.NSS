@@ -47,6 +47,8 @@
 #include "acr_wealth_i"
 #include "acr_quest_i"
 
+#define REMOVE_NO_AI
+
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -124,7 +126,8 @@ int GetIsSmart(object oCreature=OBJECT_SELF);
 
 int GetIsSmart(object oCreature=OBJECT_SELF)
 {
-	return ((GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) > 5) && (!GetLocalInt(oCreature, "ACR_NPC")));
+	return ((GetLocalInt(oCreature, "ACR_NPC") == 0) &&
+		(GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) > 5));
 }
 
 void ACR_CreatureOnSpawnIn()
@@ -199,15 +202,16 @@ void ACR_CreatureOnSpellCastAt()
 	// apply any effects on the creature
 	//ACR_VFXOnSpellCastAt(oCaster, OBJECT_SELF);
 	
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{
-		// if we are using smart AI, call the OE associate script
-		// otherwise call the nw_c2 AI script
-		if (GetIsSmart())
-			ai_script = "gb_assoc_spell";
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	// if we are using smart AI, call the OE associate script
+	// otherwise call the nw_c2 AI script
+	if (GetIsSmart())
+		ai_script = "gb_assoc_spell";
 	
-		ExecuteScript(ai_script, OBJECT_SELF);
-	}  
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnPhysicallyAttacked()
@@ -217,15 +221,16 @@ void ACR_CreatureOnPhysicallyAttacked()
 	
 	// apply any effects on the creature
 	//ACR_VFXOnAttack(oAttacker, OBJECT_SELF);
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 	
-		// if we are using smart AI, call the OE associate script
-		// otherwise call the nw_c2 AI script
-		if (GetIsSmart())
-			ai_script = "gb_assoc_attack";
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	// if we are using smart AI, call the OE associate script
+	// otherwise call the nw_c2 AI script
+	if (GetIsSmart())
+		ai_script = "gb_assoc_attack";
 	
-		ExecuteScript(ai_script, OBJECT_SELF);
-	}
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnDamaged()
@@ -281,38 +286,43 @@ void ACR_CreatureOnBlocked()
 {
 	string ai_script = "nw_c2_defaulte";
 	
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 	
-		// if we are using smart AI, call the OE associate script
-		// otherwise call the nw_c2 AI script
-		if (GetIsSmart())
-			ai_script = "gb_assoc_block";
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	// if we are using smart AI, call the OE associate script
+	// otherwise call the nw_c2 AI script
+	if (GetIsSmart())
+		ai_script = "gb_assoc_block";
 	
-		ExecuteScript(ai_script, OBJECT_SELF);
-	}
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnEndCombatRound()
 {
 	string ai_script = "nw_c2_default3";
 	
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 	
-		// if we are using smart AI, call the OE associate script
-		// otherwise call the nw_c2 AI script
-		if (GetIsSmart())
-			ai_script = "gb_comp_combat";
-	
-		ExecuteScript(ai_script, OBJECT_SELF);
-	}
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	// if we are using smart AI, call the OE associate script
+	// otherwise call the nw_c2 AI script
+	if (GetIsSmart())
+		ai_script = "gb_comp_combat";
+
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnConversation()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		// still call the Obsidian script for AI for now.
-		ExecuteScript("nw_c2_default4", OBJECT_SELF);
-	}
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_default4", OBJECT_SELF);
 }
 
 void ACR_CreatureOnInventoryDisturbed()
@@ -322,10 +332,13 @@ void ACR_CreatureOnInventoryDisturbed()
 	// apply any effects on the creature
 	ACR_VFXOnDisturb(oDisturber, OBJECT_SELF);
 
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {		
-		// still call the Obsidian script for AI for now.
-		ExecuteScript("nw_c2_default8", OBJECT_SELF);
-	}
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_default8", OBJECT_SELF);
 }
 
 void ACR_CreatureOnHeartBeat()
@@ -387,47 +400,56 @@ void ACR_CreatureOnHeartBeat()
 	
 	string ai_script = "nw_c2_default1";
 	
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 	
-		// if we are using smart AI, call the OE associate script
-		// otherwise call the nw_c2 AI script
-		if (GetIsSmart())
-			ai_script = "gb_assoc_heart";
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// if we are using smart AI, call the OE associate script
+	// otherwise call the nw_c2 AI script
+	if (GetIsSmart())
+		ai_script = "gb_assoc_heart";
 	
-		ExecuteScript(ai_script, OBJECT_SELF);
-	}
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnRested()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		// still call the Obsidian script for AI for now.
-		ExecuteScript("nw_c2_defaulta", OBJECT_SELF);
-	}
+
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_defaulta", OBJECT_SELF);
 }
 
 void ACR_CreatureOnPerception()
 {
-	//object oPerceived = GetLastPerceived();
 	string ai_script = "nw_c2_default2";
+
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	if (GetIsSmart())
+		ai_script = "gb_assoc_percep";
 	
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 	
-		// if we are using smart AI, call the OE associate script
-		// otherwise call the nw_c2 AI script
-		if (GetIsSmart())
-			ai_script = "gb_assoc_percep";
-	
-		ExecuteScript(ai_script, OBJECT_SELF);
-	}
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnUserDefined()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		// still call the Obsidian script for AI for now.
-		ExecuteScript("nw_c2_defaultd", OBJECT_SELF);
-	}
+
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_defaultd", OBJECT_SELF);
 }
 
 void ACR_CreatureIdentify(object oPC, object oTarget)
