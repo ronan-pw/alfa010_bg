@@ -23,6 +23,7 @@
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
 #include "010_spawn_ex"
+#include "010_randomnpc_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -50,5 +51,10 @@ void main();
 
 void main()
 {
-	spawn_npc("010_cr_comm_human");
+	string s = RandomNPCResref(RACIAL_TYPE_GNOME);
+
+	if (s == "")
+		return;
+
+	spawn_npc(s);
 }

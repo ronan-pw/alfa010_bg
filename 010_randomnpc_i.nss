@@ -119,3 +119,177 @@ void RandomizeNPC(object oNPC, int nEquip=1)
 	if (nEquip)
 		RandomizeNPCClothing(oNPC);
 }
+
+string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
+{
+	string sResref="";
+
+	if (Random(10) < 2)
+		return "";
+
+	switch (race) {
+		case RACIAL_TYPE_DWARF:
+			switch (Random(8)) {
+				case 0:
+					switch (Random(6)) {
+						case 0:
+							sResRef="abr_cr_DwarfExpertM";
+							break;
+						case 1:
+							ResRef="abr_cr_DwarfExpertF";
+							break;
+						case 2:
+							sResRef="abr_cr_DwarfWarriorA";
+							break;
+						case 3:
+							sResRef="abr_cr_DwarfWarriorH";
+							break;
+						case 4:
+							sResRef="abr_cr_DwarfAdeptM";
+							break;
+						case 5:
+							sResRef="abr_cr_DwarfAdeptF";
+							break;
+					}
+					break;
+				case 1:
+					sResRef="abr_cr_dwarf_commoner1";
+					break;
+				case 2:
+					sResRef="abr_cr_dwarf_commoner2";
+					break;
+				case 3:
+					sResRef="abr_cr_dwarf_commoner3";
+					break;
+				case 4:
+					sResRef="abr_cr_dwarf_commoner4";
+					break;
+				case 5:
+					sResRef="abr_cr_dwarf_commoner5";
+					break;
+				case 6:
+					sResRef="abr_cr_dwarf_commoner1_walk";
+					break;
+				case 7:
+					sResRef="abr_cr_dwarf_commoner2_walk";
+					break;
+			}
+			break;
+		case RACIAL_TYPE_GNOME:
+			switch (Random(5)) {
+				case 0:
+					switch (Random(6)) {
+						case 0:
+							sResRef="abr_cr_GnomeExpertM";
+							break;
+						case 1:
+							sResRef="abr_cr_GnomeExpertF";
+							break;
+						case 2:
+							sResRef="abr_cr_GnomeWarriorX";
+							break;
+						case 3:
+							sResRef="abr_cr_GnomeWarriorH";
+							break;
+						case 4:
+							sResRef="abr_cr_GnomeAdeptM";
+							break;
+						case 5:
+							sResRef="abr_cr_GnomeAdeptF";
+							break;
+					}
+					break;
+				case 1:
+					sResRef="010_cr_gnome_comm0";
+					break;
+				case 2:
+					sResRef="010_cr_gnome_comm1";
+					break;
+				case 3:
+					sResRef="010_cr_gnome_comm2";
+					break;
+				case 4:
+					sResRef="010_cr_gnome_comm3";
+					break;
+				}
+			break;
+		case RACIAL_TYPE_HUMAN:
+		default:
+			switch (Random(24)) {
+				case 0:
+					sResRef="010_cr_comm_human_m1";
+					break;
+				case 1:
+					sResRef="010_cr_comm_human";
+					break;
+				case 2:
+					sResRef="010_cr_comm_human0";
+					break;
+				case 3:
+					sResRef="010_cr_comm_human1";
+					break;
+				case 4:
+					sResRef="010_cr_comm_human2";
+					break;
+				case 5:
+					sResRef="010_cr_comm_human3";
+					break;
+				case 6:
+					sResRef="010_cr_comm_human4";
+					break;
+				case 7:
+					sResRef="010_cr_comm_human5";
+					break;
+				case 8:
+					sResRef="010_cr_comm_human6";
+					break;
+				case 9:
+					sResRef="010_cr_comm_human7";
+					break;
+				case 10:
+					sResRef="010_cr_comm_human8";
+					break;
+				case 11:
+					sResRef="010_cr_comm_human00";
+					break;
+				case 12:
+					sResRef="010_cr_comm_human10";
+					break;
+				case 13:
+					sResRef="010_cr_comm_human20";
+					break;
+				case 14:
+					sResRef="010_cr_comm_human30";
+					break;
+				case 15:
+					sResRef="010_cr_comm_human40";
+					break;
+				case 16:
+					sResRef="010_cr_comm_human50";
+					break;
+				case 17:
+					sResRef="010_cr_comm_human60";
+					break;
+				case 18:
+					sResRef="010_cr_comm_human70";
+					break;
+				case 19:
+					sResRef="010_cr_comm_human80";
+					break;
+				case 20:
+					sResRef="010_cr_comm_human11";
+					break;
+				case 21:
+					sResRef="010_cr_comm_human_f0";
+					break;
+				case 22:
+					sResRef="010_cr_comm_human_f1";
+					break;
+				case 23:
+					sResRef="010_cr_comm_human_m0";
+					break;
+		}
+		break;
+	}
+	return sResref;
+}
