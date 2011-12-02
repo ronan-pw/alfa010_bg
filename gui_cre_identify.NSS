@@ -20,6 +20,8 @@
 // Includes ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "acr_creature_i"
+
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,42 +44,14 @@
 
 void main()
 {
-	// this script is free for all - no security measures required for execution
-	
 	object oPC = OBJECT_SELF;
 	object oTarget = GetPlayerCurrentTarget(oPC);
 
 	// only process creature inquiries
 	if (GetObjectType(oTarget) == OBJECT_TYPE_CREATURE)
 	{
-		// do a knowledge check - exit on failure
-		if (d20() + GetSkillRank(SKILL_LORE, oPC) < 10 + FloatToInt(GetChallengeRating(oTarget)))
-		{
-			// alert the player - should we also save the attempt (db) to prevent retries?
-			SendMessageToPC(oPC, "You do not recognize this creature."); return;
-		}
-
-		// init variables - prepare to clean name
-		string sName = GetName(oTarget); 		
-		string sFirstChar = GetSubString(sName, 1, 1);
-		int nEnd = GetStringLength(sName), i, p;
-
-		// filter out the extras in the name of the creature
-		if ((p = FindSubString(sName, ", CR ")) != -1)
-			nEnd = p - 1;
-		else if ((p = FindSubString(sName, " CR ")) != -1)
-			nEnd = p - 1;
-		// check alternate formatting
-		else if ((p = FindSubString(sName, " CR") != -1))
-			nEnd = p - 1;
-		
-		// compose the name to report to the player
-		sName = (((sFirstChar == "A") || (sFirstChar == "E") || (sFirstChar == "I") ||
-				 (sFirstChar == "O") || (sFirstChar == "U"))
-				? "an " : "a ") + GetSubString(sName, 1, nEnd);
-		
-		
-		// report the filtered creature name
-		SendMessageToPC(oPC, "You recognize the creature - <color=Magenta><i>" + sName + "!</i></color>");
+		// implementation was rolled into acr_creature_i for hak implementation
+		ACR_CreatureIdentify(oPC, oTarget);
 	}
 }
+
