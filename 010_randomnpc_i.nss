@@ -122,7 +122,7 @@ void RandomizeNPC(object oNPC, int nEquip=1)
 
 string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
 {
-	string sResref="";
+	string sResRef="";
 
 	if (Random(10) < 2)
 		return "";
@@ -136,7 +136,7 @@ string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
 							sResRef="abr_cr_DwarfExpertM";
 							break;
 						case 1:
-							ResRef="abr_cr_DwarfExpertF";
+							sResRef="abr_cr_DwarfExpertF";
 							break;
 						case 2:
 							sResRef="abr_cr_DwarfWarriorA";
@@ -291,5 +291,5 @@ string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
 		}
 		break;
 	}
-	return sResref;
+	return sResRef;
 }
