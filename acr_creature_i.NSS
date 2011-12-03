@@ -453,6 +453,7 @@ void ACR_CreatureOnUserDefined()
 	ExecuteScript("nw_c2_defaultd", OBJECT_SELF);
 }
 
+
 void ACR_CreatureIdentify(object oPC, object oTarget)
 {
 	// first, determine which Knowledge skill applies.
@@ -471,6 +472,9 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 		return;
 	}
 
+	sOld = sName = GetName(oTarget);
+	end = GetStringLength(sName);
+
 	// Handle hidden text
 	if ((p = FindSubString(sName, "{")) != -1) {
 		start = p+1;
@@ -487,13 +491,13 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 		if (TestStringAgainstPattern("**CR(*w|*n)**",sTmp)) {
 		
 			// imprecise, best 'guess' for cr formats
-			if      ((p = FindSubString(sTmp, ", CR")) != -1) ;
-			else if ((p = FindSubString(sTmp, "- CR")) != -1) ;
-			else if ((p = FindSubString(sTmp, ": CR")) != -1) ;
-			else if  ((p = FindSubString(sTmp, ":CR")) != -1) ;
-			else if  ((p = FindSubString(sTmp, "-CR")) != -1) ;
-			else if  ((p = FindSubString(sTmp, ",CR")) != -1) ;
-			else if  ((p = FindSubString(sTmp, " CR")) != -1) ;
+			if      ((p = FindSubString(sTmp, ", CR")) != -1) {}
+			else if ((p = FindSubString(sTmp, "- CR")) != -1) {}
+			else if ((p = FindSubString(sTmp, ": CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, ":CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, "-CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, ",CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, " CR")) != -1) {}
 			// Panic, this is ONLY a cr no name
 			else {
 				sName = sOld;
@@ -509,6 +513,6 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 	}
 
 	// report the filtered creature name
-	SendMessageToPC(oPC, "You recognize the creature, "+GetArticle(sName)+" <color=Magenta><i>"+sName+"</i></color>!");
+	SendMessageToPC(oPC, "You recognize it as "+GetArticle(sName)+" <color=Magenta><i>"+sName+"</i></color>!");
 }
 
