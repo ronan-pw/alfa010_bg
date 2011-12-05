@@ -472,7 +472,8 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 		return;
 	}
 
-	sOld = sName = GetName(oTarget);
+	sName = GetName(oTarget);
+	sOld = sName;
 	end = GetStringLength(sName);
 
 	// Handle hidden text
