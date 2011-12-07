@@ -111,24 +111,27 @@ void ACR_CreatureOnUserDefined();
 void ACR_CreatureIdentify(object oPC, object oTarget);
 
 
-//-Sandermann 03/06/10
-//This determines if the creature should use smart AI or not. Smart AI will include an intelligent 
-//selection of spell and ability use, tactics and targetting. Note you must still set variables defined
-//in x2_inc_switches.nss to use specail tactics. Setting X2_L_BEH_MAGIC to more than one turns this on
-//default as without smart AI the creature will never cast a spell. This behaviour is default for any creature
-//with an intelligence score over 10.
-//to set smart AI behaviour manually set the variable ALFA_SMART_AI on the creature
-int GetIsSmart(object oCreature=OBJECT_SELF);
+int GetCreatureAIType(object oCreature=OBJECT_SELF);
+
+
+const int _HENCH_AI_MIN_INT = 5;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-int GetIsSmart(object oCreature=OBJECT_SELF)
+/*
+ * Custom AI levels:
+ *
+ * 0: Highest
+ * 1: Medium
+ * 2: Lowest
+ */
+int GetCreatureAIType(object oCreature=OBJECT_SELF)
 {
-	return ((GetLocalInt(oCreature, "ACR_NPC") == 0) &&
-		(GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) > 5));
+	return GetLocalInt(oCreature, "ACR_NPC")
+			|| (GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) <= _HENCH_AI_MIN_INT);
 }
 
 void ACR_CreatureOnSpawnIn()
@@ -196,10 +199,11 @@ void ACR_CreatureOnSpellCastAt()
 	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
 		return;
 #endif
-	// if we are using smart AI, call the OE associate script
-	// otherwise call the nw_c2 AI script
-	if (GetIsSmart())
-		ai_script = "gb_assoc_spell";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_spell";
+			break;
+	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
 }
@@ -215,10 +219,11 @@ void ACR_CreatureOnPhysicallyAttacked()
 	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
 		return;
 #endif
-	// if we are using smart AI, call the OE associate script
-	// otherwise call the nw_c2 AI script
-	if (GetIsSmart())
-		ai_script = "gb_assoc_attack";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_attack";
+			break;
+	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
 }
@@ -233,10 +238,11 @@ void ACR_CreatureOnDamaged()
 	// apply any effects on the creature
 	//ACR_VFXOnDamage(oDamager, OBJECT_SELF);
 
-	// if we are using smart AI, call the OE associate script
-	// otherwise call the nw_c2 AI script
-	if (GetIsSmart())
-		ai_script = "gb_assoc_damage";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_damage";
+			break;
+	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
 }
@@ -280,10 +286,11 @@ void ACR_CreatureOnBlocked()
 	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
 		return;
 #endif
-	// if we are using smart AI, call the OE associate script
-	// otherwise call the nw_c2 AI script
-	if (GetIsSmart())
-		ai_script = "gb_assoc_block";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_block";
+			break;
+	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
 }
@@ -296,10 +303,11 @@ void ACR_CreatureOnEndCombatRound()
 	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
 		return;
 #endif
-	// if we are using smart AI, call the OE associate script
-	// otherwise call the nw_c2 AI script
-	if (GetIsSmart())
-		ai_script = "gb_comp_combat";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_comp_combat";
+			break;
+	}
 
 	ExecuteScript(ai_script, OBJECT_SELF);
 }
@@ -333,61 +341,6 @@ void ACR_CreatureOnInventoryDisturbed()
 
 void ACR_CreatureOnHeartBeat()
 {
-	// if this is a pc, check if they perceive any creatures
-	// AcadiusLost - deleted for now
-	/*
-	if (GetIsPC(OBJECT_SELF))
-	{
-		// ignore DMs
-		if (GetIsDM(OBJECT_SELF) || GetIsDMPossessed(OBJECT_SELF)) { return; }
-		
-		// do the math - calculate an coordinate offset based on orientation angle
-
-		vector vPosition = GetPositionFromLocation(GetLocation(OBJECT_SELF));
-		float fX, fY, fLength = RADIUS_SIZE_VAST, fRatio = fLength/90.0, fFacing = GetFacing(OBJECT_SELF);
-		int nNumIncrements = FloatToInt(fFacing) % 90;
-		
-		// handle angle rollovers
-		if (fFacing == 360.0) { fFacing = 0.0; }
-		
-		// compute the target x and y coordinates based on the orientation quadrant
-		if (fFacing < 90.0 && fFacing >= 0.0)
-		{
-			fX = vPosition.x + fLength - (nNumIncrements * fRatio); fY = vPosition.y + (nNumIncrements * fRatio);
-		}
-		else if (fFacing < 180.0 && fFacing >= 90.0)
-		{
-			fX = vPosition.x - (nNumIncrements * fRatio); fY = vPosition.y + fLength - (nNumIncrements * fRatio);
-		}
-		else if (fFacing < 270.0 && fFacing >= 180.0)
-		{
-			fX = vPosition.x - fLength + (nNumIncrements * fRatio); fY = vPosition.y - (nNumIncrements * fRatio);
-		}
-		else if (fFacing < 360.0 && fFacing >= 270.0)
-		{
-			fX = vPosition.x + (nNumIncrements * fRatio); fY = vPosition.y - fLength + (nNumIncrements * fRatio);
-		}
-
-		// generate the location marking the endpoint of the cone
-		location lLocation = Location(GetArea(OBJECT_SELF), Vector(fX, fY, vPosition.z), fFacing);
-		
-		// find objects within their viewing range
-		object oTarget = GetFirstObjectInShape(SHAPE_SPELLCONE, fLength, lLocation, TRUE);
-
-		// loop through the matching creature objects and check if the pc identifies any he sees
-		while(GetIsObjectValid(oTarget))
-		{
-			if (GetObjectSeen(oTarget)) { ACR_CreatureIdentify(OBJECT_SELF, oTarget); }
-			oTarget = GetNextObjectInShape(SHAPE_SPELLCONE, fLength, lLocation, TRUE);
-		}
-		
-		return;
-	}
-	
-	// apply any effects on the creature
-	ACR_VFXOnHeartBeat(OBJECT_SELF);
-	*/
-	
 	string ai_script = "nw_c2_default1";
 	
 #ifndef REMOVE_NO_AI
@@ -395,10 +348,14 @@ void ACR_CreatureOnHeartBeat()
 		return;
 #endif
 
-	// if we are using smart AI, call the OE associate script
-	// otherwise call the nw_c2 AI script
-	if (GetIsSmart())
-		ai_script = "gb_assoc_heart";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_heart";
+			break;
+		case 2:
+			ai_script = "npc_onhb";
+			break;
+	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
 }
@@ -424,8 +381,11 @@ void ACR_CreatureOnPerception()
 		return;
 #endif
 
-	if (GetIsSmart())
-		ai_script = "gb_assoc_percep";
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_percep";
+			break;
+	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
 }

@@ -50,6 +50,8 @@ void main();
 
 void main() {
     ACR_AreaOnExit();
+
+    DeleteLocalInt(GetEnteringObject(), "ACR_WILD_MAGIC_ZONE");
 	DPSS_DESPAWN_AREA(OBJECT_SELF,GetExitingObject());
     // Custom code goes below this line.
 }
