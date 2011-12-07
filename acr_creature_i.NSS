@@ -182,17 +182,6 @@ void ACR_CreatureOnSpawnIn()
 	WalkWayPoints(FALSE, "spawn");
 
 	// ---------- end scavenged code --------------------
-	
-	
-	//Sandermann 03/06/2010 - Are we smart? if so then run separate AI set up for spellcasting and other
-	//variables
-	
-	// this obviously doesn't work so I'll just comment it out
-	/*if GetIsSmart();
-		{
-		ExecuteScript("acf_advanced_spawn", OBJECT_SELF);
-		}
-	*/
 }
 
 void ACR_CreatureOnSpellCastAt()
