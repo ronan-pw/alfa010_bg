@@ -13,8 +13,9 @@ const int _WILD_MAGIC_GLITTER	= 11;
 const int _WILD_MAGIC_PIT	= 12;
 
 
-const float _WILD_MAGIC_TEMP_DUR	= 30.0f;
+const float _WILD_MAGIC_INSTANT_DUR	= 1.0f;
 const float _WILD_MAGIC_SHORT_DUR	= 6.0f;
+const float _WILD_MAGIC_LONG_DUR	= 30.0f;
 
 const float _WILD_MAGIC_TARGET_SEARCH_RADIUS = 15.0f;
 const float _WILD_MAGIC_PIT_RADIUS	= 7.5f;
@@ -54,7 +55,7 @@ void ACR_DamageInRadius(object oCaster, float fRadius, int nMagnitude, string sM
 
 	for (ObjectToInt(o = GetFirstObjectInShape(SHAPE_SPHERE, fRadius, loc)); GetIsObjectValid(o); ObjectToInt(o = GetNextObjectInShape(SHAPE_SPHERE, fRadius, loc))) {
 		SendMessageToPC(o, sMsg);
-		eff = EffectDamage(d6()*nMagnitude, DAMAGE_TYPE_BLUDGEONING);
+		eff = EffectDamage(d6(nMagnitude), DAMAGE_TYPE_BLUDGEONING);
 		ApplyEffectToObject(DURATION_TYPE_INSTANT, eff, o, 0.0f);
 	}
 }
@@ -177,11 +178,11 @@ void ACR_CastSpellAt(object oCaster, int nSpellId, object oTarget, location lTar
 	SetLocalInt(oNewCaster, "_IGNORE_WILD_MAGIC", 1);
 	
 	if (bCastOnLocation)
-		AssignCommand(oNewCaster, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
+		AssignCommand(oNewCaster, DelayCommand(_WILD_MAGIC_INSTANT_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
 	else
-		AssignCommand(oNewCaster, ActionCastSpellAtObject(nSpellId, oTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE));
+		AssignCommand(oNewCaster, DelayCommand(_WILD_MAGIC_INSTANT_DUR, ActionCastSpellAtObject(nSpellId, oTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
 		
-	AssignCommand(oNewCaster, DestroyObject(oNewCaster, _WILD_MAGIC_TEMP_DUR));
+	AssignCommand(oNewCaster, DestroyObject(oNewCaster, _WILD_MAGIC_LONG_DUR));
 }
 
 int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nSpellId, object oItem)
