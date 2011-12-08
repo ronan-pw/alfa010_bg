@@ -131,7 +131,7 @@ const int _HENCH_AI_MIN_INT = 5;
 int GetCreatureAIType(object oCreature=OBJECT_SELF)
 {
 	return GetLocalInt(oCreature, "ACR_NPC")
-			|| (GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) <= _HENCH_AI_MIN_INT);
+			& ((GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) <= _HENCH_AI_MIN_INT) * 0xFF);
 }
 
 void ACR_CreatureOnSpawnIn()
