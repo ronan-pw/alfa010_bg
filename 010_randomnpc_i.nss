@@ -26,7 +26,7 @@ void RandomizeNPCName(object oNPC)
 			s1 = RandomNameHuman(0);
 	}
 
-	s0 += " {Random}";
+	s0 += "{Random}";
 
 	SetFirstName(oNPC, s0);
 	SetLastName(oNPC, s1);

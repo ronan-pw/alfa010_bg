@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  System Name : ALFA Core Rules
-//     Filename : acr_creature_i
-//    $Revision:: 533        $ current version of the file
-//        $Date:: 2009-12-25#$ date the file was created or modified
-//       Author : Cipher & AcadiusLost
+//	 Filename : acr_creature_i
+//	$Revision:: 533		$ current version of the file
+//		$Date:: 2009-12-25#$ date the file was created or modified
+//	   Author : Cipher & AcadiusLost
 //
-//    Var Prefix: ACR_CRE
+//	Var Prefix: ACR_CRE
 //  Dependencies: None
 //
 //  Description
@@ -22,7 +22,7 @@
 //  2007/04/28  AcadiusLost Added calls to normal AI functions
 //  2007/07/01  AcadiusLost included acr_xp_i, altered ACR_creatureondeath for rewards
 //  2007/07/15  AcadiusLost scavenged useful code from default spawn and death scripts,
-//                  also removed default treasure drops
+//				  also removed default treasure drops
 //  2007/08/17  AcadiusLost added OnSpawn gold for random loot drops.
 //  2007/08/20  Cipher  Added auto creature identification, cleaned up code
 //  2007/09/02  Cipher  Added quest system bounty hook
@@ -32,15 +32,12 @@
 //  2008/04/04  Cipher  Added loot drop code hooks OnDeath
 //  2009/12/25  AcadiusLost - added NoAI workaround hooks, linked identification to knowledge skills
 //  2010/06/03  Sandermann - added advanced AI hook and re-introduced search and stealth functionality
-//	2011/04/09	Sandermann 	- added plug and play functionality for acr system
-//							- added random generation for equipment and sizing
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Includes ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #include "x0_i0_anims"
-#include "x0_i0_position"
 
 #include "acr_events_i"
 #include "acr_xp_i"
@@ -49,6 +46,8 @@
 #include "acr_vfx_i"
 #include "acr_wealth_i"
 #include "acr_quest_i"
+
+#define REMOVE_NO_AI
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -111,351 +110,303 @@ void ACR_CreatureOnUserDefined();
 void ACR_CreatureIdentify(object oPC, object oTarget);
 
 
-//-Sandermann 03/06/10
-//This determines if the creature should use smart AI or not. Smart AI will include an intelligent 
-//selection of spell and ability use, tactics and targetting. Note you must still set variables defined
-//in x2_inc_switches.nss to use specail tactics. Setting X2_L_BEH_MAGIC to more than one turns this on
-//default as without smart AI the creature will never cast a spell. This behaviour is default for any creature
-//with an intelligence score over 10.
-//to set smart AI behaviour manually set the variable ALFA_SMART_AI on the creature
-int GetIsSmart(object oCreature=OBJECT_SELF);
+int GetCreatureAIType(object oCreature=OBJECT_SELF);
+
+
+const int _HENCH_AI_MIN_INT = 5;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-int GetIsSmart(object oCreature=OBJECT_SELF)
+/*
+ * Custom AI levels:
+ *
+ * 0: Highest
+ * 1: Medium
+ * 2: Lowest
+ */
+int GetCreatureAIType(object oCreature=OBJECT_SELF)
 {
-int iRet=FALSE;
-if ((GetLocalInt(oCreature,"X2_L_BEH_MAGIC")>0)||
-	(GetLocalInt(oCreature,"ALFA_SMART_AI")==1)||
-	(GetAbilityScore(oCreature,3)>10))
-	{iRet=TRUE;}
-return iRet;
+	int x,y;
+	x = GetLocalInt(oCreature, "ACR_NPC");
+	y = (GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) <= _HENCH_AI_MIN_INT);
+	
+	return (x > y) ? x : y;
 }
 
 void ACR_CreatureOnSpawnIn()
 {
-    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_SEARCH) == TRUE)
-    {SetSpawnInCondition(NW_FLAG_SEARCH);}
+	//SendMessageToAllDMs(GetFirstName(OBJECT_SELF)+" called ACR_CreatureOnSpawnIn()");
+	// apply any effects on the creature
+	ACR_VFXOnSpawn(OBJECT_SELF);
 	
-    if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_AMBIENT_IMMOBILE) == TRUE)
-    {SetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS);}
+	// Scavenged code from nw_c2_default9.nss 
+	// ---------- Begin scavenged code --------------------
 
-    SetListeningPatterns();
-    WalkWayPoints(FALSE, "spawn");
+	// Enable stealth mode by setting a variable on the creature
+	// Great for ambushes
+	if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_STEALTH) == TRUE)
+	{
+		SetSpawnInCondition(NW_FLAG_STEALTH);
+	}
 	
-	//Sandermann 03/06/2010 - Are we smart? if so then run separate AI set up for spellcasting and other
-	//variables
+	// Make creature enter search mode after spawning by setting a variable
+	// Great for guards, etc
+	if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_SEARCH) == TRUE)
+	{
+		SetSpawnInCondition(NW_FLAG_SEARCH);
+	}
+	
+	// Enable immobile ambient animations by setting a variable
+	if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_AMBIENT_IMMOBILE) == TRUE)
+	{
+		SetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS);
+	}
+	// Enable mobile ambient animations by setting a variable
+	if (GetCreatureFlag(OBJECT_SELF, CREATURE_VAR_USE_SPAWN_AMBIENT) == TRUE)
+	{
+		SetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS);
+	}
+	// ***** DEFAULT GENERIC BEHAVIOR ***** //
+	// * Goes through and sets up which shouts the NPC will listen to.
+	SetListeningPatterns();
+
+	// * Walk among a set of waypoints if they exist.
+	// * 1. Find waypoints with the tag "WP_" + NPC TAG + "_##" and walk
+	// *	among them in order.
+	// * 2. If the tag of the Way Point is "POST_" + NPC TAG, stay there
+	// *	and return to it after combat.
+	//
+	// * If "NW_FLAG_DAY_NIGHT_POSTING" is set, you can also
+	// * create waypoints with the tags "WN_" + NPC Tag + "_##"
+	// * and those will be walked at night. (The standard waypoints
+	// * will be walked during the day.)
+	// * The night "posting" waypoint tag is simply "NIGHT_" + NPC tag.
+	WalkWayPoints(FALSE, "spawn");
+
+	// ---------- end scavenged code --------------------
 	
 	SetLocalInt(OBJECT_SELF,"X2_L_NOTREASURE",1);
 	
-	if (GetIsSmart(OBJECT_SELF))
-		{ExecuteScript("acf_advanced_spawn", OBJECT_SELF);}
-		
-	if((GetLocalInt(OBJECT_SELF,"NO_LOOT")==0)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_ELEMENTAL)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_ANIMAL)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_BEAST)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_CONSTRUCT)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_INCORPOREAL)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_MAGICAL_BEAST)||
-		(GetRacialType(OBJECT_SELF)!=RACIAL_TYPE_VERMIN))
-		{DelayCommand(0.5,ExecuteScript("acf_advanced_loot", OBJECT_SELF));}
+	if (GetCreatureAIType() == 0)
+		ExecuteScript("acf_advanced_spawn", OBJECT_SELF);
 }
 
 void ACR_CreatureOnSpellCastAt()
 {
-    object oCaster = GetLastSpellCaster();
+	//object oCaster = GetLastSpellCaster();
+	string ai_script = "nw_c2_defaultb";
 
-    // apply any effects on the creature
-    //ACR_VFXOnSpellCastAt(oCaster, OBJECT_SELF);
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-		{
-		//if we are using smart AI, call the OE associate script
-		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_spell", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_defaultb", OBJECT_SELF);}
-		}  
+	// apply any effects on the creature
+	//ACR_VFXOnSpellCastAt(oCaster, OBJECT_SELF);
+	
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_spell";
+			break;
+	}
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnPhysicallyAttacked()
 {
-    object oAttacker = GetLastAttacker();
-    
-    // apply any effects on the creature
-    //ACR_VFXOnAttack(oAttacker, OBJECT_SELF);
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) 
-	{ 
-		//if we are using smart AI, call the OE associate script
-		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_attack", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default5", OBJECT_SELF);}
+	//object oAttacker = GetLastAttacker();
+	string ai_script = "nw_c2_default5";
+	
+	// apply any effects on the creature
+	//ACR_VFXOnAttack(oAttacker, OBJECT_SELF);
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_attack";
+			break;
 	}
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnDamaged()
 {
-    object oDamager = GetLastDamager();
+	//object oDamager = GetLastDamager();
+	string ai_script = "nw_c2_default6";
 
-    //DoNonlethalOnDamaged();
-    
-    // apply any effects on the creature
-    //ACR_VFXOnDamage(oDamager, OBJECT_SELF);
-	//if we are using smart AI, call the OE associate script
-	if (GetIsSmart())
-		{
-		ExecuteScript("gb_assoc_damage", OBJECT_SELF);
-		}
-	//other wise call the nw_c2 AI script	
-	else {ExecuteScript("nw_c2_default6", OBJECT_SELF);}	    
+	//DoNonlethalOnDamaged();
+	
+	// apply any effects on the creature
+	//ACR_VFXOnDamage(oDamager, OBJECT_SELF);
+
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_damage";
+			break;
+	}
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnDeath()
 {
-    object oKiller = GetLastKiller();
-	SetIsDestroyable(FALSE,TRUE,FALSE);
+	object oKiller = GetLastKiller();
+
+	// report the death to the spawn system
+	ACR_ReportSpawnDeath(OBJECT_SELF);
+
+	// apply any effects on the creature
+	//ACR_VFXOnDeath(oKiller, OBJECT_SELF);
+
+	// Call the ALFA XP award functions to handle XP award
+	ACR_AwardCombatXP(oKiller, OBJECT_SELF);
+
+	// generate loot drops for mob kills
+	if (! GetIsPC(OBJECT_SELF)) { ACR_GenerateTreasure(OBJECT_SELF, ACR_GetRandomDropValue(OBJECT_SELF)); }
 	
-    ACR_ReportSpawnDeath(OBJECT_SELF);
-    ACR_AwardCombatXP(oKiller, OBJECT_SELF);
-    
-    SpeakString("NW_I_AM_DEAD", TALKVOLUME_SILENT_TALK);
-    SpeakString("NW_ATTACK_MY_TARGET", TALKVOLUME_SILENT_TALK);
+	// Code scavenged from nw_c2_default7, to handle AI
+	//  ----start borrowed code -----------------
 	
+	// Call to allies to let them know we're dead
+	SpeakString("NW_I_AM_DEAD", TALKVOLUME_SILENT_TALK);
 	
-	if (GetIsPC(oKiller))
-	{
-	location lLOOT_BAG=GetBehindLocation(OBJECT_SELF,0.5);
-	object LOOT_BAG=CreateObject(64,"030_loot_marker",lLOOT_BAG,FALSE,"LOOT_BAG");
-	object LOOT_STORE=CreateObject(128,"loot_store",lLOOT_BAG,FALSE,"LOOT_STORE");
-	SetLocalObject(LOOT_BAG,"PARENT",OBJECT_SELF);
-	SetLocalObject(LOOT_BAG,"STORE",LOOT_STORE);
-	SetLocalObject(LOOT_STORE,"BODY",OBJECT_SELF);
-	SetFirstName(LOOT_BAG,"*Loot "+GetName(OBJECT_SELF)+"*");
-	DelayCommand(10.0,SetUseableFlag(LOOT_BAG,TRUE));
-	//add a random DC int to each item in the NPCs inventory 
-	//this is then used in the loot conversation to see if a PC manages to find
-	//something on the corpse.
-	object iCount=GetFirstItemInInventory(OBJECT_SELF);
-	int iRandom;
-	while (GetIsObjectValid(iCount))
-		{
-		if (GetDroppableFlag(iCount))
-			{
-			iRandom=((Random(21))+GetSkillRank(5,OBJECT_SELF,TRUE));
-			SetLocalInt(iCount,"SEARCH_DC",iRandom);
-			}
-		iCount=GetNextItemInInventory(OBJECT_SELF);
-		}
-	DelayCommand(7200.0,ExecuteScript("00_destroy_all",LOOT_BAG));
-	DelayCommand(7200.0,ExecuteScript("00_destroy_all",LOOT_STORE));
-	}
-	
+	//Shout Attack my target, only works with the On Spawn In setup
+	SpeakString("NW_ATTACK_MY_TARGET", TALKVOLUME_SILENT_TALK);
+
+	// ----end borrowed code --------------------
+
+	// process bounties
 	ACR_QuestCreatureOnDeath(oKiller);
-		
-	DelayCommand(7199.9,SetIsDestroyable(TRUE,FALSE,FALSE));
-	DelayCommand(7200.0,ExecuteScript("00_destroy_all",OBJECT_SELF));	
 }
 
 void ACR_CreatureOnBlocked()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		//if we are using smart AI, call the OE associate script
-		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_block", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_defaulte", OBJECT_SELF);}
+	string ai_script = "nw_c2_defaulte";
+	
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_block";
+			break;
 	}
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnEndCombatRound()
 {
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		//if we are using smart AI, call the OE associate script
-		if (GetIsSmart())
-			{
-			ExecuteScript("gb_comp_combat", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default3", OBJECT_SELF);}
+	string ai_script = "nw_c2_default3";
+	
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_comp_combat";
+			break;
 	}
+
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnConversation()
 {
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-    	// still call the Obsidian script for AI for now.
-    	ExecuteScript("nw_c2_default4", OBJECT_SELF);
-	}
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_default4", OBJECT_SELF);
 }
 
 void ACR_CreatureOnInventoryDisturbed()
 {
-    object oDisturber = GetLastDisturbed();
+	object oDisturber = GetLastDisturbed();
 
-    // apply any effects on the creature
-    ACR_VFXOnDisturb(oDisturber, OBJECT_SELF);
+	// apply any effects on the creature
+	ACR_VFXOnDisturb(oDisturber, OBJECT_SELF);
 
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {	    
-    	// still call the Obsidian script for AI for now.
-    	ExecuteScript("nw_c2_default8", OBJECT_SELF);
-	}
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_default8", OBJECT_SELF);
 }
 
 void ACR_CreatureOnHeartBeat()
 {
-    // if this is a pc, check if they perceive any creatures
-    // AcadiusLost - deleted for now
-    /*
-    if (GetIsPC(OBJECT_SELF))
-    {
-        // ignore DMs
-        if (GetIsDM(OBJECT_SELF) || GetIsDMPossessed(OBJECT_SELF)) { return; }
-        
-        // do the math - calculate an coordinate offset based on orientation angle
+	string ai_script = "nw_c2_default1";
+	
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
 
-        vector vPosition = GetPositionFromLocation(GetLocation(OBJECT_SELF));
-        float fX, fY, fLength = RADIUS_SIZE_VAST, fRatio = fLength/90.0, fFacing = GetFacing(OBJECT_SELF);
-        int nNumIncrements = FloatToInt(fFacing) % 90;
-        
-        // handle angle rollovers
-        if (fFacing == 360.0) { fFacing = 0.0; }
-        
-        // compute the target x and y coordinates based on the orientation quadrant
-        if (fFacing < 90.0 && fFacing >= 0.0)
-        {
-            fX = vPosition.x + fLength - (nNumIncrements * fRatio); fY = vPosition.y + (nNumIncrements * fRatio);
-        }
-        else if (fFacing < 180.0 && fFacing >= 90.0)
-        {
-            fX = vPosition.x - (nNumIncrements * fRatio); fY = vPosition.y + fLength - (nNumIncrements * fRatio);
-        }
-        else if (fFacing < 270.0 && fFacing >= 180.0)
-        {
-            fX = vPosition.x - fLength + (nNumIncrements * fRatio); fY = vPosition.y - (nNumIncrements * fRatio);
-        }
-        else if (fFacing < 360.0 && fFacing >= 270.0)
-        {
-            fX = vPosition.x + (nNumIncrements * fRatio); fY = vPosition.y - fLength + (nNumIncrements * fRatio);
-        }
-
-        // generate the location marking the endpoint of the cone
-        location lLocation = Location(GetArea(OBJECT_SELF), Vector(fX, fY, vPosition.z), fFacing);
-        
-        // find objects within their viewing range
-        object oTarget = GetFirstObjectInShape(SHAPE_SPELLCONE, fLength, lLocation, TRUE);
-
-        // loop through the matching creature objects and check if the pc identifies any he sees
-        while(GetIsObjectValid(oTarget))
-        {
-            if (GetObjectSeen(oTarget)) { ACR_CreatureIdentify(OBJECT_SELF, oTarget); }
-            oTarget = GetNextObjectInShape(SHAPE_SPELLCONE, fLength, lLocation, TRUE);
-        }
-    }
-    else
-    {
-        // apply any effects on the creature
-        ACR_VFXOnHeartBeat(OBJECT_SELF);
-    */
-	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-		//if we are using smart AI, call the OE associate script
-		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_heart", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default1", OBJECT_SELF);}
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_heart";
+			break;
+		case 2:
+			ai_script = "npc_onhb";
+			break;
 	}
-    //}
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnRested()
 {
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-    	// still call the Obsidian script for AI for now.
-    	ExecuteScript("nw_c2_defaulta", OBJECT_SELF);
-	}
+
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_defaulta", OBJECT_SELF);
 }
 
 void ACR_CreatureOnPerception()
 {
-    object oPerceived = GetLastPerceived();
+	string ai_script = "nw_c2_default2";
 
-    // apply any effects on the creature
-    //ACR_VFXOnPerception(oPerceived, OBJECT_SELF);
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {    
-		//if we are using smart AI, call the OE associate script
-		if (GetIsSmart())
-			{
-			ExecuteScript("gb_assoc_percep", OBJECT_SELF);
-			}
-		//other wise call the nw_c2 AI script	
-		else {ExecuteScript("nw_c2_default2", OBJECT_SELF);}
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
+
+	switch (GetCreatureAIType()) {
+		case 0:
+			ai_script = "gb_assoc_percep";
+			break;
+		case 2: ai_script = "npc_onper";
+			break;
 	}
+	
+	ExecuteScript(ai_script, OBJECT_SELF);
 }
 
 void ACR_CreatureOnUserDefined()
 {
-    if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI) == FALSE) {
-    	// still call the Obsidian script for AI for now.
-    	ExecuteScript("nw_c2_defaultd", OBJECT_SELF);
-	}
-}
 
-void ACR_CreatureIdentify(object oPC, object oTarget)
-{
-	// first, determine which Knowledge skill applies.
-	int nKnowSkill = GetKnowlegeSkillOfRace(GetRacialType(oTarget));
-	if (nKnowSkill == -1) {
-		WriteTimestampedLogEntry("Unaccounted RacialType Error identifying "+GetName(oTarget)+" with ResRef: "+GetResRef(oTarget)+" by PC: "+GetName(oPC)+" in area: "+GetName(GetArea(oTarget))); 
-		nKnowSkill = SKILL_LORE;
-	}
-    // do a knowledge check - exit on failure
-    if (d20() + GetSkillRank(nKnowSkill, oPC) < 10 + FloatToInt(GetChallengeRating(oTarget)))
-    {
-        // alert the player - should we also save the attempt (db) to prevent retries?
-        SendMessageToPC(oPC, "You do not recognize this creature."); return;
-    }
+#ifndef REMOVE_NO_AI
+	if (GetLocalInt(OBJECT_SELF, _CRE_NO_AI)) 
+		return;
+#endif
 
-    // init variables - prepare to clean name
-    string sName = GetName(oTarget);         
-    string sFirstChar = GetSubString(sName, 1, 1);
-    int nEnd = GetStringLength(sName), i, p;
-
-    // filter out the extras in the name of the creature
-    if ((p = FindSubString(sName, ", CR ")) != -1)
-    {
-        nEnd = p - 1;
-    }
-    else if ((p = FindSubString(sName, " CR ")) != -1)
-    {
-        nEnd = p - 1;
-    }
-    else
-    {
-        // check alternate formatting
-        for (i=0; i<9; i++)
-        {
-            // get the position of the Challenge Rating (marks the end of the name)
-            if ((p = FindSubString(sName, " CR" + IntToString(i))) != -1) { nEnd = p + 1; break; }
-        }
-    }
-    string sDisplayName = GetSubString(sName, 1, nEnd);   
-    // compose the name to report to the player
-    sName = ((sFirstChar == "A") || (sFirstChar == "E") || (sFirstChar == "I") ||
-             (sFirstChar == "O") || (sFirstChar == "U"))
-            ? "an " + GetSubString(sName, 1, nEnd) : "a " + GetSubString(sName, 1, nEnd);
-        
-    // report the filtered creature name
-    SendMessageToPC(oPC, "You recognize the creature - <color=Magenta><i>" + sName + "!</i></color>");
-	SetFirstName(oTarget, sDisplayName);
+	// still call the Obsidian script for AI for now.
+	ExecuteScript("nw_c2_defaultd", OBJECT_SELF);
 }
