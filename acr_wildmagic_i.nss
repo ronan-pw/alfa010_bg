@@ -23,6 +23,7 @@ const float _WILD_MAGIC_EFFECT_RADIUS	= 30.0f;
 const float _WILD_MAGIC_RANDOM_STD	= 10.0f;
 
 #include "acr_effects_i"
+#include "acr_creature_i"
 
 void ACR_EffectInRadius(object oCaster, float fRadius, effect eff, string sMsg, int nEffectType=DURATION_TYPE_INSTANT, float fDuration = 0.0f)
 {
@@ -166,10 +167,17 @@ int ACR_DetermineWildMagic()
 
 void ACR_CastSpellAt(object oCaster, int nSpellId, object oTarget, location lTarget, int bCastOnLocation, int nMetamagic, int nModifyDC = 0)
 {
-	object oNewCaster = CopyObject(oCaster, GetLocation(oCaster));
+	object oNewCaster = CreateObject(OBJECT_TYPE_CREATURE, "c_faction_pig", GetLocation(oCaster));
 	
-	SetScriptHidden(oNewCaster, TRUE);
+	SetFirstName(oNewCaster, "");
+	SetLastName(oNewCaster, "");
+
 	SetPlotFlag(oNewCaster, 1);
+
+	SetCreatureAppearanceType(oNewCaster, APPEARANCE_TYPE_BEGGER);
+
+	ChangeToStandardFaction(oNewCaster, STANDARD_FACTION_MERCHANT);
+	SetLocalInt(oNewCaster, _CRE_NO_AI, 1);
 	
 	SetBaseAbilityScore(oNewCaster, ABILITY_INTELLIGENCE, GetAbilityScore(oCaster, ABILITY_INTELLIGENCE, TRUE) + nModifyDC*2);
 	SetBaseAbilityScore(oNewCaster, ABILITY_WISDOM, GetAbilityScore(oCaster, ABILITY_WISDOM, TRUE) + nModifyDC*2);
@@ -214,7 +222,7 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 			
 			ACR_CastSpellAt(oCaster, nSpellId, oTarget, lTarget, METAMAGIC_ANY, bCastOnLocation);
 
-			SendMessageToPC(oCaster,"The magical effect vanishes and rebounds upon you!");
+			SendMessageToPC(oCaster, "The magical effect vanishes and rebounds upon you!");
 			break;
 				
 		case _WILD_MAGIC_RANDOM:
@@ -227,7 +235,7 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 			break;
 
 		case _WILD_MAGIC_RGRAV:
-			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE), "You feel an intense sense of vertigo!", DURATION_TYPE_INSTANT);
+			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectVisualEffect(VFX_SPELL_HIT_EARTHQUAKE), "An intense feeling of vertigo overwhelms you!", DURATION_TYPE_INSTANT);
 			
 			SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>*Suddenly everything around "+GetName(oCaster)+" begins floating up -- then shortly after slams down back into the ground.*");
 			
@@ -244,7 +252,7 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 
 		case _WILD_MAGIC_FAIL:
 		case _WILD_MAGIC_FAIL_NOEX:
-			SendMessageToPC(oCaster,"The magical effect fizzles into nothingness.");
+			SendMessageToPC(oCaster, "The magical effect fizzles into nothingness.");
 			break;
 			
 		case _WILD_MAGIC_RAIN:
@@ -265,7 +273,7 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 					sItem = "rotten fruit";
 			}
 					
-			SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>*Suddenly a storm of falling "+sItem+" begins raining down on the area, vanshing almost as soon as it appeared.*");
+			SendChatMessage(oCaster, oCaster, CHAT_MODE_TALK, "<i>*Suddenly a storm of falling "+sItem+" begins raining down on the area, vanshing almost as soon as it appears.*");
 			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectLinkEffects(EffectVisualEffect(VFX_DUR_DARKNESS), EffectBlindness()), "The hailstorm blinds you!", DURATION_TYPE_TEMPORARY, _WILD_MAGIC_SHORT_DUR);
 			
 			break;
@@ -275,7 +283,7 @@ int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nS
 			break;
 
 		case _WILD_MAGIC_DARK:
-			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectLinkEffects(EffectVisualEffect(VFX_DUR_DARKNESS), EffectDarkness()), "A cloud of blackness surrounds you.", DURATION_TYPE_TEMPORARY, IntToFloat(d4()+d4())*_WILD_MAGIC_SHORT_DUR);
+			ACR_EffectInRadius(oCaster, _WILD_MAGIC_EFFECT_RADIUS, EffectLinkEffects(EffectVisualEffect(VFX_DUR_DARKNESS), EffectDarkness()), "A cloud of inky blackness surrounds you.", DURATION_TYPE_TEMPORARY, IntToFloat(d4()+d4())*_WILD_MAGIC_SHORT_DUR);
 			break;
 
 		case _WILD_MAGIC_GLITTER:
