@@ -385,6 +385,8 @@ void ACR_CreatureOnPerception()
 		case 0:
 			ai_script = "gb_assoc_percep";
 			break;
+		case 2: ai_script = "npc_onper";
+			break;
 	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
