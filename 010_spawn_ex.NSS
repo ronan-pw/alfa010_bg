@@ -72,15 +72,15 @@ object spawn_npc_internal(string resref, float prob, float prob_walk, int use_am
 		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_CREATURE, loc);
 
 
-		if (use_ambient > 0) {
+		if (use_ambient > 0) 
 			SetLocalInt(o, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
-		}
+		
 		SetLocalInt(o, "X2_L_SPAWN_USE_AMBIENT", 0);
 		
 		calc = ACR_RandomFloat();
-		if (calc <= prob_walk) {
+		if (calc <= prob_walk) 
 			SetLocalInt(o, "X2_L_SPAWN_USE_AMBIENT", 1);
-		}
+		
 	}
 	return o;
 }
@@ -114,7 +114,7 @@ object spawn_nonambient_npc(string resref, float prob=1.0, float prob_walk=0.2)
 
 void spawn_group(string resref, float prob=1.0)
 {
-	float f = (Random(1000)*1.0)/1000;
+	float f = ACR_RandomFloat();
 	object o = OBJECT_INVALID;
 	
 	if (f <= prob) {

@@ -7,7 +7,7 @@ const float _SIZE_STD_Y = 0.05f;
 const float _SIZE_STD_Z = 0.05f;
 
 
-void RandomizeNPCName(object oNPC)
+void RandomizeNPCName(object oNPC = OBJECT_SELF)
 {
 	string s0="",s1="";
 	int gender = GetGender(oNPC);
@@ -32,7 +32,7 @@ void RandomizeNPCName(object oNPC)
 	SetLastName(oNPC, s1);
 }
 
-void RandomizeNPCAppearance(object oNPC)
+void RandomizeNPCAppearance(object oNPC = OBJECT_SELF)
 {
 	float f = 0.3;
 	int rand = 999,skin=Random(3);
@@ -45,18 +45,18 @@ void RandomizeNPCAppearance(object oNPC)
 	ACR_RandomizeAppearance(oNPC,rand,rand,rand,rand,rand,rand,skin,rand,f);
 }
 
-void RandomizeNPCScale(object oNPC)
+void RandomizeNPCScale(object oNPC = OBJECT_SELF, float std_x = _SIZE_STD_X, float std_y = _SIZE_STD_Y, float std_z = _SIZE_STD_Z)
 {
 	float x,y,z;
 
-	x=ACR_RandomNormal(GetScale(oNPC,SCALE_X),_SIZE_STD_X);
-	y=ACR_RandomNormal(GetScale(oNPC,SCALE_Y),_SIZE_STD_Y);
-	z=ACR_RandomNormal(GetScale(oNPC,SCALE_Z),_SIZE_STD_Z);
+	x=ACR_RandomNormal(GetScale(oNPC, SCALE_X), std_x);
+	y=ACR_RandomNormal(GetScale(oNPC, SCALE_Y), std_y);
+	z=ACR_RandomNormal(GetScale(oNPC, SCALE_Z), std_z);
 
 	SetScale(oNPC,x,y,z);
 }
 
-void RandomizeNPCClothing(object oNPC)
+void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 {
 	string sArmType,sBootType;
 	int rCloth,rBoots,gender=GetGender(oNPC);
@@ -110,21 +110,23 @@ void RandomizeNPCClothing(object oNPC)
 	AssignCommand(oNPC,ActionEquipItem(oBoots,2)); 
 }
 
-void RandomizeNPC(object oNPC, int nEquip=1)
+void RandomizeNPC(object oNPC = OBJECT_SELF, int nEquip=1, int nName=1)
 {
-	RandomizeNPCName(oNPC);
 	RandomizeNPCAppearance(oNPC);
 	RandomizeNPCScale(oNPC);
+
+	if (nName)
+		RandomizeNPCName(oNPC);
 
 	if (nEquip)
 		RandomizeNPCClothing(oNPC);
 }
 
-string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
+string RandomNPCResref(int race=RACIAL_TYPE_HUMAN, float prob = 0.2)
 {
 	string sResRef="";
 
-	if (Random(10) < 2)
+	if (ACR_RandomFloat() < prob)
 		return "";
 
 	switch (race) {
@@ -176,7 +178,7 @@ string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
 			}
 			break;
 		case RACIAL_TYPE_GNOME:
-			switch (Random(5)) {
+			switch (Random(7)) {
 				case 0:
 					switch (Random(6)) {
 						case 0:
@@ -211,7 +213,29 @@ string RandomNPCResref(int race=RACIAL_TYPE_HUMAN)
 				case 4:
 					sResRef="010_cr_gnome_comm3";
 					break;
+				case 5:
+					sResRef="010_cr_gnome_comm4";
+					break;
+				case 6:
+					sResRef="010_cr_gnome_comm5";
+					break;
 				}
+			break;
+		case RACIAL_TYPE_GRAYORC:
+			switch(Random(4)) {
+				case 0:
+					sResRef = "010_cr_deepgnome0";
+					break;
+				case 1:
+					sResRef = "010_cr_deepgnome1";
+					break;
+				case 2:
+					sResRef = "010_cr_deepgnome2";
+					break;
+				case 3:
+					sResRef = "010_cr_deepgnome1";
+					break;
+			}
 			break;
 		case RACIAL_TYPE_HUMAN:
 		default:
