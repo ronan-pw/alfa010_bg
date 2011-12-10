@@ -1,10 +1,11 @@
 NSC	= nsc
-NSFLAGS	= -q -e -a -v1.69 -i ../include/:../ALFA-Base-Resources/alfa2_acr.hak/ -x " ERROR "
+NSFLAGS	= -q -e -o -a -v1.69 -i ../include/:../ALFA-Base-Resources/alfa2_acr.hak/ -x " ERROR "
 # flags:
 # [-g:nodebug]
 # [-v:version]
 # [-i:include]
 # [-a:analyze]
+# [-o:optimize]
 
 RM	= rm -f
 
