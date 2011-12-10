@@ -19,7 +19,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Includes ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-#include "acr_creature_i_advanced"
+#include "acr_creature_i"
+#include "010_randomnpc_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -43,45 +44,36 @@
 
 void main()
 {
-    ACR_CreatureOnSpawnIn();
+	ACR_CreatureOnSpawnIn();
 
-    // Custom code goes here.
-	
-	int D3a=d3(1);
-	int D4c=d4(1);
-	int D3d=d3(1);
-	string sArmType;
-	string sHelmType;
-	string sShldType;
-	string sWeapType;
-	switch (D3a)
-		{
+	ExecuteScript("acf_advanced_spawn", OBJECT_SELF);
+
+	RandomizeNPCScale();
+
+	string sArmType, sHelmType, sShldType, sWeapType;
+
+	switch (d3()) {
 		case 1:sArmType="010_sand_npc_gobleather0";break;
 		case 2:sArmType="010_sand_npc_gobleather1";break;
 		case 3:sArmType="010_sand_npc_gobleather2";break;
+	}
+	if (GetHasFeat(FEAT_WEAPON_FOCUS_SHORTBOW)) {
+		switch (d3()) {
+			case 1:sShldType="010_it_shld_humanoid2";break;
+			case 2:sShldType="010_it_shld_humanoid1";break;
+			case 3:sShldType="010_it_shld_humanoid0";break;
+			case 4:sShldType="010_it_spear_humanoid1";break;
 		}
-	switch (D4c)
-		{
-		case 1:sShldType="010_it_shld_humanoid2";break;
-		case 2:sShldType="010_it_shld_humanoid1";break;
-		case 3:sShldType="010_it_shld_humanoid0";break;
-		case 4:sShldType="010_it_spear_humanoid1";break;
-		}
-	switch (D3d)
-		{
+	}
+	switch (d3()) {
 		case 1:sWeapType="010_it_axe_humanoid";break;
 		case 2:sWeapType="010_it_mornstar_humanoid0";break;
 		case 3:sWeapType="010_it_ssword_humanoid";break;
-		}
+	}
 	object oArmour=CreateItemOnObject(sArmType);
 	object oWeapon=CreateItemOnObject(sWeapType);
 	object oShield=CreateItemOnObject(sShldType);
 	AssignCommand(OBJECT_SELF,ActionEquipItem(oArmour,1));
 	AssignCommand(OBJECT_SELF,ActionEquipItem(oWeapon,4));
 	AssignCommand(OBJECT_SELF,ActionEquipItem(oShield,5));
-	
-	float fX=(GetScale(OBJECT_SELF,SCALE_X)-0.1)+(IntToFloat(d20(1))/100);
-	float fY=(GetScale(OBJECT_SELF,SCALE_Y)-0.1)+(IntToFloat(d20(1))/100);
-	float fZ=(GetScale(OBJECT_SELF,SCALE_Z)-0.1)+(IntToFloat(d20(1))/100);
-	SetScale(OBJECT_SELF,fX,fY,fZ);
 }

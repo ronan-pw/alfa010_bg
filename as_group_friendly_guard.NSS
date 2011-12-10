@@ -76,8 +76,8 @@ void main() {
 		// candlekeep
 		case 3:
 			spawn_npc("abr_cr_npc_cl_3_lath", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
-			spawn_npc("010_cr_ck_guard", 0.5);
+			spawn_npc("010_cr_ck_archer", 0.5);
+			spawn_npc("010_cr_ck_archer", 0.5);
 			spawn_npc("010_cr_ck_guard", 0.5);
 			spawn_npc("010_cr_ck_guard", 0.5);
 			spawn_npc("010_cr_ck_guard", 0.5);

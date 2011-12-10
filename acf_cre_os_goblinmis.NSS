@@ -1,20 +1,14 @@
-#include "acr_creature_i_advanced"
+#include "acr_creature_i"
+#include "010_randomnpc_i"
 
 void main()
 {
-    ACR_CreatureOnSpawnIn();
+	ACR_CreatureOnSpawnIn();
+
+	ExecuteScript("acf_advanced_spawn", OBJECT_SELF);
 	
-	/*
-	///RANDOM SCALE///
-	int riX=d10(1);
-	int riY=d10(1);
-	int riZ=d10(1);
-	float rfX=(IntToFloat(riX)/100);
-	float rfY=(IntToFloat(riY)/100);
-	float rfZ=(IntToFloat(riZ)/100);
-	rfX=0.92+rfX;rfY=0.92+rfY;rfZ=0.92+rfZ;
-	SetScale(OBJECT_SELF,rfX,rfY,rfZ);
-	*/
+	RandomizeNPCScale();
+
 	int D10a=d10(1);
 	int D10b=d10(1);
 	int D6d=d6(1);		
@@ -63,11 +57,4 @@ void main()
 	AssignCommand(OBJECT_SELF,ActionEquipItem(oArmour,1));
 	AssignCommand(OBJECT_SELF,ActionEquipItem(oHelmet,0));
 	//AssignCommand(OBJECT_SELF,ActionEquipItem(oWeapon,4));
-
-	float fX=(GetScale(OBJECT_SELF,SCALE_X)-0.05)+(IntToFloat(d10(1))/100);
-	float fY=(GetScale(OBJECT_SELF,SCALE_Y)-0.05)+(IntToFloat(d10(1))/100);
-	float fZ=(GetScale(OBJECT_SELF,SCALE_Z)-0.05)+(IntToFloat(d10(1))/100);
-	SetScale(OBJECT_SELF,fX,fY,fZ);	
-	
-	
 }
