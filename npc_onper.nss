@@ -17,7 +17,7 @@
 #include "ginc_behavior"
 
 
-void main()
+void npc_onper()
 {
 // * if not running normal or better Ai then exit for performance reasons
     // * if not running normal or better Ai then exit for performance reasons
@@ -28,6 +28,7 @@ void main()
 
     int iFocused = GetIsFocused();
 
+
     int bSeen = GetLastPerceptionSeen();
     if ((iFocused <= FOCUSED_STANDARD) && bSeen)
     {
@@ -35,8 +36,7 @@ void main()
         {
                 if ((GetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS)
                     || GetSpawnInCondition(NW_FLAG_AMBIENT_ANIMATIONS_AVIAN)
-                    || GetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS)
-                    || GetIsEncounterCreature()))
+                    || GetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS)))
                 {
                     SetAnimationCondition(NW_ANIM_FLAG_IS_ACTIVE);
                 }

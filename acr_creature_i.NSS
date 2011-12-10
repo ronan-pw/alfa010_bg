@@ -46,6 +46,10 @@
 #include "acr_vfx_i"
 #include "acr_wealth_i"
 #include "acr_quest_i"
+#include "acr_skills_i"
+
+#include "npc_onhb"
+#include "npc_onper"
 
 #define REMOVE_NO_AI
 
@@ -189,6 +193,15 @@ void ACR_CreatureOnSpawnIn()
 	// ---------- end scavenged code --------------------
 	
 	SetLocalInt(OBJECT_SELF,"X2_L_NOTREASURE",1);
+	SetLocalInt(OBJECT_SELF, "X2_L_SPAWN_USE_AMBIENT_IMMOBILE", 1);
+
+	if (d8() == 0) {
+		SetAnimationCondition(NW_ANIM_FLAG_IS_MOBILE_CLOSE_RANGE, 1);
+		SetLocalInt(OBJECT_SELF, "X2_L_SPAWN_USE_AMBIENT", 0);
+	}
+	else
+		SetAnimationCondition(NW_ANIM_FLAG_IS_MOBILE_CLOSE_RANGE, 0);
+
 }
 
 void ACR_CreatureOnSpellCastAt()
@@ -357,8 +370,8 @@ void ACR_CreatureOnHeartBeat()
 			ai_script = "gb_assoc_heart";
 			break;
 		case 2:
-			ai_script = "npc_onhb";
-			break;
+			npc_onhb();
+			return;
 	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
@@ -389,8 +402,9 @@ void ACR_CreatureOnPerception()
 		case 0:
 			ai_script = "gb_assoc_percep";
 			break;
-		case 2: ai_script = "npc_onper";
-			break;
+		case 2:
+			npc_onper();
+			return;
 	}
 	
 	ExecuteScript(ai_script, OBJECT_SELF);
@@ -409,3 +423,65 @@ void ACR_CreatureOnUserDefined()
 }
 
 
+void ACR_CreatureIdentify(object oPC, object oTarget)
+{
+	// first, determine which Knowledge skill applies.
+	int i,p,end,start,nKnowSkill = GetKnowlegeSkillOfRace(GetRacialType(oTarget));
+	string sName,sOld,sTmp;
+
+
+	if (nKnowSkill == -1) {
+		WriteTimestampedLogEntry("Unaccounted RacialType Error identifying "+GetName(oTarget)+" with ResRef: "+GetResRef(oTarget)+" by PC: "+GetName(oPC)+" in area: "+GetName(GetArea(oTarget))); 
+		nKnowSkill = SKILL_LORE;
+	}
+	// do a knowledge check - exit on failure
+	if (!ACR_SkillCheck(nKnowSkill, oPC, 10 + FloatToInt(GetChallengeRating(oTarget)), TRUE)) {
+		// alert the player - should we also save the attempt (db) to prevent retries?
+		SendMessageToPC(oPC, "You fail to notice anything remarkable about this creature.");
+		return;
+	}
+
+	sName = GetName(oTarget);
+	sOld = sName;
+	end = GetStringLength(sName);
+
+	// Handle hidden text
+	if ((p = FindSubString(sName, "{")) != -1) {
+		start = p+1;
+
+		if ((p = FindSubString(sName, "}")) != -1)
+			end = p-1;
+
+		sTmp = GetStringUpperCase(GetSubString(sName, start, end-start));
+
+		// Clean name-candidate
+		sName = GetSubString(sName, start, end-start);
+
+		// Proper cr declaration
+		if (TestStringAgainstPattern("**CR(*w|*n)**",sTmp)) {
+		
+			// imprecise, best 'guess' for cr formats
+			if      ((p = FindSubString(sTmp, ", CR")) != -1) {}
+			else if ((p = FindSubString(sTmp, "- CR")) != -1) {}
+			else if ((p = FindSubString(sTmp, ": CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, ":CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, "-CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, ",CR")) != -1) {}
+			else if  ((p = FindSubString(sTmp, " CR")) != -1) {}
+			// Panic, this is ONLY a cr no name
+			else {
+				sName = sOld;
+				p = GetStringLength(sName);
+			}
+			end = p;
+		}
+		
+		// compose the name to report to the player
+		sName = GetSubString(sName, 0, end);   
+		SetFirstName(oTarget, sName);
+		SetLastName(oTarget, "");
+	}
+
+	// report the filtered creature name
+	SendMessageToPC(oPC, "You recognize it as "+GetArticle(sName)+" <color=Magenta><i>"+sName+"</i></color>!");
+}
