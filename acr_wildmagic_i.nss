@@ -167,7 +167,9 @@ int ACR_DetermineWildMagic()
 
 void ACR_CastSpellAt(object oCaster, int nSpellId, object oTarget, location lTarget, int bCastOnLocation, int nMetamagic, int nModifyDC = 0)
 {
-	object oNewCaster = CreateObject(OBJECT_TYPE_CREATURE, "c_faction_pig", GetLocation(oCaster));
+	object oNewCaster;
+	/*
+	oNewCaster = CreateObject(OBJECT_TYPE_CREATURE, "c_faction_pig", GetLocation(oCaster));
 	
 	SetFirstName(oNewCaster, "");
 	SetLastName(oNewCaster, "");
@@ -182,15 +184,20 @@ void ACR_CastSpellAt(object oCaster, int nSpellId, object oTarget, location lTar
 	SetBaseAbilityScore(oNewCaster, ABILITY_INTELLIGENCE, GetAbilityScore(oCaster, ABILITY_INTELLIGENCE, TRUE) + nModifyDC*2);
 	SetBaseAbilityScore(oNewCaster, ABILITY_WISDOM, GetAbilityScore(oCaster, ABILITY_WISDOM, TRUE) + nModifyDC*2);
 	SetBaseAbilityScore(oNewCaster, ABILITY_CHARISMA, GetAbilityScore(oCaster, ABILITY_CHARISMA, TRUE) + nModifyDC*2);
+
+	AssignCommand(oNewCaster, DestroyObject(oNewCaster, _WILD_MAGIC_LONG_DUR));
+	*/
+
+	oNewCaster = oCaster;
 	
 	SetLocalInt(oNewCaster, "_IGNORE_WILD_MAGIC", 1);
+	DelayCommand(10.0f, DeleteLocalInt(oNewCaster,"_IGNORE_WILD_MAGIC"));
 	
 	if (bCastOnLocation)
-		AssignCommand(oNewCaster, DelayCommand(_WILD_MAGIC_INSTANT_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+		AssignCommand(oNewCaster, DelayCommand(_WILD_MAGIC_INSTANT_DUR, ActionCastSpellAtLocation(nSpellId, lTarget, nMetamagic, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
 	else
-		AssignCommand(oNewCaster, DelayCommand(_WILD_MAGIC_INSTANT_DUR, ActionCastSpellAtObject(nSpellId, oTarget, METAMAGIC_ANY, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
+		AssignCommand(oNewCaster, DelayCommand(_WILD_MAGIC_INSTANT_DUR, ActionCastSpellAtObject(nSpellId, oTarget, nMetamagic, TRUE, 0, PROJECTILE_PATH_TYPE_DEFAULT, TRUE)));
 		
-	AssignCommand(oNewCaster, DestroyObject(oNewCaster, _WILD_MAGIC_LONG_DUR));
 }
 
 int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nSpellId, object oItem)
