@@ -2,9 +2,12 @@
 #include "acr_zspawn_i"
 #include "010_namegen_i"
 
-const float _SIZE_STD_X = 0.05f;
-const float _SIZE_STD_Y = 0.05f;
-const float _SIZE_STD_Z = 0.05f;
+const float _SIZE_STD_X = 0.04f;
+const float _SIZE_STD_Y = 0.04f;
+const float _SIZE_STD_Z = 0.04f;
+
+const float _SIZE_MEAN_MALE = 1.0f;
+const float _SIZE_MEAN_FEMALE = 0.925f;
 
 
 void RandomizeNPCName(object oNPC = OBJECT_SELF)
@@ -45,15 +48,29 @@ void RandomizeNPCAppearance(object oNPC = OBJECT_SELF)
 	ACR_RandomizeAppearance(oNPC,rand,rand,rand,rand,rand,rand,skin,rand,f);
 }
 
-void RandomizeNPCScale(object oNPC = OBJECT_SELF, float std_x = _SIZE_STD_X, float std_y = _SIZE_STD_Y, float std_z = _SIZE_STD_Z)
+void RandomizeNPCScale(object oNPC = OBJECT_SELF, int autoscale = 1, float std_x = _SIZE_STD_X, float std_y = _SIZE_STD_Y, float std_z = _SIZE_STD_Z)
 {
-	float x,y,z;
+	vector scale;
 
-	x=ACR_RandomNormal(GetScale(oNPC, SCALE_X), std_x);
-	y=ACR_RandomNormal(GetScale(oNPC, SCALE_Y), std_y);
-	z=ACR_RandomNormal(GetScale(oNPC, SCALE_Z), std_z);
+	scale.x = ACR_RandomNormal(_SIZE_MEAN_MALE, std_x);
+	scale.y = ACR_RandomNormal(_SIZE_MEAN_MALE, std_y);
+	scale.z = ACR_RandomNormal(_SIZE_MEAN_MALE, std_z);
 
-	SetScale(oNPC,x,y,z);
+	if (autoscale) {
+		// scale smaller for female
+		if (GetGender(oNPC) == GENDER_FEMALE) {
+			scale.x *= _SIZE_MEAN_FEMALE;
+			scale.y *= _SIZE_MEAN_FEMALE;
+			scale.z *= _SIZE_MEAN_FEMALE;
+		}
+	}
+	else {
+		scale.x *= GetScale(oNPC, SCALE_X);
+		scale.y *= GetScale(oNPC, SCALE_Y);
+		scale.z *= GetScale(oNPC, SCALE_Z);
+	}
+
+	SetScale(oNPC,scale.x,scale.y,scale.z);
 }
 
 void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
