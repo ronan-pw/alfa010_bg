@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -47,36 +48,9 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
-
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("010_cr_gnoll13", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("010_cr_gnoll1", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("010_cr_gnoll12", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("010_cr_gnoll11", OBJECT_TYPE_CREATURE);
-            break;}		
-	
-
-	switch(Random(4)) {
-        case 0:
-            ACR_SpawnObject("010_cr_gnoll13", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("010_cr_gnoll1", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("010_cr_gnoll12", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("010_cr_gnoll11", OBJECT_TYPE_CREATURE);
-            break;}	
-
-   
+void main()
+{
+	spawn_group("gnolls_low");
+	spawn_group("gnolls_low",0.5);
+	spawn_group("gnolls_low",0.5);
 }

@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,24 +50,20 @@ void main();
 
 void main() {
 
-	ACR_SpawnObject("010_cr_goblin_dpss32", OBJECT_TYPE_CREATURE);
-	switch(Random(5)) {
+	spawn_hostile("010_cr_goblin_archer00",0.5);
+
+	switch(Random(3)) {
         case 0:
-            ACR_SpawnObject("010_cr_goblin_dpss31", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_goblin_leader00");
             break;
         case 1:
-            ACR_SpawnObject("010_cr_goblin_dpss30", OBJECT_TYPE_CREATURE);
+            spawn_hostile("dpss_goblin01");
             break;
-        case 2:
-            ACR_SpawnObject("010_cr_goblin_dpss310", OBJECT_TYPE_CREATURE);
+	case 2:
+            spawn_hostile("abr_cr_hu_hobgoblin000");
             break;
-        case 3:
-            ACR_SpawnObject("dpss_goblin01", OBJECT_TYPE_CREATURE);
-            break;
-		case 4:
-            ACR_SpawnObject("abr_cr_hu_hobgoblin000", OBJECT_TYPE_CREATURE);
-            break;
-}
+	}
 
-   
+	spawn_group("goblins_med",0.5);
+	spawn_group("goblins_low",0.5);
 }

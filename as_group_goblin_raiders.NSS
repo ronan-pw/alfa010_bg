@@ -27,6 +27,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -54,10 +55,10 @@ void main();
 
 // 7,634
 void main() {
-// Goblin Raiders: 1d3+2 goblins, 1 2nd level goblin fighter
-	int nGoblins = d3() + 2;
 	int i;
 	
-	for (i = 0; i < nGoblins; i++) ACR_SpawnObject("010_cr_goblin0", OBJECT_TYPE_CREATURE);
-	ACR_SpawnObject("dpss_goblin01", OBJECT_TYPE_CREATURE);
+	spawn_group("as_group_goblins_low");
+	spawn_group("as_group_goblins_low", 0.5);
+	spawn_group("as_group_goblins_low", 0.5);
+	spawn_group("as_group_goblins_boss");
 }

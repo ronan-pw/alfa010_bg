@@ -107,6 +107,11 @@ object spawn_hostile_npc(string resref, float prob=1.0, float prob_walk=0.2)
 	return o;
 }
 
+object spawn_hostile(string resref, float prob=1.0, float prob_walk=0.2)
+{
+	return spawn_hostile_npc(resref, prob, prob_walk);
+}
+
 object spawn_nonambient_npc(string resref, float prob=1.0, float prob_walk=0.2)
 {
 	return spawn_npc_internal(resref, prob, prob_walk, 0);

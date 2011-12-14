@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -52,42 +53,20 @@ void main() {
 	switch(Random(5)) 
 	{
         case 0:
-            ACR_SpawnObject("010_cr_goblin_dpss2", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_goblin_warrior00");
             break;
         case 1:
-            ACR_SpawnObject("010_cr_goblin_dpss3", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_goblin_warrior01");
             break;
         case 2:
-            ACR_SpawnObject("010_cr_goblin_dpss31", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_goblin_warrior02");
             break;
         case 3:
-            ACR_SpawnObject("010_cr_goblin_dpss32", OBJECT_TYPE_CREATURE);
-            break;	
-		case 4:
-            ACR_SpawnObject("010_cr_goblin_dpss32", OBJECT_TYPE_CREATURE);
+	case 4:
+            spawn_hostile("010_cr_goblin_archer00");
             break;
 	
 	}
 
-	switch(Random(5))
-	{
-        case 0:
-            ACR_SpawnObject("010_cr_goblin_dpss1", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("010_cr_goblin_dpss30", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("010_cr_goblin0", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("dpss_goblin01", OBJECT_TYPE_CREATURE);
-            break;
-		case 4:
-            ACR_SpawnObject("010_cr_goblin2", OBJECT_TYPE_CREATURE);
-            break;
-	
-	}
-	
-
+	spawn_group("goblins_low",0.5);
 }

@@ -62,21 +62,7 @@ void main() {
 		
 	spawn_placeable("phat_lewt_corpse_male",0.5);
 	
-	for (i = 0; i < nGnolls; i++)
-	{
-		switch (Random(4)) {
-			case 0:
-				spawn_hostile_npc("010_cr_gnoll1");
-				break;
-			case 1:
-				spawn_hostile_npc("010_cr_gnoll2");
-				break;
-			case 2:
-				spawn_hostile_npc("010_cr_gnoll12");
-				break;
-			default:
-				spawn_hostile_npc("010_cr_gnoll13");
-		}
-	}
-	spawn_hostile_npc("010_cr_gnoll11");
+	spawn_group("gnolls_boss");
+	spawn_group("gnolls_elite",0.5);
+	spawn_group("gnolls_low",0.5);
 }

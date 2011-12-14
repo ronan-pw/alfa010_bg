@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -47,25 +48,11 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
+void main()
+{
+	spawn_hostile("010_cr_gnoll_warrior00");
+	spawn_hostile("010_cr_gnoll_warrior00",0.5);
 
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("010_cr_gnoll13", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("010_cr_gnoll1", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("010_cr_gnoll12", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("010_cr_gnoll11", OBJECT_TYPE_CREATURE);
-            break;
-		case 4:
-            ACR_SpawnObject("010_cr_gnoll2", OBJECT_TYPE_CREATURE);
-            break;
-}
-
-   
+	spawn_group("gnolls_med",0.5);
+	spawn_group("gnolls_med",0.5);
 }

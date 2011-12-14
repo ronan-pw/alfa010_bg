@@ -7,7 +7,7 @@ void main()
 
 	ExecuteScript("acf_advanced_spawn", OBJECT_SELF);
 	
-	RandomizeNPCScale();
+	RandomizeNPCScale(OBJECT_SELF,0);
 
 	int D10a=d10(1);
 	int D10b=d10(1);

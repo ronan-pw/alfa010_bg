@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -47,64 +48,25 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
+void main()
+{
 
-	switch(Random(5)) {
+	int i;
+
+	for (i=0; i<d3(); ++i) {
+	switch(Random(4)) {
         case 0:
-            ACR_SpawnObject("010_cr_gnoll13", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_gnoll00");
             break;
         case 1:
-            ACR_SpawnObject("010_cr_gnoll1", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_gnoll01");
             break;
         case 2:
-            ACR_SpawnObject("010_cr_gnoll12", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_gnoll02");
             break;
         case 3:
-            ACR_SpawnObject("010_cr_gnoll11", OBJECT_TYPE_CREATURE);
+            spawn_hostile("010_cr_gnoll_archer00");
             break;
-		case 4:
-            ACR_SpawnObject("010_cr_gnoll2", OBJECT_TYPE_CREATURE);
-            break;
-}		
-	
-
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("010_cr_gnoll13", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("010_cr_gnoll1", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("010_cr_gnoll12", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("010_cr_gnoll11", OBJECT_TYPE_CREATURE);
-            break;
-		case 4:
-            ACR_SpawnObject("010_cr_gnoll2", OBJECT_TYPE_CREATURE);
-            break;
-}
-	
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("010_cr_gnoll13", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("010_cr_gnoll1", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("010_cr_gnoll12", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("010_cr_gnoll11", OBJECT_TYPE_CREATURE);
-            break;
-		case 4:
-            ACR_SpawnObject("010_cr_gnoll2", OBJECT_TYPE_CREATURE);
-            break;
-}	
-    
-			
-
-   
+	}
+	}
 }
