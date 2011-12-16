@@ -9,11 +9,12 @@
 
 
 #include "nwnx_craft_system"
+#include "acr_vanity_i"
 
 void main (int iTeinte, int iLuminosite, int iSaturation)
 {	
 	object oPC = OBJECT_SELF;
-	int iRed,iGreen,iBlue,iAlpha,iNewColorValue;
+	int iRed,iGreen,iBlue,iAlpha,iNewColorValue,nType;
 	float T,L,S;
 	float R,G,B, q1,q2;
 
@@ -55,6 +56,17 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 	iNewColorValue = XPCraft_RGBAToInt(iRed,iGreen,iBlue,iAlpha);
 	
 	//DisplayMessageBox(oPC, 1, "Red: "+IntToString(iRed) + "\nGreen: "+IntToString(iGreen)+"\nBlue: "+IntToString(iBlue)+"\nCol:"+IntToString(iNewColorValue));
+	
+	// handle appearance stuff
+	if (GetLocalInt(oPC, "ACR_APP_TYPE")) {
+		SetLocalInt(oPC, "ACR_APP_TINT_R", iRed);
+		SetLocalInt(oPC, "ACR_APP_TINT_G", iGreen);
+		SetLocalInt(oPC, "ACR_APP_TINT_B", iBlue);
+		SetLocalInt(oPC, "ACR_APP_TINT_A", iAlpha);
+
+		ApplyTintToType(oPC);
+		return;
+	}
 	
 	
 	if (GetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED")) {

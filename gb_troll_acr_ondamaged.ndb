@@ -1,5 +1,5 @@
 NDB V1.0
-0000075 0000010 0004601 0001088 0003189
+0000076 0000010 0004627 0001088 0003189
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -33,48 +33,49 @@ n29 nwnx_include
 n30 acr_queue_i
 n31 acr_db_persist_i
 n32 acr_i
-n33 acr_tools_i
-n34 acr_events_i
-n35 acr_settings_i
-n36 acr_1984_i
-n37 acr_time_i
-n38 acr_xp_i
-n39 acr_spelltrack_i
-n40 acr_portal_i
-n41 dmfi_inc_sendtex
-n42 dmfi_inc_tool
-n43 dmfi_inc_inc_com
-n44 acr_pps_i
-n45 acr_nonlethal_i
-n46 x2_inc_itemprop
-n47 x0_i0_petrify
-n48 nw_i0_spells
-n49 x0_i0_partywide
-n50 x0_i0_transport
-n51 x0_i0_common
-n52 nw_i0_plot
-n53 x0_i0_behavior
-n54 x0_i0_henchman
-n55 nwn2_inc_metmag
-n56 x0_i0_spells
-n57 nwn2_inc_spells
-n58 acr_effects_i
-n59 acr_skills_i
-n60 acr_resting_i
-n61 acr_mobloot_i
-n62 acr_spawn_i
-n63 acr_vfx_i
-n64 acr_quest_i
-n65 hench_i0_options
-n66 hench_i0_ai
-n67 npc_onhb
-n68 x2_i0_spells
-n69 ginc_companion
-n70 X0_INC_HENAI
-n71 ginc_behavior
-n72 npc_onper
-n73 acr_creature_i
-N74 gb_troll_acr_ondamaged
+n33 ginc_math
+n34 acr_tools_i
+n35 acr_events_i
+n36 acr_settings_i
+n37 acr_1984_i
+n38 acr_time_i
+n39 acr_xp_i
+n40 acr_spelltrack_i
+n41 acr_portal_i
+n42 dmfi_inc_sendtex
+n43 dmfi_inc_tool
+n44 dmfi_inc_inc_com
+n45 acr_pps_i
+n46 acr_nonlethal_i
+n47 x2_inc_itemprop
+n48 x0_i0_petrify
+n49 nw_i0_spells
+n50 x0_i0_partywide
+n51 x0_i0_transport
+n52 x0_i0_common
+n53 nw_i0_plot
+n54 x0_i0_behavior
+n55 x0_i0_henchman
+n56 nwn2_inc_metmag
+n57 x0_i0_spells
+n58 nwn2_inc_spells
+n59 acr_effects_i
+n60 acr_skills_i
+n61 acr_resting_i
+n62 acr_mobloot_i
+n63 acr_spawn_i
+n64 acr_vfx_i
+n65 acr_quest_i
+n66 hench_i0_options
+n67 hench_i0_ai
+n68 npc_onhb
+n69 x2_i0_spells
+n70 ginc_companion
+n71 X0_INC_HENAI
+n72 ginc_behavior
+n73 npc_onper
+n74 acr_creature_i
+N75 gb_troll_acr_ondamaged
 s 03 vector
 sf f x
 sf f y
@@ -1951,6 +1952,61 @@ f ffffffff ffffffff 001 i ACR_GetIsCorpseMutilated
 fp o
 f ffffffff ffffffff 001 i ACR_GetIsCorpseDecayed
 fp o
+f ffffffff ffffffff 000 f EPSILON
+f ffffffff ffffffff 001 f RandomDelta
+fp f
+f ffffffff ffffffff 001 f RandomFloat
+fp f
+f ffffffff ffffffff 002 f RandomFloatBetween
+fp f
+fp f
+f ffffffff ffffffff 002 i RandomIntBetween
+fp i
+fp i
+f ffffffff ffffffff 002 t0000 GetRandom2DVector
+fp f
+fp f
+f ffffffff ffffffff 004 e2 GetNearbyLocation
+fp e2
+fp f
+fp f
+fp f
+f ffffffff ffffffff 003 i IsIntInRange
+fp i
+fp i
+fp i
+f ffffffff ffffffff 002 i ScaleInt
+fp i
+fp f
+f ffffffff ffffffff 002 i IsFloatNearInt
+fp f
+fp i
+f ffffffff ffffffff 004 v SetLocalIntState
+fp o
+fp s
+fp i
+fp i
+f ffffffff ffffffff 003 i GetLocalIntState
+fp o
+fp s
+fp i
+f ffffffff ffffffff 003 i SetState
+fp i
+fp i
+fp i
+f ffffffff ffffffff 002 i GetState
+fp i
+fp i
+f ffffffff ffffffff 001 i GetHexStringDigitValue
+fp s
+f ffffffff ffffffff 001 i HexStringToInt
+fp s
+f ffffffff ffffffff 002 i CompareVectors
+fp t0000
+fp t0000
+f ffffffff ffffffff 002 i CompareVectors2D
+fp t0000
+fp t0000
 f ffffffff ffffffff 000 i BIT_0
 f ffffffff ffffffff 000 i BIT_1
 f ffffffff ffffffff 000 i BIT_2
@@ -2139,6 +2195,19 @@ fp i
 f ffffffff ffffffff 002 e2 ACR_CalcSafeLocation
 fp o
 fp e2
+f ffffffff ffffffff 002 i XPCraft_GetNextEntryInList
+fp s
+fp i
+f ffffffff ffffffff 002 i XPCraft_GetPreviousEntryInList
+fp s
+fp i
+f ffffffff ffffffff 001 i XPCraft_GetFirstEntryInList
+fp s
+f ffffffff ffffffff 001 i XPCraft_GetLastEntryInList
+fp s
+f ffffffff ffffffff 002 i XPCraft_IsElementInList
+fp s
+fp i
 f ffffffff ffffffff 002 f ACR_RandomLogNormal
 fp f
 fp f
@@ -2150,6 +2219,14 @@ fp s
 f ffffffff ffffffff 001 f HexStringToFloat
 fp s
 f ffffffff ffffffff 001 i GetSubraceAppearance
+fp i
+f ffffffff ffffffff 002 o _ParseInterval
+fp s
+fp i
+f ffffffff ffffffff 001 v _CleanupInterval
+fp i
+f ffffffff ffffffff 002 s IntervalToList
+fp s
 fp i
 f ffffffff ffffffff 002 i UniformRandomOverInterval
 fp s
@@ -8856,44 +8933,44 @@ l11 0000520 00000b6f 00000b80
 l11 0000523 00000b80 00000b91
 l12 0000315 00000b91 00000b91
 l12 0000316 00000b91 00000b91
-l74 0000026 00000ba3 00000ba9
-l74 0000027 00000ba9 00000bbc
-l74 0000028 00000bbc 00000bcf
-l74 0000029 00000bcf 00000be9
-l74 0000031 00000bef 00000c46
-l74 0000033 00000c4c 00000c5d
-l74 0000034 00000c5d 00000c63
-l74 0000035 00000c63 00000cbb
-l74 0000036 00000cbb 00000cc7
-l74 0000040 00000ccd 00000cf5
-l74 0000042 00000cfb 00000d41
-l74 0000044 00000d47 00000d49
-l74 0000046 00000d62 00000d6d
-l74 0000047 00000d6d 00000d90
-l74 0000048 00000d90 00000db6
-l74 0000049 00000db6 00000de8
-l74 0000052 00000dee 00000e10
-l74 0000054 00000e10 00000e30
-l74 0000055 00000e36 00000e38
-l73 0000251 00000e38 00000e4a
-l73 0000258 00000e4a 00000e74
-l73 0000259 00000e74 00000e74
-l73 0000260 00000e74 00000e95
-l73 0000261 00000e95 00000e9b
-l73 0000264 00000ea1 00000eb4
-l73 0000265 00000eba 00000ebc
-l73 0000136 00000ebc 00000ec0
-l73 0000137 00000ec0 00000ee6
-l73 0000138 00000ee6 00000f15
-l73 0000140 00000f15 00000f57
-l73 0000141 00000f5d 00000f65
-l74 0000016 00000f65 00000f8f
-l74 0000017 00000f8f 00000f9a
-l74 0000018 00000f9a 00000fc9
-l74 0000019 00000fc9 00000fd4
-l74 0000020 00000fd4 00000ffa
-l74 0000021 00000ffa 0000100c
-l74 0000022 0000100c 0000100e
+l75 0000026 00000ba3 00000ba9
+l75 0000027 00000ba9 00000bbc
+l75 0000028 00000bbc 00000bcf
+l75 0000029 00000bcf 00000be9
+l75 0000031 00000bef 00000c46
+l75 0000033 00000c4c 00000c5d
+l75 0000034 00000c5d 00000c63
+l75 0000035 00000c63 00000cbb
+l75 0000036 00000cbb 00000cc7
+l75 0000040 00000ccd 00000cf5
+l75 0000042 00000cfb 00000d41
+l75 0000044 00000d47 00000d49
+l75 0000046 00000d62 00000d6d
+l75 0000047 00000d6d 00000d90
+l75 0000048 00000d90 00000db6
+l75 0000049 00000db6 00000de8
+l75 0000052 00000dee 00000e10
+l75 0000054 00000e10 00000e30
+l75 0000055 00000e36 00000e38
+l74 0000251 00000e38 00000e4a
+l74 0000258 00000e4a 00000e74
+l74 0000259 00000e74 00000e74
+l74 0000260 00000e74 00000e95
+l74 0000261 00000e95 00000e9b
+l74 0000264 00000ea1 00000eb4
+l74 0000265 00000eba 00000ebc
+l74 0000136 00000ebc 00000ec0
+l74 0000137 00000ec0 00000ee6
+l74 0000138 00000ee6 00000f15
+l74 0000140 00000f15 00000f57
+l74 0000141 00000f5d 00000f65
+l75 0000016 00000f65 00000f8f
+l75 0000017 00000f8f 00000f9a
+l75 0000018 00000f9a 00000fc9
+l75 0000019 00000fc9 00000fd4
+l75 0000020 00000fd4 00000ffa
+l75 0000021 00000ffa 0000100c
+l75 0000022 0000100c 0000100e
 l08 0000640 0000100e 0000102a
 l08 0000642 00001030 00001036
 l08 0000646 00001036 00001049

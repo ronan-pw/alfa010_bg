@@ -1,5 +1,5 @@
 NDB V1.0
-0000075 0000010 0004600 0000178 0000231
+0000076 0000010 0004626 0000178 0000231
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -33,48 +33,49 @@ n29 nwnx_include
 n30 acr_queue_i
 n31 acr_db_persist_i
 n32 acr_i
-n33 acr_tools_i
-n34 acr_events_i
-n35 acr_settings_i
-n36 acr_1984_i
-n37 acr_time_i
-n38 acr_xp_i
-n39 acr_spelltrack_i
-n40 acr_portal_i
-n41 dmfi_inc_sendtex
-n42 dmfi_inc_tool
-n43 dmfi_inc_inc_com
-n44 acr_pps_i
-n45 acr_nonlethal_i
-n46 x2_inc_itemprop
-n47 x0_i0_petrify
-n48 nw_i0_spells
-n49 x0_i0_partywide
-n50 x0_i0_transport
-n51 x0_i0_common
-n52 nw_i0_plot
-n53 x0_i0_behavior
-n54 x0_i0_henchman
-n55 nwn2_inc_metmag
-n56 x0_i0_spells
-n57 nwn2_inc_spells
-n58 acr_effects_i
-n59 acr_skills_i
-n60 acr_resting_i
-n61 acr_mobloot_i
-n62 acr_spawn_i
-n63 acr_vfx_i
-n64 acr_quest_i
-n65 hench_i0_options
-n66 hench_i0_ai
-n67 npc_onhb
-n68 x2_i0_spells
-n69 ginc_companion
-n70 X0_INC_HENAI
-n71 ginc_behavior
-n72 npc_onper
-n73 acr_creature_i
-N74 acf_cre_ondamaged
+n33 ginc_math
+n34 acr_tools_i
+n35 acr_events_i
+n36 acr_settings_i
+n37 acr_1984_i
+n38 acr_time_i
+n39 acr_xp_i
+n40 acr_spelltrack_i
+n41 acr_portal_i
+n42 dmfi_inc_sendtex
+n43 dmfi_inc_tool
+n44 dmfi_inc_inc_com
+n45 acr_pps_i
+n46 acr_nonlethal_i
+n47 x2_inc_itemprop
+n48 x0_i0_petrify
+n49 nw_i0_spells
+n50 x0_i0_partywide
+n51 x0_i0_transport
+n52 x0_i0_common
+n53 nw_i0_plot
+n54 x0_i0_behavior
+n55 x0_i0_henchman
+n56 nwn2_inc_metmag
+n57 x0_i0_spells
+n58 nwn2_inc_spells
+n59 acr_effects_i
+n60 acr_skills_i
+n61 acr_resting_i
+n62 acr_mobloot_i
+n63 acr_spawn_i
+n64 acr_vfx_i
+n65 acr_quest_i
+n66 hench_i0_options
+n67 hench_i0_ai
+n68 npc_onhb
+n69 x2_i0_spells
+n70 ginc_companion
+n71 X0_INC_HENAI
+n72 ginc_behavior
+n73 npc_onper
+n74 acr_creature_i
+N75 acf_cre_ondamaged
 s 03 vector
 sf f x
 sf f y
@@ -1951,6 +1952,61 @@ f ffffffff ffffffff 001 i ACR_GetIsCorpseMutilated
 fp o
 f ffffffff ffffffff 001 i ACR_GetIsCorpseDecayed
 fp o
+f ffffffff ffffffff 000 f EPSILON
+f ffffffff ffffffff 001 f RandomDelta
+fp f
+f ffffffff ffffffff 001 f RandomFloat
+fp f
+f ffffffff ffffffff 002 f RandomFloatBetween
+fp f
+fp f
+f ffffffff ffffffff 002 i RandomIntBetween
+fp i
+fp i
+f ffffffff ffffffff 002 t0000 GetRandom2DVector
+fp f
+fp f
+f ffffffff ffffffff 004 e2 GetNearbyLocation
+fp e2
+fp f
+fp f
+fp f
+f ffffffff ffffffff 003 i IsIntInRange
+fp i
+fp i
+fp i
+f ffffffff ffffffff 002 i ScaleInt
+fp i
+fp f
+f ffffffff ffffffff 002 i IsFloatNearInt
+fp f
+fp i
+f ffffffff ffffffff 004 v SetLocalIntState
+fp o
+fp s
+fp i
+fp i
+f ffffffff ffffffff 003 i GetLocalIntState
+fp o
+fp s
+fp i
+f ffffffff ffffffff 003 i SetState
+fp i
+fp i
+fp i
+f ffffffff ffffffff 002 i GetState
+fp i
+fp i
+f ffffffff ffffffff 001 i GetHexStringDigitValue
+fp s
+f ffffffff ffffffff 001 i HexStringToInt
+fp s
+f ffffffff ffffffff 002 i CompareVectors
+fp t0000
+fp t0000
+f ffffffff ffffffff 002 i CompareVectors2D
+fp t0000
+fp t0000
 f ffffffff ffffffff 000 i BIT_0
 f ffffffff ffffffff 000 i BIT_1
 f ffffffff ffffffff 000 i BIT_2
@@ -2139,6 +2195,19 @@ fp i
 f ffffffff ffffffff 002 e2 ACR_CalcSafeLocation
 fp o
 fp e2
+f ffffffff ffffffff 002 i XPCraft_GetNextEntryInList
+fp s
+fp i
+f ffffffff ffffffff 002 i XPCraft_GetPreviousEntryInList
+fp s
+fp i
+f ffffffff ffffffff 001 i XPCraft_GetFirstEntryInList
+fp s
+f ffffffff ffffffff 001 i XPCraft_GetLastEntryInList
+fp s
+f ffffffff ffffffff 002 i XPCraft_IsElementInList
+fp s
+fp i
 f ffffffff ffffffff 002 f ACR_RandomLogNormal
 fp f
 fp f
@@ -2150,6 +2219,14 @@ fp s
 f ffffffff ffffffff 001 f HexStringToFloat
 fp s
 f ffffffff ffffffff 001 i GetSubraceAppearance
+fp i
+f ffffffff ffffffff 002 o _ParseInterval
+fp s
+fp i
+f ffffffff ffffffff 001 v _CleanupInterval
+fp i
+f ffffffff ffffffff 002 s IntervalToList
+fp s
 fp i
 f ffffffff ffffffff 002 i UniformRandomOverInterval
 fp s
@@ -7945,19 +8022,19 @@ l11 0000520 00000b6f 00000b80
 l11 0000523 00000b80 00000b91
 l12 0000315 00000b91 00000b91
 l12 0000316 00000b91 00000b91
-l74 0000046 00000ba3 00000ba9
-l74 0000051 00000ba9 00000bc8
-l74 0000053 00000bce 00000bdf
-l74 0000055 00000bdf 00000be1
-l73 0000251 00000be1 00000bf3
-l73 0000258 00000bf3 00000c1d
-l73 0000259 00000c1d 00000c1d
-l73 0000260 00000c1d 00000c3e
-l73 0000261 00000c3e 00000c44
-l73 0000264 00000c4a 00000c5d
-l73 0000265 00000c63 00000c65
-l73 0000136 00000c65 00000c69
-l73 0000137 00000c69 00000c8f
-l73 0000138 00000c8f 00000cbe
-l73 0000140 00000cbe 00000d00
-l73 0000141 00000d06 00000d0e
+l75 0000046 00000ba3 00000ba9
+l75 0000051 00000ba9 00000bc8
+l75 0000053 00000bce 00000bdf
+l75 0000055 00000bdf 00000be1
+l74 0000251 00000be1 00000bf3
+l74 0000258 00000bf3 00000c1d
+l74 0000259 00000c1d 00000c1d
+l74 0000260 00000c1d 00000c3e
+l74 0000261 00000c3e 00000c44
+l74 0000264 00000c4a 00000c5d
+l74 0000265 00000c63 00000c65
+l74 0000136 00000c65 00000c69
+l74 0000137 00000c69 00000c8f
+l74 0000138 00000c8f 00000cbe
+l74 0000140 00000cbe 00000d00
+l74 0000141 00000d06 00000d0e

@@ -26,8 +26,8 @@ void main(int nActType, int nAlignmentShiftRule)
 		case 0:
 		case 1:
 		{
-			if (  (nAdjustment > 0) && (nAlignmentValue < ALIGN_SCALE_HIGH_BAND_MIDDLE)  // lawful act and we tend toward chaos
-				||(nAdjustment < 0) && (nAlignmentValue > ALIGN_SCALE_LOW_BAND_MIDDLE)) // chaotic act and we tend toward law
+			if (  (nAdjustment > 0) && (nAlignmentValue < ALIGN_SCALE_HIGH_BAND_MIDDLE + 5)  // lawful act and we tend toward chaos
+				||(nAdjustment < 0) && (nAlignmentValue > ALIGN_SCALE_LOW_BAND_MIDDLE - 5)) // chaotic act and we tend toward law
 			{
 				nNewAdjustment = nAdjustment;
 			}
@@ -38,6 +38,9 @@ void main(int nActType, int nAlignmentShiftRule)
 			break;
 			
 	}
+	
+	if (nNewAdjustment == 0)
+		return;
 	
 	AdjustAlignmentLawChaos(oPC, nNewAdjustment);
 	

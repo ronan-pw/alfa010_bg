@@ -37,8 +37,8 @@ void main(int nActType, int nAlignmentShiftRule)
 		case 0:
 		case 1:
 		{
-			if (  (nAdjustment > 0) && (nAlignmentValue < ALIGN_SCALE_HIGH_BAND_MIDDLE)  // good act and we tend toward evil
-				||(nAdjustment < 0) && (nAlignmentValue > ALIGN_SCALE_LOW_BAND_MIDDLE)) // evil act and we tend toward good
+			if (  (nAdjustment > 0) && (nAlignmentValue < ALIGN_SCALE_HIGH_BAND_MIDDLE + 5)  // good act and we tend toward evil
+				||(nAdjustment < 0) && (nAlignmentValue > ALIGN_SCALE_LOW_BAND_MIDDLE - 5)) // evil act and we tend toward good
 			{
 				nNewAdjustment = nAdjustment;
 			}
@@ -49,6 +49,9 @@ void main(int nActType, int nAlignmentShiftRule)
 			break;
 			
 	}
+
+	if (nNewAdjustment == 0)
+		return;
 	
 	AdjustAlignmentGoodEvil(oPC, nNewAdjustment);
 	
