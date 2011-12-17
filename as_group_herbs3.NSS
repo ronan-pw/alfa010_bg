@@ -81,6 +81,7 @@ switch(Random(5)) {
 
 				}
  
+	if ((!Random(5)))
 				ACR_DestroySpawnPoint(OBJECT_SELF);
 
 }

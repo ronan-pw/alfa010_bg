@@ -66,4 +66,7 @@ void main() {
 	}
 						
 	SetLocalInt(oCheckTrigger, "spawn_chest", 1);
+
+	if (!Random(5))
+		ACR_DestroySpawnPoint(OBJECT_SELF);
 }

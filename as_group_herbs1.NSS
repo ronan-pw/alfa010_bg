@@ -61,7 +61,7 @@ void main() {
 	else
 		spawned = 0;
 
-	if (spawned)
+	if (spawned && (!Random(5)))
 		ACR_DestroySpawnPoint(OBJECT_SELF);
  
 }
