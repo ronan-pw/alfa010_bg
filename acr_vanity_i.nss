@@ -675,6 +675,16 @@ void ACR_RandomizeAppearance(object oSpawn,int nHead = ACR_FEATURE_TYPE_RANDOM,i
 	string sBHair = GetRandomTint(nSubrace, 6, nBHair);
 
 #ifdef _DEBUG_ZS
+	PrintInt(nAppearance);
+	PrintInt(nHeadModel);
+	PrintInt(nHairModel);
+	PrintString(sHair1);
+	PrintString(sHair2);
+	PrintString(sAHair);
+	PrintString(sBHair);
+	PrintString(sEyes);
+	PrintString(sSkin);
+
 	SetLocalInt(oSpawn, "ZS_APP_TYPE", nAppearance);
 	SetLocalInt(oSpawn, "ZS_MODEL_HEAD", nHeadModel);
 	SetLocalInt(oSpawn, "ZS_MODEL_HAIR", nHairModel);
@@ -885,27 +895,6 @@ void ApplyTintToType(object o)
 			break;
 	}
 
-#if _DEBUG_ZS
-	SendMessageToPC(o,"0: ("+
-			FloatToString(tints.Tint0_r)+","+
-			FloatToString(tints.Tint0_g)+","+
-			FloatToString(tints.Tint0_b)+","+
-			FloatToString(tints.Tint0_a)+")");
-
-	SendMessageToPC(o,"1: ("+
-			FloatToString(tints.Tint1_r)+","+
-			FloatToString(tints.Tint1_g)+","+
-			FloatToString(tints.Tint1_b)+","+
-			FloatToString(tints.Tint1_a)+")");
-
-	SendMessageToPC(o,"2: ("+
-			FloatToString(tints.Tint2_r)+","+
-			FloatToString(tints.Tint2_g)+","+
-			FloatToString(tints.Tint2_b)+","+
-			FloatToString(tints.Tint2_a)+")");
-#endif
-
-
 	r = GetLocalInt(o, "ACR_APP_TINT_R") / 255.0f;
 	g = GetLocalInt(o, "ACR_APP_TINT_G") / 255.0f;
 	b = GetLocalInt(o, "ACR_APP_TINT_B") / 255.0f;
@@ -938,26 +927,6 @@ void ApplyTintToType(object o)
 			tints.Tint2_a = a;
 			break;
 	}
-
-#if _DEBUG_ZS
-	SendMessageToPC(o,"0: ("+
-			FloatToString(tints.Tint0_r)+","+
-			FloatToString(tints.Tint0_g)+","+
-			FloatToString(tints.Tint0_b)+","+
-			FloatToString(tints.Tint0_a)+")");
-
-	SendMessageToPC(o,"1: ("+
-			FloatToString(tints.Tint1_r)+","+
-			FloatToString(tints.Tint1_g)+","+
-			FloatToString(tints.Tint1_b)+","+
-			FloatToString(tints.Tint1_a)+")");
-
-	SendMessageToPC(o,"2: ("+
-			FloatToString(tints.Tint2_r)+","+
-			FloatToString(tints.Tint2_g)+","+
-			FloatToString(tints.Tint2_b)+","+
-			FloatToString(tints.Tint2_a)+")");
-#endif
 
 
 	switch (GetLocalInt(o, "ACR_APP_TYPE")) {
