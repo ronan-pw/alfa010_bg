@@ -200,18 +200,92 @@ void ACR_CastSpellAt(object oCaster, int nSpellId, object oTarget, location lTar
 		
 }
 
+int CheckItemNonMagical(object oItem, int nSpellId)
+{
+	switch (nSpellId) {
+		case 464: // acid flask
+		case 465: // tanglefoot bag
+		case 466: // holy wayter
+		case 467: // choking powder
+		case 468: // thunderstone
+		case 469: // acid flask
+		case 471: // caltrops
+		case 744: // fire bomb
+		case 745: // acid bomb
+		case 3024: // disguise 10
+		case 3025: // disguise d20
+			return TRUE;
+	}
+
+	if (oItem == OBJECT_INVALID)
+		return FALSE;
+
+	return GetLocalInt(oItem, "ACR_NON_MAGICAL");
+}
+
+int CheckWMSuppressed(object oArea, object oCaster, object oTarget, location lTarget)
+{
+	location lSup,lCaster;
+
+	lSup = GetLocalLocation(oArea, "ACR_WILD_MAGIC_SUPPRESSED");
+
+	// if there is no suppression, leave
+	if (lSup == LOCATION_INVALID)
+		return FALSE;
+
+	lCaster = GetLocation(oCaster);
+
+	if (oTarget != OBJECT_INVALID)
+		lTarget = GetLocation(oTarget);
+
+	// if caster AND target are in suppression field, it's suppressed
+	return ((GetDistanceBetweenLocations(lCaster, lSup) <= _WILD_MAGIC_EFFECT_RADIUS) &&
+			(GetDistanceBetweenLocations(lTarget, lSup) <= _WILD_MAGIC_EFFECT_RADIUS));
+}
+
 int ACR_HandleWildMagic(object oCaster, object oTarget, location lTarget, int nSpellId, object oItem)
 {
-	int nRes,bCastOnLocation = !GetIsObjectValid(oTarget);
+	int nRes = _WILD_MAGIC_NORMAL,bCastOnLocation = !GetIsObjectValid(oTarget);
+	object oArea = GetArea(oCaster);
 	string sItem;
+
+	// ignore tag is on
+	if (GetLocalInt(oCaster, "_IGNORE_WILD_MAGIC"))
+		return nRes;
+
+	// check if this is an item and nonmagical
+	if (CheckItemNonMagical(oItem, nSpellId))
+		return nRes; 
+
+	// wild magic suppressed, just leave
+	if (CheckWMSuppressed(oArea, oCaster, oTarget, lTarget))
+		return nRes;
+	
+	// if this is a dispel magic, suppress wild magic for a time
+	if (nSpellId == 41 ||  nSpellId == 67) {
+		int i = d4();
+
+		// greater dispelling
+		if (nSpellId == 67)
+			i *= 10;
+
+		if (oTarget != OBJECT_INVALID) 
+			lTarget = GetLocation(oTarget);
+		
+		SetLocalLocation(oArea, "ACR_WILD_MAGIC_SUPPRESSED", lTarget);
+
+		SendMessageToPC(oCaster, "You appear to have suppressed the wild magic for a time.");
+
+		// remove effect in i minutes
+		AssignCommand(oArea, DelayCommand(IntToFloat(i)*60.0, DeleteLocalLocation(oArea, "ACR_WILD_MAGIC_SUPPRESSED")));
+
+		return nRes;
+	}
 
 	nRes = ACR_DetermineWildMagic();
 
 	WriteTimestampedLogEntry("WILD_MAGIC: ("+GetName(oCaster)+","+IntToString(nSpellId)+","+IntToString(nRes)+")");
 	
-	if (GetLocalInt(oCaster, "_IGNORE_WILD_MAGIC"))
-		return nRes;
-
 	if (nRes == _WILD_MAGIC_NORMAL)
 		return nRes;
 
