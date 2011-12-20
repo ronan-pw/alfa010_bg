@@ -2,8 +2,136 @@
 
 // for incredibly low cpu-use npcs
 
+void anim_immobile()
+{
+    int nRoll = Random(12);
+
+    //SpawnScriptDebugger();
+
+
+    // If we're talking, either keep going or stop.
+    // Low prob of stopping, since both parties have
+    // a chance and conversations are cool.
+    if (GetAnimationCondition(NW_ANIM_FLAG_IS_TALKING))	
+	{
+        object oFriend = GetCurrentFriend();
+        int nHDiff = GetHitDice(OBJECT_SELF) - GetHitDice(oFriend);
+
+        if (nRoll == 0) {
+            AnimActionStopTalking(oFriend, nHDiff);
+        } else {
+            AnimActionPlayRandomTalkAnimation(nHDiff);
+        }
+        return;
+    }
+
+    // If we're interacting with a placeable, either keep going or
+    // stop. High probability of stopping, since looks silly to
+    // constantly turn something on-and-off.
+    if (GetAnimationCondition(NW_ANIM_FLAG_IS_INTERACTING)) {
+        if (nRoll < 4) {
+            AnimActionStopInteracting();
+        } else {
+            AnimActionPlayRandomInteractAnimation(GetCurrentInteractionTarget());
+        }
+        return;
+    }
+
+    // If we got here, we're not busy at the moment.
+
+    // Clean out the action queue
+    ClearActions(CLEAR_X0_I0_ANIMS_PlayRandomMobile);
+    if (nRoll <=9) {
+        if (AnimActionFindFriend(DISTANCE_LARGE))
+            return;
+    }
+
+    if (nRoll > 9) {
+        // Try and interact with a nearby placeable
+        if (AnimActionFindPlaceable(DISTANCE_SHORT))
+            return;
+    }
+
+    AnimActionPlayRandomAnimation();
+}
+
+void anim_close()
+{
+    if (GetIsBusyWithAnimation(OBJECT_SELF)) {
+        // either we're already in conversation or
+        // interacting with something, so continue --
+        // all handled already in RandomImmobile.
+        anim_immobile();
+        return;
+    }
+
+    // If we got here, we're not busy
+
+    // Clean out the action queue
+    ClearActions(CLEAR_X0_I0_ANIMS_PlayRandomCloseRange1);
+
+    // Possibly close open doors
+    if (GetAnimationCondition(NW_ANIM_FLAG_CLOSE_DOORS) && AnimActionCloseRandomDoor()) {
+        return;
+    }
+
+    // For the rest of these, we check for specific rolls,
+    // to ensure that we don't do a lot of lookups on any one
+    // given pass.
+
+    int nRoll = Random(6);
+
+    // Possibly start talking to a friend
+    if (nRoll == 0 || nRoll == 1) {
+        if (AnimActionFindFriend(DISTANCE_LARGE))
+            return;
+        // fall through to default
+    }
+
+    // Possibly start fiddling with a placeable
+    if (nRoll == 2) {
+        if (AnimActionFindPlaceable(DISTANCE_LARGE))
+            return;
+        // fall through if no placeable found
+    }
+
+    // Possibly sit down
+    if (nRoll == 3) {
+        if (AnimActionSitInChair(DISTANCE_LARGE))
+            return;
+    }
+
+    // Go to a nearby stop
+    if (nRoll == 4) {
+        if (AnimActionGoToStop(DISTANCE_LARGE)) {
+            return;
+        }
+
+        // No stops, so do a random walk and then come back
+        // to our current location
+        ClearActions(CLEAR_X0_I0_ANIMS_PlayRandomCloseRange2);
+        location locCurr = GetLocation(OBJECT_SELF);
+        ActionRandomWalk();
+        ActionMoveToLocation(locCurr);
+    }
+
+    if (nRoll == 5 && !GetAnimationCondition(NW_ANIM_FLAG_IS_MOBILE)) {
+        // Move back to starting point, saved at initialization
+        ActionMoveToLocation(GetLocalLocation(OBJECT_SELF,
+                                              "ANIM_START_LOCATION"));
+        return;
+    }
+
+    // Default: do a random immobile animation
+    anim_immobile();
+}
+
 void npc_immobile()
 {
+    // skip 3/4
+    if (Random(4) != 0)
+	    return;
+
     if (!GetAnimationCondition(NW_ANIM_FLAG_INITIALIZED)) {
         // If we've been set to be constant, flag us as
         // active.
@@ -31,9 +159,9 @@ void npc_immobile()
     }
 
     if (GetAnimationCondition(NW_ANIM_FLAG_IS_MOBILE_CLOSE_RANGE)) {
-        AnimActionPlayRandomCloseRange();
+        anim_close();
     } else {
-        AnimActionPlayRandomImmobile();
+        anim_immobile();
     }
 }
 
@@ -91,7 +219,7 @@ void npc_onhb()
                     }
                     else if(GetSpawnInCondition(NW_FLAG_IMMOBILE_AMBIENT_ANIMATIONS))
                     {
-                        PlayImmobileAmbientAnimations();
+                        anim_immobile();
                     }
             }
     }
