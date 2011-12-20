@@ -15,7 +15,7 @@
 // GNU GENERAL PUBLIC LICENSE (GPL) Version 2
 
 void main() {
-	object oModule = GetObjectByTag("DPSS_Control_Room");
+	object oModule = GetWaypointByTag( "XC_HIDDEN_WP" );
 
 	//
 	// Forbid duplicate initialization.

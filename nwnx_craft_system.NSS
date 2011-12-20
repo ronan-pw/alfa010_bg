@@ -23,6 +23,10 @@ const int XP_CRAFT_USE_SEXED_ARMOR_PART = FALSE;
 const int XP_CRAFT_USE_RACED_VARIATION = TRUE;
 const int XP_CRAFT_USE_SEXED_VARIATION = TRUE;
 
+
+// delay from craft action->next craft action
+const float XP_CRAFT_TALK_DELAY = 0.25f;
+
 //if you made your lists according to the filenames (ie P_HHM_Body01..)
 //you'll have to set this to 1
 //if you made your lists according to the toolset values (which i don't recommand)
@@ -249,7 +253,7 @@ int XPCraft_GetNewVariationValue(object oPC, int iBaseItemType, int iAction)
 	int iNewVariationValue;
  	
 	string sListName = XPCraft_GetVariation_ListName(oPC, GetLocalInt(oPC,"XC_AVT_VALUE"), iBaseItemType);
-	string sVariationList = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName);
+	string sVariationList = GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ), sListName);
 	string sBlacklist;
 	if(sVariationList=="")
 	{
@@ -257,7 +261,7 @@ int XPCraft_GetNewVariationValue(object oPC, int iBaseItemType, int iAction)
 		return iCurrentVariationValue;
 	}
 
-	sBlacklist = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName + "_BLACKLIST");
+	sBlacklist = GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ), sListName + "_BLACKLIST");
 	iNewVariationValue = iCurrentVariationValue;
 
 	do {
@@ -279,7 +283,7 @@ int XPCraft_GetNewArmorPartValue(object oPC, string sRoadMap, int iAction)
 	int iNewArmorPartValue;
  	
 	string sListName = XPCraft_GetArmorPart_ListName(oPC, sRoadMap);
-	string sArmorPartList = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName);
+	string sArmorPartList = GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ), sListName);
 	string sBlacklist;
 	if(sArmorPartList=="")
 	{
@@ -287,7 +291,7 @@ int XPCraft_GetNewArmorPartValue(object oPC, string sRoadMap, int iAction)
 		return iCurrentArmorPartValue;
 	}
 
-	sBlacklist = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName + "_BLACKLIST");
+	sBlacklist = GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ), sListName + "_BLACKLIST");
 	iNewArmorPartValue = iCurrentArmorPartValue;
 	
 	do {
@@ -310,7 +314,7 @@ int XPCraft_GetNewModelPartValue(object oPC, int iBaseItemType, int iModelPartID
 	int iNewModelPartValue;
 	
 	string sListName =  XPCraft_GetModelPart_ListName(oPC, iBaseItemType, iModelPartID);
-	string sModelPartList = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName);
+	string sModelPartList = GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ), sListName);
 	string sBlacklist;
 	
 	if(sModelPartList=="")
@@ -319,7 +323,7 @@ int XPCraft_GetNewModelPartValue(object oPC, int iBaseItemType, int iModelPartID
 		return iCurrentModelPartValue;
 	}
 
-	sBlacklist = GetLocalString(GetObjectByTag("DPSS_Control_Room"), sListName + "_BLACKLIST");
+	sBlacklist = GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ), sListName + "_BLACKLIST");
 	iNewModelPartValue = iCurrentModelPartValue;
 	
 	do {
@@ -752,7 +756,7 @@ object XPCraft_ActionChangeColor(object oPC, int iNewColorValue)
 object XPCraft_ActionCancelChanges(object oPC)
 {
 	//get the saved-before-changes-item
-	object oSavedItem = GetLocalObject(GetObjectByTag("DPSS_Control_Room"),"XC_TEMP_" + XPCraft_GetPCID(oPC));
+	object oSavedItem = GetLocalObject(GetWaypointByTag( "XC_HIDDEN_WP" ),"XC_TEMP_" + XPCraft_GetPCID(oPC));
 	object oItemToEquip = OBJECT_INVALID;
 	string sTag;
 	
@@ -799,9 +803,9 @@ void XPCraft_CleanLocals(object oPC, int bEraseDatafile=TRUE)
 	
 	//destroy the saved item
 	string sSavedItemVarName = "XC_TEMP_" + XPCraft_GetPCID(oPC);
-	object oSavedItem = GetLocalObject(GetObjectByTag("DPSS_Control_Room"),sSavedItemVarName);
+	object oSavedItem = GetLocalObject(GetWaypointByTag( "XC_HIDDEN_WP" ),sSavedItemVarName);
 	DestroyObject(oSavedItem);
-	DeleteLocalObject(GetObjectByTag("DPSS_Control_Room"),sSavedItemVarName);
+	DeleteLocalObject(GetWaypointByTag( "XC_HIDDEN_WP" ),sSavedItemVarName);
 	
 	if(bEraseDatafile)
 	{
@@ -960,7 +964,7 @@ void XPCraft_InitArmorVisualTypeValues(object oPC)
 
 	
 //XPCraft_Debug(oPC,"INIT : AVT_Listname = " + sAVT_Listname);
-//XPCraft_Debug(oPC,"INIT : AVT_List = " + GetLocalString(GetObjectByTag("DPSS_Control_Room"),sAVT_Listname));
+//XPCraft_Debug(oPC,"INIT : AVT_List = " + GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),sAVT_Listname));
 			
 	SetLocalString(oPC,"XC_AVT_LISTNAME",sAVT_Listname);
 }
@@ -1064,6 +1068,17 @@ int XPCraft_GetIsCraftable(object oPC, object oInventoryItem)
 	
 	//the bReturn value decides whether the PC can craft this spécific item or not.
 	//place your own requests here...(special item flags, stolen, plot...)
+	
+	if (GetLocalInt(oInventoryItem, "XC_NOT_CRAFTABLE"))
+		bReturn = FALSE;
+
+	switch (GetBaseItemType(oInventoryItem)) {
+		case BASE_ITEM_SHURIKEN:
+		case BASE_ITEM_THROWINGAXE:
+		case BASE_ITEM_DART:
+			bReturn = FALSE;
+	}
+
 	bReturn = TRUE;
 	
 	

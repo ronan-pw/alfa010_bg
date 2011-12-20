@@ -115,7 +115,7 @@ int StartingConditional(int iCondition, int iInventorySlot, int iVisualType)
 								case 9 : //Hide 
 								case 10: //Naked
 									//same material group : "light" -> do the condition as usual, using the lists
-									bReturn = (FindSubString(GetLocalString(GetObjectByTag("DPSS_Control_Room"),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
+									bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
 									break;
 									
 								case 4 : //Chainmail
@@ -153,29 +153,33 @@ int StartingConditional(int iCondition, int iInventorySlot, int iVisualType)
 								case 7 : //Half-Plate
 								case 8 : //Full-Plate
 									//same material group : "metal-like" -> do the condition as usual, using the lists
-									bReturn = (FindSubString(GetLocalString(GetObjectByTag("DPSS_Control_Room"),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
+									bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
 									break;
 							}								
+							break;
+						// 16, 17 "custom" types
+						default:
+							bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
 							break;
 					}					
 				
 				}
 				else
 				{//no special switch to care about, do the condition as usual, using the lists
-					bReturn = (FindSubString(GetLocalString(GetObjectByTag("DPSS_Control_Room"),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
+					bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
 				}
 			
 			}
 			else
 			{			
-				bReturn = (FindSubString(GetLocalString(GetObjectByTag("DPSS_Control_Room"),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
+				bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
 			}
 
 			//
 			// If this visual type is blacklisted, don't permit it to be selected.
 			//
 
-			if ((bReturn) && (FindSubString(GetLocalString(GetObjectByTag("DPSS_Control_Room"),GetLocalString(oPC,"XC_AVT_LISTNAME")+"_BLACKLIST"),"#" + IntToString(iVisualType) + "#") !=-1))
+			if ((bReturn) && (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")+"_BLACKLIST"),"#" + IntToString(iVisualType) + "#") !=-1))
 			{
 				bReturn = FALSE;
 			}

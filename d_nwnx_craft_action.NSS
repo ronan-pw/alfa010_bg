@@ -18,6 +18,7 @@
 
 #include "nwnx_craft_system"
 
+
 //as usual, see readme file for details
 
 /* these constatns are declared in nwnx_craft_system 
@@ -38,6 +39,12 @@ const int XP_CRAFT_ACTION_SELECT_ARMOR_PIECE = 11;
 void main(int iAction, int iAvtValue)
 {
 	object oPC = GetPCSpeaker();//since the player speaks to himself in that dialog, one could use OBJECT_SELF instead of PCSpeaker()
+
+	if (GetLocalInt(oPC, "XC_CRAFT_DELAY"))
+		return;
+
+	SetLocalInt(oPC, "XC_CRAFT_DELAY", 1);
+	DelayCommand(XP_CRAFT_TALK_DELAY, DeleteLocalInt(oPC, "XC_CRAFT_DELAY"));
 	
 	//Check for the object to craft
 	int iInventorySlot = GetLocalInt(oPC,"XC_INVENT_SLOT");
