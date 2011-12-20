@@ -67,15 +67,22 @@ void main (int iTeinte, int iLuminosite, int iSaturation)
 		ApplyTintToType(oPC);
 		return;
 	}
-	
-	
+
+	if (GetLocalInt(oPC, "XC_CRAFT_DELAY"))
+		return;
+
+	SetLocalInt(oPC, "XC_CRAFT_DELAY", 1);
+	DelayCommand(XP_CRAFT_TALK_DELAY, DeleteLocalInt(oPC, "XC_CRAFT_DELAY"));
+
+	/*
 	if (GetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED")) {
 		DisplayMessageBox(oPC, 1, "Exit the dialog and select tint area to modify color again.");
 		return;
 	}
+	*/
 		
 	SetLocalObject(oPC, "XC_ITEM_TO_CRAFT", XPCraft_ActionChangeColor(oPC, iNewColorValue));
 	
-	SetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED",1);
+	//SetLocalInt(oPC, "XC_ITEM_COLOR_CRAFTED",1);
 		
 }
