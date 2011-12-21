@@ -46,13 +46,13 @@ const float TKL_SONGS_PER_PERFORM_POINT =		0.5;
 
 const int TKL_PERFORM_AFFECTS_LYRICS = 			FALSE;
 	// If TRUE, the players' Perform skill will determine how many Lyric slots they can edit in a song.
-const int TKL_LYRICS_PER_PERFORM_POINT =		2;
+const int TKL_LYRICS_PER_PERFORM_POINT =		4;
 	// If TKL_PERFORM_AFFECTS_LYRICS is TRUE, this determines the number of Lyrics slots that can be edited, per point of Perform.
 	// Example: If set at 2, a player with 8 Perform will be able to edit 16 Lyrics slots.
 
 const int TKL_PERFORM_AFFECTS_SPEED =			TRUE;
 	// If TRUE, the players' Perform skill will determine how much they can speed up a song.
-const int TKL_SPEED_PER_PERFORM_POINT =			5;
+const int TKL_SPEED_PER_PERFORM_POINT =			8;
 	// If TKL_PERFORM_AFFECTS_SPEED is TRUE, this determines the percentage a player can speed up a song, per point of Perform.
 	// Example: If set at 2, a player with 8 Perform will be able to speed up songs by 16%.
 
@@ -77,10 +77,10 @@ const int TKL_TRANSCRIPTIONS_PER_RESET =		0;
 const int TKL_ONE_TRANSCRIPTION_PER_HOUR =		TRUE;
 	// If set to TRUE, this limits the transcription feature to once per game-hour.
 	// If set to FALSE, PCs can Transcribe as often as they like.
-const int TKL_TRANSCRIPTION_DC =				14;
+const int TKL_TRANSCRIPTION_DC =				10;
 	// If set to 1 or more, this is the base DC for a Perform skill check, whenever a PC attempts transcription.
 	// If set to 0, Transcription will always be successful.
-const int TKL_TRANSCRIPTION_LENGTH_PENALTY =	50;
+const int TKL_TRANSCRIPTION_LENGTH_PENALTY =	100;
 	// If set to 1 or more, this is the number of notes that causes the Transcription DC to go up by 1.
 	// For example, if set to 50, every 50 notes in a song causes the base DC to go up by 1.
 	// (ie, a song with 100 notes would have its base Transcription DC increased by 2)
