@@ -49,6 +49,9 @@ void handle_follow(object o)
 	}
 
 	// follow (slowly)
+	if (GetCurrentAction(o) == ACTION_FOLLOW)
+		return;
+
 	ActionForceFollowObject(f,GetLocalFloat(o,"tw_distance"));
 	SetActionMode(o,ACTION_MODE_DETECT,1);
 }
