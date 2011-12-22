@@ -70,6 +70,11 @@ void let_out_players()
 {
 	object o;
 	location l = GetLocalLocation(OBJECT_SELF, "dest_loc");
+
+	// spit out @ start if this is rebooted
+	if (l == LOCATION_INVALID)
+		l = GetStartingLocation();
+
 	for (ObjectToInt(o = GetFirstObjectInArea(OBJECT_SELF)); o != OBJECT_INVALID; ObjectToInt(o = GetNextObjectInArea()))
 		if (GetIsPC(o))
 			AssignCommand(o, ActionJumpToLocation(l));
@@ -85,7 +90,7 @@ void shake_players()
 		}
 }
 
-object get_waypoint(string tag)
+object get_car_wp(string tag)
 {
 	object o;
 	for (ObjectToInt(o = GetFirstObjectInArea(OBJECT_SELF)); o != OBJECT_INVALID; ObjectToInt(o = GetNextObjectInArea()))
@@ -100,16 +105,16 @@ void main()
 	object snd,wp,o;
 	int ticks;
 	
-    ACR_AreaOnHeartbeat();
+	ACR_AreaOnHeartbeat();
 
     // Custom code goes below this line.
+	wp = GetLocalObject(OBJECT_SELF,"waypoint");
 	
-	if (!GetIsObjectValid(GetLocalObject(OBJECT_SELF,"waypoint"))) {
-		wp = get_waypoint("inside_caravan");
+	if (!GetIsObjectValid(wp)) {
+		wp = get_car_wp("inside_caravan");
 		SetLocalObject(OBJECT_SELF,"waypoint",wp);
+		SetLocalInt(OBJECT_SELF,"state",0);
 	}
-	else
-		wp = GetLocalObject(OBJECT_SELF,"waypoint");
 		
 	o = GetNearestObjectByTag("010_cr_caravan",wp);
 	
