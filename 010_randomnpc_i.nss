@@ -172,25 +172,25 @@ string RandomNPCResref(int race=RACIAL_TYPE_HUMAN, float prob = 0.2)
 					}
 					break;
 				case 1:
-					sResRef="abr_cr_dwarf_commoner1";
+					sResRef="abr_cr_dwarf_commoner_m0";
 					break;
 				case 2:
-					sResRef="abr_cr_dwarf_commoner2";
+					sResRef="abr_cr_dwarf_commoner_m1";
 					break;
 				case 3:
-					sResRef="abr_cr_dwarf_commoner3";
+					sResRef="abr_cr_dwarf_commoner_m2";
 					break;
 				case 4:
-					sResRef="abr_cr_dwarf_commoner4";
+					sResRef="abr_cr_dwarf_commoner_m3";
 					break;
 				case 5:
-					sResRef="abr_cr_dwarf_commoner5";
+					sResRef="abr_cr_dwarf_commoner_f0";
 					break;
 				case 6:
-					sResRef="abr_cr_dwarf_commoner1_walk";
+					sResRef="abr_cr_dwarf_commoner_f1";
 					break;
 				case 7:
-					sResRef="abr_cr_dwarf_commoner2_walk";
+					sResRef="abr_cr_dwarf_commoner_f2";
 					break;
 			}
 			break;
@@ -258,76 +258,76 @@ string RandomNPCResref(int race=RACIAL_TYPE_HUMAN, float prob = 0.2)
 		default:
 			switch (Random(24)) {
 				case 0:
-					sResRef="010_cr_comm_human_m1";
+					sResRef="010_cr_comm_human_f00";
 					break;
 				case 1:
-					sResRef="010_cr_comm_human";
+					sResRef="010_cr_comm_human_f01";
 					break;
 				case 2:
-					sResRef="010_cr_comm_human0";
+					sResRef="010_cr_comm_human_f02";
 					break;
 				case 3:
-					sResRef="010_cr_comm_human1";
+					sResRef="010_cr_comm_human_f03";
 					break;
 				case 4:
-					sResRef="010_cr_comm_human2";
+					sResRef="010_cr_comm_human_f04";
 					break;
 				case 5:
-					sResRef="010_cr_comm_human3";
+					sResRef="010_cr_comm_human_f05";
 					break;
 				case 6:
-					sResRef="010_cr_comm_human4";
+					sResRef="010_cr_comm_human_f06";
 					break;
 				case 7:
-					sResRef="010_cr_comm_human5";
+					sResRef="010_cr_comm_human_f07";
 					break;
 				case 8:
-					sResRef="010_cr_comm_human6";
+					sResRef="010_cr_comm_human_f08";
 					break;
 				case 9:
-					sResRef="010_cr_comm_human7";
+					sResRef="010_cr_comm_human_f09";
 					break;
 				case 10:
-					sResRef="010_cr_comm_human8";
+					sResRef="010_cr_comm_human_f10";
 					break;
 				case 11:
-					sResRef="010_cr_comm_human00";
+					sResRef="010_cr_comm_human_f11";
 					break;
 				case 12:
-					sResRef="010_cr_comm_human10";
+					sResRef="010_cr_comm_human_m00";
 					break;
 				case 13:
-					sResRef="010_cr_comm_human20";
+					sResRef="010_cr_comm_human_m01";
 					break;
 				case 14:
-					sResRef="010_cr_comm_human30";
+					sResRef="010_cr_comm_human_m02";
 					break;
 				case 15:
-					sResRef="010_cr_comm_human40";
+					sResRef="010_cr_comm_human_m03";
 					break;
 				case 16:
-					sResRef="010_cr_comm_human50";
+					sResRef="010_cr_comm_human_m04";
 					break;
 				case 17:
-					sResRef="010_cr_comm_human60";
+					sResRef="010_cr_comm_human_m05";
 					break;
 				case 18:
-					sResRef="010_cr_comm_human70";
+					sResRef="010_cr_comm_human_m06";
 					break;
 				case 19:
-					sResRef="010_cr_comm_human80";
+					sResRef="010_cr_comm_human_m07";
 					break;
 				case 20:
-					sResRef="010_cr_comm_human11";
+					sResRef="010_cr_comm_human_m08";
 					break;
 				case 21:
-					sResRef="010_cr_comm_human_f0";
+					sResRef="010_cr_comm_human_m09";
 					break;
 				case 22:
-					sResRef="010_cr_comm_human_f1";
+					sResRef="010_cr_comm_human_m10";
 					break;
 				case 23:
-					sResRef="010_cr_comm_human_m0";
+					sResRef="010_cr_comm_human_m11";
 					break;
 		}
 		break;
