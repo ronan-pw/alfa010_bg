@@ -1,5 +1,5 @@
 NSC	= nsc
-NSFLAGS	= -q -e -q -o -a -v1.70 -i ../include/:../ALFA-Base-Resources/alfa2_acr.hak/ -x " ERROR "
+NSFLAGS	= -q -e -q -o -a -v1.70 -i ../ALFA-Base-Resources/alfa2_acr.hak/:../include/ -x " ERROR "
 # flags:
 # [-g:nodebug]
 # [-v:version]
