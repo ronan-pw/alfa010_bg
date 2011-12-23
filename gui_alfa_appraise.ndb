@@ -1,5 +1,5 @@
 NDB V1.0
-0000055 0000007 0003681 0000013 0000043
+0000056 0000007 0003744 0000013 0000043
 n00 ginc_debug
 n01 acr_debug_i
 n02 dmfi_inc_conv
@@ -26,35 +26,36 @@ n22 dmfi_inc_sendtex
 n23 dmfi_inc_tool
 n24 dmfi_inc_inc_com
 n25 acr_pps_i
-n26 x0_i0_match
-n27 x2_inc_itemprop
-n28 x0_i0_petrify
-n29 x0_i0_assoc
-n30 nw_i0_spells
-n31 x0_i0_partywide
-n32 x0_i0_transport
-n33 x0_i0_common
-n34 nw_i0_plot
-n35 x0_i0_behavior
-n36 x0_i0_modes
-n37 x0_i0_voice
-n38 x0_i0_debug
-n39 x0_i0_equip
-n40 ginc_2da
-n41 ginc_event_handlers
-n42 x0_i0_talent
-n43 x0_i0_combat
-n44 x0_i0_spawncond
-n45 x0_i0_walkway
-n46 x0_i0_anims
-n47 x0_i0_henchman
-n48 nwn2_inc_metmag
-n49 x0_i0_spells
-n50 nwn2_inc_spells
-n51 acr_effects_i
-n52 acr_xp_i
-n53 acr_skills_i
-N54 gui_alfa_appraise
+n26 acr_nonlethal_i
+n27 x0_i0_match
+n28 x2_inc_itemprop
+n29 x0_i0_petrify
+n30 x0_i0_assoc
+n31 nw_i0_spells
+n32 x0_i0_partywide
+n33 x0_i0_transport
+n34 x0_i0_common
+n35 nw_i0_plot
+n36 x0_i0_behavior
+n37 x0_i0_modes
+n38 x0_i0_voice
+n39 x0_i0_debug
+n40 x0_i0_equip
+n41 ginc_2da
+n42 ginc_event_handlers
+n43 x0_i0_talent
+n44 x0_i0_combat
+n45 x0_i0_spawncond
+n46 x0_i0_walkway
+n47 x0_i0_anims
+n48 x0_i0_henchman
+n49 nwn2_inc_metmag
+n50 x0_i0_spells
+n51 nwn2_inc_spells
+n52 acr_effects_i
+n53 acr_xp_i
+n54 acr_skills_i
+N55 gui_alfa_appraise
 s 03 vector
 sf f x
 sf f y
@@ -3427,6 +3428,138 @@ fp e2
 fp i
 f ffffffff ffffffff 001 v _playerFreeze
 fp o
+f ffffffff ffffffff 000 s ACR_SUBDUAL_TOGGLE
+f ffffffff ffffffff 000 s ACR_NLD_DB
+f ffffffff ffffffff 000 i ACR_NLD_HEALRATE
+f ffffffff ffffffff 000 i NLD_SA_ALLOWED
+f ffffffff ffffffff 000 s ACR_NLD_MODE
+f ffffffff ffffffff 000 s ACR_NLD_STATE
+f ffffffff ffffffff 000 s ACR_NLD_HEALING
+f ffffffff ffffffff 000 i ACR_NLD_STATE_NORMAL
+f ffffffff ffffffff 000 i ACR_NLD_STATE_STAGGERED
+f ffffffff ffffffff 000 i ACR_NLD_STATE_HELPLESS
+f ffffffff ffffffff 000 s ACR_NLD_DAMAGE
+f ffffffff ffffffff 000 s ACR_NLD_DAMAGE_TOTAL
+f ffffffff ffffffff 000 s ACR_NLD_DICE_DAMAGE
+f ffffffff ffffffff 000 s ACR_NLD_DICE_NUMBER
+f ffffffff ffffffff 000 s ACR_NLD_DAMAGE_PENALTY
+f ffffffff ffffffff 000 s ACR_NLD_WOFFHAND
+f ffffffff ffffffff 000 s ACR_NLD_W2HANDED
+f ffffffff ffffffff 000 s ACR_NLD_SNEAKATTACK
+f ffffffff ffffffff 000 s ACR_NLD_SA_DICE
+f ffffffff ffffffff 000 s ACR_NLD_MAT_ADAMANTINE
+f ffffffff ffffffff 000 s ACR_NLD_MAT_ALCSILVER
+f ffffffff ffffffff 000 s ACR_NLD_MAT_COLDIRON
+f ffffffff ffffffff 000 s ACR_NLD_ATTACKER
+f ffffffff ffffffff 000 s ACR_NLD_TARGET
+f ffffffff ffffffff 001 v ACR_ToggleNLDMode
+fp o
+f ffffffff ffffffff 001 v ACR_NLD_OnPCLoaded
+fp o
+f ffffffff ffffffff 003 v ACR_NLD_OnWeaponSwitch
+fp o
+fp o
+fp i
+f ffffffff ffffffff 002 v ACR_ApplyNLDEffects
+fp o
+fp i
+f ffffffff ffffffff 003 i ACR_NLD_OnWeaponHit
+fp o
+fp o
+fp o
+f ffffffff ffffffff 004 v ACR_NLD_HealNLD
+fp o
+fp i
+fp i
+fp o
+f ffffffff ffffffff 004 v ACR_NLD_Regen
+fp o
+fp i
+fp i
+fp f
+f ffffffff ffffffff 003 v ACR_NLD_ReportTotal
+fp o
+fp o
+fp i
+f ffffffff ffffffff 001 v ACR_NLD_HealAll
+fp o
+f ffffffff ffffffff 002 i ACR_NLD_DeathOrDyingHitDamage
+fp o
+fp o
+f ffffffff ffffffff 001 v ACR_NLD_OnDeath
+fp o
+f ffffffff ffffffff 001 v ACR_NonLethalOnClientExit
+fp o
+f ffffffff ffffffff 002 v ACR_ApplyNonlethalDamageToCreature
+fp o
+fp i
+f ffffffff ffffffff 004 v _NLDWeaponDamage
+fp o
+fp o
+fp o
+fp i
+f ffffffff ffffffff 002 i _NLDGetWeaponSpecialisation
+fp o
+fp o
+f ffffffff ffffffff 002 i _NLDGetGreaterWeaponSpecialisation
+fp o
+fp o
+f ffffffff ffffffff 001 i _NLDGetEnhancementBonus
+fp o
+f ffffffff ffffffff 004 s _NLDamageReductionCheck
+fp o
+fp o
+fp i
+fp i
+f ffffffff ffffffff 001 v _GiveNLDFist
+fp o
+f ffffffff ffffffff 001 v _ApplyNLDFist
+fp o
+f ffffffff ffffffff 002 v _NLDNaturalHealing
+fp o
+fp i
+f ffffffff ffffffff 001 v _RemoveNLDStaggeredEffect
+fp o
+f ffffffff ffffffff 001 v _RemoveNLDHelplessEffect
+fp o
+f ffffffff ffffffff 001 i _GetNLDSneakAttackDice
+fp o
+f ffffffff ffffffff 001 v _HandleNLDSneakAttacks
+fp o
+f ffffffff ffffffff 001 v _RestoreNLDSneakAttackFeats
+fp o
+f ffffffff ffffffff 001 i _GetNLDSAFeatList
+fp o
+f ffffffff ffffffff 002 v _SetNLDSAFeatList
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetNLDMode
+fp o
+f ffffffff ffffffff 002 v _SetNLDMode
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetNLDState
+fp o
+f ffffffff ffffffff 002 v _SetNLDState
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetNLDTotal
+fp o
+f ffffffff ffffffff 002 v _SetNLDTotal
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetLastNLDamage
+fp o
+f ffffffff ffffffff 002 v _SetLastNLDamage
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetIsNLDHealing
+fp o
+f ffffffff ffffffff 002 v _SetIsNLDHealing
+fp o
+fp i
+f ffffffff ffffffff 001 v _DoSubduedAnimation
+fp o
 f ffffffff ffffffff 000 i NW_TALENT_PROTECT
 f ffffffff ffffffff 000 i NW_TALENT_ENHANCE
 f ffffffff ffffffff 003 i GetMatchCompatibility
@@ -5757,12 +5890,13 @@ fp i
 f ffffffff ffffffff 002 i AttemptNewSong
 fp o
 fp i
-f ffffffff ffffffff 005 v ApplyFriendlySongEffectsToArea
+f ffffffff ffffffff 006 v ApplyFriendlySongEffectsToArea
 fp o
 fp i
 fp f
 fp f
 fp e0
+fp i
 f ffffffff ffffffff 004 v ApplyFriendlySongEffectsToParty
 fp o
 fp i
@@ -6110,7 +6244,7 @@ l07 0000210 000000b7 000000b7
 l07 0000211 000000b7 000000b7
 l07 0000213 000000b7 000000b7
 l07 0000214 000000b7 000000b7
-l54 0000048 000000c9 000000cf
-l54 0000049 000000cf 000000dc
-l54 0000051 000000dc 00000120
-l54 0000052 00000126 00000128
+l55 0000048 000000c9 000000cf
+l55 0000049 000000cf 000000dc
+l55 0000051 000000dc 00000120
+l55 0000052 00000126 00000128
