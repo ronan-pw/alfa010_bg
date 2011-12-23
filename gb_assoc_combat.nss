@@ -1,6 +1,6 @@
 //::///////////////////////////////////////////////
-//:: Default: End of Combat Round
-//:: NW_C2_DEFAULT3
+//:: Associate: End of Combat End
+//:: gb_assoc_combat
 //:: Copyright (c) 2001 Bioware Corp.
 //:://////////////////////////////////////////////
 /*
@@ -12,33 +12,27 @@
 //:://////////////////////////////////////////////
 
 #include "hench_i0_ai"
-#include "ginc_behavior"
-
+#include "x0_inc_henai"
+#include "x2_inc_spellhook"
 
 void main()
 {
 //    Jug_Debug("*****" + GetName(OBJECT_SELF) + " end combat round action " + IntToString(GetCurrentAction()));
 
-   	HenchResetCombatRound();
+   	HenchResetCombatRound();	
 
-    int iFocused = GetIsFocused();
- 
-    if (iFocused <= FOCUSED_STANDARD)
+	if (!GetAssociateState(NW_ASC_MODE_PUPPET) &&
+		!GetSpawnInCondition(NW_FLAG_SET_WARNINGS) &&
+		!HenchCheckEventClearAllActions(TRUE))
     {
-		if (!HenchCheckEventClearAllActions(TRUE))
-		{
-		    if(GetBehaviorState(NW_FLAG_BEHAVIOR_SPECIAL))
-		    {
-		        HenchDetermineSpecialBehavior();
-		    }
-		    else if(!GetSpawnInCondition(NW_FLAG_SET_WARNINGS))
-		    {
-		        HenchDetermineCombatRound();
-		    }
-		}
-	}
+//		Jug_Debug(GetName(OBJECT_SELF) + " end combat round combat round");
+        HenchDetermineCombatRound();
+    }
     if(GetSpawnInCondition(NW_FLAG_END_COMBAT_ROUND_EVENT))
     {
         SignalEvent(OBJECT_SELF, EventUserDefined(EVENT_END_COMBAT_ROUND));
     }
+
+    // Check if concentration is required to maintain this creature
+    X2DoBreakConcentrationCheck();
 }
