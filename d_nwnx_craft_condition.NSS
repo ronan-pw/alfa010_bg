@@ -108,16 +108,7 @@ int StartingConditional(int iCondition, int iInventorySlot, int iVisualType)
 							//material group "light"
 							switch(iVisualType)
 							{
-								case 0 : //Cloth
-								case 1 : //Padded Cloth
-								case 2 : //Leather
-								case 3 : //Studded Leather
-								case 9 : //Hide 
-								case 10: //Naked
-									//same material group : "light" -> do the condition as usual, using the lists
-									bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
-									break;
-									
+						
 								case 4 : //Chainmail
 								case 5 ://Scale
 								case 6 : //Banded
@@ -126,6 +117,17 @@ int StartingConditional(int iCondition, int iInventorySlot, int iVisualType)
 									//different material group : "metal-like" against "light"
 									bReturn = FALSE;
 									break;
+								case 0 : //Cloth
+								case 1 : //Padded Cloth
+								case 2 : //Leather
+								case 3 : //Studded Leather
+								case 9 : //Hide 
+								case 10: //Naked
+								default: //
+									//same material group : "light" -> do the condition as usual, using the lists
+									bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
+									break;
+									
 							}							
 							break;
 							
@@ -152,6 +154,7 @@ int StartingConditional(int iCondition, int iInventorySlot, int iVisualType)
 								case 6 : //Banded
 								case 7 : //Half-Plate
 								case 8 : //Full-Plate
+								default:
 									//same material group : "metal-like" -> do the condition as usual, using the lists
 									bReturn = (FindSubString(GetLocalString(GetWaypointByTag( "XC_HIDDEN_WP" ),GetLocalString(oPC,"XC_AVT_LISTNAME")),"#" + IntToString(iVisualType) + "#") !=-1);
 									break;

@@ -25,7 +25,8 @@ const int XP_CRAFT_USE_SEXED_VARIATION = TRUE;
 
 
 // delay from craft action->next craft action
-const float XP_CRAFT_TALK_DELAY = 0.25f;
+// _should_ help in removing all dupe bugs
+const float XP_CRAFT_TALK_DELAY = 1.0f;
 
 //if you made your lists according to the filenames (ie P_HHM_Body01..)
 //you'll have to set this to 1
