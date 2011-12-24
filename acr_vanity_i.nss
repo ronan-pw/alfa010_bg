@@ -421,7 +421,7 @@ string GetValidHairModels(int nSubrace, int nGender=0)
 		case RACIAL_SUBTYPE_HUMAN:
 		case RACIAL_SUBTYPE_HALFELF:
 		case RACIAL_SUBTYPE_HALFDROW:
-			res = IntervalToList("[1-17,37,38,63,66,71-75,80-82,94][1-17,23,24,50-52,61-64,66-78,80-82,85-90,94]", nGender);
+			res = IntervalToList("[1-17,37,38,61-63,66-75,80-82,94][1-17,23,24,50-52,61-64,66-78,80-82,85-90,94]", nGender);
 			break;
 		case RACIAL_SUBTYPE_LIGHTFOOT_HALF:
 		case RACIAL_SUBTYPE_GHOSTWISE_HALF:
