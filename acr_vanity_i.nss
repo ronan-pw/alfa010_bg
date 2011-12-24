@@ -98,6 +98,7 @@ void DyeHairRaw(string sDye, object oBeautician, object oTarget, int nRoll = FAL
 	sigma = 2/(exp(sqrt(nSkillFinal * 1.0) - 4) + 1.0);
 	
 
+	// handle hl first, then ll
 	for (i=0; i<2; ++i) {
 		// generate in cylindrical 
 		h = ACR_RandomNormal(1.0, sigma);
@@ -837,9 +838,9 @@ void SetNextValidModel(object o, int dir=1, int type=0)
 
 	// dir=1 forward, else reverse
 	if (dir)
-		cur = XPCraft_GetNextEntryInList(lst, cur);
+		cur = GetNextEntryInStringList(lst, cur);
 	else
-		cur = XPCraft_GetPreviousEntryInList(lst, cur);
+		cur = GetPreviousEntryInStringList(lst, cur);
 
 	SetLocalString(o, s_cur_tag, IntToString(cur));
 
