@@ -75,7 +75,7 @@ void main(string sItemTag)
     DestroyItems( oPC,"it_plot_gear_platinum",nTotalItem,50,25 );
 	
 	nTotalItem = GetNumItems( oPC,"it_plot_gear_adamantine" );
-    DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,150,75 );
+    DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,350,75 );
 	
 	nTotalItem = GetNumItems( oPC,"it_misc_ankheg_acid_gland" );
     DestroyItems( oPC,"it_misc_ankheg_acid_gland",nTotalItem,20,10 );
