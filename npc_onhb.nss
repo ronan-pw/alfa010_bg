@@ -129,8 +129,8 @@ void anim_close()
 void npc_immobile()
 {
     // skip 3/4
-    if (Random(4) != 0)
-	    return;
+    //if (Random(4) != 0)
+    //    return;
 
     if (!GetAnimationCondition(NW_ANIM_FLAG_INITIALIZED)) {
         // If we've been set to be constant, flag us as
