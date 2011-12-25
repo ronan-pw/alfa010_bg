@@ -51,19 +51,11 @@ void main();
 void main() {
 	object o;
 	
-	spawn_placeable("phat_lewt_body_male");
+	spawn_placeable("phat_lewt_body_male",0.5);
 
 	switch(Random(9)) {
 		case 0:
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue");
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_green");
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_red");
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.5);
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.5);
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.5);
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.5);
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.5);
-			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.5);
+			spawn_hostile_npc("abr_cr_cn_niblewright");
 			break;
 		case 1:
 			spawn_hostile_npc("abr_cr_cn_dreadguard");
@@ -72,7 +64,10 @@ void main() {
 			spawn_hostile_npc("abr_cr_cn_dreadguard",0.5);
 			break;
 		case 2:
-			spawn_nonambient_npc("abr_cr_cn_platinumhorror");
+			spawn_hostile_npc("abr_cr_cn_helmedhorror");
+			break;
+		case 3:
+			spawn_nonambient_npc("abr_cr_cn_platinumhorror",0.5);
 			spawn_nonambient_npc("abr_cr_cn_goldhorror");
 			spawn_nonambient_npc("abr_cr_cn_goldhorror",0.5);
 			spawn_nonambient_npc("abr_cr_cn_electrumhorror");
@@ -81,23 +76,44 @@ void main() {
 			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
 			break;
 		case 4:
-			spawn_hostile_npc("abr_cr_cn_helmedhorror");
-			break;
-		case 5:
-			spawn_nonambient_npc("abr_cr_cn_goldhorror");
 			spawn_nonambient_npc("abr_cr_cn_goldhorror",0.5);
 			spawn_nonambient_npc("abr_cr_cn_electrumhorror");
+			spawn_nonambient_npc("abr_cr_cn_electrumhorror");
 			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
 			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
+			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
+			break;
+		case 5:
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.3);
+			spawn_hostile_npc("abr_cr_cn_animated_sword",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_mace",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_halberd",0.5);
 			break;
 		case 6:
-			spawn_nonambient_npc("abr_cr_cn_electrumhorror");
-			spawn_nonambient_npc("abr_cr_cn_electrumhorror");
-			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
-			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
-			spawn_nonambient_npc("abr_cr_cn_electrumhorror",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_greatsword",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_greatsword",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.3);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.3);
 			break;
-		default:
-			spawn_hostile_npc("abr_cr_cn_niblewright");
+		case 7:
+			spawn_hostile_npc("abr_cr_cn_animated_halberd",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_sword",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_mace",0.5);
+			break;
+		case 8:
+			spawn_hostile_npc("abr_cr_cn_animated_dagger",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_dagger",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_dagger",0.5);
+			spawn_hostile_npc("abr_cr_cn_animated_dagger",0.5);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_blue",0.2);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_green",0.2);
+			spawn_hostile_npc("abr_cr_cn_animatedarmor_red",0.2);
+			break;
 	}
 }
