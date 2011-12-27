@@ -45,14 +45,11 @@ OBJS	= $(filter-out $(F_INCS),$(FILES))
 
 
 .IGNORE:
-.SILENT:
 .SUFFIXES: .nss .ncs
 
 all:	$(OBJS)
-	echo Finished.
 
 .nss.ncs:
-	echo Compiling $<
 	$(NSC) $(NSFLAGS) -c $<
 
 clean:
