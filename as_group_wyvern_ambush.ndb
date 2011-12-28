@@ -1,5 +1,5 @@
 NDB V1.0
-0000063 0000008 0004125 0000094 0000265
+0000063 0000008 0004135 0000094 0000265
 n00 ginc_debug
 n01 acr_debug_i
 n02 dmfi_inc_conv
@@ -13,13 +13,13 @@ n09 acr_death_i
 n10 nwnx_include
 n11 acr_array_i
 n12 acr_queue_i
-n13 acr_db_persist_i
-n14 acr_i
-n15 x0_i0_position
-n16 ginc_math
-n17 acr_tools_i
-n18 acr_time_i
-n19 acr_settings_i
+n13 acr_settings_i
+n14 acr_db_persist_i
+n15 acr_i
+n16 x0_i0_position
+n17 ginc_math
+n18 acr_tools_i
+n19 acr_time_i
 n20 acr_1984_i
 n21 acr_xp_i
 n22 x2_inc_switches
@@ -224,9 +224,28 @@ fp s
 f ffffffff ffffffff 002 i GetQueueLength
 fp o
 fp s
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_ID
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_NAME
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_REGION
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_IP
+f ffffffff ffffffff 000 i ACR_GetServerId
+f ffffffff ffffffff 000 i ACR_GetServerID
+f ffffffff ffffffff 000 s ACR_GetServerName
+f ffffffff ffffffff 000 i ACR_GetServerRegion
+f ffffffff ffffffff 000 s ACR_GetServerIp
+f ffffffff ffffffff 004 v SetServerData
+fp i
+fp s
+fp i
+fp s
 f ffffffff ffffffff 000 i SQL_ERROR
 f ffffffff ffffffff 000 i SQL_SUCCESS
 f ffffffff ffffffff 000 s ACR_CID
+f ffffffff ffffffff 000 s ACR_PID
+f ffffffff ffffffff 000 s ACR_SRVADMIN
+f ffffffff ffffffff 000 i ACR_SRVADMIN_INDETERMINITE
+f ffffffff ffffffff 000 i ACR_SRVADMIN_IS_ADMIN
+f ffffffff ffffffff 000 i ACR_SRVADMIN_NOT_ADMIN
 f ffffffff ffffffff 000 i ACR_CHARACTER_ID_NONE
 f ffffffff ffffffff 000 s ACR_PLAYERSTATUS_CACHE_VAR
 f ffffffff ffffffff 000 s ACR_CDKEY
@@ -325,10 +344,15 @@ f ffffffff ffffffff 001 v ACR_SetPCPublicCDKey
 fp o
 f ffffffff ffffffff 001 s ACR_GetPCPublicCDKey
 fp o
-f ffffffff ffffffff 002 v ACR_SetCharacterID
+f ffffffff ffffffff 003 v ACR_SetCharacterID
 fp o
 fp i
+fp i
 f ffffffff ffffffff 001 i ACR_GetCharacterID
+fp o
+f ffffffff ffffffff 001 i ACR_GetPlayerID
+fp o
+f ffffffff ffffffff 001 i ACR_IsServerAdmin
 fp o
 f ffffffff ffffffff 000 v ACR_CreateSQLTables
 f ffffffff ffffffff 000 v ACR_ResetDatabase
@@ -1183,19 +1207,6 @@ f 0000122a 00001389 003 v _SendDebugMessage
 fp s
 fp i
 fp o
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_ID
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_NAME
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_REGION
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_IP
-f ffffffff ffffffff 000 i ACR_GetServerId
-f ffffffff ffffffff 000 s ACR_GetServerName
-f ffffffff ffffffff 000 i ACR_GetServerRegion
-f ffffffff ffffffff 000 s ACR_GetServerIp
-f ffffffff ffffffff 004 v SetServerData
-fp i
-fp s
-fp i
-fp s
 f ffffffff ffffffff 000 s ACR_LOG_BAN
 f ffffffff ffffffff 000 s ACR_LOG_LOAD
 f ffffffff ffffffff 000 s ACR_LOG_LOGIN
@@ -1232,6 +1243,7 @@ f ffffffff ffffffff 000 s ACR_LOG_SUBDUAL
 f ffffffff ffffffff 000 s ACR_LOG_OVERCR
 f ffffffff ffffffff 000 s ACR_LOG_SERVER_LOAD
 f ffffffff ffffffff 000 s ACR_LOG_VALIDATED
+f ffffffff ffffffff 000 s ACR_LOG_SERVER_ADMIN_COMMAND
 f ffffffff ffffffff 004 v ACR_LogEvent
 fp o
 fp s
@@ -1279,6 +1291,9 @@ fp o
 f ffffffff ffffffff 001 i ACR_GetHasIllegalProperties
 fp o
 f ffffffff ffffffff 000 v ACR_LogModuleLoaded
+f ffffffff ffffffff 002 v ACR_LogServerAdminCommand
+fp o
+fp s
 f ffffffff ffffffff 000 s _STORED_XP
 f ffffffff ffffffff 000 f _RPXP_SCRIPT_ANCHOR
 f ffffffff ffffffff 000 s _BANKED_RPXP_INCREMENTS
@@ -7097,29 +7112,29 @@ l01 0000298 00001339 00001349
 l01 0000299 0000134f 00001381
 l01 0000302 00001381 00001389
 l59 0000769 00001389 000013b0
-l17 0000542 000013b2 0000149c
-l17 0000543 0000149c 0000149c
-l17 0000544 0000149c 000014b7
-l17 0000545 000014b7 000014b7
-l17 0000546 000014b7 000014dd
-l17 0000547 000014dd 000014dd
-l17 0000548 000014dd 000014fd
-l17 0000549 000014fd 000014fd
-l17 0000550 000014fd 00001519
-l17 0000551 00001519 00001519
-l17 0000552 00001519 0000153a
-l17 0000553 0000153a 0000153a
-l17 0000554 0000153a 00001556
-l17 0000555 00001556 00001556
-l17 0000556 00001556 00001576
-l17 0000557 00001576 00001576
-l17 0000558 00001576 00001593
-l17 0000559 00001593 00001593
-l17 0000560 00001593 000015b2
-l17 0000561 000015b2 000015b2
-l17 0000562 000015b2 000015d2
-l17 0000564 000015d8 000015f7
-l17 0000565 000015f7 000015ff
+l18 0000542 000013b2 0000149c
+l18 0000543 0000149c 0000149c
+l18 0000544 0000149c 000014b7
+l18 0000545 000014b7 000014b7
+l18 0000546 000014b7 000014dd
+l18 0000547 000014dd 000014dd
+l18 0000548 000014dd 000014fd
+l18 0000549 000014fd 000014fd
+l18 0000550 000014fd 00001519
+l18 0000551 00001519 00001519
+l18 0000552 00001519 0000153a
+l18 0000553 0000153a 0000153a
+l18 0000554 0000153a 00001556
+l18 0000555 00001556 00001556
+l18 0000556 00001556 00001576
+l18 0000557 00001576 00001576
+l18 0000558 00001576 00001593
+l18 0000559 00001593 00001593
+l18 0000560 00001593 000015b2
+l18 0000561 000015b2 000015b2
+l18 0000562 000015b2 000015d2
+l18 0000564 000015d8 000015f7
+l18 0000565 000015f7 000015ff
 l59 0001661 000015ff 00001614
 l59 0001662 0000161a 00001634
 l59 0001663 0000163a 0000163c
@@ -7178,12 +7193,12 @@ l59 0001734 00001b90 00001b98
 l59 0001654 00001b98 00001ba8
 l59 0001655 00001bc4 00001c16
 l59 0001656 00001c16 00001c1e
-l17 0000977 00001c1e 00001c2b
-l17 0000978 00001c2b 00001c7b
-l17 0000981 00001c81 00001c9b
-l17 0000983 00001c9b 00001cb5
-l17 0000984 00001cbb 00001cc3
-l17 0000524 00001cc3 00001d0d
-l17 0000525 00001d0d 00001d15
+l18 0000977 00001c1e 00001c2b
+l18 0000978 00001c2b 00001c7b
+l18 0000981 00001c81 00001c9b
+l18 0000983 00001c9b 00001cb5
+l18 0000984 00001cbb 00001cc3
+l18 0000524 00001cc3 00001d0d
+l18 0000525 00001d0d 00001d15
 l11 0000163 00001d15 00001d41
 l11 0000164 00001d41 00001d49

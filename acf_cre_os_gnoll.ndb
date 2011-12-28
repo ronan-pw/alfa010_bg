@@ -1,5 +1,5 @@
 NDB V1.0
-0000081 0000012 0004887 0000409 0001312
+0000081 0000012 0004897 0000409 0001312
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -32,12 +32,12 @@ n28 x0_i0_anims
 n29 acr_array_i
 n30 nwnx_include
 n31 acr_queue_i
-n32 acr_db_persist_i
-n33 acr_i
-n34 ginc_math
-n35 acr_tools_i
-n36 acr_events_i
-n37 acr_settings_i
+n32 acr_settings_i
+n33 acr_db_persist_i
+n34 acr_i
+n35 ginc_math
+n36 acr_tools_i
+n37 acr_events_i
 n38 acr_1984_i
 n39 acr_time_i
 n40 acr_xp_i
@@ -1616,9 +1616,28 @@ fp s
 f ffffffff ffffffff 002 i GetQueueLength
 fp o
 fp s
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_ID
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_NAME
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_REGION
+f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_IP
+f ffffffff ffffffff 000 i ACR_GetServerId
+f ffffffff ffffffff 000 i ACR_GetServerID
+f ffffffff ffffffff 000 s ACR_GetServerName
+f ffffffff ffffffff 000 i ACR_GetServerRegion
+f ffffffff ffffffff 000 s ACR_GetServerIp
+f ffffffff ffffffff 004 v SetServerData
+fp i
+fp s
+fp i
+fp s
 f ffffffff ffffffff 000 i SQL_ERROR
 f ffffffff ffffffff 000 i SQL_SUCCESS
 f ffffffff ffffffff 000 s ACR_CID
+f ffffffff ffffffff 000 s ACR_PID
+f ffffffff ffffffff 000 s ACR_SRVADMIN
+f ffffffff ffffffff 000 i ACR_SRVADMIN_INDETERMINITE
+f ffffffff ffffffff 000 i ACR_SRVADMIN_IS_ADMIN
+f ffffffff ffffffff 000 i ACR_SRVADMIN_NOT_ADMIN
 f ffffffff ffffffff 000 i ACR_CHARACTER_ID_NONE
 f ffffffff ffffffff 000 s ACR_PLAYERSTATUS_CACHE_VAR
 f ffffffff ffffffff 000 s ACR_CDKEY
@@ -1717,10 +1736,15 @@ f ffffffff ffffffff 001 v ACR_SetPCPublicCDKey
 fp o
 f ffffffff ffffffff 001 s ACR_GetPCPublicCDKey
 fp o
-f ffffffff ffffffff 002 v ACR_SetCharacterID
+f ffffffff ffffffff 003 v ACR_SetCharacterID
 fp o
 fp i
+fp i
 f ffffffff ffffffff 001 i ACR_GetCharacterID
+fp o
+f ffffffff ffffffff 001 i ACR_GetPlayerID
+fp o
+f ffffffff ffffffff 001 i ACR_IsServerAdmin
 fp o
 f ffffffff ffffffff 000 v ACR_CreateSQLTables
 f ffffffff ffffffff 000 v ACR_ResetDatabase
@@ -2329,19 +2353,6 @@ f ffffffff ffffffff 000 i ACR_EVENT_SPELL_CAST_FROM
 f ffffffff ffffffff 000 s ACR_EVENT_TYPE
 f ffffffff ffffffff 000 o ACR_GetEventTarget
 f ffffffff ffffffff 000 i ACR_GetEventType
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_ID
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_NAME
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_REGION
-f ffffffff ffffffff 000 s _ACR_SETTINGS_SERVER_IP
-f ffffffff ffffffff 000 i ACR_GetServerId
-f ffffffff ffffffff 000 s ACR_GetServerName
-f ffffffff ffffffff 000 i ACR_GetServerRegion
-f ffffffff ffffffff 000 s ACR_GetServerIp
-f ffffffff ffffffff 004 v SetServerData
-fp i
-fp s
-fp i
-fp s
 f ffffffff ffffffff 000 s ACR_LOG_BAN
 f ffffffff ffffffff 000 s ACR_LOG_LOAD
 f ffffffff ffffffff 000 s ACR_LOG_LOGIN
@@ -2378,6 +2389,7 @@ f ffffffff ffffffff 000 s ACR_LOG_SUBDUAL
 f ffffffff ffffffff 000 s ACR_LOG_OVERCR
 f ffffffff ffffffff 000 s ACR_LOG_SERVER_LOAD
 f ffffffff ffffffff 000 s ACR_LOG_VALIDATED
+f ffffffff ffffffff 000 s ACR_LOG_SERVER_ADMIN_COMMAND
 f ffffffff ffffffff 004 v ACR_LogEvent
 fp o
 fp s
@@ -2425,6 +2437,9 @@ fp o
 f ffffffff ffffffff 001 i ACR_GetHasIllegalProperties
 fp o
 f ffffffff ffffffff 000 v ACR_LogModuleLoaded
+f ffffffff ffffffff 002 v ACR_LogServerAdminCommand
+fp o
+fp s
 f ffffffff ffffffff 000 f DAY_TO_SECONDS
 f ffffffff ffffffff 000 f HOUR_TO_SECONDS
 f ffffffff ffffffff 000 i TIME_YEAR_START
@@ -9777,18 +9792,18 @@ l79 0000069 0000bbb3 0000bbde
 l79 0000070 0000bbde 0000bc09
 l79 0000073 0000bc09 0000bc2e
 l79 0000074 0000bc34 0000bc3c
-l35 0000496 0000bc3c 0000bc42
-l35 0000499 0000bc42 0000bc59
-l35 0000500 0000bc5f 0000bc82
-l35 0000501 0000bc82 0000bcba
-l35 0000505 0000bcba 0000bcec
-l35 0000506 0000bcec 0000bd1e
-l35 0000507 0000bd1e 0000bd52
-l35 0000508 0000bd52 0000bd68
-l35 0000510 0000bd68 0000bd9a
-l35 0000511 0000bd9a 0000bdbd
-l35 0000512 0000bdbd 0000bde5
-l35 0000514 0000bde5 0000be1f
-l35 0000515 0000be25 0000be2d
-l35 0000524 0000be2d 0000be77
-l35 0000525 0000be77 0000be7f
+l36 0000496 0000bc3c 0000bc42
+l36 0000499 0000bc42 0000bc59
+l36 0000500 0000bc5f 0000bc82
+l36 0000501 0000bc82 0000bcba
+l36 0000505 0000bcba 0000bcec
+l36 0000506 0000bcec 0000bd1e
+l36 0000507 0000bd1e 0000bd52
+l36 0000508 0000bd52 0000bd68
+l36 0000510 0000bd68 0000bd9a
+l36 0000511 0000bd9a 0000bdbd
+l36 0000512 0000bdbd 0000bde5
+l36 0000514 0000bde5 0000be1f
+l36 0000515 0000be25 0000be2d
+l36 0000524 0000be2d 0000be77
+l36 0000525 0000be77 0000be7f
