@@ -49,11 +49,14 @@ void handle_follow(object o)
 	}
 
 	// follow (slowly)
-	if (GetCurrentAction(o) == ACTION_FOLLOW)
+	if ((GetCurrentAction(o) == ACTION_FOLLOW) && 
+		GetActionMode(o, ACTION_MODE_DETECT) &&
+		GetActionMode(o, ACTION_MODE_STEALTH))
 		return;
 
 	ActionForceFollowObject(f,GetLocalFloat(o,"tw_distance"));
 	SetActionMode(o,ACTION_MODE_DETECT,1);
+	SetActionMode(o,ACTION_MODE_STEALTH,1);
 }
 
 void start_walk()

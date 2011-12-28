@@ -108,7 +108,6 @@ void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 		case 20:sArmType="010_it_clothcomd1";break;
 		}
 	object oArmour=CreateItemOnObject(sArmType);
-	AssignCommand(oNPC,ActionEquipItem(oArmour,1));
 	//create boots
 	switch (rBoots)
 		{
@@ -124,7 +123,11 @@ void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 		case 10:sBootType="010_it_boots3";break;
 		}
 	object oBoots=CreateItemOnObject(sBootType);
-	AssignCommand(oNPC,ActionEquipItem(oBoots,2)); 
+	
+	AssignCommand(oNPC,ActionEquipItem(oArmour,1));
+	AssignCommand(oNPC,ActionEquipItem(oBoots,2));
+	DelayCommand(0.0f,AssignCommand(oNPC,ActionEquipItem(oArmour,1)));
+	DelayCommand(0.0f,AssignCommand(oNPC,ActionEquipItem(oBoots,2)));
 }
 
 void RandomizeNPC(object oNPC = OBJECT_SELF, int nEquip=1, int nName=1)
