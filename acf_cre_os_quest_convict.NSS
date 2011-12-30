@@ -47,11 +47,28 @@ int USE_SPECIAL_ABILITY=75;
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+void show_npc(object o)
+{
+	ChangeToStandardFaction(o, STANDARD_FACTION_HOSTILE);
+	SetScriptHidden(o, 0);
+}
+
+void hide_npc(object o, float f)
+{
+	ChangeToStandardFaction(o, STANDARD_FACTION_COMMONER);
+	SetScriptHidden(o, 1);
+
+	DelayCommand(ACR_RandomFloat(0.0,f), show_npc(o));
+}
+
 
 void main()
 {
 	location l;
 	int tmp;
+	object o = OBJECT_SELF;
+	float f = 6.0f;
+
 	if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
 	{
 		SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);
@@ -61,7 +78,18 @@ void main()
 
 	
 	l = GetLocation(OBJECT_SELF);
-	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench0",l);
-	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench1",l);
-	CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench2",l);
+
+	hide_npc(o,f);
+
+	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench0",l);
+
+	hide_npc(o,f);
+
+	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench1",l);
+
+	hide_npc(o,f);
+
+	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench2",l);
+
+	hide_npc(o,f);
 }
