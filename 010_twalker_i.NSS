@@ -16,6 +16,7 @@ void handle_follow(object o)
 {
 	object f;
 	int i;
+	float f_dist;
 	
 	if (!GetLocalInt(o, "tw_follow_started")) {
 			
@@ -32,8 +33,11 @@ void handle_follow(object o)
 			}
 		} while (f != OBJECT_INVALID);
 		
-		if (GetLocalFloat(o,"tw_distance") < 0.1)
-			SetLocalFloat(o,"tw_distance",6.0);
+		if (FindSubString(GetTag(o),"wagon") != -1)
+			SetLocalInt(o, "tw_wagon",1);
+		
+		if (GetLocalFloat(o,"tw_distance") < EPS)
+			SetLocalFloat(o,"tw_distance", 6.0);
 	}
 
 	// If in combat, ignore all this
@@ -47,16 +51,25 @@ void handle_follow(object o)
 		ClearAllActions(TRUE);
 		ActionJumpToObject(f);
 	}
-
-	// follow (slowly)
-	if ((GetCurrentAction(o) == ACTION_FOLLOW) && 
-		GetActionMode(o, ACTION_MODE_DETECT) &&
-		GetActionMode(o, ACTION_MODE_STEALTH))
+	
+	f_dist = GetLocalFloat(o,"tw_distance")-1.0;
+	
+	// wagons use follow
+	if (GetLocalInt(o, "tw_wagon")) {
+		if (GetCurrentAction(o) == ACTION_FOLLOW)
+			return;
+			
+		ActionForceFollowObject(f, f_dist, 1);
 		return;
+	}
 
-	ActionForceFollowObject(f,GetLocalFloat(o,"tw_distance"));
-	SetActionMode(o,ACTION_MODE_DETECT,1);
-	SetActionMode(o,ACTION_MODE_STEALTH,1);
+
+	ClearAllActions(TRUE);
+	
+	if (!GetDetectMode(o))
+		SetActionMode(o,ACTION_MODE_DETECT,1);
+
+	ActionForceMoveToObject(f, FALSE, f_dist);
 }
 
 void start_walk()
