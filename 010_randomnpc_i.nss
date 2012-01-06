@@ -73,6 +73,18 @@ void RandomizeNPCScale(object oNPC = OBJECT_SELF, int autoscale = 1, float std_x
 	SetScale(oNPC,scale.x,scale.y,scale.z);
 }
 
+
+void RandomNPCEquip(object oArmour, object oBoots)
+{
+	if (GetItemInSlot(1, OBJECT_SELF) == oArmour)
+		return;
+
+	ClearAllActions(TRUE);
+
+	ActionEquipItem(oArmour,1);
+	ActionEquipItem(oBoots,2);
+}
+
 void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 {
 	string sArmType,sBootType;
@@ -80,8 +92,8 @@ void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 
 	
 	///RANDOM EQUIP/////
-	rCloth=d20(1);
-	rBoots=d10(1);
+	rCloth=Random(20)+1;
+	rBoots=Random(11);
 	
 	//create clothing
 	switch (rCloth)
@@ -123,11 +135,10 @@ void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 		case 10:sBootType="010_it_boots3";break;
 		}
 	object oBoots=CreateItemOnObject(sBootType);
-	
-	AssignCommand(oNPC,ActionEquipItem(oArmour,1));
-	AssignCommand(oNPC,ActionEquipItem(oBoots,2));
-	DelayCommand(0.0f,AssignCommand(oNPC,ActionEquipItem(oArmour,1)));
-	DelayCommand(0.0f,AssignCommand(oNPC,ActionEquipItem(oBoots,2)));
+
+	RandomNPCEquip(oArmour, oBoots);
+
+	DelayCommand(3.0, RandomNPCEquip(oArmour, oBoots));
 }
 
 void RandomizeNPC(object oNPC = OBJECT_SELF, int nEquip=1, int nName=1)

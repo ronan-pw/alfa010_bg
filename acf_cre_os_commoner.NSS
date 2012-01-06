@@ -47,9 +47,16 @@
 
 void main()
 {
-	DelayCommand(ACR_RandomFloat(0.0,1.0), RandomizeNPC(OBJECT_SELF));
+	float f;
 
-	DelayCommand(ACR_RandomFloat(0.0,1.0), ACR_CreatureOnSpawnIn());
+	f = ACR_RandomFloat(0.0,1.0);
+
+	RandomizeNPC(OBJECT_SELF);
+
+	DelayCommand(f, ACR_CreatureOnSpawnIn());
+
+
+	SetLocalFloat(OBJECT_SELF, "f", f);
 
 	// dumb (non-combat) ai
 	SetLocalInt(OBJECT_SELF,"ACR_NPC",2);
