@@ -4,7 +4,7 @@ void main(string tag)
 	string t;
 	object o;
 	
-	GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()));
+	o = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()));
 	
 	for (i=1; o != OBJECT_INVALID; ++i) {
 		
