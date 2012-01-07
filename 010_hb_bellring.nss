@@ -28,6 +28,10 @@ void main()
 	object s0,s1;
 	float delay;
 
+	// force regular heartbeats
+	if (GetAILevel(OBJECT_SELF) < AI_LEVEL_HIGH)
+		SetAILevel(OBJECT_SELF, AI_LEVEL_HIGH);
+
 	if (GetLocalInt(OBJECT_SELF, "time") == time)
 		return;
 	
