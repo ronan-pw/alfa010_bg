@@ -23,6 +23,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,18 +50,19 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
+	
+	if (Random(2)) {
+		spawn_hostile("abr_cr_vm_beetle_tiny",0.5);
+		spawn_hostile("abr_cr_vm_beetle_tiny",0.5);
+		spawn_hostile("abr_cr_vm_beetle_tiny",0.5);
+		spawn_hostile("abr_cr_vm_beetle_tiny",0.5);
+	}
+	else {
+		spawn_hostile("abr_cr_vm_beetle_fire",0.5);
+		spawn_hostile("abr_cr_vm_beetle_fire",0.5);
+		spawn_hostile("abr_cr_vm_beetle_fire",0.5);
+		spawn_hostile("abr_cr_vm_beetle_fire",0.5);
+	}
 
-if(Random(5) > 3)
- 	{ACR_SpawnObject("abr_cr_vm_beetle_fire", OBJECT_TYPE_CREATURE);
-	 ACR_SpawnObject("abr_cr_vm_beetle_fire", OBJECT_TYPE_CREATURE);
-	}
-else if(Random(5) > 2)
- 	{ACR_SpawnObject("c_beetlebomb0", OBJECT_TYPE_CREATURE);
-	 ACR_SpawnObject("abr_cr_vm_beetle_bomb", OBJECT_TYPE_CREATURE);
-	}
-else if(Random(5) > 1)
- 	{ACR_SpawnObject("abr_cr_vm_beetle_fire", OBJECT_TYPE_CREATURE);}
-else if(Random(5) > 0)
- 	{ACR_SpawnObject("abr_cr_vm_beetle_bomb", OBJECT_TYPE_CREATURE);}
-   
+	spawn_hostile("abr_cr_vm_beetle_bomb",0.2);
 }
