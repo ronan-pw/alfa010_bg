@@ -93,7 +93,7 @@ void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 	
 	///RANDOM EQUIP/////
 	rCloth=Random(20)+1;
-	rBoots=Random(11);
+	rBoots=Random(10)+1;
 	
 	//create clothing
 	switch (rCloth)
@@ -145,6 +145,11 @@ void RandomizeNPC(object oNPC = OBJECT_SELF, int nEquip=1, int nName=1)
 {
 	RandomizeNPCAppearance(oNPC);
 	RandomizeNPCScale(oNPC);
+
+/*
+	// pick a randomly distributed heartbeat
+	SetCustomHeartbeat(OBJECT_SELF, FloatToInt(1000.0*ACR_RandomNormal(6.0,1.0)));
+*/
 
 	if (nName)
 		RandomizeNPCName(oNPC);
