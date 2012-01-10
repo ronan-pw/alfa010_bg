@@ -29,8 +29,10 @@ void main()
 	float delay;
 
 	// force regular heartbeats
-	if (GetAILevel(OBJECT_SELF) < AI_LEVEL_HIGH)
-		SetAILevel(OBJECT_SELF, AI_LEVEL_HIGH);
+	if (!GetLocalInt(OBJECT_SELF, "init")) {
+		SetCustomHeartbeat(OBJECT_SELF, 5000);
+		SetLocalInt(OBJECT_SELF, "init", 1);
+	}
 
 	if (GetLocalInt(OBJECT_SELF, "time") == time)
 		return;
