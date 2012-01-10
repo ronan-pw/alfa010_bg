@@ -1,68 +1,69 @@
 NDB V1.0
-0000063 0000008 0004028 0000013 0000048
+0000064 0000009 0004056 0000013 0000054
 n00 ginc_debug
 n01 acr_debug_i
 n02 x0_i0_enemy
 n03 x0_inc_generic
 n04 nwn2_inc_talent
-n05 dmfi_inc_conv
-n06 acr_it_persist_i
-n07 x0_i0_campaign
-n08 nw_i0_generic
-n09 acr_death_i
-n10 acr_array_i
-n11 nwnx_include
-n12 acr_queue_i
-n13 acr_settings_i
-n14 acr_db_persist_i
-n15 acr_i
-n16 x0_i0_position
-n17 ginc_math
-n18 acr_tools_i
-n19 acr_physical_object_i
-n20 x0_i0_debug
-n21 x0_i0_match
-n22 x0_i0_assoc
-n23 x2_inc_switches
-n24 x0_i0_equip
-n25 ginc_2da
-n26 ginc_event_handlers
-n27 x0_i0_talent
-n28 x0_i0_combat
-n29 x0_i0_spawncond
-n30 acr_vfx_i
-n31 acr_1984_i
-n32 acr_time_i
-n33 acr_xp_i
-n34 acr_spelltrack_i
-n35 acr_portal_i
-n36 dmfi_inc_sendtex
-n37 dmfi_inc_tool
-n38 dmfi_inc_inc_com
-n39 acr_pps_i
-n40 acr_nonlethal_i
-n41 x2_inc_itemprop
-n42 x0_i0_petrify
-n43 nw_i0_spells
-n44 x0_i0_partywide
-n45 x0_i0_transport
-n46 x0_i0_common
-n47 nw_i0_plot
-n48 x0_i0_behavior
-n49 x0_i0_modes
-n50 x0_i0_voice
-n51 x0_i0_walkway
-n52 x0_i0_anims
-n53 x0_i0_henchman
-n54 nwn2_inc_metmag
-n55 x0_i0_spells
-n56 nwn2_inc_spells
-n57 acr_effects_i
-n58 acr_skills_i
-n59 acr_resting_i
-n60 acr_mobloot_i
-n61 acr_placeable_i
-N62 acf_plc_onuserdefined
+n05 acr_server_ipc_i
+n06 dmfi_inc_conv
+n07 acr_it_persist_i
+n08 x0_i0_campaign
+n09 nw_i0_generic
+n10 acr_death_i
+n11 acr_array_i
+n12 nwnx_include
+n13 acr_queue_i
+n14 acr_settings_i
+n15 acr_db_persist_i
+n16 acr_i
+n17 x0_i0_position
+n18 ginc_math
+n19 acr_tools_i
+n20 acr_physical_object_i
+n21 x0_i0_debug
+n22 x0_i0_match
+n23 x0_i0_assoc
+n24 x2_inc_switches
+n25 x0_i0_equip
+n26 ginc_2da
+n27 ginc_event_handlers
+n28 x0_i0_talent
+n29 x0_i0_combat
+n30 x0_i0_spawncond
+n31 acr_vfx_i
+n32 acr_1984_i
+n33 acr_time_i
+n34 acr_xp_i
+n35 acr_spelltrack_i
+n36 acr_portal_i
+n37 dmfi_inc_sendtex
+n38 dmfi_inc_tool
+n39 dmfi_inc_inc_com
+n40 acr_pps_i
+n41 acr_nonlethal_i
+n42 x2_inc_itemprop
+n43 x0_i0_petrify
+n44 nw_i0_spells
+n45 x0_i0_partywide
+n46 x0_i0_transport
+n47 x0_i0_common
+n48 nw_i0_plot
+n49 x0_i0_behavior
+n50 x0_i0_modes
+n51 x0_i0_voice
+n52 x0_i0_walkway
+n53 x0_i0_anims
+n54 x0_i0_henchman
+n55 nwn2_inc_metmag
+n56 x0_i0_spells
+n57 nwn2_inc_spells
+n58 acr_effects_i
+n59 acr_skills_i
+n60 acr_resting_i
+n61 acr_mobloot_i
+n62 acr_placeable_i
+N63 acf_plc_onuserdefined
 s 03 vector
 sf f x
 sf f y
@@ -93,6 +94,13 @@ sf o oTarget
 s 02 EldritchShape
 sf i nSpell
 sf o oTarget
+s 06 ACR_SERVER_IPC_EVENT
+sf i SourcePlayerID
+sf i SourceServerID
+sf i DestinationPlayerID
+sf i DestinationServerID
+sf i EventType
+sf s EventText
 s 04 strStorageTransactionInfo
 sf i nNetGoldToPC
 sf s sPCName
@@ -2430,6 +2438,67 @@ f ffffffff ffffffff 003 v _ProcessMishap
 fp o
 fp i
 fp i
+f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_INITIALIZE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_SIGNAL_IPC_EVENT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_CHARACTER_NAME_TO_PLAYER_ID
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_PLAYER_NAME
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_PLAYER_ID_TO_SERVER_ID
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_LIST_ONLINE_USERS
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CHAT_EVENT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CLIENT_ENTER
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_IS_SERVER_ONLINE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_CHAT_TELL
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
+f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
+fp t0006
+f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
+f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
+fp o
+f ffffffff ffffffff 003 i ACR_ServerIPC_OnChat
+fp o
+fp i
+fp s
+f ffffffff ffffffff 003 v ACR_SendCrossServerTellByCharacter
+fp o
+fp s
+fp s
+f ffffffff ffffffff 003 v ACR_SendCrossServerTellByPlayer
+fp o
+fp s
+fp s
+f ffffffff ffffffff 001 v ACR_SendOnlineUserList
+fp o
+f ffffffff ffffffff 002 v ACR_SendFeedbackError
+fp o
+fp s
+f ffffffff ffffffff 003 v ACR_DeliverLocalTell
+fp o
+fp i
+fp s
+f ffffffff ffffffff 003 v ACR_DeliverCrossServerTellConfirmation
+fp o
+fp s
+fp s
+f ffffffff ffffffff 001 o ACR_GetLocalPlayerByPlayerID
+fp i
+f ffffffff ffffffff 001 i ACR_GetPlayerIDByCharacterName
+fp s
+f ffffffff ffffffff 001 i ACR_GetPlayerIDByPlayerName
+fp s
+f ffffffff ffffffff 001 i ACR_GetPlayerLoggedOnServerID
+fp i
+f ffffffff ffffffff 001 i ACR_GetIsServerOnline
+fp i
+f ffffffff ffffffff 008 i ACR_CallIPCScript
+fp i
+fp i
+fp i
+fp i
+fp i
+fp i
+fp s
+fp o
 f ffffffff ffffffff 000 i ACR_PTL_COOLDOWN
 f ffffffff ffffffff 000 s _ACR_PTL_PASSPORT
 f ffffffff ffffffff 000 s _ACR_PTL_RECORD
@@ -5710,7 +5779,7 @@ f ffffffff ffffffff 001 i GetHPPercentage
 fp o
 f ffffffff ffffffff 001 i GetCastingMode
 fp i
-f ffffffff ffffffff 007 t0007 CreateTactics
+f ffffffff ffffffff 007 t0008 CreateTactics
 fp i
 fp i
 fp i
@@ -5722,20 +5791,20 @@ f ffffffff ffffffff 003 i TryClassTactic
 fp o
 fp i
 fp i
-f ffffffff ffffffff 004 t0007 CalculateTacticsByClass
-fp t0007
+f ffffffff ffffffff 004 t0008 CalculateTacticsByClass
+fp t0008
 fp o
 fp i
 fp i
-f ffffffff ffffffff 006 t0007 CalculateTactics
-fp t0007
+f ffffffff ffffffff 006 t0008 CalculateTactics
+fp t0008
 fp o
 fp f
 fp i
 fp i
 fp i
 f ffffffff ffffffff 007 i DetermineActionFromTactics
-fp t0007
+fp t0008
 fp o
 fp f
 fp i
@@ -6713,22 +6782,28 @@ l04 0000023 00000083 00000083
 l04 0000024 00000083 00000083
 l04 0000029 00000083 00000083
 l04 0000030 00000083 00000083
-l05 0000234 00000083 00000087
-l06 0000113 00000087 00000087
-l06 0000114 00000087 00000087
-l06 0000115 00000087 00000087
-l06 0000116 00000087 00000087
-l07 0000051 00000087 000000a1
-l07 0000053 000000a1 000000b7
-l08 0000207 000000b7 000000b7
-l08 0000208 000000b7 000000b7
-l08 0000209 000000b7 000000b7
-l08 0000210 000000b7 000000b7
-l08 0000211 000000b7 000000b7
-l08 0000213 000000b7 000000b7
-l08 0000214 000000b7 000000b7
-l09 0000160 000000b7 000000d4
-l09 0000164 000000d4 000000f1
-l62 0000050 00000103 00000109
-l62 0000053 00000109 0000010b
-l61 0000292 0000010b 0000010d
+l05 0000084 00000083 00000083
+l05 0000085 00000083 00000083
+l05 0000086 00000083 00000083
+l05 0000087 00000083 00000083
+l05 0000088 00000083 00000083
+l05 0000089 00000083 00000083
+l06 0000234 00000083 00000087
+l07 0000113 00000087 00000087
+l07 0000114 00000087 00000087
+l07 0000115 00000087 00000087
+l07 0000116 00000087 00000087
+l08 0000051 00000087 000000a1
+l08 0000053 000000a1 000000b7
+l09 0000207 000000b7 000000b7
+l09 0000208 000000b7 000000b7
+l09 0000209 000000b7 000000b7
+l09 0000210 000000b7 000000b7
+l09 0000211 000000b7 000000b7
+l09 0000213 000000b7 000000b7
+l09 0000214 000000b7 000000b7
+l10 0000160 000000b7 000000d4
+l10 0000164 000000d4 000000f1
+l63 0000050 00000103 00000109
+l63 0000053 00000109 0000010b
+l62 0000292 0000010b 0000010d

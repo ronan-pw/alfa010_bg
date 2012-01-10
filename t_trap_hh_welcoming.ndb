@@ -1,37 +1,45 @@
 NDB V1.0
-0000028 0000001 0002772 0000023 0000039
+0000029 0000002 0002800 0000023 0000045
 n00 ginc_debug
 n01 acr_debug_i
-n02 dmfi_inc_conv
-n03 acr_array_i
-n04 nwnx_include
-n05 acr_queue_i
-n06 acr_settings_i
-n07 acr_db_persist_i
-n08 acr_i
-n09 x0_i0_position
-n10 ginc_math
-n11 acr_tools_i
-n12 x2_inc_switches
-n13 acr_spelltrack_i
-n14 acr_1984_i
-n15 acr_time_i
-n16 acr_portal_i
-n17 dmfi_inc_sendtex
-n18 dmfi_inc_tool
-n19 dmfi_inc_inc_com
-n20 acr_pps_i
-n21 acr_nonlethal_i
-n22 x0_i0_match
-n23 x2_inc_itemprop
-n24 x0_i0_petrify
-n25 x0_i0_assoc
-n26 NW_I0_SPELLS
-N27 t_trap_hh_welcoming
+n02 acr_server_ipc_i
+n03 dmfi_inc_conv
+n04 acr_array_i
+n05 nwnx_include
+n06 acr_queue_i
+n07 acr_settings_i
+n08 acr_db_persist_i
+n09 acr_i
+n10 x0_i0_position
+n11 ginc_math
+n12 acr_tools_i
+n13 x2_inc_switches
+n14 acr_spelltrack_i
+n15 acr_1984_i
+n16 acr_time_i
+n17 acr_portal_i
+n18 dmfi_inc_sendtex
+n19 dmfi_inc_tool
+n20 dmfi_inc_inc_com
+n21 acr_pps_i
+n22 acr_nonlethal_i
+n23 x0_i0_match
+n24 x2_inc_itemprop
+n25 x0_i0_petrify
+n26 x0_i0_assoc
+n27 NW_I0_SPELLS
+N28 t_trap_hh_welcoming
 s 03 vector
 sf f x
 sf f y
 sf f z
+s 06 ACR_SERVER_IPC_EVENT
+sf i SourcePlayerID
+sf i SourceServerID
+sf i DestinationPlayerID
+sf i DestinationServerID
+sf i EventType
+sf s EventText
 f ffffffff ffffffff 003 s GetLocalArrayString
 fp o
 fp s
@@ -1390,6 +1398,67 @@ fp i
 fp i
 f ffffffff ffffffff 000 v _CalcDate
 f ffffffff ffffffff 000 i ACR_GetFRWeekday
+f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_INITIALIZE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_SIGNAL_IPC_EVENT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_CHARACTER_NAME_TO_PLAYER_ID
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_PLAYER_NAME
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_PLAYER_ID_TO_SERVER_ID
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_LIST_ONLINE_USERS
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CHAT_EVENT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CLIENT_ENTER
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_IS_SERVER_ONLINE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_CHAT_TELL
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
+f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
+fp t0001
+f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
+f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
+fp o
+f ffffffff ffffffff 003 i ACR_ServerIPC_OnChat
+fp o
+fp i
+fp s
+f ffffffff ffffffff 003 v ACR_SendCrossServerTellByCharacter
+fp o
+fp s
+fp s
+f ffffffff ffffffff 003 v ACR_SendCrossServerTellByPlayer
+fp o
+fp s
+fp s
+f ffffffff ffffffff 001 v ACR_SendOnlineUserList
+fp o
+f ffffffff ffffffff 002 v ACR_SendFeedbackError
+fp o
+fp s
+f ffffffff ffffffff 003 v ACR_DeliverLocalTell
+fp o
+fp i
+fp s
+f ffffffff ffffffff 003 v ACR_DeliverCrossServerTellConfirmation
+fp o
+fp s
+fp s
+f ffffffff ffffffff 001 o ACR_GetLocalPlayerByPlayerID
+fp i
+f ffffffff ffffffff 001 i ACR_GetPlayerIDByCharacterName
+fp s
+f ffffffff ffffffff 001 i ACR_GetPlayerIDByPlayerName
+fp s
+f ffffffff ffffffff 001 i ACR_GetPlayerLoggedOnServerID
+fp i
+f ffffffff ffffffff 001 i ACR_GetIsServerOnline
+fp i
+f ffffffff ffffffff 008 i ACR_CallIPCScript
+fp i
+fp i
+fp i
+fp i
+fp i
+fp i
+fp s
+fp o
 f ffffffff ffffffff 000 i ACR_PTL_COOLDOWN
 f ffffffff ffffffff 000 s _ACR_PTL_PASSPORT
 f ffffffff ffffffff 000 s _ACR_PTL_RECORD
@@ -4018,34 +4087,40 @@ l01 0000062 00000048 00000056
 l01 0000064 00000056 00000065
 l01 0000065 00000065 00000074
 l01 0000066 00000074 00000083
-l02 0000234 00000083 00000087
-l27 0000006 00000099 0000009e
-l27 0000007 0000009e 000000a0
-l27 0000008 000000a0 000000a6
-l27 0000009 000000a6 000000b7
-l27 0000010 000000b7 000000b9
-l27 0000011 000000b9 000000bb
-l27 0000013 000000bb 000000d0
-l27 0000016 000000d6 000000f4
-l27 0000019 000000fa 00000113
-l27 0000021 00000113 0000014a
-l27 0000023 0000014a 00000177
-l27 0000025 00000177 00000198
-l27 0000031 00000198 000001b9
-l27 0000035 000001bf 000001c1
-l26 0000814 000001c1 000001d1
-l26 0000816 000001d7 000001f5
-l26 0000818 000001f5 0000020a
-l26 0000820 0000020a 0000021b
-l26 0000822 0000021b 0000022c
-l26 0000824 0000022c 0000023d
-l26 0000826 0000023d 0000024d
-l26 0000828 00000253 00000293
-l26 0000830 00000299 0000029b
-l26 0000832 000002b1 000002f1
-l26 0000834 000002f7 000002f9
-l26 0000836 0000030f 0000031f
-l26 0000838 00000325 00000343
-l26 0000840 00000343 00000383
-l26 0000842 00000383 0000039f
-l26 0000843 000003a5 000003ad
+l02 0000084 00000083 00000083
+l02 0000085 00000083 00000083
+l02 0000086 00000083 00000083
+l02 0000087 00000083 00000083
+l02 0000088 00000083 00000083
+l02 0000089 00000083 00000083
+l03 0000234 00000083 00000087
+l28 0000006 00000099 0000009e
+l28 0000007 0000009e 000000a0
+l28 0000008 000000a0 000000a6
+l28 0000009 000000a6 000000b7
+l28 0000010 000000b7 000000b9
+l28 0000011 000000b9 000000bb
+l28 0000013 000000bb 000000d0
+l28 0000016 000000d6 000000f4
+l28 0000019 000000fa 00000113
+l28 0000021 00000113 0000014a
+l28 0000023 0000014a 00000177
+l28 0000025 00000177 00000198
+l28 0000031 00000198 000001b9
+l28 0000035 000001bf 000001c1
+l27 0000814 000001c1 000001d1
+l27 0000816 000001d7 000001f5
+l27 0000818 000001f5 0000020a
+l27 0000820 0000020a 0000021b
+l27 0000822 0000021b 0000022c
+l27 0000824 0000022c 0000023d
+l27 0000826 0000023d 0000024d
+l27 0000828 00000253 00000293
+l27 0000830 00000299 0000029b
+l27 0000832 000002b1 000002f1
+l27 0000834 000002f7 000002f9
+l27 0000836 0000030f 0000031f
+l27 0000838 00000325 00000343
+l27 0000840 00000343 00000383
+l27 0000842 00000383 0000039f
+l27 0000843 000003a5 000003ad

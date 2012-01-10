@@ -1,65 +1,73 @@
 NDB V1.0
-0000056 0000007 0003755 0000020 0000081
+0000057 0000008 0003783 0000020 0000087
 n00 ginc_debug
 n01 acr_debug_i
-n02 dmfi_inc_conv
-n03 x0_i0_campaign
-n04 x0_i0_enemy
-n05 x0_inc_generic
-n06 nwn2_inc_talent
-n07 nw_i0_generic
-n08 nwnx_include
-n09 acr_array_i
-n10 acr_queue_i
-n11 acr_settings_i
-n12 acr_db_persist_i
-n13 acr_i
-n14 x0_i0_position
-n15 ginc_math
-n16 acr_tools_i
-n17 x2_inc_switches
-n18 acr_spelltrack_i
-n19 acr_1984_i
-n20 acr_time_i
-n21 acr_portal_i
-n22 dmfi_inc_sendtex
-n23 dmfi_inc_tool
-n24 dmfi_inc_inc_com
-n25 acr_pps_i
-n26 acr_nonlethal_i
-n27 x0_i0_match
-n28 x2_inc_itemprop
-n29 x0_i0_petrify
-n30 x0_i0_assoc
-n31 nw_i0_spells
-n32 x0_i0_partywide
-n33 x0_i0_transport
-n34 x0_i0_common
-n35 nw_i0_plot
-n36 x0_i0_behavior
-n37 x0_i0_modes
-n38 x0_i0_voice
-n39 x0_i0_debug
-n40 x0_i0_equip
-n41 ginc_2da
-n42 ginc_event_handlers
-n43 x0_i0_talent
-n44 x0_i0_combat
-n45 x0_i0_spawncond
-n46 x0_i0_walkway
-n47 x0_i0_anims
-n48 x0_i0_henchman
-n49 nwn2_inc_metmag
-n50 x0_i0_spells
-n51 nwn2_inc_spells
-n52 acr_effects_i
-n53 acr_xp_i
-n54 acr_skills_i
-N55 acr_cs_classkill
+n02 acr_server_ipc_i
+n03 dmfi_inc_conv
+n04 x0_i0_campaign
+n05 x0_i0_enemy
+n06 x0_inc_generic
+n07 nwn2_inc_talent
+n08 nw_i0_generic
+n09 nwnx_include
+n10 acr_array_i
+n11 acr_queue_i
+n12 acr_settings_i
+n13 acr_db_persist_i
+n14 acr_i
+n15 x0_i0_position
+n16 ginc_math
+n17 acr_tools_i
+n18 x2_inc_switches
+n19 acr_spelltrack_i
+n20 acr_1984_i
+n21 acr_time_i
+n22 acr_portal_i
+n23 dmfi_inc_sendtex
+n24 dmfi_inc_tool
+n25 dmfi_inc_inc_com
+n26 acr_pps_i
+n27 acr_nonlethal_i
+n28 x0_i0_match
+n29 x2_inc_itemprop
+n30 x0_i0_petrify
+n31 x0_i0_assoc
+n32 nw_i0_spells
+n33 x0_i0_partywide
+n34 x0_i0_transport
+n35 x0_i0_common
+n36 nw_i0_plot
+n37 x0_i0_behavior
+n38 x0_i0_modes
+n39 x0_i0_voice
+n40 x0_i0_debug
+n41 x0_i0_equip
+n42 ginc_2da
+n43 ginc_event_handlers
+n44 x0_i0_talent
+n45 x0_i0_combat
+n46 x0_i0_spawncond
+n47 x0_i0_walkway
+n48 x0_i0_anims
+n49 x0_i0_henchman
+n50 nwn2_inc_metmag
+n51 x0_i0_spells
+n52 nwn2_inc_spells
+n53 acr_effects_i
+n54 acr_xp_i
+n55 acr_skills_i
+N56 acr_cs_classkill
 s 03 vector
 sf f x
 sf f y
 sf f z
+s 06 ACR_SERVER_IPC_EVENT
+sf i SourcePlayerID
+sf i SourceServerID
+sf i DestinationPlayerID
+sf i DestinationServerID
+sf i EventType
+sf s EventText
 s 10 sEnemies
 sf i FIGHTERS
 sf i FIGHTER_LEVELS
@@ -1452,6 +1460,67 @@ fp i
 fp i
 f ffffffff ffffffff 000 v _CalcDate
 f ffffffff ffffffff 000 i ACR_GetFRWeekday
+f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_INITIALIZE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_SIGNAL_IPC_EVENT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_CHARACTER_NAME_TO_PLAYER_ID
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_PLAYER_NAME
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_RESOLVE_PLAYER_ID_TO_SERVER_ID
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_LIST_ONLINE_USERS
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CHAT_EVENT
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CLIENT_ENTER
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_IS_SERVER_ONLINE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_CHAT_TELL
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
+f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
+fp t0001
+f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
+f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
+fp o
+f ffffffff ffffffff 003 i ACR_ServerIPC_OnChat
+fp o
+fp i
+fp s
+f ffffffff ffffffff 003 v ACR_SendCrossServerTellByCharacter
+fp o
+fp s
+fp s
+f ffffffff ffffffff 003 v ACR_SendCrossServerTellByPlayer
+fp o
+fp s
+fp s
+f ffffffff ffffffff 001 v ACR_SendOnlineUserList
+fp o
+f ffffffff ffffffff 002 v ACR_SendFeedbackError
+fp o
+fp s
+f ffffffff ffffffff 003 v ACR_DeliverLocalTell
+fp o
+fp i
+fp s
+f ffffffff ffffffff 003 v ACR_DeliverCrossServerTellConfirmation
+fp o
+fp s
+fp s
+f ffffffff ffffffff 001 o ACR_GetLocalPlayerByPlayerID
+fp i
+f ffffffff ffffffff 001 i ACR_GetPlayerIDByCharacterName
+fp s
+f ffffffff ffffffff 001 i ACR_GetPlayerIDByPlayerName
+fp s
+f ffffffff ffffffff 001 i ACR_GetPlayerLoggedOnServerID
+fp i
+f ffffffff ffffffff 001 i ACR_GetIsServerOnline
+fp i
+f ffffffff ffffffff 008 i ACR_CallIPCScript
+fp i
+fp i
+fp i
+fp i
+fp i
+fp i
+fp s
+fp o
 f ffffffff ffffffff 000 i ACR_PTL_COOLDOWN
 f ffffffff ffffffff 000 s _ACR_PTL_PASSPORT
 f ffffffff ffffffff 000 s _ACR_PTL_RECORD
@@ -4614,12 +4683,12 @@ fp i
 f ffffffff ffffffff 002 o GetNearestSeenFriend
 fp o
 fp i
-f ffffffff ffffffff 002 t0002 CountEnemiesAndAllies
+f ffffffff ffffffff 002 t0003 CountEnemiesAndAllies
 fp f
 fp o
-f ffffffff ffffffff 000 t0001 DetermineEnemies
+f ffffffff ffffffff 000 t0002 DetermineEnemies
 f ffffffff ffffffff 001 s GetMostDangerousClass
-fp t0001
+fp t0002
 f ffffffff ffffffff 001 i GetIsMeleeAttacker
 fp o
 f ffffffff ffffffff 001 i GetIsRangedAttacker
@@ -4876,7 +4945,7 @@ f ffffffff ffffffff 000 i GetCRMax
 f ffffffff ffffffff 002 i bkEvaluationSanityCheck
 fp o
 fp f
-f ffffffff ffffffff 002 t0003 TalentSpellFilter
+f ffffffff ffffffff 002 t0004 TalentSpellFilter
 fp e3
 fp o
 f ffffffff ffffffff 003 i TalentFilter
@@ -4954,10 +5023,10 @@ fp o
 f ffffffff ffffffff 002 e3 MyGetCreatureTalent
 fp i
 fp i
-f ffffffff ffffffff 002 t0004 GetBestEldritchAOETarget
+f ffffffff ffffffff 002 t0005 GetBestEldritchAOETarget
 fp i
 fp f
-f ffffffff ffffffff 001 t0005 GetBestEldritchShape
+f ffffffff ffffffff 001 t0006 GetBestEldritchShape
 fp o
 f ffffffff ffffffff 001 i GetInvocationSpellFromMetamagic
 fp i
@@ -5436,7 +5505,7 @@ f ffffffff ffffffff 001 i GetHPPercentage
 fp o
 f ffffffff ffffffff 001 i GetCastingMode
 fp i
-f ffffffff ffffffff 007 t0006 CreateTactics
+f ffffffff ffffffff 007 t0007 CreateTactics
 fp i
 fp i
 fp i
@@ -5448,20 +5517,20 @@ f ffffffff ffffffff 003 i TryClassTactic
 fp o
 fp i
 fp i
-f ffffffff ffffffff 004 t0006 CalculateTacticsByClass
-fp t0006
+f ffffffff ffffffff 004 t0007 CalculateTacticsByClass
+fp t0007
 fp o
 fp i
 fp i
-f ffffffff ffffffff 006 t0006 CalculateTactics
-fp t0006
+f ffffffff ffffffff 006 t0007 CalculateTactics
+fp t0007
 fp o
 fp f
 fp i
 fp i
 fp i
 f ffffffff ffffffff 007 i DetermineActionFromTactics
-fp t0006
+fp t0007
 fp o
 fp f
 fp i
@@ -6243,76 +6312,82 @@ l01 0000062 0000004a 00000058
 l01 0000064 00000058 00000067
 l01 0000065 00000067 00000076
 l01 0000066 00000076 00000085
-l02 0000234 00000085 00000089
-l03 0000051 00000089 000000a3
-l03 0000053 000000a3 000000b9
-l04 0000040 000000b9 000000b9
-l04 0000041 000000b9 000000b9
-l04 0000042 000000b9 000000b9
-l04 0000043 000000b9 000000b9
-l04 0000044 000000b9 000000b9
-l04 0000045 000000b9 000000b9
-l04 0000046 000000b9 000000b9
-l04 0000047 000000b9 000000b9
-l04 0000048 000000b9 000000b9
-l04 0000049 000000b9 000000b9
-l04 0000056 000000b9 000000b9
-l04 0000057 000000b9 000000b9
-l04 0000058 000000b9 000000b9
-l04 0000059 000000b9 000000b9
-l05 0000085 000000b9 000000b9
-l05 0000087 000000b9 000000b9
-l05 0000088 000000b9 000000b9
-l06 0000023 000000b9 000000b9
-l06 0000024 000000b9 000000b9
-l06 0000029 000000b9 000000b9
-l06 0000030 000000b9 000000b9
-l07 0000207 000000b9 000000b9
-l07 0000208 000000b9 000000b9
-l07 0000209 000000b9 000000b9
-l07 0000210 000000b9 000000b9
-l07 0000211 000000b9 000000b9
-l07 0000213 000000b9 000000b9
-l07 0000214 000000b9 000000b9
-l55 0000005 000000db 000000f0
-l55 0000006 000000f6 00000110
-l55 0000007 00000116 00000118
-l55 0000008 00000118 00000132
-l55 0000011 00000132 0000013a
-l54 0000791 0000013a 0000014d
-l54 0000793 0000014d 00000170
-l54 0000794 00000170 0000017e
-l54 0000795 00000184 00000194
-l54 0000796 0000019a 000001b0
-l54 0000797 000001b6 000001b8
-l54 0000798 000001ce 000001e4
-l54 0000799 000001ea 000001ec
-l54 0000800 00000202 00000218
-l54 0000801 0000021e 00000220
-l54 0000802 00000236 0000024b
-l54 0000803 00000251 00000253
-l54 0000804 00000269 00000287
-l54 0000805 0000028d 0000028f
-l54 0000806 000002a5 000002bc
-l54 0000807 000002c2 000002c4
-l54 0000808 000002da 000002f0
-l54 0000809 000002f6 000002f8
-l54 0000810 0000030e 00000323
-l54 0000811 00000329 0000032b
-l54 0000812 00000341 00000357
-l54 0000813 0000035d 0000035f
-l54 0000814 00000375 0000038a
-l54 0000815 00000390 00000392
-l54 0000816 000003a8 000003be
-l54 0000817 000003c4 000003c6
-l54 0000818 000003dc 000003fa
-l54 0000819 00000400 00000402
-l54 0000820 00000418 00000436
-l54 0000821 0000043c 0000043e
-l54 0000822 00000454 0000046a
-l54 0000823 00000470 00000472
-l54 0000824 00000488 0000049d
-l54 0000827 0000049d 000004c8
-l54 0000829 000004c8 000004e0
-l54 0000831 000004e0 0000051c
-l54 0000832 00000522 0000052a
+l02 0000084 00000085 00000085
+l02 0000085 00000085 00000085
+l02 0000086 00000085 00000085
+l02 0000087 00000085 00000085
+l02 0000088 00000085 00000085
+l02 0000089 00000085 00000085
+l03 0000234 00000085 00000089
+l04 0000051 00000089 000000a3
+l04 0000053 000000a3 000000b9
+l05 0000040 000000b9 000000b9
+l05 0000041 000000b9 000000b9
+l05 0000042 000000b9 000000b9
+l05 0000043 000000b9 000000b9
+l05 0000044 000000b9 000000b9
+l05 0000045 000000b9 000000b9
+l05 0000046 000000b9 000000b9
+l05 0000047 000000b9 000000b9
+l05 0000048 000000b9 000000b9
+l05 0000049 000000b9 000000b9
+l05 0000056 000000b9 000000b9
+l05 0000057 000000b9 000000b9
+l05 0000058 000000b9 000000b9
+l05 0000059 000000b9 000000b9
+l06 0000085 000000b9 000000b9
+l06 0000087 000000b9 000000b9
+l06 0000088 000000b9 000000b9
+l07 0000023 000000b9 000000b9
+l07 0000024 000000b9 000000b9
+l07 0000029 000000b9 000000b9
+l07 0000030 000000b9 000000b9
+l08 0000207 000000b9 000000b9
+l08 0000208 000000b9 000000b9
+l08 0000209 000000b9 000000b9
+l08 0000210 000000b9 000000b9
+l08 0000211 000000b9 000000b9
+l08 0000213 000000b9 000000b9
+l08 0000214 000000b9 000000b9
+l56 0000005 000000db 000000f0
+l56 0000006 000000f6 00000110
+l56 0000007 00000116 00000118
+l56 0000008 00000118 00000132
+l56 0000011 00000132 0000013a
+l55 0000791 0000013a 0000014d
+l55 0000793 0000014d 00000170
+l55 0000794 00000170 0000017e
+l55 0000795 00000184 00000194
+l55 0000796 0000019a 000001b0
+l55 0000797 000001b6 000001b8
+l55 0000798 000001ce 000001e4
+l55 0000799 000001ea 000001ec
+l55 0000800 00000202 00000218
+l55 0000801 0000021e 00000220
+l55 0000802 00000236 0000024b
+l55 0000803 00000251 00000253
+l55 0000804 00000269 00000287
+l55 0000805 0000028d 0000028f
+l55 0000806 000002a5 000002bc
+l55 0000807 000002c2 000002c4
+l55 0000808 000002da 000002f0
+l55 0000809 000002f6 000002f8
+l55 0000810 0000030e 00000323
+l55 0000811 00000329 0000032b
+l55 0000812 00000341 00000357
+l55 0000813 0000035d 0000035f
+l55 0000814 00000375 0000038a
+l55 0000815 00000390 00000392
+l55 0000816 000003a8 000003be
+l55 0000817 000003c4 000003c6
+l55 0000818 000003dc 000003fa
+l55 0000819 00000400 00000402
+l55 0000820 00000418 00000436
+l55 0000821 0000043c 0000043e
+l55 0000822 00000454 0000046a
+l55 0000823 00000470 00000472
+l55 0000824 00000488 0000049d
+l55 0000827 0000049d 000004c8
+l55 0000829 000004c8 000004e0
+l55 0000831 000004e0 0000051c
+l55 0000832 00000522 0000052a
