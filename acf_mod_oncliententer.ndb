@@ -1,5 +1,5 @@
 NDB V1.0
-0000079 0000009 0004540 0000172 0000457
+0000081 0000009 0004570 0000172 0000457
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_server_ipc_i
@@ -73,12 +73,14 @@ n69 acr_feat_events_i
 n70 acr_server_misc_i
 n71 acr_srvadmin_i
 n72 acr_version_i
-n73 dmfi_inc_langexe
-n74 dmfi_inc_initial
-n75 dmfi_inc_lang
-n76 acr_mod_events_i
-n77 010_location_i
-N78 acf_mod_oncliententer
+n73 acr_scliext_i
+n74 dmfi_inc_langexe
+n75 dmfi_inc_initial
+n76 dmfi_inc_lang
+n77 acr_roll_i
+n78 acr_mod_events_i
+n79 010_location_i
+N80 acf_mod_oncliententer
 s 03 vector
 sf f x
 sf f y
@@ -1188,6 +1190,9 @@ fp e2
 fp f
 fp f
 fp o
+f ffffffff ffffffff 002 i CompareLeft
+fp s
+fp s
 f ffffffff ffffffff 000 i DEBUG_TARGET_NONE
 f ffffffff ffffffff 000 i DEBUG_TARGET_DMS
 f ffffffff ffffffff 000 i DEBUG_TARGET_PCS
@@ -6351,6 +6356,20 @@ fp i
 f ffffffff ffffffff 000 i ACR_SKILLS_NUMBER
 f ffffffff ffffffff 000 s CHECK_COLOUR1
 f ffffffff ffffffff 000 s CHECK_COLOUR2
+f ffffffff ffffffff 000 i CHECK_TYPE_SKILL
+f ffffffff ffffffff 000 i CHECK_TYPE_STAT
+f ffffffff ffffffff 000 i CHECK_TYPE_SAVE
+f ffffffff ffffffff 000 i CHECK_TYPE_INITIATIVE
+f ffffffff ffffffff 000 i CHECK_TYPE_ROLL
+f ffffffff ffffffff 000 i CHECK_TYPE_TRACK
+f ffffffff ffffffff 000 i CHECK_TYPE_PERCEPTION
+f ffffffff ffffffff 000 i CHECK_TYPE_STEALTH
+f ffffffff ffffffff 005 i ACR_InitCheck
+fp o
+fp i
+fp i
+fp i
+fp i
 f ffffffff ffffffff 006 i ACR_SkillCheck
 fp i
 fp o
@@ -6396,6 +6415,14 @@ f ffffffff ffffffff 001 i ACR_SkillsCheckIsPCAdapted
 fp o
 f ffffffff ffffffff 001 v ACR_SkillsPrepareAdaption
 fp o
+f ffffffff ffffffff 007 i _Check
+fp i
+fp o
+fp i
+fp i
+fp i
+fp i
+fp i
 f ffffffff ffffffff 002 i _IsClassSkill
 fp i
 fp o
@@ -6443,8 +6470,10 @@ f ffffffff ffffffff 003 v _SendRollMessage
 fp o
 fp s
 fp i
-f ffffffff ffffffff 005 i ACR_InitCheck
+f ffffffff ffffffff 007 v ACR_Checks
+fp i
 fp o
+fp i
 fp i
 fp i
 fp i
@@ -7265,6 +7294,34 @@ fp s
 fp o
 f ffffffff ffffffff 000 s ACR_VERSION
 f ffffffff ffffffff 000 s ACR_GetVersion
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_PER_AREA_MAP_CONTROLS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_ENVIRON
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_DOORS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_TRAPS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_CREATURES
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_PATHING
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_PINS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_BACKGROUND
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_DM_AREA_POLLING
+f ffffffff ffffffff 000 s ACR_SCLIEXT_VERSION
+f ffffffff ffffffff 000 s ACR_SCLIEXT_FEATURES
+f ffffffff ffffffff 000 i ACR_SCLIEXT_DEFAULT_FEATURE_BITS
+f ffffffff ffffffff 000 s ACR_SCLIEXT_URL
+f ffffffff ffffffff 000 s ACR_SCLIEXT_URL_AND_FORUM_INFO
+f ffffffff ffffffff 000 s ACR_SCLIEXT_DISABLE_EXISTANCE_CHECK
+f ffffffff ffffffff 004 i ACR_MakeClientExtensionVersion
+fp i
+fp i
+fp i
+fp i
+f ffffffff ffffffff 001 i ACR_GetPlayerClientExtensionVersion
+fp o
+f ffffffff ffffffff 001 i ACR_GetPlayerClientExtensionFeatures
+fp o
+f ffffffff ffffffff 001 v ACR_SCliExtOnPCLoaded
+fp o
+f ffffffff ffffffff 001 v ACR_CheckForClientExtensionInstalled
+fp o
 f ffffffff ffffffff 000 f _SPAWN_AREA_DESPAWN_DELAY
 f ffffffff ffffffff 000 f _SPAWN_REFRESH_DELAY
 f ffffffff ffffffff 000 i _SPAWN_PRESPAWN_SEAMLESS
@@ -7571,6 +7628,9 @@ f ffffffff ffffffff 003 s DMFI_ProcessLanguage
 fp s
 fp s
 fp o
+f ffffffff ffffffff 002 v ParseRoll
+fp o
+fp s
 f ffffffff ffffffff 000 s _ONLOAD_DEBUG
 f ffffffff ffffffff 000 s ACR_MOD_STATUS
 f ffffffff ffffffff 000 s ACR_MOD_SPELLBOOK
@@ -7611,9 +7671,6 @@ f ffffffff ffffffff 001 v ACR_SetModuleStatus
 fp i
 f ffffffff ffffffff 000 v ACR_ModuleInitHealthChecks
 f ffffffff ffffffff 000 v ACR_StartModuleInitHealthChecks
-f ffffffff ffffffff 002 v _ParseRoll
-fp o
-fp s
 f ffffffff ffffffff 002 s _ParseLang
 fp o
 fp s
@@ -7624,9 +7681,6 @@ fp i
 fp s
 f ffffffff ffffffff 000 v ACR_ModuleInit_ForceLinkageForCLRScripts
 f ffffffff ffffffff 000 v ACR_ModuleOnUnAcquireItem
-f ffffffff ffffffff 002 i _CompareLeft
-fp s
-fp s
 f ffffffff ffffffff 000 f SEC_PER_MIL
 f ffffffff ffffffff 000 i TICK_LIMIT
 f ffffffff ffffffff 000 f RUN_LIMIT_FACTOR
@@ -7879,34 +7933,34 @@ l09 0000213 000000b7 000000b7
 l09 0000214 000000b7 000000b7
 l10 0000160 000000b7 000000d4
 l10 0000164 000000d4 000000f1
-l78 0000055 00000103 00000105
-l78 0000057 00000105 0000010b
-l78 0000060 0000010b 0000011e
-l78 0000061 0000011e 0000012b
-l78 0000063 00000131 00000145
-l78 0000066 00000145 00000153
-l78 0000067 00000159 0000015b
-l76 0000340 0000015b 00000166
-l76 0000343 00000166 00000174
-l76 0000346 0000017a 00000189
-l76 0000347 000001a8 00000222
-l76 0000353 00000222 00000230
-l76 0000357 00000230 00000255
-l76 0000360 00000255 00000263
-l76 0000363 00000263 00000271
-l76 0000366 00000271 0000028b
-l76 0000368 0000028b 000002b5
-l76 0000371 000002bb 00000322
-l76 0000372 00000322 00000357
-l76 0000374 0000035d 0000035f
-l76 0000377 0000035f 000003c1
-l76 0000380 000003c1 000003cf
-l76 0000381 000003cf 000003dd
-l76 0000385 000003dd 000003eb
-l76 0000388 000003eb 000003f9
-l76 0000389 000003ff 00000401
-l76 0000794 00000401 0000043b
-l76 0000795 0000043b 00000443
+l80 0000055 00000103 00000105
+l80 0000057 00000105 0000010b
+l80 0000060 0000010b 0000011e
+l80 0000061 0000011e 0000012b
+l80 0000063 00000131 00000145
+l80 0000066 00000145 00000153
+l80 0000067 00000159 0000015b
+l78 0000341 0000015b 00000166
+l78 0000344 00000166 00000174
+l78 0000347 0000017a 00000189
+l78 0000348 000001a8 00000222
+l78 0000354 00000222 00000230
+l78 0000358 00000230 00000255
+l78 0000361 00000255 00000263
+l78 0000364 00000263 00000271
+l78 0000367 00000271 0000028b
+l78 0000369 0000028b 000002b5
+l78 0000372 000002bb 00000322
+l78 0000373 00000322 00000357
+l78 0000375 0000035d 0000035f
+l78 0000378 0000035f 000003c1
+l78 0000381 000003c1 000003cf
+l78 0000382 000003cf 000003dd
+l78 0000386 000003dd 000003eb
+l78 0000389 000003eb 000003f9
+l78 0000390 000003ff 00000401
+l78 0000821 00000401 0000043b
+l78 0000822 0000043b 00000443
 l01 0000194 00000443 00000449
 l01 0000195 00000449 00000461
 l01 0000196 00000461 0000047d
@@ -8215,13 +8269,13 @@ l10 0000749 00002e80 00002ea5
 l10 0000751 00002eab 00002eb8
 l10 0000752 00002ebe 00002f34
 l10 0000754 00002f34 00002f3c
-l58 0000739 00002f3c 00002f4b
-l58 0000740 00002f57 00002f7f
-l58 0000742 00002f85 00002f8b
-l58 0000743 00002f8b 00002fa1
-l58 0000744 00002fa1 00002fcb
-l58 0000745 00002fcb 00002fe9
-l58 0000748 00002ff5 00002ffd
+l58 0000789 00002f3c 00002f4b
+l58 0000790 00002f57 00002f7f
+l58 0000792 00002f85 00002f8b
+l58 0000793 00002f8b 00002fa1
+l58 0000794 00002fa1 00002fcb
+l58 0000795 00002fcb 00002fe9
+l58 0000798 00002ff5 00002ffd
 l69 0000066 00002ffd 00003023
 l69 0000067 00003023 0000302b
 l20 0001005 0000302b 0000302d
@@ -8277,11 +8331,11 @@ l29 0000450 00003c63 00003c77
 l29 0000456 00003c7d 00003ca2
 l29 0000458 00003ca2 00003cbe
 l29 0000459 00003cc4 00003ccc
-l77 0000036 00003ccc 00003cd2
-l77 0000037 00003cd2 00003ce5
-l77 0000039 00003ce5 00003d22
-l77 0000040 00003d22 00003d68
-l77 0000041 00003d68 00003dae
-l77 0000042 00003dae 00003df4
-l77 0000044 00003df4 00003e1d
-l77 0000045 00003e23 00003e2b
+l79 0000036 00003ccc 00003cd2
+l79 0000037 00003cd2 00003ce5
+l79 0000039 00003ce5 00003d22
+l79 0000040 00003d22 00003d68
+l79 0000041 00003d68 00003dae
+l79 0000042 00003dae 00003df4
+l79 0000044 00003df4 00003e1d
+l79 0000045 00003e23 00003e2b

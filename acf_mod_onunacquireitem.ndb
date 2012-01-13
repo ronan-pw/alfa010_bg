@@ -1,5 +1,5 @@
 NDB V1.0
-0000077 0000009 0004506 0000318 0000760
+0000079 0000009 0004536 0000318 0000760
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_server_ipc_i
@@ -72,11 +72,13 @@ n68 acr_feat_events_i
 n69 acr_server_misc_i
 n70 acr_srvadmin_i
 n71 acr_version_i
-n72 dmfi_inc_langexe
-n73 dmfi_inc_initial
-n74 dmfi_inc_lang
-n75 acr_mod_events_i
-N76 acf_mod_onunacquireitem
+n72 acr_scliext_i
+n73 dmfi_inc_langexe
+n74 dmfi_inc_initial
+n75 dmfi_inc_lang
+n76 acr_roll_i
+n77 acr_mod_events_i
+N78 acf_mod_onunacquireitem
 s 03 vector
 sf f x
 sf f y
@@ -1133,6 +1135,9 @@ fp e2
 fp f
 fp f
 fp o
+f ffffffff ffffffff 002 i CompareLeft
+fp s
+fp s
 f ffffffff ffffffff 000 i DEBUG_TARGET_NONE
 f ffffffff ffffffff 000 i DEBUG_TARGET_DMS
 f ffffffff ffffffff 000 i DEBUG_TARGET_PCS
@@ -6296,6 +6301,20 @@ fp i
 f ffffffff ffffffff 000 i ACR_SKILLS_NUMBER
 f ffffffff ffffffff 000 s CHECK_COLOUR1
 f ffffffff ffffffff 000 s CHECK_COLOUR2
+f ffffffff ffffffff 000 i CHECK_TYPE_SKILL
+f ffffffff ffffffff 000 i CHECK_TYPE_STAT
+f ffffffff ffffffff 000 i CHECK_TYPE_SAVE
+f ffffffff ffffffff 000 i CHECK_TYPE_INITIATIVE
+f ffffffff ffffffff 000 i CHECK_TYPE_ROLL
+f ffffffff ffffffff 000 i CHECK_TYPE_TRACK
+f ffffffff ffffffff 000 i CHECK_TYPE_PERCEPTION
+f ffffffff ffffffff 000 i CHECK_TYPE_STEALTH
+f ffffffff ffffffff 005 i ACR_InitCheck
+fp o
+fp i
+fp i
+fp i
+fp i
 f ffffffff ffffffff 006 i ACR_SkillCheck
 fp i
 fp o
@@ -6341,6 +6360,14 @@ f ffffffff ffffffff 001 i ACR_SkillsCheckIsPCAdapted
 fp o
 f ffffffff ffffffff 001 v ACR_SkillsPrepareAdaption
 fp o
+f ffffffff ffffffff 007 i _Check
+fp i
+fp o
+fp i
+fp i
+fp i
+fp i
+fp i
 f ffffffff ffffffff 002 i _IsClassSkill
 fp i
 fp o
@@ -6388,8 +6415,10 @@ f ffffffff ffffffff 003 v _SendRollMessage
 fp o
 fp s
 fp i
-f ffffffff ffffffff 005 i ACR_InitCheck
+f ffffffff ffffffff 007 v ACR_Checks
+fp i
 fp o
+fp i
 fp i
 fp i
 fp i
@@ -7210,6 +7239,34 @@ fp s
 fp o
 f ffffffff ffffffff 000 s ACR_VERSION
 f ffffffff ffffffff 000 s ACR_GetVersion
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_PER_AREA_MAP_CONTROLS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_ENVIRON
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_DOORS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_TRAPS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_CREATURES
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_PATHING
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_PINS
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_BACKGROUND
+f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_DM_AREA_POLLING
+f ffffffff ffffffff 000 s ACR_SCLIEXT_VERSION
+f ffffffff ffffffff 000 s ACR_SCLIEXT_FEATURES
+f ffffffff ffffffff 000 i ACR_SCLIEXT_DEFAULT_FEATURE_BITS
+f ffffffff ffffffff 000 s ACR_SCLIEXT_URL
+f ffffffff ffffffff 000 s ACR_SCLIEXT_URL_AND_FORUM_INFO
+f ffffffff ffffffff 000 s ACR_SCLIEXT_DISABLE_EXISTANCE_CHECK
+f ffffffff ffffffff 004 i ACR_MakeClientExtensionVersion
+fp i
+fp i
+fp i
+fp i
+f ffffffff ffffffff 001 i ACR_GetPlayerClientExtensionVersion
+fp o
+f ffffffff ffffffff 001 i ACR_GetPlayerClientExtensionFeatures
+fp o
+f ffffffff ffffffff 001 v ACR_SCliExtOnPCLoaded
+fp o
+f ffffffff ffffffff 001 v ACR_CheckForClientExtensionInstalled
+fp o
 f ffffffff ffffffff 000 f _SPAWN_AREA_DESPAWN_DELAY
 f ffffffff ffffffff 000 f _SPAWN_REFRESH_DELAY
 f ffffffff ffffffff 000 i _SPAWN_PRESPAWN_SEAMLESS
@@ -7516,6 +7573,9 @@ f ffffffff ffffffff 003 s DMFI_ProcessLanguage
 fp s
 fp s
 fp o
+f ffffffff ffffffff 002 v ParseRoll
+fp o
+fp s
 f ffffffff ffffffff 000 s _ONLOAD_DEBUG
 f ffffffff ffffffff 000 s ACR_MOD_STATUS
 f ffffffff ffffffff 000 s ACR_MOD_SPELLBOOK
@@ -7556,9 +7616,6 @@ f ffffffff ffffffff 001 v ACR_SetModuleStatus
 fp i
 f ffffffff ffffffff 000 v ACR_ModuleInitHealthChecks
 f ffffffff ffffffff 000 v ACR_StartModuleInitHealthChecks
-f ffffffff ffffffff 002 v _ParseRoll
-fp o
-fp s
 f ffffffff ffffffff 002 s _ParseLang
 fp o
 fp s
@@ -7569,9 +7626,6 @@ fp i
 fp s
 f ffffffff ffffffff 000 v ACR_ModuleInit_ForceLinkageForCLRScripts
 f 0000010b 000001d6 000 v ACR_ModuleOnUnAcquireItem
-f ffffffff ffffffff 002 i _CompareLeft
-fp s
-fp s
 f 00000103 0000010b 000 v main
 f 0000000d 00000015 000 v #loader
 f 00000015 00000103 000 v #globals
@@ -7944,18 +7998,18 @@ l09 0000213 000000b7 000000b7
 l09 0000214 000000b7 000000b7
 l10 0000160 000000b7 000000d4
 l10 0000164 000000d4 000000f1
-l76 0000047 00000103 00000109
-l76 0000050 00000109 0000010b
-l75 0000575 0000010b 00000110
-l75 0000576 00000110 00000115
-l75 0000579 00000115 00000124
-l75 0000582 00000136 0000014c
-l75 0000585 0000014c 00000168
-l75 0000595 00000168 0000017e
-l75 0000609 0000017e 0000019d
-l75 0000612 000001a9 000001ab
-l75 0000614 000001ab 000001ce
-l75 0000616 000001d4 000001d6
+l78 0000047 00000103 00000109
+l78 0000050 00000109 0000010b
+l77 0000578 0000010b 00000110
+l77 0000579 00000110 00000115
+l77 0000582 00000115 00000124
+l77 0000585 00000136 0000014c
+l77 0000588 0000014c 00000168
+l77 0000598 00000168 0000017e
+l77 0000612 0000017e 0000019d
+l77 0000615 000001a9 000001ab
+l77 0000617 000001ab 000001ce
+l77 0000619 000001d4 000001d6
 l64 0000485 000001d6 000001ec
 l64 0000488 000001ec 0000021c
 l64 0000490 00000222 0000024e
@@ -8503,11 +8557,11 @@ l28 0000450 00004fbb 00004fcf
 l28 0000456 00004fd5 00004ffa
 l28 0000458 00004ffa 00005016
 l28 0000459 0000501c 00005024
-l29 0000720 00005024 0000503c
-l29 0000722 00005042 000050e1
-l29 0000723 000050e1 000050e7
-l29 0000726 000050e7 000050f4
-l29 0000731 000050f4 000050fc
+l29 0000730 00005024 0000503c
+l29 0000732 00005042 000050e1
+l29 0000733 000050e1 000050e7
+l29 0000736 000050e7 000050f4
+l29 0000741 000050f4 000050fc
 l15 0000828 000050fc 00005133
 l15 0000829 00005133 0000513b
 l30 0000319 0000513b 0000514d
