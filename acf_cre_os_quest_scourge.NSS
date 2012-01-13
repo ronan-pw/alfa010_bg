@@ -52,11 +52,20 @@ void main()
 {
 	location l;
 	int i;
+	object o;
 	string base="scourge_quest_spawn_0",tag,baserr="010_cr_scourge",rr,s;
+
 	if (!GetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC"))	
 	{
 		SetLocalInt(OBJECT_SELF,"X2_L_BEH_MAGIC",USE_SPECIAL_ABILITY);
 	}
+
+	// kludge
+	o = GetNearestObjectByTag("fai_scourge_quest");
+	SetLocalString(o,"ACR_QST_NAME","");
+	SetLocalString(o,"ACR_QST_LOWER_STATE","0");
+	SetLocalString(o,"ACR_QST_UPPER_STATE","0");
+
 	
 	SetLocalString(OBJECT_SELF,"1","lieutenant");
 	SetLocalString(OBJECT_SELF,"2","bandit");
