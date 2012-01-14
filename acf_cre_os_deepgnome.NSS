@@ -47,7 +47,9 @@
 
 void main()
 {
-	RandomizeNPC(OBJECT_SELF, 1);
+	RandomizeNPC(OBJECT_SELF);
 
 	ACR_CreatureOnSpawnIn();
+
+	SetLocalInt(OBJECT_SELF, "ACR_NPC", 1);
 }
