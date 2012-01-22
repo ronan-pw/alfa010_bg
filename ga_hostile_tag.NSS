@@ -7,14 +7,13 @@ void main(string tag)
 	o = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()));
 	
 	for (i=1; o != OBJECT_INVALID; ++i) {
+			
+		o = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()), i);
 		
 		t = GetTag(o);
 		
-		if (FindSubString(t,tag) == -1)
-			continue;
-			
-		ChangeToStandardFaction(o,STANDARD_FACTION_HOSTILE);
-			
-		o = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()), i);
+		if (FindSubString(t,tag) != -1) {
+			ChangeToStandardFaction(o,STANDARD_FACTION_HOSTILE);
+		}
 	}
 }
