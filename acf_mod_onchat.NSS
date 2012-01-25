@@ -58,11 +58,11 @@ int StartingConditional(object oSpeaker, object oTarget, int nMode, string sText
 	
     // Custom code goes below this line. Module scripts can supress chat text by returning false here.
 	if (TestStringAgainstPattern("**(close|shut)**eyes**", sText) &&
-		GetItemPossessedBy(oSpeaker,"PORTAL_TOKEN_UDA2_B") != OBJECT_INVALID)
+		GetItemPossessedBy(oSpeaker,"PORTAL_TOKEN_UDA2_B") == OBJECT_INVALID)
 	{
 		object wp = GetWaypointByTag("WP_PORTAL_UDA2_B_REBOUND");
 
-		if (GetArea(wp) == GetArea(oSpeaker) && GetDistanceBetween(wp,oSpeaker) < 5.0f) {
+		if ((GetArea(wp) == GetArea(oSpeaker)) && (GetDistanceBetween(wp,oSpeaker) < 5.0f)) {
 			object o;
 			o = CreateObject(OBJECT_TYPE_ITEM, "portal_token_uda2_b", GetLocation(wp));
 			CopyObject(o, GetLocation(oSpeaker), oSpeaker);
