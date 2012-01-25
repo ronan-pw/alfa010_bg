@@ -7,8 +7,8 @@ void main()
 	{
 		AssignCommand(oPC,ClearAllActions());
 		AssignCommand(oPC,ActionMoveToObject(GetWaypointByTag("WP_PORTAL_UDA2_B_REBOUND"),FALSE,0.0));
-		DelayCommand(0.1,SetCommandable(FALSE,oPC));
-		SendMessageToPC(oPC,"*You feel dizzy and nauseaus and find yourself back were you started from*");
+		DelayCommand(0.5,SetCommandable(FALSE,oPC));
+		SendMessageToPC(oPC,"You feel dizzy and nauseaus and find yourself back were you started from.");
 		DelayCommand(6.0,SetCommandable(TRUE,oPC));
 	}
 	else
