@@ -1,5 +1,41 @@
 #include "010_area_ex"
 #include "acr_tools_i"
+#include "acr_spawn_i"
+
+const string A010_CRE_CWBAATEZU_OROG = "010_cwbaatezu_orog_hum3";
+const string A010_CRE_CWBAATEZU_OROG_BAR1 = "010_cwbaatezu_orog_bar1";
+const string A010_CRE_CWBAATEZU_OROG_BAR1FTR2 = "010_cwbaatezu_orog_barb1ftr2";
+const string A010_CRE_CWBAATEZU_OROG_FTR1 = "010_cwbaatezu_orog_ftr1";
+const string A010_CRE_CWBAATEZU_OROG_ROG1 = "010_cwbaatezu_orog_rog1";
+const string A010_CRE_CWBAATEZU_OROG_SOR6 = "010_cwbaatezu_orog_sor6";
+const string A010_CRE_CWBAATEZU_OROG_WRK8 = "010_cwbaatezu_orog_wrk8";
+
+const string A010_CRE_OUTSIDER_HELLHOUND = "abr_cr_ou_hellhound";
+const string A010_CRE_OUTSIDER_NESSIANWARHOUND = "acr_cr_ou_nessianwarhound";
+const string A010_CRE_OUTSIDER_IMP = "abr_cr_ou_imp";
+
+string GetLowCROrog() {
+	switch(Random(4)) {
+		case 0: return A010_CRE_CWBAATEZU_OROG_BAR1;
+		case 1: return A010_CRE_CWBAATEZU_OROG_FTR1;
+		case 2: return A010_CRE_CWBAATEZU_OROG_ROG1;
+	}
+	return A010_CRE_CWBAATEZU_OROG;
+}
+
+object SpawnInvisibleImp() {
+	object oSpawned = ACR_SpawnObject(A010_CRE_OUTSIDER_IMP, OBJECT_TYPE_CREATURE);
+	ApplyEffectToObject(DURATION_TYPE_PERMANENT, EffectInvisibility(INVISIBILITY_TYPE_NORMAL), oSpawned);
+	SetActionMode(oSpawned, ACTION_MODE_STEALTH, 1);
+	return oSpawned;
+}
+
+void SpawnRandomNumber(int nMin, int nMax, string sResource, int nObjectType) {
+	int nNum = nMin + Random(1+nMax-nMin);
+	
+	int i;
+	for(i=0; i<nNum; i++) ACR_SpawnObject(sResource, nObjectType);
+}
 
 int GetHasEffectType(object oObject, int iEffectType) {
 	effect eEff = GetFirstEffect(oObject);
