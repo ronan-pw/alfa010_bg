@@ -24,19 +24,19 @@ void ChangeDestination() {
 		int nRandomPortal = Random(12);
 		string sDest;
 		switch(nRandomPortal) {
-			case 0: sDest = "WP_PORTAL_UDA4_A";
-			case 1: sDest = "WP_PORTAL_UDA4_B";
-			case 2: sDest = "WP_PORTAL_UDA4_C";
-			case 3: sDest = "WP_PORTAL_UDA4_D";
-			case 4: sDest = "WP_PORTAL_UDA3_B";
-			case 5: sDest = "WP_PORTAL_UDA3_A";
-			case 6: sDest = "WP_PORTAL_UDA2_A";
-			case 7: sDest = "WP_PORTAL_UDA5_A";
-			case 8: sDest = "WP_PORTAL_UDA5_C";
-			case 9: sDest = "WP_PORTAL_UDX1_A";
-			case 10: sDest = "WP_PORTAL_UDA6_A";
-			case 11: sDest = "010_portal_cloakwood13_dest";
-			case 12: sDest = "CL_UD_Y1_PORTAL";
+			case 0: sDest = "WP_PORTAL_UDA4_A"; break;
+			case 1: sDest = "WP_PORTAL_UDA4_B"; break;
+			case 2: sDest = "WP_PORTAL_UDA4_C"; break;
+			case 3: sDest = "WP_PORTAL_UDA4_D"; break;
+			case 4: sDest = "WP_PORTAL_UDA3_B"; break;
+			case 5: sDest = "WP_PORTAL_UDA3_A"; break;
+			case 6: sDest = "WP_PORTAL_UDA2_A"; break;
+			case 7: sDest = "WP_PORTAL_UDA5_A"; break;
+			case 8: sDest = "WP_PORTAL_UDA5_C"; break;
+			case 9: sDest = "WP_PORTAL_UDX1_A"; break;
+			case 10: sDest = "WP_PORTAL_UDA6_A"; break;
+			case 11: sDest = "010_portal_cloakwood13_dest"; break;
+			case 12: sDest = "CL_UD_Y1_PORTAL"; break;
 		}
 		lDest = GetLocation(GetObjectByTag(sDest));
 	} else if(nWorks <= 8) {
