@@ -12,6 +12,7 @@ RM	= rm -f
 INCS	= 010_area_ex \
 	  010_cloned_area \
 	  010_door_i \
+	  010_drugs_i \
 	  010_location_i \
 	  010_namegen_i \
 	  010_randomnpc_i \
