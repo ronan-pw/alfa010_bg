@@ -23,6 +23,7 @@
 
 #include "acr_mod_events_i"
 #include "010_location_i"
+#include "010_drugs_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -52,6 +53,9 @@ void main()
 	
 	/* remove fatigue/exhaustion */
 	SetLocalInt(player, "loc_flevel", 0);
+
+	/* 5 minutes after, apply narcotic withdrawl */
+	AssignCommand(player, DelayCommand(TurnsToSeconds(5), ACR_ApplyDrugAddictionEffects(player)));
 	
 	ACR_ModuleOnPlayerRest();
 		
