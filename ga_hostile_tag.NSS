@@ -6,7 +6,7 @@ void main(string tag)
 	
 	o = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()));
 	
-	for (i=1; o != OBJECT_INVALID; ++i) {
+	for (i=0; o != OBJECT_INVALID; ++i) {
 			
 		o = GetNearestCreatureToLocation(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, GetLocation(GetPCSpeaker()), i);
 		
