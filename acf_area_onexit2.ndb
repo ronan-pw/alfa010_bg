@@ -1,5 +1,5 @@
 NDB V1.0
-0000064 0000009 0004238 0000018 0000064
+0000064 0000009 0004245 0000018 0000064
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_server_ipc_i
@@ -289,6 +289,11 @@ f ffffffff ffffffff 001 s ACR_SQLGetData
 fp i
 f ffffffff ffffffff 000 i ACR_SQLGetAffectedRows
 f ffffffff ffffffff 004 v ACR_SetPersistentString
+fp o
+fp s
+fp s
+fp i
+f ffffffff ffffffff 004 v ACR_SetPersistentStringNoTimestamp
 fp o
 fp s
 fp s
@@ -1593,11 +1598,14 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_CLIENT_LEAVE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_POPULATE_CHAT_SELECT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_LATENCY_CHECK_RESPONSE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_GET_PLAYER_LATENCY
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_DISABLE_CHARACTER_SAVE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_ENABLE_CHARACTER_SAVE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_CHAT_TELL
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_BROADCAST_NOTIFICATION
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PURGE_CACHED_CHARACTER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_SHUTDOWN_SERVER
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
 fp t0001
@@ -1662,6 +1670,10 @@ f ffffffff ffffffff 001 v ACR_HandleLatencyCheckResponse
 fp o
 f ffffffff ffffffff 001 i ACR_GetPlayerLatency
 fp o
+f ffffffff ffffffff 001 i ACR_DisableCharacterSave
+fp o
+f ffffffff ffffffff 001 i ACR_EnableCharacterSave
+fp o
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
 fp i
@@ -1678,8 +1690,9 @@ f ffffffff ffffffff 000 s _ACR_PTL_PASSPORT
 f ffffffff ffffffff 000 s _ACR_PTL_RECORD
 f ffffffff ffffffff 000 s _ACR_PTL_TIMESTAMP
 f ffffffff ffffffff 000 s _ACR_PTL_PING
-f ffffffff ffffffff 003 v ACR_PortalPC_Start
+f ffffffff ffffffff 004 v ACR_PortalPC_Start
 fp o
+fp i
 fp i
 fp i
 f ffffffff ffffffff 001 i ACR_PortalCheckServer
@@ -3653,8 +3666,9 @@ f ffffffff ffffffff 003 v ACR_PCSave
 fp o
 fp i
 fp i
-f ffffffff ffffffff 001 v ACR_PCAutoSave
+f ffffffff ffffffff 002 v ACR_PCAutoSave
 fp o
+fp i
 f ffffffff ffffffff 000 v ACR_PCOnModuleLoad
 f ffffffff ffffffff 001 v ACR_PCOnClientEnter
 fp o
@@ -3669,6 +3683,10 @@ fp o
 fp i
 f ffffffff ffffffff 001 v ACR_PPSValidatePC
 fp o
+f ffffffff ffffffff 003 v ACR_PPSBootPC
+fp o
+fp s
+fp i
 f ffffffff ffffffff 001 v ACR_PCExportSingleCharacter
 fp o
 f ffffffff ffffffff 003 v _playerRestoreLocation
@@ -7044,12 +7062,12 @@ l01 0000062 00000088 000000a6
 l01 0000064 000000a6 000000c5
 l01 0000065 000000c5 000000e4
 l01 0000066 000000e4 00000103
-l02 0000115 00000103 00000103
-l02 0000116 00000103 00000103
-l02 0000117 00000103 00000103
-l02 0000118 00000103 00000103
-l02 0000119 00000103 00000103
-l02 0000120 00000103 00000103
+l02 0000125 00000103 00000103
+l02 0000126 00000103 00000103
+l02 0000127 00000103 00000103
+l02 0000128 00000103 00000103
+l02 0000129 00000103 00000103
+l02 0000130 00000103 00000103
 l03 0000234 00000103 00000117
 l04 0000114 00000117 00000117
 l04 0000115 00000117 00000117
