@@ -125,7 +125,6 @@ object spawn_npc(string resref, float prob=1.0, float prob_walk=0.2)
 {
 	object o;
 	o = GetArea(OBJECT_SELF);
-	WriteTimestampedLogEntry("ACR_Spawn: spawn_npc "+resref+" in "+GetName(o) + " (" + GetTag(o) + ")");
 	return spawn_npc_internal(resref, prob, prob_walk, 1);
 }
 
