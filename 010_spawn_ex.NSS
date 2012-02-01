@@ -11,7 +11,7 @@ const string A010_CRE_CWBAATEZU_OROG_SOR6 = "010_cwbaatezu_orog_sor6";
 const string A010_CRE_CWBAATEZU_OROG_WRK8 = "010_cwbaatezu_orog_wrk8";
 
 const string A010_CRE_OUTSIDER_HELLHOUND = "abr_cr_ou_hellhound";
-const string A010_CRE_OUTSIDER_NESSIANWARHOUND = "acr_cr_ou_nessianwarhound";
+const string A010_CRE_OUTSIDER_NESSIANWARHOUND = "abr_cr_ou_nessianwarhound";
 const string A010_CRE_OUTSIDER_IMP = "abr_cr_ou_imp";
 
 string GetLowCROrog() {
