@@ -4,6 +4,10 @@ void door_shift_align(object o, int lawful)
 {
 	int i;
 	string msg = "DOOR_ALIGN: +1 ";
+
+#if 0
+	/* Remove until a more workable implementation is used
+	 */
 	
 	i = GetLocalInt(o,"010_door_align");
 	
@@ -29,4 +33,5 @@ void door_shift_align(object o, int lawful)
 	
 	DeleteLocalInt(o,"010_door_align");
 	WriteTimestampedLogEntry(msg);
+#endif
 }
