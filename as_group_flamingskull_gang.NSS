@@ -56,7 +56,7 @@ void main();
 // 0-1 Orog sergeants, 2-4 low-CR Orogs, 0-2 invisible imps, 0-1 Hellhounds
 void main() {
 
-	SpawnRandomNumber(0, 1, A010_CRE_CWBAATEZU_OROG_BAR1FTR2, OBJECT_TYPE_CREATURE);
+	SpawnRandomNumber(0, 1, A010_CRE_CWBAATEZU_OROG_BAR2FTR2, OBJECT_TYPE_CREATURE);
 
 	int nOrogs = 2 + Random(3);
 	int i;

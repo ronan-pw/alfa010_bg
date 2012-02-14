@@ -53,9 +53,11 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// 1 Orog sergeant, 3-6 low-CR Orogs, 0-2 invisible imps, 0-2 Hellhounds
+// 1 Orog sergeant or sorcerer, 3-6 low-CR Orogs, 0-2 invisible imps, 0-2 Hellhounds
 void main() {
-	ACR_SpawnObject(A010_CRE_CWBAATEZU_OROG_BAR1FTR2, OBJECT_TYPE_CREATURE);
+	if(Random(2))
+		ACR_SpawnObject(A010_CRE_CWBAATEZU_OROG_BAR2FTR2, OBJECT_TYPE_CREATURE);
+		else ACR_SpawnObject(A010_CRE_CWBAATEZU_OROG_SOR6, OBJECT_TYPE_CREATURE);
 
 	int nOrogs = 3 + Random(4);
 	int i;
