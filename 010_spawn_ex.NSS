@@ -4,10 +4,11 @@
 
 const string A010_CRE_CWBAATEZU_OROG = "010_cwbaatezu_orog_hum3";
 const string A010_CRE_CWBAATEZU_OROG_BAR1 = "010_cwbaatezu_orog_bar1";
-const string A010_CRE_CWBAATEZU_OROG_BAR1FTR2 = "010_cwbaatezu_orog_barb1ftr2";
+const string A010_CRE_CWBAATEZU_OROG_BAR2FTR2 = "010_cwbaatezu_orog_barb2ftr2";
 const string A010_CRE_CWBAATEZU_OROG_FTR1 = "010_cwbaatezu_orog_ftr1";
 const string A010_CRE_CWBAATEZU_OROG_ROG1 = "010_cwbaatezu_orog_rog1";
 const string A010_CRE_CWBAATEZU_OROG_SOR6 = "010_cwbaatezu_orog_sor6";
+const string A010_CRE_CWBAATEZU_OROG_SOR8 = "010_cwbaatezu_orog_sor8";
 const string A010_CRE_CWBAATEZU_OROG_WRK8 = "010_cwbaatezu_orog_wrk8";
 
 const string A010_CRE_OUTSIDER_HELLHOUND = "abr_cr_ou_hellhound";

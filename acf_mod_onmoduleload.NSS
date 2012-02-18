@@ -63,6 +63,8 @@ void main() {
 	DelayCommand(4.0, DestroyObject(oInitialize));
 	DelayCommand(4.1, WriteTimestampedLogEntry("There is no spoon."));
 	
+	SetLocalInt(GetModule(), "ACR_HEALTHMONITOR_GAMEOBJUPDATE_BACKOFF", 1);
+	
 	ExecuteScript("nwnx_craft_init", GetModule());
 
 }
