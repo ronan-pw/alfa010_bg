@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -50,14 +51,13 @@ void main();
 void main() {
 	switch(Random(20)) {
         case 0:
-            ACR_SpawnObject("010_cr_an_boar", OBJECT_TYPE_CREATURE);
+            spawn_group("animal_boar");
             break;
         case 1:
             ACR_SpawnObject("010_cr_wolverinedire", OBJECT_TYPE_CREATURE);
             break;
         case 2:
-            ACR_SpawnObject("010_cr_an_deer_male", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_an_deer_female", OBJECT_TYPE_CREATURE);
+            spawn_group("animal_deer");
             break;
         case 3:
 			ACR_SpawnObject("010_cr_an_brownbear", OBJECT_TYPE_CREATURE);
@@ -73,10 +73,10 @@ void main() {
             ACR_SpawnObject("010_cr_an_wolverine", OBJECT_TYPE_CREATURE);
             break;
         case 7:
-			ACR_SpawnObject("010_cr_an_bunny", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_an_bunny", OBJECT_TYPE_CREATURE);
+            spawn_group("animal_rabbit");
+            spawn_group("animal_rabbit",0.5);
             break;			
-	    case 8:
+	case 8:
             ACR_SpawnObject("010_cr_badgerdire2", OBJECT_TYPE_CREATURE);
 			ACR_SpawnObject("010_cr_badgerdire1", OBJECT_TYPE_CREATURE);
 			ACR_SpawnObject("010_cr_badgerdire1", OBJECT_TYPE_CREATURE);
@@ -99,8 +99,8 @@ void main() {
 			ACR_SpawnObject("010_cr_wolverinedire0", OBJECT_TYPE_CREATURE);
             break;			
 		case 14:
-			ACR_SpawnObject("010_cr_an_boar_male", OBJECT_TYPE_CREATURE);
-			ACR_SpawnObject("010_cr_an_boar_female", OBJECT_TYPE_CREATURE);
+	        spawn_group("animal_boar");
+            	spawn_group("animal_boar",0.5);
             break;			
 		case 15:	
 			ACR_SpawnObject("010_cr_an_wolf", OBJECT_TYPE_CREATURE);
