@@ -9,7 +9,7 @@ void main(string plot, int gp, int xp, float reset_days)
 	int val = ACR_GetGameDaysSinceStart();
 
 	// val = RL days, converted into game days (truncate)
-	val += FloatToInt(reset_days/ACR_GetGameToRealTimeRatio());
+	val += FloatToInt(reset_days*ACR_GetGameToRealTimeRatio());
 	
 	GiveGoldToCreature(oPC,gp);
 	ACR_AwardStaticQuestXP(oPC,plot,xp); 
