@@ -92,6 +92,9 @@ void main()
 	SetLocalString(OBJECT_SELF,"CREATURE_4",sCreatureD);
 	SetLocalString(OBJECT_SELF,"CREATURE_5",sCreatureE);
 	SetLocalString(OBJECT_SELF,"CREATURE_6",sCreatureF);
+
+	SetLocalString(OBJECT_SELF,"BOUNTY_ITEM","it_plot_goblin_bounty");
+	SetLocalInt(OBJECT_SELF,"BOUNTY_LIMIT",200);
 	
 	ExecuteScript("dpss_phb",OBJECT_SELF);
 

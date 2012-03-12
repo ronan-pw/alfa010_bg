@@ -80,6 +80,18 @@ void DPSS_DESPAWN_AREA(object oArea,object oPC)
 	DelayCommand(DESPAWN_DELAY,internal_dpss_despawn_area(oArea));
 }
 
+// DPSS_CATEGORY_01
+
+int dpss_bounty_check(string sTag)
+{
+	object oController = GetObjectByTag(sTag);
+	int CURRENT_CR, nBountyLimit;
+	CURRENT_CR = GetLocalInt(oController,"CURRENT_CR");
+	nBountyLimit = GetLocalInt(oController,"BOUNTY_LIMIT");
+
+	return (CURRENT_CR >= nBountyLimit);
+}
+
 
 void DPSS_SPAWN_AREA(object oArea,object oPC)
 {
@@ -140,10 +152,11 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 	int INDIVIDUAL_CR;
 	int D6;
 	int D10;
-	string sCreatureType;
+	string sCreatureType, sBountyType;
 	object oSpawn;
 	location lSpawn,l;
 	object oCreature;
+	object oItem;
 			
 	object oBase=GetFirstObjectInArea(OBJECT_SELF);
 			
@@ -164,7 +177,10 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 	{
 		//determine creature to spawn
 		D6=d6(1);
+
 		sCreatureType=GetLocalString(oController,"CREATURE_"+IntToString(D6));
+		sBountyType=GetLocalString(oController,"BOUNTY_ITEM");
+
 		if (DEBUG)
 			WriteTimestampedLogEntry("Spawning resref "+sCreatureType);
 		//determine waypoint to spawn at
@@ -176,6 +192,13 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 		WriteTimestampedLogEntry("DPSS: "+sCreatureType+" in "+GetName(oArea) + " ("+GetTag(oArea)+")");
 		l = randomize_location(lSpawn);
 		oCreature = CreateObject(OBJECT_TYPE_CREATURE,sCreatureType,l,FALSE,"DPSS_CREATURE");
+
+		// Create a bounty item if we're overpopulated
+		if (dpss_bounty_check(GetTag(oController))) {
+			oItem = CreateObject(OBJECT_TYPE_ITEM,sBountyType,l);
+			CopyObject(oItem, l, oCreature);
+			DestroyObject(oItem);
+		}
 		
 		SetLocalObject(oCreature,"CONTROLLER",oController);
 		SetLocalInt(oCreature,"DPSS_CREATURE",1);
@@ -201,3 +224,4 @@ void DPSS_SPAWN_AREA(object oArea,object oPC)
 				
 	}
 }
+
