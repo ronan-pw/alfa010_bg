@@ -55,18 +55,46 @@ void main();
 
 // 7,634
 void main() {
-	switch(Random(4)) 
+	switch(Random(7)) 
 	{
 	case 0:
-		spawn_hostile_npc("010_cr_o_greyooze");
+		spawn_hostile_npc("abr_cr_ou_abishai_black");
+		spawn_hostile_npc("abr_cr_ou_abishai_black",0.5);
+		spawn_hostile_npc("abr_cr_ou_abishai_black",0.5);
 		break;
 	case 1:
-		spawn_hostile_npc("010_cr_o_blackpud");
+		spawn_hostile_npc("010_cr_out_erinyes",0.5);
+		spawn_hostile_npc("abr_cr_ou_imp",0.5);
+		spawn_hostile_npc("abr_cr_ou_imp",0.5);
+		spawn_hostile_npc("abr_cr_ou_imp",0.5);
+		spawn_hostile_npc("abr_cr_ou_hellhound",0.5);
 		break;
 	case 2:
-		spawn_hostile_npc("010_cr_o_ocrejel");
+		spawn_hostile_npc("abr_cr_ou_succubus",0.5);
+		spawn_hostile_npc("abr_cr_ou_quasit",0.5);
+		spawn_hostile_npc("abr_cr_ou_quasit",0.5);
+		spawn_hostile_npc("abr_cr_ou_quasit",0.5);
+		break;
+	case 3:
+		spawn_hostile_npc("abr_cr_ou_meph_fire");
+		spawn_hostile_npc("abr_cr_ou_meph_fire",0.5);
+		spawn_hostile_npc("abr_cr_ou_meph_fire",0.5);
+		spawn_hostile_npc("abr_cr_ou_meph_fire",0.5);
+		break;
+	case 4:
+		spawn_hostile_npc("abr_cr_ou_meph_ice");
+		spawn_hostile_npc("abr_cr_ou_meph_ice",0.5);
+		spawn_hostile_npc("abr_cr_ou_meph_ice",0.5);
+		spawn_hostile_npc("abr_cr_ou_meph_ice",0.5);
+		break;
+	case 5:
+		spawn_hostile_npc("abr_cr_ou_genie_efreeti");
 		break;
 	default:
-		spawn_hostile_npc("010_cr_o_gelcube");
+		spawn_hostile_npc("abr_cr_ou_abishai_black",0.5);
+		spawn_hostile_npc("abr_cr_ou_abishai_green",0.5);
+		spawn_hostile_npc("abr_cr_ou_abishai_white",0.5);
+		spawn_hostile_npc("abr_cr_ou_abishai_red",0.5);
+		spawn_hostile_npc("abr_cr_ou_abishai_blue",0.5);
 	}
 }
