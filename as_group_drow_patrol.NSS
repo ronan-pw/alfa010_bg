@@ -62,19 +62,19 @@ void main() {
 		case 0:
 		case 1:
 		case 2:
-			spawn_hostile_npc("abr_cr_drow_ftr1");
+			spawn_friendly_npc("abr_cr_drow_ftr1");
 			break;
 		default:
-			spawn_hostile_npc("abr_cr_drow_ftr3");
+			spawn_friendly_npc("abr_cr_drow_ftr3");
 		}
 	}
 	
 	switch(Random(2)) 
 	{
 	case 0:
-		spawn_hostile_npc("abr_cr_drow_ftr6");
+		spawn_friendly_npc("abr_cr_drow_ftr6");
 		break;
 	default:
-		spawn_hostile_npc("abr_cr_drow_wiz6");
+		spawn_friendly_npc("abr_cr_drow_wiz6");
 	}
 }

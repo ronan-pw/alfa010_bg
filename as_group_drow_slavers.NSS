@@ -78,8 +78,21 @@ void main() {
 		spawn_hostile_npc("abr_cr_drow_wiz6");
 	}
 
-	spawn_hostile_npc("010_cr_comm_human");
-	spawn_hostile_npc("010_cr_comm_human1");
-	spawn_hostile_npc("010_cr_comm_human11");
-	spawn_hostile_npc("010_cr_comm_human30");
+	switch (Random(4)) {
+		case 0:
+			spawn_hostile_npc("010_cr_comm_human");
+			spawn_hostile_npc("010_cr_comm_human1");
+			spawn_hostile_npc("010_cr_comm_human11");
+			spawn_hostile_npc("010_cr_comm_human30");
+			break;
+		case 1:
+			spawn_group("baphitaur_low");
+			break;
+		case 2:
+			spawn_group("bugbears");
+			break;
+		case 3:
+			spawn_group("gnoll_hunters");
+			break;
+	}
 }
