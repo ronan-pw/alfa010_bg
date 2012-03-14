@@ -13,7 +13,7 @@ int StartingConditional(int i)
     switch (i) {
 	// goblin ears
         case 0:
-            if (GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_plot_goblin_bouny"))) return TRUE;
+            if (GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_plot_goblin_bounty"))) return TRUE;
 	    break;
     }
     return FALSE;
