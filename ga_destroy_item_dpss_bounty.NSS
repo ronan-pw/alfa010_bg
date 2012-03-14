@@ -16,7 +16,6 @@ int Ggold = 0;
 
 void DestroyItems(object oTarget,string sItem,int gold, int xp)
 {
-    int nCount = 0;
     int nStack;
     object oItem = GetFirstItemInInventory(oTarget);
 
@@ -26,12 +25,9 @@ void DestroyItems(object oTarget,string sItem,int gold, int xp)
         {
 	    nStack = GetNumStackedItems(oItem);
 
-	    if (nStack > 0)
-                nCount += nStack;
-
             DestroyObject(oItem,0.0f);
-            Gxp = Gxp + xp;
-            Ggold = Ggold + gold;
+            Gxp += nStack * xp;
+            Ggold += nStack * gold;
         }
         oItem = GetNextItemInInventory(oTarget);
     }
@@ -50,7 +46,7 @@ void main(int type)
     switch (type) {
         // goblin
         case 0:
-            DestroyItems(oPC,"it_plot_goblin_bounty",5,5);
+            DestroyItems(oPC,"it_plot_goblin_bounty",4,4);
             break;
     }
 	
