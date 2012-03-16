@@ -76,8 +76,13 @@ void RandomizeNPCScale(object oNPC = OBJECT_SELF, int autoscale = 1, float std_x
 
 void RandomNPCEquip(object oArmour, object oBoots)
 {
-	if (GetItemInSlot(1, OBJECT_SELF) == oArmour)
+	if (GetItemInSlot(INVENTORY_SLOT_CHEST, OBJECT_SELF) == oArmour)
 		return;
+
+	if (GetItemInSlot(INVENTORY_SLOT_BOOTS, OBJECT_SELF) == oBoots)
+		return;
+
+	DelayCommand(12.0, RandomNPCEquip(oArmour, oBoots));
 
 	ClearAllActions(TRUE);
 
@@ -137,8 +142,6 @@ void RandomizeNPCClothing(object oNPC = OBJECT_SELF)
 	object oBoots=CreateItemOnObject(sBootType);
 
 	RandomNPCEquip(oArmour, oBoots);
-
-	DelayCommand(3.0, RandomNPCEquip(oArmour, oBoots));
 }
 
 void RandomizeNPC(object oNPC = OBJECT_SELF, int nEquip=1, int nName=1)
