@@ -28,6 +28,8 @@ void main()
 	object s0,s1;
 	float delay;
 
+	WriteTimestampedLogEntry("010_Ring: "+IntToString(time)+":"+IntToString(GetTimeMinute()));
+
 	// force regular heartbeats
 	if (!GetLocalInt(OBJECT_SELF, "init")) {
 		SetCustomHeartbeat(OBJECT_SELF, 5000);
