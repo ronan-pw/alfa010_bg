@@ -39,7 +39,6 @@ void main()
 	if (GetLocalInt(OBJECT_SELF, "time") == time)
 		return;
 	
-
 	tag = GetTag(OBJECT_SELF);
 	SetLocalInt(OBJECT_SELF, "time", time);
 
@@ -69,6 +68,9 @@ void main()
 	if (time == 0)
 		time = 12;
 	
+	WriteTimestampedLogEntry("010_Ring: Ring "+ t0);
+	WriteTimestampedLogEntry("010_Ring: Ring "+ t1);
+
 	
 	for (i=0; i<time; ++i) {
 	    delay = ACR_RandomNormal(IntToFloat(i)*delay_mean, sqrt(delay_var));
