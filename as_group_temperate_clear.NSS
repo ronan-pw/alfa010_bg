@@ -94,20 +94,20 @@ void main() {
 		{
 			ACR_SpawnGroup("friendly_guard");
 		}
-		else if (nRoll <= 39)	//9% Bandits
+		else if (nRoll <= 34)	//4% Bandits
 		{
 			ACR_SpawnGroup("bandits");
 		}
-		else if (nRoll <= 43)	//4% Dire Rats 1d4
+		else if (nRoll <= 40)	//6% Dire Rats 1d4
 		{
 			int nRats = d4();
 			for (i = 0; i < nRats; i++) ACR_SpawnObject("010_cr_ratdire", OBJECT_TYPE_CREATURE);
 		}
-		else if (nRoll <= 47)	//4% Gargoyle 1
+		else if (nRoll <= 44)	//4% Gargoyle 1
 		{
 			ACR_SpawnObject("010_cr_humanoid_gargoyle", OBJECT_TYPE_CREATURE);
 		}
-		else if (nRoll <= 52)	//5% Gnoll Hunters
+		else if (nRoll <= 52)	//8% Gnoll Hunters
 		{	
 			ACR_SpawnGroup("gnoll_hunters");
 		}
@@ -194,12 +194,12 @@ void main() {
 		{
 			ACR_SpawnGroup("friendly_guard");
 		}		
-		//	6% Bandits
-		else if (nRoll <= 23)
+		//	7% Bandits
+		else if (nRoll <= 24)
 		{
 			ACR_SpawnGroup("bandits");
 		}
-		//	2% Baneguard 1
+		//	1% Baneguard 1
 		else if (nRoll <= 25)
 		{
 			ACR_SpawnObject("acr_cr_un_baneguard", OBJECT_TYPE_CREATURE);
