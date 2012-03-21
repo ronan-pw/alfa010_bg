@@ -6,6 +6,7 @@ const float delay_var = 0.01f;
 
 void play_sound(object s)
 {
+	WriteTimestampedLogEntry("010_Ring: ringing "+GetTag(GetArea(s)));
 	SoundObjectStop(s);
 	SoundObjectPlay(s);
 }
@@ -28,7 +29,7 @@ void main()
 	object s0,s1;
 	float delay;
 
-	WriteTimestampedLogEntry("010_Ring: "+IntToString(time)+":"+IntToString(GetTimeMinute()));
+	//WriteTimestampedLogEntry("010_Ring: "+IntToString(time)+":"+IntToString(GetTimeMinute()));
 
 	// force regular heartbeats
 	if (!GetLocalInt(OBJECT_SELF, "init")) {
@@ -68,8 +69,8 @@ void main()
 	if (time == 0)
 		time = 12;
 	
-	WriteTimestampedLogEntry("010_Ring: Ring "+ t0);
-	WriteTimestampedLogEntry("010_Ring: Ring "+ t1);
+	//WriteTimestampedLogEntry("010_Ring: Ring "+ t0);
+	//WriteTimestampedLogEntry("010_Ring: Ring "+ t1);
 
 	
 	for (i=0; i<time; ++i) {
