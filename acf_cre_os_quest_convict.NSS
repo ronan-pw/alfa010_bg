@@ -23,6 +23,7 @@
 #include "acr_creature_i"
 #include "NW_I0_GENERIC"
 #include "NW_O2_CONINCLUDE"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -50,15 +51,13 @@ int USE_SPECIAL_ABILITY=75;
 void show_npc(object o)
 {
 	ChangeToStandardFaction(o, STANDARD_FACTION_HOSTILE);
-	SetScriptHidden(o, 0);
 }
 
 void hide_npc(object o, float f)
 {
 	ChangeToStandardFaction(o, STANDARD_FACTION_COMMONER);
-	SetScriptHidden(o, 1);
 
-	DelayCommand(ACR_RandomFloat(0.0,f), show_npc(o));
+	DelayCommand(ACR_RandomFloat(0.5,f), show_npc(o));
 }
 
 
@@ -81,15 +80,15 @@ void main()
 
 	hide_npc(o,f);
 
-	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench0",l);
+	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench0",randomize_location(l,1.0));
 
 	hide_npc(o,f);
 
-	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench1",l);
+	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench1",randomize_location(l,1.0));
 
 	hide_npc(o,f);
 
-	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench2",l);
+	o = CreateObject(OBJECT_TYPE_CREATURE,"010_plot_bg_raid_1_hench2",randomize_location(l,1.0));
 
 	hide_npc(o,f);
 }
