@@ -52,11 +52,11 @@ int get_area_region(object area=OBJECT_SELF)
 		return 3;
 	else if (FindSubString(str,"lion") != -1) 
 		return 3;
+	else if (FindSubString(str,"pass") != -1) 
+		return 8;
 	else if (FindSubString(str,"nashkel") != -1) 
 		return 4;
 	else if (FindSubString(str,"cloud") != -1) 
-		return 8;
-	else if (FindSubString(str,"pass") != -1) 
 		return 8;
 	else if (FindSubString(str,"gullykin") != -1) 
 		return 7;
