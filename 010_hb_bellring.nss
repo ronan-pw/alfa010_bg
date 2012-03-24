@@ -45,10 +45,11 @@ void main()
 	tag = GetTag(OBJECT_SELF);
 	SetLocalInt(OBJECT_SELF, "time", time);
 
+	t0 = tag+"0";
+	t1 = tag+"1";
+
 	// cache sound objects
 	if (!GetLocalInt(OBJECT_SELF, "cached")) {
-		t0 = tag+"0";
-		t1 = tag+"1";
 
 		i=0;
 
@@ -71,12 +72,12 @@ void main()
 	if (time == 0)
 		time = 12;
 	
-	//WriteTimestampedLogEntry("010_Ring: Ring "+ t0);
-	//WriteTimestampedLogEntry("010_Ring: Ring "+ t1);
+	WriteTimestampedLogEntry("010_Ring: ring "+ t0);
+	WriteTimestampedLogEntry("010_Ring: ring "+ t1);
 
 	
 	for (i=0; i<time; ++i) {
-	    delay = ACR_RandomNormal(IntToFloat(i)*delay_mean, sqrt(delay_var));
+		delay = ACR_RandomNormal(IntToFloat(i)*delay_mean, sqrt(delay_var));
 
 		if (i%2)
 			DelayCommand(delay, play_sounds(t0));
