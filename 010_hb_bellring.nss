@@ -60,8 +60,8 @@ void main()
 
 		i=0;
 
-		while ((s1 = GetObjectByTag(t0,i)) != OBJECT_INVALID) {
-			SetLocalObject(OBJECT_SELF,t1+"_"+IntToString(i),s0);
+		while ((s1 = GetObjectByTag(t1,i)) != OBJECT_INVALID) {
+			SetLocalObject(OBJECT_SELF,t1+"_"+IntToString(i),s1);
 			++i;
 		}
 		SetLocalInt(OBJECT_SELF, "cached", 1);
