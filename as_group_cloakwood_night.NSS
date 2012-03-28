@@ -156,7 +156,7 @@ void main() {
 			spawn_hostile_npc("010_cr_undead_wight1",0.5);
 			break;			
 		default:
-			switch (Random(5)) {
+			switch (Random(6)) {
 				case 0:
 					if (get_area_region() == 5)
 					{
@@ -179,6 +179,10 @@ void main() {
 					break;
 				case 3:
 					spawn_hostile_npc("abr_cr_mb_basilisk");
+					break;
+				case 4:
+					spawn_hostile_npc("bg_hastebear");
+					break;
 				default:
 					spawn_hostile_npc("010_cr_hillgiant");
 					break;
