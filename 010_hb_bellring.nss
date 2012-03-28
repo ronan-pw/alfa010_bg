@@ -6,7 +6,7 @@ const float delay_var = 0.01f;
 
 void play_sound(object s)
 {
-	WriteTimestampedLogEntry("010_Ring: play_sound in "+GetTag(GetArea(s)));
+	//WriteTimestampedLogEntry("010_Ring: play_sound in "+GetTag(GetArea(s)));
 	SoundObjectStop(s);
 	SoundObjectPlay(s);
 }
@@ -16,7 +16,7 @@ void play_sounds(string tag)
 	object s;
 	int i=0;
 
-	WriteTimestampedLogEntry("010_Ring: play_sounds for "+tag);
+	//WriteTimestampedLogEntry("010_Ring: play_sounds for "+tag);
 
 	while ((s = GetLocalObject(OBJECT_SELF,tag+"_"+IntToString(i))) != OBJECT_INVALID) {
 		play_sound(s);
@@ -72,8 +72,8 @@ void main()
 	if (time == 0)
 		time = 12;
 	
-	WriteTimestampedLogEntry("010_Ring: ring "+ t0);
-	WriteTimestampedLogEntry("010_Ring: ring "+ t1);
+	//WriteTimestampedLogEntry("010_Ring: ring "+ t0);
+	//WriteTimestampedLogEntry("010_Ring: ring "+ t1);
 
 	
 	for (i=0; i<time; ++i) {
