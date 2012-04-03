@@ -54,10 +54,11 @@ void main()
 	/* remove fatigue/exhaustion */
 	SetLocalInt(player, "loc_flevel", 0);
 
-	/* 5 minutes after, apply narcotic withdrawl */
-	AssignCommand(player, DelayCommand(TurnsToSeconds(5), ACR_ApplyDrugAddictionEffects(player)));
-	
 	ACR_ModuleOnPlayerRest();
 		
 	// Custom code goes below this line.
+	
+	/* 5 minutes after, apply narcotic withdrawl */
+	AssignCommand(player, DelayCommand(TurnsToSeconds(5), ACR_ApplyDrugAddictionEffects(player)));
+	
 }
