@@ -318,8 +318,10 @@ void _apply_withdrawl_effect(object oPC, int nDrug)
 		nRecover = ACR_GetPersistentInt(oPC, "drg_recovering_"+sTag);
 
 		// possibly remove addiction
-		if ((nRecover > 0) && _check_recovery(oPC, type))
+		if ((nRecover > 0) && _check_recovery(oPC, type)) {
 			_remove_addiction(oPC, nDrug);
+			WriteTimestampedLogEntry("010_drugs_i: " + GetName(oPC) + " has addiction removed from "+_get_drug_tag(nDrug));
+		}
 		
 		ACR_SetPersistentInt(oPC, "drg_recovering_"+sTag, nRecover + 1);
 	}
@@ -327,6 +329,7 @@ void _apply_withdrawl_effect(object oPC, int nDrug)
 		ACR_SetPersistentInt(oPC, "drg_recovering_"+sTag, 0);
 		ApplyEffectFromSource(nDrug + ACR_EFFECT_SOURCE_ADDICT_OFFSET, DURATION_TYPE_PERMANENT, e, oPC);
 		SendMessageToPC(oPC, "A bout of nausea overwhelms you, along with a strange craving.");
+		WriteTimestampedLogEntry("010_drugs_i: " + GetName(oPC) + " has withdrawl symptoms from "+_get_drug_tag(nDrug));
 	}
 }
 
@@ -361,8 +364,10 @@ int _check_drug_addiction(object oPC, int nDrug)
 	b =_check_addiction(oPC, type, TRUE, FALSE);
 
 	// cause addiction to be present
-	if (b)
+	if (b) {
 		_add_addiction(oPC, nDrug);
+		WriteTimestampedLogEntry("010_drugs_i: " + GetName(oPC) + " has new addiction from "+_get_drug_tag(nDrug));
+	}
 	
 
 	// satiate the addiction (remove any negative effects)
