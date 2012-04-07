@@ -46,7 +46,7 @@ void main()
 {
 	object o = OBJECT_SELF;
 	
-    ACR_CreatureOnHeartBeat();
+	ACR_CreatureOnHeartBeat();
 	
 	if (GetLocalInt(o, "tw_travel"))
 	{
@@ -63,6 +63,11 @@ void main()
 		}
 		check_status(o);
 		DelayCommand(3.0,check_status(o));
+	}
+
+	if (GetLocalInt(o, "Fleeing")) {
+		ClearAllActions(TRUE);
+		ActionMoveAwayFromObject(GetLastAttacker(), TRUE, 200.0);
 	}
 
     // Custom code goes here.
