@@ -98,7 +98,7 @@ void main() {
 		case 6:
 		case 7:
 		case 8:
-			switch(Random(13)) {
+			switch(Random(14)) {
 				case 0:
 					spawn_group("constructs");
 					break;
@@ -131,6 +131,9 @@ void main() {
 				case 11:
 					spawn_group("wererat_troupe");
 					break;
+				case 11:
+					spawn_group("orogs");
+					break;
 				default:
 					spawn_group("ooze");
 					
@@ -138,7 +141,7 @@ void main() {
 			break;
 		// difficult (cr 6+)
 		default:
-			switch(Random(15)) {
+			switch(Random(16)) {
 				case 0:
 					spawn_hostile_npc("010_cr_aberration_drider");
 					break;
@@ -176,6 +179,9 @@ void main() {
 					break;
 				case 13:
 					spawn_hostile_npc("010_cr_aber_beholder");
+					break;
+				case 14:
+					spawn_group("kuotoa");
 					break;
 				default:
 					spawn_hostile_npc("abr_cr_ab_mindflayer");
