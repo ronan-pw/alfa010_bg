@@ -53,11 +53,6 @@ void main() {
 	switch(Random(10)) {
 		// easy (cr0-2)
 		case 0:
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
 			switch(Random(14)) {
 				case 0:
 					spawn_group("skeletons_low");
@@ -95,9 +90,9 @@ void main() {
 			}
 			break;
 		// medium (cr3-5)
-		case 6:
-		case 7:
-		case 8:
+		case 1:
+		case 2:
+		case 3:
 			switch(Random(13)) {
 				case 0:
 					spawn_group("constructs");
