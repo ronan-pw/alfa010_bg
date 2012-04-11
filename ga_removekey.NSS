@@ -11,18 +11,8 @@
 void main(string checker)
 {
 
-  object oNPC = OBJECT_SELF;
+  object oNPC = GetObjectByTag("innkey_holder");
   object oInventory = GetItemPossessedBy(oNPC, checker); 
 
-  //if(oInventory != OBJECT_INVALID){ 
-    //CopyItem(oInventory,GetObjectByTag("helm&cloak"));
   DestroyObject(oInventory);
-    //CreateItemOnObject("hc1", GetObjectByTag("host"));
-  //}
-	//if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"magmush"))) return TRUE;
-  
-   // return GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),sItem));
-    
-    //return FALSE;
-
 }

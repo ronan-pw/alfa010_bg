@@ -49,7 +49,9 @@ void main();
 
 void main()
 {
-	object oPC,o,s;
+	object oPC,o,s,storage;
+
+	storage = GetObjectByTag("innkey_holder");
 
 	ACR_AreaOnExit();
 
@@ -57,6 +59,9 @@ void main()
 
 	for (ObjectToInt(o = GetFirstItemInInventory(oPC)); o != OBJECT_INVALID; ObjectToInt(o = GetNextItemInInventory(oPC))) {
  		if (GetLocalInt(o,"REMOVE_ON_AREA_EXIT")) {
+			// Only copy keys to innkey holder
+			if (GetBaseItemType(o) == BASE_ITEM_KEY)
+	 			CopyObject(o,GetLocation(storage),storage); 
  			DestroyObject(o); 
 		}
  	} 
