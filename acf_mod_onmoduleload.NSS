@@ -25,6 +25,7 @@
 
 #include "acr_mod_events_i"
 #include "acr_db_persist_i"
+#include "010_door_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -63,6 +64,8 @@ void main() {
 	DelayCommand(4.0, DestroyObject(oInitialize));
 	DelayCommand(4.1, WriteTimestampedLogEntry("There is no spoon."));
 	
+	DelayCommand(6.0, InitializeDoors());
+
 	SetLocalInt(GetModule(), "ACR_HEALTHMONITOR_GAMEOBJUPDATE_BACKOFF", 1);
 	
 	ExecuteScript("nwnx_craft_init", GetModule());
