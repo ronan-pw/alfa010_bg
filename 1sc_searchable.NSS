@@ -2182,7 +2182,7 @@ void FillContainer(int iChance37, int iChance25one, int iChance25two, int iChanc
 						default:
 						break;
 						}
-					switch (FindSubString(GetTag(oCurrentItem), "abr_book"))
+					switch (FindSubString(GetTag(oCurrentItem), "book"))
 							{ 
 				     		case 0:
 							iAppropriate = 1;
