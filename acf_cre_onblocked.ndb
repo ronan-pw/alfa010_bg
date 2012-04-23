@@ -1,5 +1,5 @@
 NDB V1.0
-0000077 0000011 0004904 0000178 0000237
+0000078 0000011 0004919 0000178 0000237
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -66,17 +66,18 @@ n62 acr_resting_i
 n63 acr_mobloot_i
 n64 acr_spawn_i
 n65 acr_vfx_i
-n66 acr_quest_i
-n67 hench_i0_options
-n68 hench_i0_ai
-n69 npc_onhb
-n70 x2_i0_spells
-n71 ginc_companion
-n72 X0_INC_HENAI
-n73 ginc_behavior
-n74 npc_onper
-n75 acr_creature_i
-N76 acf_cre_onblocked
+n66 acr_report_i
+n67 acr_quest_i
+n68 hench_i0_options
+n69 hench_i0_ai
+n70 npc_onhb
+n71 x2_i0_spells
+n72 ginc_companion
+n73 X0_INC_HENAI
+n74 ginc_behavior
+n75 npc_onper
+n76 acr_creature_i
+N77 acf_cre_onblocked
 s 03 vector
 sf f x
 sf f y
@@ -1620,6 +1621,7 @@ f ffffffff ffffffff 000 i SQL_SUCCESS
 f ffffffff ffffffff 000 s ACR_CID
 f ffffffff ffffffff 000 s ACR_PID
 f ffffffff ffffffff 000 s ACR_SRVADMIN
+f ffffffff ffffffff 000 s ACR_DISABLE_STATISTICS
 f ffffffff ffffffff 000 i ACR_SRVADMIN_INDETERMINITE
 f ffffffff ffffffff 000 i ACR_SRVADMIN_IS_ADMIN
 f ffffffff ffffffff 000 i ACR_SRVADMIN_NOT_ADMIN
@@ -1644,12 +1646,15 @@ f ffffffff ffffffff 000 s ACR_DTH_BODY_RESREF
 f ffffffff ffffffff 000 i ACR_PC_LOCAL_FLAG_PORTAL_IN_PROGRESS
 f ffffffff ffffffff 000 i ACR_PC_LOCAL_FLAG_PORTAL_COMMITTED
 f ffffffff ffffffff 000 i ACR_PC_LOCAL_FLAG_SERVER_TELL_HELP
+f ffffffff ffffffff 000 i ACR_QUERY_LOW_PRIORITY
 f ffffffff ffffffff 000 v ACR_StartAsyncService
+f ffffffff ffffffff 000 v ACR_LoadDatabaseConfiguration
 f ffffffff ffffffff 001 v ACR_AsyncSQLQuery
 fp s
-f ffffffff ffffffff 002 v ACR_AsyncSQLQueryEx
+f ffffffff ffffffff 003 v ACR_AsyncSQLQueryEx
 fp s
 fp o
+fp i
 f ffffffff ffffffff 001 v ACR_SQLQuery
 fp s
 f ffffffff ffffffff 001 i ACR_SQLFetch
@@ -1657,6 +1662,8 @@ fp s
 f ffffffff ffffffff 001 s ACR_SQLGetData
 fp i
 f ffffffff ffffffff 000 i ACR_SQLGetAffectedRows
+f ffffffff ffffffff 001 v ACR_IncrementStatistic
+fp s
 f ffffffff ffffffff 004 v ACR_SetPersistentString
 fp o
 fp s
@@ -1778,7 +1785,8 @@ fp i
 fp o
 fp o
 fp i
-f ffffffff ffffffff 000 v _RunQueryQueue
+f ffffffff ffffffff 001 v _RunQueryQueue
+fp i
 f ffffffff ffffffff 001 i _GetTotalQueuedQueryCount
 fp o
 f ffffffff ffffffff 000 i _GetDatabaseControlFlags
@@ -2291,6 +2299,13 @@ fp i
 f ffffffff ffffffff 002 s SafeGetVariableValueString
 fp o
 fp i
+f ffffffff ffffffff 001 i ACR_GetArmorRulesType
+fp o
+f ffffffff ffffffff 004 o ACR_ApplyEffectAtLocation
+fp i
+fp e0
+fp e2
+fp f
 f ffffffff ffffffff 002 i GetNextEntryInStringList
 fp s
 fp i
@@ -2677,6 +2692,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_LATENCY_CHECK_RESPONSE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_GET_PLAYER_LATENCY
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_DISABLE_CHARACTER_SAVE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_ENABLE_CHARACTER_SAVE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_PAUSE_HEARTBEAT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_CHAT_TELL
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_BROADCAST_NOTIFICATION
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
@@ -2750,6 +2766,8 @@ fp o
 f ffffffff ffffffff 001 i ACR_DisableCharacterSave
 fp o
 f ffffffff ffffffff 001 i ACR_EnableCharacterSave
+fp o
+f ffffffff ffffffff 001 i ACR_PauseHeartbeat
 fp o
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
@@ -7167,6 +7185,16 @@ fp i
 fp f
 f ffffffff ffffffff 001 t0000 _createVectorFromString
 fp s
+f ffffffff ffffffff 001 i GetWealthLevel
+fp o
+f ffffffff ffffffff 001 i GetLowWealth
+fp i
+f ffffffff ffffffff 001 i GetMedWealth
+fp i
+f ffffffff ffffffff 001 i GetHighWealth
+fp i
+f ffffffff ffffffff 001 i GetCutoffWealth
+fp i
 f ffffffff ffffffff 000 f ACR_WLT_SPAWNLOOT_ANCHOR
 f ffffffff ffffffff 000 f ACR_WLT_SPAWNLOOT_MEAN
 f ffffffff ffffffff 000 f ACR_WLT_SPAWNLOOT_STDEV
@@ -7177,6 +7205,8 @@ f ffffffff ffffffff 000 i ACR_WLT_SPAWNGOLD_PERCENT
 f ffffffff ffffffff 000 s _ACR_LOOT_DISABLE
 f ffffffff ffffffff 000 s _ACR_LOOT_CR_MOD
 f ffffffff ffffffff 000 s _ACR_LOOT_MULTIPLIER
+f ffffffff ffffffff 001 v ACR_WealthOnClientEnter
+fp o
 f ffffffff ffffffff 001 i ACR_GetRandomDropValue
 fp o
 f ffffffff ffffffff 002 v ACR_GenerateTreasure
@@ -7188,6 +7218,8 @@ f ffffffff ffffffff 003 v _generateTreasure
 fp o
 fp i
 fp i
+f ffffffff ffffffff 001 v ACR_WealthReportLog
+fp o
 f ffffffff ffffffff 000 s ACR_QST_TABLE
 f ffffffff ffffffff 000 s ACR_QST_NAME
 f ffffffff ffffffff 000 s ACR_QST_LOWER_STATE
@@ -8246,17 +8278,17 @@ l04 0000062 00000088 000000a6
 l04 0000064 000000a6 000000c5
 l04 0000065 000000c5 000000e4
 l04 0000066 000000e4 00000103
-l05 0000125 00000103 00000103
-l05 0000126 00000103 00000103
-l05 0000127 00000103 00000103
 l05 0000128 00000103 00000103
 l05 0000129 00000103 00000103
 l05 0000130 00000103 00000103
+l05 0000131 00000103 00000103
+l05 0000132 00000103 00000103
+l05 0000133 00000103 00000103
 l06 0000234 00000103 00000117
-l07 0000114 00000117 00000117
 l07 0000115 00000117 00000117
 l07 0000116 00000117 00000117
 l07 0000117 00000117 00000117
+l07 0000118 00000117 00000117
 l08 0000051 00000117 00000141
 l08 0000053 00000141 00000167
 l09 0000207 00000167 00000167
@@ -8268,14 +8300,14 @@ l09 0000213 00000167 00000167
 l09 0000214 00000167 00000167
 l10 0000162 00000167 00000194
 l10 0000166 00000194 000001c1
-l11 0000070 000001c1 000001c1
-l11 0000071 000001c1 000001c1
 l11 0000072 000001c1 000001c1
 l11 0000073 000001c1 000001c1
 l11 0000074 000001c1 000001c1
 l11 0000075 000001c1 000001c1
 l11 0000076 000001c1 000001c1
 l11 0000077 000001c1 000001c1
+l11 0000078 000001c1 000001c1
+l11 0000079 000001c1 000001c1
 l12 0000015 000001c1 000001c3
 l12 0000025 000001c3 000001c5
 l12 0000035 000001c5 000001c7
@@ -8438,19 +8470,19 @@ l12 0001627 000002fd 000002ff
 l12 0001637 000002ff 00000301
 l13 0000315 00000301 00000301
 l13 0000316 00000301 00000301
-l76 0000046 00000313 00000319
-l76 0000049 00000319 0000031b
-l75 0000300 0000031b 0000033d
-l75 0000303 0000033d 00000359
-l75 0000304 0000035f 0000036b
-l75 0000306 0000036b 00000395
-l75 0000307 00000395 00000395
-l75 0000308 00000395 000003b5
-l75 0000309 000003b5 000003bb
-l75 0000312 000003c1 000003d4
-l75 0000313 000003da 000003dc
-l75 0000136 000003dc 000003e0
-l75 0000137 000003e0 00000406
-l75 0000138 00000406 00000435
-l75 0000140 00000435 00000477
-l75 0000141 0000047d 00000485
+l77 0000046 00000313 00000319
+l77 0000049 00000319 0000031b
+l76 0000300 0000031b 0000033d
+l76 0000303 0000033d 00000359
+l76 0000304 0000035f 0000036b
+l76 0000306 0000036b 00000395
+l76 0000307 00000395 00000395
+l76 0000308 00000395 000003b5
+l76 0000309 000003b5 000003bb
+l76 0000312 000003c1 000003d4
+l76 0000313 000003da 000003dc
+l76 0000136 000003dc 000003e0
+l76 0000137 000003e0 00000406
+l76 0000138 00000406 00000435
+l76 0000140 00000435 00000477
+l76 0000141 0000047d 00000485

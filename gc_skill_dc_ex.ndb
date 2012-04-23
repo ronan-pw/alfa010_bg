@@ -1,5 +1,5 @@
 NDB V1.0
-0000059 0000011 0003905 0000068 0000294
+0000059 0000011 0003913 0000068 0000294
 n00 ginc_debug
 n01 X0_I0_STRINGLIB
 n02 ginc_param_const
@@ -605,6 +605,7 @@ f ffffffff ffffffff 000 i SQL_SUCCESS
 f ffffffff ffffffff 000 s ACR_CID
 f ffffffff ffffffff 000 s ACR_PID
 f ffffffff ffffffff 000 s ACR_SRVADMIN
+f ffffffff ffffffff 000 s ACR_DISABLE_STATISTICS
 f ffffffff ffffffff 000 i ACR_SRVADMIN_INDETERMINITE
 f ffffffff ffffffff 000 i ACR_SRVADMIN_IS_ADMIN
 f ffffffff ffffffff 000 i ACR_SRVADMIN_NOT_ADMIN
@@ -629,12 +630,15 @@ f ffffffff ffffffff 000 s ACR_DTH_BODY_RESREF
 f ffffffff ffffffff 000 i ACR_PC_LOCAL_FLAG_PORTAL_IN_PROGRESS
 f ffffffff ffffffff 000 i ACR_PC_LOCAL_FLAG_PORTAL_COMMITTED
 f ffffffff ffffffff 000 i ACR_PC_LOCAL_FLAG_SERVER_TELL_HELP
+f ffffffff ffffffff 000 i ACR_QUERY_LOW_PRIORITY
 f ffffffff ffffffff 000 v ACR_StartAsyncService
+f ffffffff ffffffff 000 v ACR_LoadDatabaseConfiguration
 f ffffffff ffffffff 001 v ACR_AsyncSQLQuery
 fp s
-f ffffffff ffffffff 002 v ACR_AsyncSQLQueryEx
+f ffffffff ffffffff 003 v ACR_AsyncSQLQueryEx
 fp s
 fp o
+fp i
 f ffffffff ffffffff 001 v ACR_SQLQuery
 fp s
 f ffffffff ffffffff 001 i ACR_SQLFetch
@@ -642,6 +646,8 @@ fp s
 f ffffffff ffffffff 001 s ACR_SQLGetData
 fp i
 f ffffffff ffffffff 000 i ACR_SQLGetAffectedRows
+f ffffffff ffffffff 001 v ACR_IncrementStatistic
+fp s
 f ffffffff ffffffff 004 v ACR_SetPersistentString
 fp o
 fp s
@@ -763,7 +769,8 @@ fp i
 fp o
 fp o
 fp i
-f ffffffff ffffffff 000 v _RunQueryQueue
+f ffffffff ffffffff 001 v _RunQueryQueue
+fp i
 f ffffffff ffffffff 001 i _GetTotalQueuedQueryCount
 fp o
 f ffffffff ffffffff 000 i _GetDatabaseControlFlags
@@ -1404,6 +1411,13 @@ fp i
 f ffffffff ffffffff 002 s SafeGetVariableValueString
 fp o
 fp i
+f ffffffff ffffffff 001 i ACR_GetArmorRulesType
+fp o
+f ffffffff ffffffff 004 o ACR_ApplyEffectAtLocation
+fp i
+fp e0
+fp e2
+fp f
 f ffffffff ffffffff 002 i GetNextEntryInStringList
 fp s
 fp i
@@ -1827,6 +1841,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_HANDLE_LATENCY_CHECK_RESPONSE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_GET_PLAYER_LATENCY
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_DISABLE_CHARACTER_SAVE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_ENABLE_CHARACTER_SAVE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_PAUSE_HEARTBEAT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_CHAT_TELL
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_BROADCAST_NOTIFICATION
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
@@ -1900,6 +1915,8 @@ fp o
 f ffffffff ffffffff 001 i ACR_DisableCharacterSave
 fp o
 f ffffffff ffffffff 001 i ACR_EnableCharacterSave
+fp o
+f ffffffff ffffffff 001 i ACR_PauseHeartbeat
 fp o
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
@@ -6660,12 +6677,12 @@ l03 0000062 0000008a 000000a8
 l03 0000064 000000a8 000000c7
 l03 0000065 000000c7 000000e6
 l03 0000066 000000e6 00000105
-l04 0000125 00000105 00000105
-l04 0000126 00000105 00000105
-l04 0000127 00000105 00000105
 l04 0000128 00000105 00000105
 l04 0000129 00000105 00000105
 l04 0000130 00000105 00000105
+l04 0000131 00000105 00000105
+l04 0000132 00000105 00000105
+l04 0000133 00000105 00000105
 l05 0000234 00000105 00000119
 l06 0000051 00000119 00000143
 l06 0000053 00000143 00000169
@@ -6919,8 +6936,8 @@ l57 0001135 000022f8 0000234e
 l57 0001138 0000234e 00002380
 l57 0001140 00002380 0000239c
 l57 0001141 000023a2 000023aa
-l20 0001111 000023aa 000023ef
-l20 0001112 000023ef 000023f7
+l20 0001127 000023aa 000023ef
+l20 0001128 000023ef 000023f7
 l57 0001146 000023f7 00002414
 l57 0001147 00002414 00002416
 l57 0001149 00002416 00002424
@@ -6931,9 +6948,9 @@ l57 0001156 00002453 0000249d
 l57 0001157 000024b0 000024c5
 l57 0001156 000024c5 0000250f
 l57 0001158 0000251b 00002523
-l20 0001083 00002523 00002527
-l20 0001085 00002527 00002545
-l20 0001086 00002558 00002582
-l20 0001087 00002588 0000259d
-l20 0001085 0000259d 000025bb
-l20 0001089 000025c7 000025cf
+l20 0001099 00002523 00002527
+l20 0001101 00002527 00002545
+l20 0001102 00002558 00002582
+l20 0001103 00002588 0000259d
+l20 0001101 0000259d 000025bb
+l20 0001105 000025c7 000025cf
