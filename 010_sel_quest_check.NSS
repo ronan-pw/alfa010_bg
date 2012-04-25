@@ -54,5 +54,17 @@ int StartingConditional(string sChain, int nCheck)
 				return TRUE;		
 		}
 	}
+	if(sChain == "member")
+	{
+		object oItem = GetFirstItemInInventory(oPC);
+		while(GetIsObjectValid(oItem))
+		{
+			if(GetStringLeft(GetTag(oItem), 12) == "010_sel_room")
+				return TRUE;
+			else if(GetTag(oItem) == "010_sel_hghprsts")
+				return TRUE;
+			oItem = GetNextItemInInventory(oPC);
+		}
+	}
 	return FALSE;
 }
