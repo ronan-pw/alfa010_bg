@@ -51,14 +51,14 @@ void main();
 
 void main() {
 	object o;
+	effect eff;
 
 	ACR_AreaOnHeartbeat();
 
-	switch (GetLocalInt(OBJECT_SELF, "ACR_AREA_DAMAGE") {
+	switch (GetLocalInt(OBJECT_SELF, "ACR_AREA_DAMAGE")) {
 		case 1:
-			effect eff;
 
-			for (o = GetFirstObjectInArea(OBJECT_SELF); GetIsObjectValid(o); o = GetNextObjectInArea(OBJECT_SELF) {
+			for (o = GetFirstObjectInArea(OBJECT_SELF); GetIsObjectValid(o); o = GetNextObjectInArea(OBJECT_SELF)) {
 				if (GetObjectType(o) != OBJECT_TYPE_CREATURE)
 					continue;
 
