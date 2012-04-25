@@ -50,8 +50,25 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
-    ACR_AreaOnHeartbeat();
+	object o;
 
-    // Custom code goes below this line.
+	ACR_AreaOnHeartbeat();
+
+	switch (GetLocalInt(OBJECT_SELF, "ACR_AREA_DAMAGE") {
+		case 1:
+			effect eff;
+
+			for (o = GetFirstObjectInArea(OBJECT_SELF); GetIsObjectValid(o); o = GetNextObjectInArea(OBJECT_SELF) {
+				if (GetObjectType(o) != OBJECT_TYPE_CREATURE)
+					continue;
+
+				eff = EffectDamage(1, DAMAGE_TYPE_FIRE);
+				ApplyEffectToObject(DURATION_TYPE_INSTANT, eff, o, 0.0f);
+			}
+			break;
+		default:
+			break;
+        
+	}
 
 }
