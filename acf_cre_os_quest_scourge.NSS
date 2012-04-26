@@ -61,7 +61,7 @@ void main()
 	}
 
 	// kludge
-	o = GetNearestObjectByTag("fai_scourge_quest");
+	o = GetNearestObjectByTag("fai_scourge_quest_trig");
 	SetLocalString(o,"ACR_QST_NAME","");
 	SetLocalString(o,"ACR_QST_LOWER_STATE","0");
 	SetLocalString(o,"ACR_QST_UPPER_STATE","0");
