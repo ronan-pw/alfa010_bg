@@ -253,11 +253,11 @@ string GetNaturalHairColor(object oCharacter)
 		if (sHair == "")
 		{
 			string sCurrentHair = GetRawHairTintSet(oCharacter);
-			ACR_SQLQuery("UPDATE characters SET NaturalHair='"+sCurrentHair+"' WHERE ID='"+sCID+"'");
 			sHair = sCurrentHair;
 		}
 		
 
+		ACR_AsyncSQLQueryEx("UPDATE characters SET NaturalHair='"+ACR_SQLEncodeSpecialChars(sHair)+"' WHERE ID='"+sCID+"'", oCharacter, ACR_QUERY_LOW_PRIORITY);
 		SetLocalString(oTool, "ACR_VANITY_NATHAIR", sHair);
 	}
 
@@ -279,13 +279,13 @@ int GetRandomHairModel(int nSubrace, int nGender=0)
 		case RACIAL_SUBTYPE_SUN_ELF: 
 		case RACIAL_SUBTYPE_WOOD_ELF:
 		case RACIAL_SUBTYPE_DROW: 
-			res = UniformRandomOverInterval("[1-17,61-64,66-75,80-82,94][1-17,50-52,61-64,66-78,80-82,85-90,94]", nGender);
+			res = UniformRandomOverInterval("[1-14,16,17,61-64,66-75,80-82,94][1-14,16,17,50-52,61-64,66-78,80-82,85-90,94]", nGender);
 			break;
 		case RACIAL_SUBTYPE_WILD_ELF:  
 			res = UniformRandomOverInterval("[1-3,75,80,81,83]");
 			break;
 		case RACIAL_SUBTYPE_ROCK_GNOME:
-			res = UniformRandomOverInterval("[1-17,94][1-17,50-52,73,80-82,94]", nGender);
+			res = UniformRandomOverInterval("[1-8,10-14,16,17,94][1-14,16,17,50-52,73,80-82,94]", nGender);
 			break;
 		case RACIAL_SUBTYPE_GRAY_DWARF:
 		case RACIAL_SUBTYPE_SVIRFNEBLIN:
@@ -294,12 +294,12 @@ int GetRandomHairModel(int nSubrace, int nGender=0)
 		case RACIAL_SUBTYPE_HUMAN:
 		case RACIAL_SUBTYPE_HALFELF:
 		case RACIAL_SUBTYPE_HALFDROW:
-			res = UniformRandomOverInterval("[1-17,37,38,63,66,71-75,80-82,94][1-17,23,24,50-52,61-64,66-78,80-82,85-90,94]", nGender);
+			res = UniformRandomOverInterval("[1-8,10-14,16,17,37,38,63,66,71-75,80-82,94][1-14,16,17,23,24,50-52,61-64,66-78,80-82,85-90,94]", nGender);
 			break;
 		case RACIAL_SUBTYPE_LIGHTFOOT_HALF:
 		case RACIAL_SUBTYPE_GHOSTWISE_HALF:
 		case RACIAL_SUBTYPE_STRONGHEART_HALF:
-			res = UniformRandomOverInterval("[1-19,66,74,75,94][1-17,19,51-56,23,24,50-52,66,73-78,80,94]", nGender);
+			res = UniformRandomOverInterval("[1-8,10-14,16-19,66,74,75,94][1-14,16,17,19,51-56,23,24,50-52,66,73-78,80,94]", nGender);
 			break;
 		case RACIAL_SUBTYPE_HALFORC:
 		case RACIAL_SUBTYPE_GRAYORC:
@@ -318,7 +318,7 @@ int GetRandomHairModel(int nSubrace, int nGender=0)
 			res = UniformRandomOverInterval("[1-18,94][1-19,73,94]", nGender);
 			break;
 		case RACIAL_SUBTYPE_AASIMAR:
-			res = UniformRandomOverInterval("[1-17,37,38,63,66,71-75,80-82,94][1-17,23,24,50-52,61-64,67-78,80-82,85-90,94]", nGender);
+			res = UniformRandomOverInterval("[1-8,10-14,16,17,37,38,63,66,71-75,80-82,94][1-14,16,17,23,24,50-52,61-64,67-78,80-82,85-90,94]", nGender);
 			break;
 	}
 
@@ -523,7 +523,7 @@ string GetValidHeadModels(int nSubrace, int nGender=0)
 
 string GetRandomTint(int nSubrace, int nColumn, int nElement=ACR_FEATURE_TYPE_RANDOM)
 {
-	string s2DA,sRet;
+	string s2DA, sRet;
 	string sColumn;
 	if (nElement == -1 || nElement == ACR_FEATURE_TYPE_RANDOM)
 		nElement = Random(ACR_NUM_DEFAULT_FEATURE_COLOURS);
@@ -629,6 +629,8 @@ string GetRandomTint(int nSubrace, int nColumn, int nElement=ACR_FEATURE_TYPE_RA
 	
 	sRet = Get2DAString(s2DA, sColumn, nElement);
 
+	// Just spit out a random tinting if there is none so far
+	// Note: this can result in "rainbow" goblins...
 	if (sRet == "") {
 		int i = (Random(256) << 16);
 		i += (Random(256) << 8);
@@ -687,16 +689,6 @@ void ACR_RandomizeAppearance(object oSpawn,int nHead = ACR_FEATURE_TYPE_RANDOM,i
 	string sBHair = GetRandomTint(nSubrace, 6, nBHair);
 
 #ifdef _DEBUG_ZS
-	PrintInt(nAppearance);
-	PrintInt(nHeadModel);
-	PrintInt(nHairModel);
-	PrintString(sHair1);
-	PrintString(sHair2);
-	PrintString(sAHair);
-	PrintString(sBHair);
-	PrintString(sEyes);
-	PrintString(sSkin);
-
 	SetLocalInt(oSpawn, "ZS_APP_TYPE", nAppearance);
 	SetLocalInt(oSpawn, "ZS_MODEL_HEAD", nHeadModel);
 	SetLocalInt(oSpawn, "ZS_MODEL_HAIR", nHairModel);
@@ -728,9 +720,9 @@ void ACR_RandomizeAppearance(object oSpawn,int nHead = ACR_FEATURE_TYPE_RANDOM,i
 	float fEyesg  = HexStringToFloat(GetStringLeft(GetStringRight(sEyes, 4), 2)) / 255.0f;
 	float fEyesb  = HexStringToFloat(GetStringRight(sEyes, 2)) / 255.0f;	
 
-	float fBHairr = HexStringToFloat(GetStringLeft(sEyes, 2)) / 255.0f;
-	float fBHairg = HexStringToFloat(GetStringLeft(GetStringRight(sEyes, 4), 2)) / 255.0f;
-	float fBHairb = HexStringToFloat(GetStringRight(sEyes, 2)) / 255.0f;
+	float fBHairr = HexStringToFloat(GetStringLeft(sBHair, 2)) / 255.0f;
+	float fBHairg = HexStringToFloat(GetStringLeft(GetStringRight(sBHair, 4), 2)) / 255.0f;
+	float fBHairb = HexStringToFloat(GetStringRight(sBHair, 2)) / 255.0f;
 
 	// Models
 	XPObjectAttributesSetHeadVariation(oSpawn, nHeadModel);
@@ -769,6 +761,7 @@ void ResetModel(object o)
 	e = EffectPolymorph(POLYMORPH_TYPE_CHICKEN,1);
 	ApplyEffectToObject(DURATION_TYPE_TEMPORARY, e, o, 0.0f);
 	DelayCommand(0.1f,SetScriptHidden(o,0));
+
 	DeleteLocalInt(o, "ACR_APP_TYPE");
 }
 
@@ -908,6 +901,27 @@ void ApplyTintToType(object o)
 			break;
 	}
 
+#if _DEBUG_ZS
+	SendMessageToPC(o,"0: ("+
+			FloatToString(tints.Tint0_r)+","+
+			FloatToString(tints.Tint0_g)+","+
+			FloatToString(tints.Tint0_b)+","+
+			FloatToString(tints.Tint0_a)+")");
+
+	SendMessageToPC(o,"1: ("+
+			FloatToString(tints.Tint1_r)+","+
+			FloatToString(tints.Tint1_g)+","+
+			FloatToString(tints.Tint1_b)+","+
+			FloatToString(tints.Tint1_a)+")");
+
+	SendMessageToPC(o,"2: ("+
+			FloatToString(tints.Tint2_r)+","+
+			FloatToString(tints.Tint2_g)+","+
+			FloatToString(tints.Tint2_b)+","+
+			FloatToString(tints.Tint2_a)+")");
+#endif
+
+
 	r = GetLocalInt(o, "ACR_APP_TINT_R") / 255.0f;
 	g = GetLocalInt(o, "ACR_APP_TINT_G") / 255.0f;
 	b = GetLocalInt(o, "ACR_APP_TINT_B") / 255.0f;
@@ -940,6 +954,26 @@ void ApplyTintToType(object o)
 			tints.Tint2_a = a;
 			break;
 	}
+
+#if _DEBUG_ZS
+	SendMessageToPC(o,"0: ("+
+			FloatToString(tints.Tint0_r)+","+
+			FloatToString(tints.Tint0_g)+","+
+			FloatToString(tints.Tint0_b)+","+
+			FloatToString(tints.Tint0_a)+")");
+
+	SendMessageToPC(o,"1: ("+
+			FloatToString(tints.Tint1_r)+","+
+			FloatToString(tints.Tint1_g)+","+
+			FloatToString(tints.Tint1_b)+","+
+			FloatToString(tints.Tint1_a)+")");
+
+	SendMessageToPC(o,"2: ("+
+			FloatToString(tints.Tint2_r)+","+
+			FloatToString(tints.Tint2_g)+","+
+			FloatToString(tints.Tint2_b)+","+
+			FloatToString(tints.Tint2_a)+")");
+#endif
 
 
 	switch (GetLocalInt(o, "ACR_APP_TYPE")) {
