@@ -52,11 +52,16 @@ void main();
 void main() {
     ACR_PlaceableOnUnlock();
 
+    if (GetLocalInt(OBJECT_SELF, "unlocked"))
+	    return;
+
 	if(GetLocalInt(OBJECT_SELF, "Average_Trap") == 1)
 		{CreateItemOnObject("nw_it_gold001", OBJECT_SELF, Random(25) + 10);
 		}
 	else
 		{CreateItemOnObject("nw_it_gold001", OBJECT_SELF, Random(10) + 10);
 		}
+
+	SetLocalInt(OBJECT_SELF, "unlocked", 1);
 	// Custom code goes here.
 }

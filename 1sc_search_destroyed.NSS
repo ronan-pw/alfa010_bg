@@ -16,7 +16,7 @@ void main()
 	// Do a search check that finds (most) items in the
 	// chest, and place them in the chest so they will
 	// drop on the floor.
-	SearchChest(20);
+	SearchChest(17);
 	if (GetTag(OBJECT_SELF) == "dotr_sarcophagus")
 	{
 		CreateObject(OBJECT_TYPE_CREATURE, "003_cr_ud_mummy", GetLocation(OBJECT_SELF));

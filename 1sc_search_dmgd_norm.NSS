@@ -43,7 +43,7 @@ void main()
 			if(GetBaseItemType(oBrokenItem) != BASE_ITEM_GOLD)
 				{
 				DestroyObject(oBrokenItem);
-				SpeakString("Something breaks inside the container");
+				SpeakString("Something breaks inside the container.");
 				CreateItemOnObject("n2_it_brokenitem",OBJECT_SELF);
 				SetLocalInt(OBJECT_SELF, ("item_dc" + IntToString(iCurrentSearchFor)), 999);
 				}

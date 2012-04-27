@@ -140,12 +140,12 @@ void main()
 	iDisableDC = GetLocalInt(oChest, "iDisableDC");
 						
 	if (iDetectDC == 0) {
-		iDetectDC = 15 + Random(11) - Random(11) + (5 * nTrap_Power);
+		iDetectDC = 10 + Random(11) - Random(11) + (5 * nTrap_Power);
 		SetLocalInt(oChest, "iDetectDC", iDetectDC);
 	}
 						 
 	if (iDisableDC == 0) {
-		iDisableDC = 20 + Random(11) - Random(11) + (5 * nTrap_Power);
+		iDisableDC = 15 + Random(11) - Random(11) + (5 * nTrap_Power);
 		SetLocalInt(oChest, "iDisableDC", iDisableDC);
 	}
 						
