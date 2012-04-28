@@ -31,6 +31,7 @@
 #include "acr_spelltrack_i"
 #include "acr_tradescroll_i"
 #include "acr_wildmagic_i"
+#include "acr_craft_progress_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -64,6 +65,11 @@ void main()
 	int nItemType = GetBaseItemType(oItem);
 	effect eFailure = EffectSpellFailure(100);
 	int nRes;
+
+	// Crafting hooks.
+	if(ACR_CraftingSpellhook(oCaster, oTarget, oItem, nSpellId))
+		return;
+
 
 	// Hook spells cast by wizards at spellbooks for tradescrolls.
 	_DoTradeScrollSpellHook();	
