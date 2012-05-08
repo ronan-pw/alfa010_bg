@@ -1,39 +1,39 @@
 NDB V1.0
-0000067 0000009 0004448 0000014 0000056
+0000068 0000010 0004466 0000014 0000060
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
 n03 nwn2_inc_talent
 n04 acr_debug_i
-n05 acr_server_ipc_i
-n06 dmfi_inc_conv
-n07 x0_i0_campaign
-n08 nw_i0_generic
-n09 acr_it_persist_i
-n10 acr_death_i
-n11 x0_i0_debug
-n12 x0_i0_match
-n13 x0_i0_assoc
-n14 x2_inc_switches
-n15 x0_i0_equip
-n16 ginc_2da
-n17 ginc_event_handlers
-n18 x0_i0_talent
-n19 x0_i0_combat
-n20 x0_i0_spawncond
-n21 acr_vfx_i
-n22 acr_array_i
-n23 nwnx_include
-n24 acr_queue_i
-n25 acr_settings_i
-n26 acr_db_persist_i
-n27 acr_i
-n28 x0_i0_position
-n29 ginc_math
-n30 acr_tools_i
-n31 acr_spelltrack_i
-n32 acr_1984_i
-n33 acr_time_i
+n05 acr_time_i
+n06 acr_server_ipc_i
+n07 dmfi_inc_conv
+n08 x0_i0_campaign
+n09 nw_i0_generic
+n10 acr_it_persist_i
+n11 acr_death_i
+n12 x0_i0_debug
+n13 x0_i0_match
+n14 x0_i0_assoc
+n15 x2_inc_switches
+n16 x0_i0_equip
+n17 ginc_2da
+n18 ginc_event_handlers
+n19 x0_i0_talent
+n20 x0_i0_combat
+n21 x0_i0_spawncond
+n22 acr_vfx_i
+n23 acr_array_i
+n24 nwnx_include
+n25 acr_queue_i
+n26 acr_settings_i
+n27 acr_db_persist_i
+n28 acr_i
+n29 x0_i0_position
+n30 ginc_math
+n31 acr_tools_i
+n32 acr_spelltrack_i
+n33 acr_1984_i
 n34 acr_portal_i
 n35 dmfi_inc_sendtex
 n36 dmfi_inc_tool
@@ -60,13 +60,14 @@ n56 acr_effects_i
 n57 acr_xp_i
 n58 acr_skills_i
 n59 acr_resting_i
-n60 acr_mobloot_i
-n61 acr_spawn_i
-n62 acr_seamlessat_i
-n63 acr_quest_i
-n64 acr_area_i
-n65 acr_trigger_i
-N66 acf_trg_onheartbeat
+n60 acr_list_i
+n61 acr_mobloot_i
+n62 acr_spawn_i
+n63 acr_seamlessat_i
+n64 acr_quest_i
+n65 acr_area_i
+n66 acr_trigger_i
+N67 acf_trg_onheartbeat
 s 03 vector
 sf f x
 sf f y
@@ -97,6 +98,11 @@ sf o oTarget
 s 02 EldritchShape
 sf i nSpell
 sf o oTarget
+s 04 DateStruct
+sf i year
+sf i month
+sf i day
+sf i holiday
 s 06 ACR_SERVER_IPC_EVENT
 sf i SourcePlayerID
 sf i SourceServerID
@@ -2240,6 +2246,10 @@ fp s
 f ffffffff ffffffff 002 i IsElementInStringList
 fp s
 fp i
+f ffffffff ffffffff 001 s RacialTypeName
+fp i
+f ffffffff ffffffff 001 s SubRaceName
+fp i
 f ffffffff ffffffff 002 f atan2
 fp f
 fp f
@@ -2507,7 +2517,7 @@ f ffffffff ffffffff 000 i ACR_GetFRMonth
 f ffffffff ffffffff 000 i ACR_GetFRDay
 f ffffffff ffffffff 000 i ACR_GetFRTenday
 f ffffffff ffffffff 000 i ACR_GetFRHoliday
-f ffffffff ffffffff 003 s ACR_ConvertDate
+f ffffffff ffffffff 003 t0006 ACR_ConvertDate
 fp i
 fp i
 fp i
@@ -2539,7 +2549,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_SHUTDOWN_SERVER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
-fp t0006
+fp t0007
 f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
 f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
 fp o
@@ -5863,7 +5873,7 @@ f ffffffff ffffffff 001 i GetHPPercentage
 fp o
 f ffffffff ffffffff 001 i GetCastingMode
 fp i
-f ffffffff ffffffff 007 t0007 CreateTactics
+f ffffffff ffffffff 007 t0008 CreateTactics
 fp i
 fp i
 fp i
@@ -5875,20 +5885,20 @@ f ffffffff ffffffff 003 i TryClassTactic
 fp o
 fp i
 fp i
-f ffffffff ffffffff 004 t0007 CalculateTacticsByClass
-fp t0007
+f ffffffff ffffffff 004 t0008 CalculateTacticsByClass
+fp t0008
 fp o
 fp i
 fp i
-f ffffffff ffffffff 006 t0007 CalculateTactics
-fp t0007
+f ffffffff ffffffff 006 t0008 CalculateTactics
+fp t0008
 fp o
 fp f
 fp i
 fp i
 fp i
 f ffffffff ffffffff 007 i DetermineActionFromTactics
-fp t0007
+fp t0008
 fp o
 fp f
 fp i
@@ -6665,6 +6675,7 @@ fp i
 fp i
 fp i
 fp i
+f ffffffff ffffffff 000 i FEAT_ENDURANCE
 f ffffffff ffffffff 000 i ACR_REST_ENABLED
 f ffffffff ffffffff 000 s ACR_REST_EFFECT_SOURCE
 f ffffffff ffffffff 000 s ACR_REST_FLAGS
@@ -6777,6 +6788,59 @@ fp o
 f ffffffff ffffffff 001 i _playerHasBedroll
 fp o
 f ffffffff ffffffff 001 i _playerHasTent
+fp o
+f ffffffff ffffffff 001 o _check_object
+fp o
+f ffffffff ffffffff 002 i _get_index
+fp s
+fp o
+f ffffffff ffffffff 002 v _incr_index
+fp s
+fp o
+f ffffffff ffffffff 003 v _incr_count
+fp s
+fp i
+fp o
+f ffffffff ffffffff 002 i ACR_ListGetCount
+fp s
+fp o
+f ffffffff ffffffff 003 i ACR_ListGetNextIndex
+fp s
+fp i
+fp o
+f ffffffff ffffffff 003 i ACR_ListGetPrevIndex
+fp s
+fp i
+fp o
+f ffffffff ffffffff 003 o ACR_ListGetElementObject
+fp s
+fp i
+fp o
+f ffffffff ffffffff 004 v ACR_ListSetElementObject
+fp s
+fp i
+fp o
+fp o
+f ffffffff ffffffff 003 i ACR_ListInsertAfterIndex
+fp s
+fp i
+fp o
+f ffffffff ffffffff 003 v ACR_ListRemoveAtIndex
+fp s
+fp i
+fp o
+f ffffffff ffffffff 002 i ACR_ListGetFirstIndex
+fp s
+fp o
+f ffffffff ffffffff 002 i ACR_ListRemoveAtTail
+fp s
+fp o
+f ffffffff ffffffff 003 i ACR_ListRemoveAtElementObject
+fp s
+fp o
+fp o
+f ffffffff ffffffff 002 s ACR_ListToString
+fp s
 fp o
 f ffffffff ffffffff 000 i ACR_PSO_RECORD_USERS
 f ffffffff ffffffff 000 i _ACR_PSO_EXPORT_PC_ONSAVE
@@ -7411,30 +7475,34 @@ l04 0000062 00000088 000000a6
 l04 0000064 000000a6 000000c5
 l04 0000065 000000c5 000000e4
 l04 0000066 000000e4 00000103
-l05 0000128 00000103 00000103
-l05 0000129 00000103 00000103
-l05 0000130 00000103 00000103
-l05 0000131 00000103 00000103
-l05 0000132 00000103 00000103
-l05 0000133 00000103 00000103
-l06 0000234 00000103 00000117
-l07 0000051 00000117 00000141
-l07 0000053 00000141 00000167
-l08 0000207 00000167 00000167
-l08 0000208 00000167 00000167
-l08 0000209 00000167 00000167
-l08 0000210 00000167 00000167
-l08 0000211 00000167 00000167
-l08 0000213 00000167 00000167
-l08 0000214 00000167 00000167
-l09 0000115 00000167 00000167
-l09 0000116 00000167 00000167
-l09 0000117 00000167 00000167
-l09 0000118 00000167 00000167
-l10 0000162 00000167 00000194
-l10 0000166 00000194 000001c1
-l66 0000047 000001d3 000001d9
-l66 0000060 000001d9 000001db
-l65 0000118 000001db 000001e7
-l65 0000119 000001e7 000001e9
-l21 0000467 000001e9 000001f1
+l05 0000074 00000103 00000103
+l05 0000075 00000103 00000103
+l05 0000076 00000103 00000103
+l05 0000077 00000103 00000103
+l06 0000128 00000103 00000103
+l06 0000129 00000103 00000103
+l06 0000130 00000103 00000103
+l06 0000131 00000103 00000103
+l06 0000132 00000103 00000103
+l06 0000133 00000103 00000103
+l07 0000234 00000103 00000117
+l08 0000051 00000117 00000141
+l08 0000053 00000141 00000167
+l09 0000207 00000167 00000167
+l09 0000208 00000167 00000167
+l09 0000209 00000167 00000167
+l09 0000210 00000167 00000167
+l09 0000211 00000167 00000167
+l09 0000213 00000167 00000167
+l09 0000214 00000167 00000167
+l10 0000116 00000167 00000167
+l10 0000117 00000167 00000167
+l10 0000118 00000167 00000167
+l10 0000119 00000167 00000167
+l11 0000162 00000167 00000194
+l11 0000166 00000194 000001c1
+l67 0000047 000001d3 000001d9
+l67 0000060 000001d9 000001db
+l66 0000118 000001db 000001e7
+l66 0000119 000001e7 000001e9
+l22 0000467 000001e9 000001f1
