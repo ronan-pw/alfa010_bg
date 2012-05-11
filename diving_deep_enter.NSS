@@ -58,10 +58,16 @@ void main()
 	  }
 	  else if ((randflag == 99)){
 	  
-	       switch( d4(1))
+	       switch( Random(6))
 	         {
-	                    case 1: CreateItemOnObject("cft_gem_pearl",oPC); 
-						        SendMessageToPC(oPC, "You find a pearl!"); 
+			   case 0:
+				CreateItemOnObject("cft_gem_pearl",oPC); 
+				SendMessageToPC(oPC, "You find a magnificant pearl!"); 
+								break;
+	                    case 3:
+	                    case 4:
+								CreateItemOnObject("abr_it_gem_078",oPC); 
+								SendMessageToPC(oPC, "You find a fine pearl!"); 
 								break;
 	                    case 2: CreateObject(OBJECT_TYPE_CREATURE,"abr_cr_gt_troll_saltwater",GetLocation(oPC));
 								SendMessageToPC(oPC, "An enormous troll emerges from the depths.");

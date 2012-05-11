@@ -10,14 +10,11 @@ int enter_water(object o, int depth=0, int flowing=1)
 	effect eBlind,eDeaf,eVis;
 	int damage,dc;
 
-	if (GetFirstObjectInArea() == OBJECT_INVALID)
-		return 0;
-
 	if (!GetIsPC(o)) 
 		return 0;
 
 	if (GetWeight(o) >= SWIM_MAX_WEIGHT) {
-		SendMessageToPC(o, "You are carrying too much to move well in the water and it saps your strength."); 
+		SendMessageToPC(o, "You are carrying too much to move well in the deep water and it saps your strength."); 
 		ACR_ApplyNonlethalDamageToCreature(o,d8());
 	}
 
@@ -28,9 +25,10 @@ int enter_water(object o, int depth=0, int flowing=1)
 		eBlind = EffectLinkEffects(eBlind, eDeaf);
 		eBlind = EffectLinkEffects(eBlind, eVis);
 		ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eBlind, o, SWIM_EFFECT_TIME);
+		SendMessageToPC(o, "The waves lap over you, severly restricting your hearing and visibility.");
 	}
 
-	ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectSlow(), o, SWIM_EFFECT_TIME);
+	/*ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectSlow(), o, SWIM_EFFECT_TIME);
 
 	switch (depth) {
 		case 0:
@@ -51,10 +49,9 @@ int enter_water(object o, int depth=0, int flowing=1)
 
 	if (!ACR_SkillCheck(SKILL_SWIM, o, dc)) {  
 		ACR_ApplyNonlethalDamageToCreature(o, damage);
-	}
 
-	SendMessageToPC(o, "The cold, motion, and swell of the water wears on you.");
+		SendMessageToPC(o, "The cold, motion, and swell of the water wears on you.");
+	}*/
 
 	return 1;
 }
-
