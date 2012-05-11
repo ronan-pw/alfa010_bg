@@ -73,9 +73,15 @@ void main()
 			ActionMoveAwayFromObject(attacker, TRUE, 200.0);
 			return;
 		}
+
+		/* swap to hostile faction */
+		if (GetLocalInt(OBJECT_SELF,"ACR_CRE_WILD_ANIMAL")) {
+			ChangeFaction(OBJECT_SELF, GetObjectByTag("animal_faction_pig"));
+
+		}
 			
 		ActionAttack(attacker);
 		DelayCommand(delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
-		DelayCommand(5*delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
+		// DelayCommand(5*delay,AssignCommand(OBJECT_SELF,ActionAttack(attacker)));
 	}
 }
