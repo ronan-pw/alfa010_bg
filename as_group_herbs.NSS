@@ -66,13 +66,13 @@ void main() {
 			ACR_SpawnObject("010_herb_shroom0", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 8:
-			ACR_SpawnObject("010_spell0", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_spell0", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 9:
-			ACR_SpawnObject("010_herb2", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_herb2", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 10:
-			ACR_SpawnObject("010_herb3", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_herb3", OBJECT_TYPE_PLACEABLE);
 			break;
 		default:
 

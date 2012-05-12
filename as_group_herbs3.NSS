@@ -85,10 +85,10 @@ switch(Random(5)) {
 					ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
 				}
 				else if (nRand < 75) {
-					ACR_SpawnObject("010_shroom2", OBJECT_TYPE_PLACEABLE);
+					ACR_SpawnObject("010_herb_shroom2", OBJECT_TYPE_PLACEABLE);
 				}
 				else {
-					ACR_SpawnObject("010_shroom1", OBJECT_TYPE_PLACEABLE);
+					ACR_SpawnObject("010_herb_shroom1", OBJECT_TYPE_PLACEABLE);
 				}
 				break;
 

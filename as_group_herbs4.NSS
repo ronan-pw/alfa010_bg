@@ -54,22 +54,22 @@ void main() {
 
 	switch (Random(7)) {
 		case 0:
-			ACR_SpawnObject("010_spell0", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_spell0", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 1:
-			ACR_SpawnObject("010_spell1", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 2:
-			ACR_SpawnObject("010_spell2", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_spell2", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 3:
-			ACR_SpawnObject("010_shroom0", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_shroom0", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 4:
-			ACR_SpawnObject("010_shroom1", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_shroom1", OBJECT_TYPE_PLACEABLE);
 			break;
 		case 5:
-			ACR_SpawnObject("010_shroom2", OBJECT_TYPE_PLACEABLE);
+			ACR_SpawnObject("010_herb_shroom2", OBJECT_TYPE_PLACEABLE);
 			break;
 		default:
 
