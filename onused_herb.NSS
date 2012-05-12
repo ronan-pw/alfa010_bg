@@ -7,7 +7,7 @@ void main()
 	oPC = GetLastUsedBy();
 
 	// Prevent re-rolls
-	if (GetLocalInt(oTarget, "HERB_" + ObjectToString(oPC))) {
+	if (GetLocalInt(OBJECT_SELF, "HERB_" + ObjectToString(oPC))) {
 		SendMessageToPC(oPC, "You see nothing worth harvesting.");
 		return;
 	}
@@ -98,7 +98,7 @@ void main()
 		((GetSkillRank(SKILL_SPELLCRAFT, oPC, TRUE) < nSurv) && nSpell != 0))
 	{
 		SendMessageToPC(oPC, sMsg);
-		SetLocalInt(oTarget, "HERB_" + ObjectToString(oPC), 1);
+		SetLocalInt(OBJECT_SELF, "HERB_" + ObjectToString(oPC), 1);
 		return;
 	}
 	

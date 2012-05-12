@@ -52,16 +52,38 @@ void main() {
 
 	int spawned = 1;
 
-	if(Random(5) > 0)
-		ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);
-	else if(Random(10) > 2)
-		ACR_SpawnObject("batguanopile", OBJECT_TYPE_PLACEABLE);
-	else if(Random(10) < 1)
-		ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);
-	else
-		spawned = 0;
+	switch (Random(14)) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			ACR_SpawnObject("010_herb_shroom1", OBJECT_TYPE_PLACEABLE);
+			break;
+		case 5:
+		case 6:
+		case 7:
+			ACR_SpawnObject("010_herb_shroom0", OBJECT_TYPE_PLACEABLE);
+			break;
+		case 8:
+			ACR_SpawnObject("010_spell0", OBJECT_TYPE_PLACEABLE);
+			break;
+		case 9:
+			ACR_SpawnObject("010_herb2", OBJECT_TYPE_PLACEABLE);
+			break;
+		case 10:
+			ACR_SpawnObject("010_herb3", OBJECT_TYPE_PLACEABLE);
+			break;
+		default:
+
+			if (Random(10) < 1)
+				ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
+			else
+				spawned = 0;
+			
+			break;
+	}
 
 	if (spawned && (!Random(5)))
 		ACR_DestroySpawnPoint(OBJECT_SELF);
- 
 }
