@@ -16,6 +16,11 @@ int StartingConditional()
 	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"magmush"))) return TRUE;
 	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"seaweed"))) return TRUE;
 	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_cassil"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_garnishcap"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_garclive"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_elderberry"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_henbane"))) return TRUE;
+	if(GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),"it_skullcap"))) return TRUE;
   
    // return GetIsObjectValid(GetItemPossessedBy(GetPCSpeaker(),sItem));
     

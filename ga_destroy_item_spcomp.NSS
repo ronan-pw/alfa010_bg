@@ -11,10 +11,10 @@
 #include "nw_i0_plot"
 #include "acr_xp_i"
 
-int Gxp = 0;
+float Gxp = 0.0f;
 int Ggold = 0;
 
-void DestroyItems(object oTarget,string sItem,int nNumItems,int gold, int xp)
+void DestroyItems(object oTarget,string sItem,int nNumItems,int gold, float xp)
 {
     int nCount = 0;
     object oItem = GetFirstItemInInventory(oTarget);
@@ -23,11 +23,10 @@ void DestroyItems(object oTarget,string sItem,int nNumItems,int gold, int xp)
     {
         if (GetTag(oItem) == sItem)
         {
-            //ActionTakeItem(oItem,oTarget);
-			DestroyObject(oItem,0.0f);
-			Gxp = Gxp + xp;
-			Ggold = Ggold + gold;
-            nCount++;
+		DestroyObject(oItem,0.0f);
+		Gxp += xp;
+		Ggold += gold;
+        	nCount++;
         }
         oItem = GetNextItemInInventory(oTarget);
     }
@@ -38,53 +37,87 @@ void DestroyItems(object oTarget,string sItem,int nNumItems,int gold, int xp)
 
 void main(string sItemTag)
 {
-    int nTotalItem;
-    object oPC = GetPCSpeaker();
-    object oItem;       // Items in inventory
+	int nGP;
+	float fXP;
+	object oPC = GetPCSpeaker(), oItem;       // Items in inventory
+	string sStr;
 
+	sStr = "firerattail";
+	nGP = 5;
+	fXP = 3.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+	
+	sStr = "vampirebatfang";
+	nGP = 8;
+	fXP = 4.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+	
+	sStr = "batguano";
+	nGP = 3;
+	fXP = 2.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+	
+	sStr = "pmoss";
+	nGP = 15;
+	fXP = 10.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+	
+	sStr = "it_sulfur";
+	nGP = 30;
+	fXP = 15.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+	
+	sStr = "it_flashwort";
+	nGP = 20;
+	fXP = 10.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
 
+	sStr = "it_gloomshroom";
+	nGP = 15;
+	fXP = 7.5f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
 
-    nTotalItem = GetNumItems( oPC,"firerattail" );
-    DestroyItems( oPC,"firerattail",nTotalItem,5,3 );
+	sStr = "it_plot_hide_troll";
+	nGP = 50;
+	fXP = 25.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
 	
-	nTotalItem = GetNumItems( oPC,"vampirebatfang" );
-    DestroyItems( oPC,"vampirebatfang",nTotalItem,8,4 );
+	sStr = "010_it_misc_rtooth";
+	nGP = 100;
+	fXP = 50.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
 	
-	nTotalItem = GetNumItems( oPC,"batguano" );
-    DestroyItems( oPC,"batguano",nTotalItem,3,2 );
-	
-	nTotalItem = GetNumItems( oPC,"pmoss" );
-    DestroyItems( oPC,"pmoss",nTotalItem,15,10 );
-	
-	nTotalItem = GetNumItems( oPC,"it_sulfur" );
-    DestroyItems( oPC,"it_sulfur",nTotalItem,20,10 );
-	
-	nTotalItem = GetNumItems( oPC,"it_plot_hide_troll" );
-    DestroyItems( oPC,"it_plot_hide_troll",nTotalItem,50,25 );
-	
-	nTotalItem = GetNumItems( oPC,"010_it_misc_rtooth" );
-    DestroyItems( oPC,"010_it_misc_rtooth",nTotalItem,100,50 );
-	
-	nTotalItem = GetNumItems( oPC,"it_plot_gear_electrum" );
-    DestroyItems( oPC,"it_plot_gear_electrum",nTotalItem,5,3 );
-	
-	nTotalItem = GetNumItems( oPC,"it_plot_gear_gold" );
-    DestroyItems( oPC,"it_plot_gear_gold",nTotalItem,15,8 );
-	
-	nTotalItem = GetNumItems( oPC,"it_plot_gear_platinum" );
-    DestroyItems( oPC,"it_plot_gear_platinum",nTotalItem,50,25 );
-	
-	nTotalItem = GetNumItems( oPC,"it_plot_gear_adamantine" );
-    DestroyItems( oPC,"it_plot_gear_adamantine",nTotalItem,350,75 );
-	
-	nTotalItem = GetNumItems( oPC,"it_misc_ankheg_acid_gland" );
-    DestroyItems( oPC,"it_misc_ankheg_acid_gland",nTotalItem,20,10 );
-	
-	nTotalItem = GetNumItems( oPC,"it_misc_wyvern_stinger" );
-    DestroyItems( oPC,"it_misc_wyvern_stinger",nTotalItem,40,20 );
-     
-    GiveGoldToCreature(oPC,Ggold);
-	ACR_AwardStaticQuestXP(oPC,"Components",Gxp);  
+	sStr = "it_plot_gear_electrum";
+	nGP = 5;
+	fXP = 3.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
+	sStr = "it_plot_gear_gold";
+	nGP = 15;
+	fXP = 7.5f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
+	sStr = "it_plot_gear_platinum";
+	nGP = 100;
+	fXP = 50.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
+	sStr = "it_plot_gear_adamantine";
+	nGP = 350;
+	fXP = 150.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
+	sStr = "it_misc_ankheg_acid_gland";
+	nGP = 20;
+	fXP = 10.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
+	sStr = "it_misc_wyvern_stinger";
+	nGP = 40;
+	fXP = 20.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
+	GiveGoldToCreature(oPC,Ggold);
+	ACR_AwardStaticQuestXP(oPC,"Components",FloatToInt(Gxp)); 
    
-
 }
