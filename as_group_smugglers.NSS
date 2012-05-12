@@ -54,12 +54,19 @@ void main() {
 	int i;
 
 	for (i=0; i<Random(4)+1; ++i) {
-		o = spawn_hostile_npc("thief human male");
+		o = spawn_hostile_npc("010_cr_st_thief00");
 		SetFirstName(o,"Dark Man");
 		SetLastName(o,"");
 	}
 	
-	spawn_hostile_npc("shadow thief",0.5);
+	spawn_hostile_npc("10_ksiel_shadowthief_assaassin01",0.2);
+	
+	if (GetIsObjectValid(o)) {
+		SetFirstName(o,"Shadowy Figure");
+		SetLastName(o,"");
+	}
+
+	spawn_hostile_npc("10_ksiel_shadowthief_assaassin02",0.2);
 	
 	if (GetIsObjectValid(o)) {
 		SetFirstName(o,"Shadowy Figure");
