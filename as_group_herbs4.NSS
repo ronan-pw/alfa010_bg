@@ -50,15 +50,38 @@ void main();
 
 void main() {
 
-if(Random(5) > 2)
- 	{ACR_SpawnObject("010_herb_herb1", OBJECT_TYPE_PLACEABLE);}
-else if(Random(5) > 2)
- 	{ACR_SpawnObject("010_herb_spell2", OBJECT_TYPE_PLACEABLE);}
-else 
-ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
+	int spawned = 1;
 
+	switch (Random(7)) {
+		case 0:
+			ACR_SpawnObject("010_spell0", OBJECT_TYPE_PLACEABLE)
+			break;
+		case 1:
+			ACR_SpawnObject("010_spell1", OBJECT_TYPE_PLACEABLE)
+			break;
+		case 2:
+			ACR_SpawnObject("010_spell2", OBJECT_TYPE_PLACEABLE)
+			break;
+		case 3:
+			ACR_SpawnObject("010_shroom0", OBJECT_TYPE_PLACEABLE)
+			break;
+		case 4:
+			ACR_SpawnObject("010_shroom1", OBJECT_TYPE_PLACEABLE)
+			break;
+		case 5:
+			ACR_SpawnObject("010_shroom2", OBJECT_TYPE_PLACEABLE);
+			break;
+		default:
 
-if (!Random(5))
-	ACR_DestroySpawnPoint(OBJECT_SELF);
+			if (Random(10) < 5)
+				ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
+			else
+				spawned = 0;
+			
+			break;
+	}
+
+	if (spawned && (!Random(5)))
+		ACR_DestroySpawnPoint(OBJECT_SELF);
 
 }

@@ -54,6 +54,8 @@ object oTrap;
 object oCheckTrigger;
 object o;
 
+int nRand;
+
 
 switch(Random(5)) {
 			case 0:
@@ -72,14 +74,25 @@ switch(Random(5)) {
 				break;
 				
 			case 3:
-	            ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
-				break;
+			case 4: 
 				
-			case 4:
-	            ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
+				nRand = Random(100);
+
+				if (nRand < 25) {
+			            ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
+				}
+	            		if (nRand < 50) {
+					ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
+				}
+	            		if (nRand < 75) {
+					ACR_SpawnObject("010_shroom2", OBJECT_TYPE_PLACEABLE);
+				}
+	            		if (nRand < 75) {
+					ACR_SpawnObject("010_shroom1", OBJECT_TYPE_PLACEABLE);
+				}
 				break;
 
-				}
+	}
  
 	if (!Random(5))
 				ACR_DestroySpawnPoint(OBJECT_SELF);
