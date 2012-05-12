@@ -95,7 +95,7 @@ void main()
 
 	if (	((GetSkillRank(SKILL_HEAL, oPC, TRUE) < nHeal) && nHeal != 0) &&
 		((GetSkillRank(SKILL_SURVIVAL, oPC, TRUE) < nSurv) && nSurv != 0) &&
-		((GetSkillRank(SKILL_SPELLCRAFT, oPC, TRUE) < nSurv) && nSpell != 0))
+		((GetSkillRank(SKILL_SPELLCRAFT, oPC, TRUE) < nSpell) && nSpell != 0))
 	{
 		SendMessageToPC(oPC, sMsg);
 		SetLocalInt(OBJECT_SELF, "HERB_" + ObjectToString(oPC), 1);
