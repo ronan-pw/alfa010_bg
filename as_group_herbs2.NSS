@@ -52,11 +52,11 @@ void main() {
 	int spawned = 1;
 
 	if(Random(5) > 2)
-	 	{ACR_SpawnObject("firefern", OBJECT_TYPE_PLACEABLE);}
+	 	{ACR_SpawnObject("010_herb_herb0", OBJECT_TYPE_PLACEABLE);}
 	else if(Random(5) > 2)
-	 	{ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);}
+	 	{ACR_SpawnObject("010_herb_shroom1", OBJECT_TYPE_PLACEABLE);}
 	else if(Random(5) > 3)
-	 	{ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);}
+	 	{ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);}
 	else
 		spawned = 0;
  

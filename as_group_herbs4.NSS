@@ -51,11 +51,11 @@ void main();
 void main() {
 
 if(Random(5) > 2)
- 	{ACR_SpawnObject("pl_cassil", OBJECT_TYPE_PLACEABLE);}
+ 	{ACR_SpawnObject("010_herb_herb1", OBJECT_TYPE_PLACEABLE);}
 else if(Random(5) > 2)
- 	{ACR_SpawnObject("pl_sulfur", OBJECT_TYPE_PLACEABLE);}
+ 	{ACR_SpawnObject("010_herb_spell2", OBJECT_TYPE_PLACEABLE);}
 else 
-ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);
+ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 
 
 if (!Random(5))

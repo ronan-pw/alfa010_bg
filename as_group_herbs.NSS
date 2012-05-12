@@ -53,11 +53,11 @@ void main() {
 	int spawned = 1;
 
 	if(Random(5) > 0)
-		ACR_SpawnObject("magpiemushroom", OBJECT_TYPE_PLACEABLE);
+		ACR_SpawnObject("010_herb_shroom0", OBJECT_TYPE_PLACEABLE);
 	else if(Random(10) > 2)
-		ACR_SpawnObject("batguanopile", OBJECT_TYPE_PLACEABLE);
+		ACR_SpawnObject("010_herb_spell0", OBJECT_TYPE_PLACEABLE);
 	else if(Random(10) < 1)
-		ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);
+		ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 	else
 		spawned = 0;
 

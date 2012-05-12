@@ -72,16 +72,16 @@ switch(Random(5)) {
 				break;
 				
 			case 3:
-	            ACR_SpawnObject("corpse1", OBJECT_TYPE_PLACEABLE);
+	            ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 				break;
 				
 			case 4:
-	            ACR_SpawnObject("pmosspatch", OBJECT_TYPE_PLACEABLE);
+	            ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
 				break;
 
 				}
  
-	if ((!Random(5)))
+	if (!Random(5))
 				ACR_DestroySpawnPoint(OBJECT_SELF);
 
 }
