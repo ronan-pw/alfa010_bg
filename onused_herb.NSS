@@ -1,7 +1,7 @@
 void main()
 {
 	object oPC, resval;
-	int nHeal, nSurv, nSpell;
+	int nHeal, nSurv, nSpell, bHealCheck, bSurvCheck, bSpellCheck;
 	string sMsg, sRef, sTag;
 	
 	oPC = GetLastUsedBy();
@@ -21,8 +21,9 @@ void main()
 		sRef = "magmush";
 	}
 	else if (sTag == "010_herb_shroom1") {
-		nHeal = -1;
-		nSurv = -1;
+		// 1/2 probability of no check 1/2 of simple check
+		nHeal = (Random(2)*2)-1;
+		nSurv = (Random(2)*2)-1;
 		sMsg = "This mushroom looks useful, but it seems to delicate to harvest.";
 		sRef = "it_garnishcap";
 	}
@@ -93,9 +94,14 @@ void main()
 		sRef = "it_skullcap";
 	}
 
-	if (	((GetSkillRank(SKILL_HEAL, oPC, TRUE) < nHeal) || nHeal != 0) &&
-		((GetSkillRank(SKILL_SURVIVAL, oPC, TRUE) < nSurv) || nSurv != 0) &&
-		((GetSkillRank(SKILL_SPELLCRAFT, oPC, TRUE) < nSpell) || nSpell != 0))
+	bHealCheck = GetSkillRank(SKILL_HEAL, oPC, TRUE) >= nHeal;
+	bSurvCheck = GetSkillRank(SKILL_SURVIVAL, oPC, TRUE) >= nSurv;
+	bSpellCheck = GetSkillRank(SKILL_SPELLCRAFT, oPC, TRUE) >= nSpell;
+
+	// If any of the required checks fail, return
+	if (	(!bHealCheck || !nHeal) &&
+		(!bSurvCheck || !nSurv) &&
+		(!bSpellCheck || !nSpell))
 	{
 		SendMessageToPC(oPC, sMsg);
 		SetLocalInt(OBJECT_SELF, "HERB_" + ObjectToString(oPC), 1);
