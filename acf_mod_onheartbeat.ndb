@@ -1,5 +1,5 @@
 NDB V1.0
-0000093 0000017 0005019 0000387 0000994
+0000093 0000017 0005028 0000387 0000994
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -7557,8 +7557,10 @@ fp s
 fp o
 f ffffffff ffffffff 000 s ACR_VERSION
 f ffffffff ffffffff 000 s ACR_HAK_BUILD_DATE
+f ffffffff ffffffff 000 s ACR_HAK_VERSION
 f ffffffff ffffffff 000 s ACR_GetVersion
 f ffffffff ffffffff 000 s ACR_GetBuildDate
+f ffffffff ffffffff 000 s ACR_GetHAKVersion
 f ffffffff ffffffff 000 s ACR_GetHAKBuildDate
 f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_PER_AREA_MAP_CONTROLS
 f ffffffff ffffffff 000 i ACR_SCLIEXT_FEATURE_NO_MAP_ENVIRON
@@ -8467,6 +8469,7 @@ f ffffffff ffffffff 000 s ACR_MOD_STARTARMORX
 f ffffffff ffffffff 000 s ACR_MOD_FIRSTAID_IT
 f ffffffff ffffffff 000 s ACR_MOD_LAST_TELL_TO
 f ffffffff ffffffff 000 s ACR_MOD_LAST_TELL_FROM
+f ffffffff ffffffff 000 s ACR_MOD_SUPPRESS_LANGUAGE
 f ffffffff ffffffff 000 i ACR_MOD_NWNX_FAILED
 f ffffffff ffffffff 000 f ACR_MOD_RELOAD_CYCLE
 f ffffffff ffffffff 000 f ACR_TALK_SPHERE_RADIUS
@@ -8512,14 +8515,47 @@ fp s
 fp i
 fp s
 fp o
-f ffffffff ffffffff 003 i _MouthpieceNotInRange
+f ffffffff ffffffff 003 i _MouthPieceNotInRange
 fp o
 fp o
 fp f
-f ffffffff ffffffff 000 v ACR_ModuleInit_ForceLinkageForCLRScripts
-f ffffffff ffffffff 002 v _ActionSpeakString
+f ffffffff ffffffff 002 v _SpeakString
 fp s
 fp i
+f ffffffff ffffffff 003 v _DistributeTranslationToDMAvatars
+fp s
+fp o
+fp f
+f ffffffff ffffffff 005 v _DistributeTranslationToMouthPiece
+fp s
+fp s
+fp o
+fp f
+fp o
+f ffffffff ffffffff 004 v _DistributeTranslationParty
+fp s
+fp s
+fp s
+fp o
+f ffffffff ffffffff 005 v _DistributeTranslationSpoken
+fp s
+fp s
+fp s
+fp o
+fp f
+f ffffffff ffffffff 005 v _DistributeTranslation
+fp s
+fp s
+fp s
+fp o
+fp i
+f ffffffff ffffffff 000 v ACR_ModuleInit_ForceLinkageForCLRScripts
+f ffffffff ffffffff 005 v _DistributeTranslationToMouthPieces
+fp s
+fp s
+fp o
+fp f
+fp o
 f ffffffff ffffffff 000 v ACR_ModuleOnUnAcquireItem
 f ffffffff ffffffff 000 i NUM_REGIONS
 f 00006211 00006438 001 s get_region_name
@@ -9088,7 +9124,7 @@ l92 0000109 00000783 000007a6
 l92 0000110 000007a6 000007c9
 l92 0000111 000007c9 000007ec
 l92 0000112 000007ec 000007ee
-l89 0000797 000007ee 000007f0
+l89 0001114 000007ee 000007f0
 l92 0000062 000007f0 000007f6
 l92 0000063 000007f6 000007f8
 l91 0000173 000007f8 000007fc
