@@ -50,8 +50,7 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
-	WriteTimestampedLogEntry("ACR_Spawn: spawning giants");
-	spawn_npc("abr_cr_gt_giant_frost",0.5);
-	spawn_npc("abr_cr_gt_giant_frost",0.5);
-	spawn_npc("abr_cr_gt_giant_frost",0.5);
+	spawn_hostile("abr_cr_gt_giant_frost",0.5);
+	spawn_hostile("abr_cr_gt_giant_frost",0.5);
+	spawn_hostile("abr_cr_gt_giant_frost",0.5);
 }
