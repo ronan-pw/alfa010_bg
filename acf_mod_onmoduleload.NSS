@@ -70,4 +70,9 @@ void main() {
 	
 	ExecuteScript("nwnx_craft_init", GetModule());
 
+	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_low_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_LOW")));
+	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_med_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_MED")));
+	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_high_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_HIGH")));
+	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_uniq_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_UNIQ")));
+
 }
