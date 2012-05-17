@@ -59,11 +59,9 @@ void main()
     // Custom code goes below this line.
 	wp = GetLocalObject(OBJECT_SELF,"waypoint");
 	
-	if (!GetIsObjectValid(wp)) {
-		wp = get_car_wp("inside_caravan");
-		SetLocalObject(OBJECT_SELF,"waypoint",wp);
-		SetLocalInt(OBJECT_SELF,"state",0);
-	}
+	if (wp == OBJECT_INVALID)
+		init_caravan();
+
 		
 	o = GetNearestObjectByTag("010_cr_caravan",wp);
 	
@@ -113,6 +111,7 @@ void main()
 			break;
 		default:
 			let_out_players();
+			ACR_ReleaseAreaInstance(OBJECT_SELF);
 			return;
 	}
 	SetLocalInt(OBJECT_SELF,"ticks", ticks+1);

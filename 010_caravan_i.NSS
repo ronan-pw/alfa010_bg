@@ -1,4 +1,5 @@
 #include "acr_area_i"
+#include "acr_area_instance_i"
 
 
 /* location:
@@ -111,3 +112,35 @@ object get_car_wp(string tag)
 	return OBJECT_INVALID;
 }
 
+void init_caravan()
+{
+	object wp;
+
+	wp = get_car_wp("inside_caravan");
+	SetLocalObject(OBJECT_SELF, "waypoint", wp);
+	SetLocalInt(OBJECT_SELF, "state", CARAVAN_STATE_EMPTY);
+}
+
+object find_caravan(int dest, int src, int state)
+{
+	object o;
+	int i;
+
+	for (i=0; (o = GetObjectByTag("travel_caravan", i)) != OBJECT_INVALID; ++i) {
+		if (	GetLocalInt(o, "dest_index") == dest &&
+			GetLocalInt(o, "src_index") == src &&
+			GetLocalInt(o, "state") == state)
+			return o;
+	}
+	
+	return OBJECT_INVALID;
+}
+
+void start_caravan_trip(object area, int loc, int src_loc)
+{
+	SetLocalLocation(area, "dest_loc", caravan_dest_loc(loc));
+	SetLocalString(area, "dest_name", caravan_dest_name(loc));
+	SetLocalInt(area, "state", CARAVAN_STATE_LOAD);
+	SetLocalInt(area, "dest_index", loc);
+	SetLocalInt(area, "src_index", src_loc);
+}

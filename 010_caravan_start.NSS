@@ -4,29 +4,28 @@
 void main(int loc, int src_loc)
 {
     object oPC = GetPCSpeaker();
-	object wp;
-	object area;
+	object area, tmp, wp;
 	string str, src_str;
 	location l;
 	
-	wp = GetWaypointByTag("inside_caravan");
-	area = GetArea(wp);
+	/* If there already exists a caravan, use it */
+	area = find_caravan(loc, src_loc, CARAVAN_STATE_LOAD);
 
-	DelayCommand(2.0,AssignCommand(oPC,ActionJumpToObject(wp)));
-	SendMessageToPC(oPC, "You hop aboard the wagon.");
-	
-	switch (GetLocalInt(area,"state")) {
-		case CARAVAN_STATE_EMPTY:
-			SetLocalLocation(area, "dest_loc", caravan_dest_loc(loc));
-			SetLocalString(area, "dest_name", caravan_dest_name(loc));
-			SetLocalInt(area, "state", CARAVAN_STATE_LOAD);
-			SetLocalInt(area, "dest_index", loc);
-			SetLocalInt(area, "src_index", src_loc);
-			
-			break;
-		case CARAVAN_STATE_LOAD:			
-			break;
-		default:
-			SendMessageToPC(oPC, "ERROR, has already left");
+	/* otherwise, create another */
+	if (area == OBJECT_INVALID) {
+		area = GetObjectByTag("travel_caravan");
+		tmp = ACR_GetInstancedAreaTemplate(area);
+
+		if (tmp != OBJECT_INVALID)
+			area = tmp;
+
+		area = ACR_CreateAreaInstance(area);
+
+		start_caravan_trip(area, loc, src_loc);
 	}
+
+	wp = GetLocalObject(area, "waypoint");
+	
+	DelayCommand(2.0, AssignCommand(oPC, ActionJumpToObject(wp)));
+	SendMessageToPC(oPC, "You hop aboard the wagon.");
 }

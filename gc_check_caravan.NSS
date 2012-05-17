@@ -5,10 +5,14 @@ int StartingConditional(int dest, int src)
     object oPC = GetPCSpeaker();
 	object wp;
 	object area;
-	int state = GetLocalInt(area,"state");
+	int state;
+
+	return TRUE;
+#if 0
 	
 	wp = GetWaypointByTag("inside_caravan");
 	area = GetArea(wp);
+	state = GetLocalInt(area,"state");
 	
 	if (	state == CARAVAN_STATE_TRAVEL || 
 		state == CARAVAN_STATE_UNLOAD)
@@ -20,4 +24,5 @@ int StartingConditional(int dest, int src)
 		return TRUE;
 		
 	return FALSE;
+#endif
 }
