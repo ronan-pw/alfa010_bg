@@ -11,6 +11,7 @@ RM	= rm -f
 
 INCS	= 010_area_ex \
 	  010_cloned_area \
+	  010_caravan_i \
 	  010_door_i \
 	  010_drugs_i \
 	  010_location_i \
@@ -21,8 +22,6 @@ INCS	= 010_area_ex \
 	  010_twalker_i \
 	  010_uda6_puzzle_inc \
 	  010_weather_i	\
-	  1sc_searchable \
-	  1sc_searchable_treasure \
 	  acf_settings_i \
 	  acf_spawn_i \
 	  acr_creature_i \

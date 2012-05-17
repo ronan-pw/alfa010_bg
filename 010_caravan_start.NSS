@@ -1,16 +1,12 @@
-/* loc:
+#include "010_caravan_i"
 
-	0: bg
-	1: beregost
-	2: nashkel
-*/
 
-void main(int loc)
+void main(int loc, int src_loc)
 {
     object oPC = GetPCSpeaker();
 	object wp;
 	object area;
-	string str;
+	string str, src_str;
 	location l;
 	
 	wp = GetWaypointByTag("inside_caravan");
@@ -20,27 +16,15 @@ void main(int loc)
 	SendMessageToPC(oPC, "You hop aboard the wagon.");
 	
 	switch (GetLocalInt(area,"state")) {
-		case 0:
-			switch (loc) {
-				case 0:
-					l = GetLocation(GetWaypointByTag("caravan_bg"));
-					str = "Baldur's Gate";
-					break;
-				case 1:
-					l = GetLocation(GetWaypointByTag("caravan_beregost"));
-					str = "Beregost";
-					break;
-				default:
-					l = GetLocation(GetWaypointByTag("caravan_nashkel"));
-					str = "Nashkel";
-			}
-			
-			SetLocalLocation(area,"dest_loc",l);
-			SetLocalString(area,"dest_name",str);
-			SetLocalInt(area,"state",1);
+		case CARAVAN_STATE_EMPTY:
+			SetLocalLocation(area, "dest_loc", caravan_dest_loc(loc));
+			SetLocalString(area, "dest_name", caravan_dest_name(loc));
+			SetLocalInt(area, "state", CARAVAN_STATE_LOAD);
+			SetLocalInt(area, "dest_index", loc);
+			SetLocalInt(area, "src_index", src_loc);
 			
 			break;
-		case 1:			
+		case CARAVAN_STATE_LOAD:			
 			break;
 		default:
 			SendMessageToPC(oPC, "ERROR, has already left");
