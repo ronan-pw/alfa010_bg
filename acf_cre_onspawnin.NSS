@@ -50,18 +50,18 @@ int USE_SPECIAL_ABILITY=75;
 
 void main()
 {
-	int tmp;
+	int animal_lvls;
 	object oCreature = OBJECT_SELF;
 	
 	ACR_CreatureOnSpawnIn();
 
 				
 	// animal hack. modify AI for animals 
-	tmp = GetLevelByClass(CLASS_TYPE_ANIMAL);
+	animal_lvls = GetLevelByClass(CLASS_TYPE_ANIMAL);
 	
-	if (GetLocalInt(OBJECT_SELF,"ACR_CRE_WILD_ANIMAL") && (tmp > 0)) {
+	if (GetLocalInt(OBJECT_SELF,"ACR_CRE_WILD_ANIMAL") && (animal_lvls > 0)) {
 		SetBehaviorState(NW_FLAG_BEHAVIOR_SPECIAL,TRUE);
-		if (tmp > 1)
+		if (animal_lvls > 1)
 			SetBehaviorState(NW_FLAG_BEHAVIOR_OMNIVORE,TRUE);
 		else
 			SetBehaviorState(NW_FLAG_BEHAVIOR_HERBIVORE,TRUE);	    
@@ -129,4 +129,15 @@ void main()
 	// Hack to make NPC/friendlies not waste cycles on a good AI
 	if (!GetFactionEqual(OBJECT_SELF, GetObjectByTag("hostile_faction_pig")))
 		SetLocalInt(OBJECT_SELF,"ACR_NPC", 1);
+
+
+	// Display names with modified color
+	if (	GetLocalInt(OBJECT_SELF, "ACR_NPC") && 
+		GetIsPlayableRacialType(OBJECT_SELF) &&
+		!GetLocalInt(OBJECT_SELF, "ACR_NAME_TAG_IGNORE") &&
+		animal_lvls == 0) {
+		SetFirstName(OBJECT_SELF, "<color=#aaaaaa>"+GetName(OBJECT_SELF));
+		SetLastName(OBJECT_SELF, "");
+	}
+
 }
