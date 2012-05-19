@@ -84,6 +84,14 @@ void main() {
 	case 4:
 		spawn_hostile_npc("abr_cr_ou_genie_efreeti");
 		break;
+	case 5:
+		spawn_hostile_npc("010_cr_elementalfire2",0.5);
+		spawn_hostile_npc("010_cr_elementalfire2",0.5);
+		spawn_hostile_npc("010_cr_elementalfire1",0.5);
+		spawn_hostile_npc("010_cr_elementalfire1",0.5);
+		spawn_hostile_npc("010_cr_elementalfire0",0.5);
+		spawn_hostile_npc("010_cr_elementalfire0",0.5);
+		break;
 	default:
 		spawn_hostile_npc("abr_cr_ou_abishai_black",0.5);
 		spawn_hostile_npc("abr_cr_ou_abishai_green",0.5);
