@@ -1,5 +1,5 @@
 NDB V1.0
-0000066 0000010 0004380 0000018 0000064
+0000068 0000010 0004417 0000018 0000064
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -64,8 +64,10 @@ n60 acr_mobloot_i
 n61 acr_spawn_i
 n62 acr_seamlessat_i
 n63 acr_area_i
-n64 010_caravan_i
-N65 010_caravan_delete
+n64 acr_server_misc_i
+n65 acr_area_instance_i
+n66 010_caravan_i
+N67 010_caravan_delete
 s 03 vector
 sf f x
 sf f y
@@ -7227,6 +7229,74 @@ f ffffffff ffffffff 000 v ACR_AreaOnUserDefined
 f ffffffff ffffffff 000 v ACR_OnAreaTransitionClick
 f ffffffff ffffffff 001 v ACR_SetLoadingScreen
 fp o
+f ffffffff ffffffff 000 s ACR_SERVER_MISC_SUPPORT_SCRIPT
+f ffffffff ffffffff 000 s ACR_SERVER_MISC_OBJECT_RETVAL_VAR
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_EXECUTE_UPDATER_SCRIPT
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_CREATE_AREA_INSTANCE
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_RELEASE_AREA_INSTANCE
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_RUN_POWERSHELL_SCRIPTLET
+f ffffffff ffffffff 000 i ACR_ExecuteServerUpdaterScript
+f ffffffff ffffffff 001 o ACR_InternalCreateAreaInstance
+fp o
+f ffffffff ffffffff 001 v ACR_InternalReleaseAreaInstance
+fp o
+f ffffffff ffffffff 002 i ACR_RunPowerShellScriptlet
+fp s
+fp o
+f ffffffff ffffffff 007 i ACR_CallServerMiscScript
+fp i
+fp i
+fp i
+fp s
+fp s
+fp o
+fp o
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ON_CREATE_SCRIPT
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ON_DELETE_SCRIPT
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ENABLE_CACHE
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_CLEANUP_DELAY
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_PARENT_AREA
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_IS_ON_FREE_LIST
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_CLEANUP_TASK_RUNNING
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_FIRST_DYNAMIC_OBJECT
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_HAD_ACTIVITY
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ORIGINAL_ONLEAVE_SCRIPT
+f ffffffff ffffffff 000 i ACR_AREA_INSTANCE_OBJECTS_PER_DELETION_CYCLE
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ONLEAVE_ACR_SCRIPT
+f ffffffff ffffffff 002 o ACR_CreateAreaInstance
+fp o
+fp f
+f ffffffff ffffffff 001 v ACR_ReleaseAreaInstance
+fp o
+f ffffffff ffffffff 001 i ACR_IsInstancedArea
+fp o
+f ffffffff ffffffff 001 o ACR_GetInstancedAreaTemplate
+fp o
+f ffffffff ffffffff 002 i ACR_IsAreaEmptyOfPlayers
+fp o
+fp o
+f ffffffff ffffffff 001 f ACR_GetAreaCleanupDelay
+fp o
+f ffffffff ffffffff 002 v ACR_AreaInstance_OnClientLeave
+fp o
+fp i
+f ffffffff ffffffff 001 v ACR_AreaInstance_StartupCleanup
+fp o
+f ffffffff ffffffff 002 v ACR__DeleteAreaInstance
+fp o
+fp o
+f ffffffff ffffffff 001 i ACR__IsAreaInstanceDeleting
+fp o
+f ffffffff ffffffff 002 v ACR__StartAreaCleanupTask
+fp o
+fp f
+f ffffffff ffffffff 002 v ACR__AreaCleanupTask
+fp o
+fp f
+f ffffffff ffffffff 001 v ACR__CallOriginalOnLeaveHandler
+fp o
+f ffffffff ffffffff 001 i ACR_IsWalkmeshHelper
+fp o
 f ffffffff ffffffff 000 i CARAVAN_LOC_BG
 f ffffffff ffffffff 000 i CARAVAN_LOC_BERE
 f ffffffff ffffffff 000 i CARAVAN_LOC_NASH
@@ -7258,7 +7328,7 @@ f ffffffff ffffffff 003 v start_caravan_trip
 fp o
 fp i
 fp i
-f 000001e5 000002c3 000 i StartingConditional
+f 000001e5 000002e3 000 i StartingConditional
 f 0000000d 00000017 000 i #loader
 f 00000017 000001e5 000 v #globals
 v 0000000f ffffffff 00000000 i #retval
@@ -7275,10 +7345,10 @@ v 0000011b ffffffff 00000024 s X0_DATABASE_DEFAULT
 v 00000145 ffffffff 00000028 s X0_DATABASE_XP1
 v 0000016b ffffffff 0000002c i ACR_DTH_UNCONSCIOUS_ROUNDS
 v 00000198 ffffffff 00000030 i ACR_DTH_NATHEALING_ROUNDS
-v 000001e5 000002c1 00000000 i #retval
-v 000001e7 000002bb 00000004 o Area
-v 000001fd 000002bb 00000008 o Obj
-v 00000230 00000295 0000000c i Type
+v 000001e5 000002e1 00000000 i #retval
+v 000001e7 000002db 00000004 o Area
+v 000001fd 000002db 00000008 o Obj
+v 00000230 000002b5 0000000c i Type
 l00 0000048 00000017 0000003e
 l01 0000074 0000003e 0000003e
 l01 0000075 0000003e 0000003e
@@ -7334,12 +7404,12 @@ l10 0000213 00000169 00000169
 l10 0000214 00000169 00000169
 l11 0000162 00000169 00000196
 l11 0000166 00000196 000001c3
-l65 0000008 000001e5 000001fb
-l65 0000016 000001fb 00000218
-l65 0000017 00000218 0000022e
-l65 0000019 0000022e 0000024b
-l65 0000021 0000024b 0000025b
-l65 0000022 00000261 0000027a
-l65 0000024 0000027a 00000295
-l65 0000033 000002a1 000002bb
-l65 0000034 000002c1 000002c3
+l67 0000008 000001e5 000001fb
+l67 0000016 000001fb 00000218
+l67 0000017 00000218 0000022e
+l67 0000019 0000022e 0000024b
+l67 0000021 0000024b 0000027b
+l67 0000022 00000281 0000029a
+l67 0000024 0000029a 000002b5
+l67 0000033 000002c1 000002db
+l67 0000034 000002e1 000002e3

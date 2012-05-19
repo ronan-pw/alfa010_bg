@@ -1,5 +1,5 @@
 NDB V1.0
-0000066 0000010 0004378 0000017 0000069
+0000068 0000010 0004417 0000017 0000069
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -64,8 +64,10 @@ n60 acr_mobloot_i
 n61 acr_spawn_i
 n62 acr_seamlessat_i
 n63 acr_area_i
-n64 010_caravan_i
-N65 010_caravan_create
+n64 acr_server_misc_i
+n65 acr_area_instance_i
+n66 010_caravan_i
+N67 010_caravan_create
 s 03 vector
 sf f x
 sf f y
@@ -7227,6 +7229,74 @@ f ffffffff ffffffff 000 v ACR_AreaOnUserDefined
 f ffffffff ffffffff 000 v ACR_OnAreaTransitionClick
 f ffffffff ffffffff 001 v ACR_SetLoadingScreen
 fp o
+f ffffffff ffffffff 000 s ACR_SERVER_MISC_SUPPORT_SCRIPT
+f ffffffff ffffffff 000 s ACR_SERVER_MISC_OBJECT_RETVAL_VAR
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_EXECUTE_UPDATER_SCRIPT
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_CREATE_AREA_INSTANCE
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_RELEASE_AREA_INSTANCE
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_RUN_POWERSHELL_SCRIPTLET
+f ffffffff ffffffff 000 i ACR_ExecuteServerUpdaterScript
+f ffffffff ffffffff 001 o ACR_InternalCreateAreaInstance
+fp o
+f ffffffff ffffffff 001 v ACR_InternalReleaseAreaInstance
+fp o
+f ffffffff ffffffff 002 i ACR_RunPowerShellScriptlet
+fp s
+fp o
+f ffffffff ffffffff 007 i ACR_CallServerMiscScript
+fp i
+fp i
+fp i
+fp s
+fp s
+fp o
+fp o
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ON_CREATE_SCRIPT
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ON_DELETE_SCRIPT
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ENABLE_CACHE
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_CLEANUP_DELAY
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_PARENT_AREA
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_IS_ON_FREE_LIST
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_CLEANUP_TASK_RUNNING
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_FIRST_DYNAMIC_OBJECT
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_HAD_ACTIVITY
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ORIGINAL_ONLEAVE_SCRIPT
+f ffffffff ffffffff 000 i ACR_AREA_INSTANCE_OBJECTS_PER_DELETION_CYCLE
+f ffffffff ffffffff 000 s ACR_AREA_INSTANCE_ONLEAVE_ACR_SCRIPT
+f ffffffff ffffffff 002 o ACR_CreateAreaInstance
+fp o
+fp f
+f ffffffff ffffffff 001 v ACR_ReleaseAreaInstance
+fp o
+f ffffffff ffffffff 001 i ACR_IsInstancedArea
+fp o
+f ffffffff ffffffff 001 o ACR_GetInstancedAreaTemplate
+fp o
+f ffffffff ffffffff 002 i ACR_IsAreaEmptyOfPlayers
+fp o
+fp o
+f ffffffff ffffffff 001 f ACR_GetAreaCleanupDelay
+fp o
+f ffffffff ffffffff 002 v ACR_AreaInstance_OnClientLeave
+fp o
+fp i
+f ffffffff ffffffff 001 v ACR_AreaInstance_StartupCleanup
+fp o
+f ffffffff ffffffff 002 v ACR__DeleteAreaInstance
+fp o
+fp o
+f ffffffff ffffffff 001 i ACR__IsAreaInstanceDeleting
+fp o
+f ffffffff ffffffff 002 v ACR__StartAreaCleanupTask
+fp o
+fp f
+f ffffffff ffffffff 002 v ACR__AreaCleanupTask
+fp o
+fp f
+f ffffffff ffffffff 001 v ACR__CallOriginalOnLeaveHandler
+fp o
+f ffffffff ffffffff 001 i ACR_IsWalkmeshHelper
+fp o
 f ffffffff ffffffff 000 i CARAVAN_LOC_BG
 f ffffffff ffffffff 000 i CARAVAN_LOC_BERE
 f ffffffff ffffffff 000 i CARAVAN_LOC_NASH
@@ -7250,6 +7320,14 @@ f ffffffff ffffffff 000 v shake_players
 f 00000246 00000326 001 o get_car_wp
 fp s
 f 000001db 00000246 000 v init_caravan
+f ffffffff ffffffff 003 o find_caravan
+fp i
+fp i
+fp i
+f ffffffff ffffffff 003 v start_caravan_trip
+fp o
+fp i
+fp i
 f 000001d3 000001db 000 v main
 f 0000000d 00000015 000 v #loader
 f 00000015 000001d3 000 v #globals
@@ -7325,17 +7403,17 @@ l10 0000213 00000167 00000167
 l10 0000214 00000167 00000167
 l11 0000162 00000167 00000194
 l11 0000166 00000194 000001c1
-l65 0000034 000001d3 000001d9
-l65 0000035 000001d9 000001db
-l64 0000116 000001db 000001dd
-l64 0000118 000001dd 00000205
-l64 0000119 00000205 00000224
-l64 0000120 00000224 0000023e
-l64 0000121 00000244 00000246
-l64 0000106 00000246 00000248
-l64 0000107 00000248 00000266
-l64 0000108 0000027c 000002b8
-l64 0000109 000002be 000002da
-l64 0000107 000002da 000002f8
-l64 0000111 000002fe 00000318
-l64 0000112 0000031e 00000326
+l67 0000034 000001d3 000001d9
+l67 0000035 000001d9 000001db
+l66 0000117 000001db 000001dd
+l66 0000119 000001dd 00000205
+l66 0000120 00000205 00000224
+l66 0000121 00000224 0000023e
+l66 0000122 00000244 00000246
+l66 0000107 00000246 00000248
+l66 0000108 00000248 00000266
+l66 0000109 0000027c 000002b8
+l66 0000110 000002be 000002da
+l66 0000108 000002da 000002f8
+l66 0000112 000002fe 00000318
+l66 0000113 0000031e 00000326
