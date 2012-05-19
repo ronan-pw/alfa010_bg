@@ -100,18 +100,18 @@ void main()
 			if (ticks == 0) {
 				caravan_message("Please wait while we begin unloading.  You'll be let out soon.",o);
 				
-				snd = GetNearestObjectByTag("wagon_sound",wp);
+				snd = GetNearestObjectByTag("wagon_sound", wp);
 				SoundObjectStop(snd);
 			}
 			else if (ticks > CARVAAN_UNLOADING_TICKS) {
 				ticks = -1;
-				SetLocalInt(OBJECT_SELF,"state",0);
+				SetLocalInt(OBJECT_SELF,"state", CARAVAN_STATE_EMPTY);
 				caravan_message("Watch your step!",o);
 			}
 			break;
 		default:
 			let_out_players();
-			ACR_ReleaseAreaInstance(OBJECT_SELF);
+
 			return;
 	}
 	SetLocalInt(OBJECT_SELF,"ticks", ticks+1);

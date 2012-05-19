@@ -124,9 +124,8 @@ void init_caravan()
 object find_caravan(int dest, int src, int state)
 {
 	object o;
-	int i;
 
-	for (i=0; (o = GetObjectByTag("travel_caravan", i)) != OBJECT_INVALID; ++i) {
+	for (o=GetFirstArea(); o != OBJECT_INVALID; GetNextArea()) {
 		if (	GetLocalInt(o, "dest_index") == dest &&
 			GetLocalInt(o, "src_index") == src &&
 			GetLocalInt(o, "state") == state)

@@ -18,7 +18,7 @@ int StartingConditional()
    {
       int Type = GetObjectType(Obj);
 
-      if (Type == OBJECT_TYPE_ITEM)
+      if (Type == OBJECT_TYPE_ITEM || Type == OBJECT_TYPE_CREATURE)
          DestroyObject(Obj);
 
       Obj = GetNextObjectInArea(Area);
