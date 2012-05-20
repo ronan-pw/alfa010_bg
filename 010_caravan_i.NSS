@@ -125,7 +125,7 @@ object find_caravan(int dest, int src, int state)
 {
 	object o;
 
-	for (o=GetFirstArea(); o != OBJECT_INVALID; GetNextArea()) {
+	for (o=GetFirstArea(); o != OBJECT_INVALID; o=GetNextArea()) {
 		if (	GetLocalInt(o, "dest_index") == dest &&
 			GetLocalInt(o, "src_index") == src &&
 			GetLocalInt(o, "state") == state)
