@@ -90,6 +90,12 @@ void let_out_players()
 	for (ObjectToInt(o = GetFirstObjectInArea(OBJECT_SELF)); o != OBJECT_INVALID; ObjectToInt(o = GetNextObjectInArea()))
 		if (GetIsPC(o))
 			AssignCommand(o, ActionJumpToLocation(l));
+
+	/* release instance */
+	if (GetLocalInt(OBJECT_SELF, "occupied")) {
+		SetLocalInt(OBJECT_SELF, "occupied", 0);
+		ACR_ReleaseAreaInstance(OBJECT_SELF);
+	}
 }
 
 void shake_players()
@@ -142,4 +148,5 @@ void start_caravan_trip(object area, int loc, int src_loc)
 	SetLocalInt(area, "state", CARAVAN_STATE_LOAD);
 	SetLocalInt(area, "dest_index", loc);
 	SetLocalInt(area, "src_index", src_loc);
+	SetLocalInt(area, "occupied", 1);
 }
