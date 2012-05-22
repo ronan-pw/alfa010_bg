@@ -136,7 +136,7 @@ void main()
 		GetIsPlayableRacialType(OBJECT_SELF) &&
 		!GetLocalInt(OBJECT_SELF, "ACR_NAME_TAG_IGNORE") &&
 		animal_lvls == 0) {
-		SetFirstName(OBJECT_SELF, "<color=#fffaaa>"+GetName(OBJECT_SELF));
+		SetFirstName(OBJECT_SELF, "<color=#fffaaa>"+GetName(OBJECT_SELF)+"</color>");
 		SetLastName(OBJECT_SELF, "");
 	}
 
