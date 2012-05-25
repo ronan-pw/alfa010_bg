@@ -53,26 +53,33 @@ void main() {
 	int spawned = 1;
 
 	switch (Random(7)) {
+		// 14.3%
 		case 0:
 			ACR_SpawnObject("010_herb_spell0", OBJECT_TYPE_PLACEABLE);
 			break;
+		// 14.3%
 		case 1:
 			ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
 			break;
+		// 14.3%
 		case 2:
 			ACR_SpawnObject("010_herb_spell2", OBJECT_TYPE_PLACEABLE);
 			break;
+		// 14.3%
 		case 3:
 			ACR_SpawnObject("010_herb_shroom0", OBJECT_TYPE_PLACEABLE);
 			break;
+		// 14.3%
 		case 4:
 			ACR_SpawnObject("010_herb_shroom1", OBJECT_TYPE_PLACEABLE);
 			break;
+		// 14.3%
 		case 5:
 			ACR_SpawnObject("010_herb_shroom2", OBJECT_TYPE_PLACEABLE);
 			break;
 		default:
 
+			// 7.1%
 			if (Random(10) < 5)
 				ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 			else
@@ -81,6 +88,7 @@ void main() {
 			break;
 	}
 
+	// 18.6%
 	if (spawned && (!Random(5)))
 		ACR_DestroySpawnPoint(OBJECT_SELF);
 

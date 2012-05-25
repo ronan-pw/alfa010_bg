@@ -58,6 +58,7 @@ int nRand;
 
 
 switch(Random(5)) {
+			// 60%
 			case 0:
 			case 1:
 			case 2:
@@ -70,7 +71,7 @@ switch(Random(5)) {
 					return;
 				}
 					
-				SetLocalInt(oCheckTrigger, "spawn_chest", 1);
+				SetLocalInt(oCheckTrigger, "PL_SPAWNABLE", 1);
 				break;
 				
 			case 3:
@@ -78,15 +79,19 @@ switch(Random(5)) {
 				
 				nRand = Random(100);
 
+				// 10%
 				if (nRand < 25) {
 			            ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 				}
+				// 10%
 				else if (nRand < 50) {
 					ACR_SpawnObject("010_herb_spell1", OBJECT_TYPE_PLACEABLE);
 				}
+				// 10%
 				else if (nRand < 75) {
 					ACR_SpawnObject("010_herb_shroom2", OBJECT_TYPE_PLACEABLE);
 				}
+				// 10%
 				else {
 					ACR_SpawnObject("010_herb_shroom1", OBJECT_TYPE_PLACEABLE);
 				}
@@ -94,6 +99,7 @@ switch(Random(5)) {
 
 	}
  
+	// 20%
 	if (!Random(5))
 				ACR_DestroySpawnPoint(OBJECT_SELF);
 
