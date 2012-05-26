@@ -127,7 +127,7 @@ void main()
 
 
 	// Hack to make NPC/friendlies not waste cycles on a good AI
-	if (!GetFactionEqual(OBJECT_SELF, GetObjectByTag("hostile_faction_pig")))
+	if (!GetFactionEqual(OBJECT_SELF, GetObjectByTag("hostile_faction_pig",0)))
 		SetLocalInt(OBJECT_SELF,"ACR_NPC", 1);
 
 
