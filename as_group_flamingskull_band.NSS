@@ -57,7 +57,7 @@ void main();
 void main() {
 	ACR_SpawnObject(A010_CRE_OUTSIDER_NESSIANWARHOUND, OBJECT_TYPE_CREATURE);
 	
-	if(Random(1))
+	if(Random(2))
 		ACR_SpawnObject(A010_CRE_CWBAATEZU_OROG_WRK8, OBJECT_TYPE_CREATURE);
 		else ACR_SpawnObject(A010_CRE_CWBAATEZU_OROG_SOR8, OBJECT_TYPE_CREATURE);
 	
@@ -66,7 +66,7 @@ void main() {
 	int nOrogs = 1 + Random(3);
 	int i;
 	for(i=0; i<nOrogs; i++) {
-		ACR_SpawnObject(GetLowCROrog(), OBJECT_TYPE_CREATURE);
+		spawn_hostile_npc(GetLowCROrog());
 	}
 	
 	int nImps = Random(3);
