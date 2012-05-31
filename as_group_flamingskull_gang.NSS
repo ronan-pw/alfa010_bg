@@ -61,7 +61,7 @@ void main() {
 	int nOrogs = 2 + Random(3);
 	int i;
 	for(i=0; i<nOrogs; i++) {
-		ACR_SpawnObject(GetLowCROrog(), OBJECT_TYPE_CREATURE);
+		spawn_hostile_npc(GetLowCROrog());
 	}
 	
 	int nImps = Random(3);

@@ -1,5 +1,5 @@
 NDB V1.0
-0000058 0000009 0003944 0000131 0000376
+0000058 0000009 0003954 0000131 0000376
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -27,9 +27,9 @@ n23 dmfi_inc_sendtex
 n24 dmfi_inc_tool
 n25 dmfi_inc_inc_com
 n26 acr_pps_i
-n27 acr_nonlethal_i
-n28 x0_i0_match
-n29 x2_inc_itemprop
+n27 x2_inc_itemprop
+n28 acr_nonlethal_i
+n29 x0_i0_match
 n30 x0_i0_petrify
 n31 x0_i0_assoc
 n32 nw_i0_spells
@@ -1231,6 +1231,8 @@ f ffffffff ffffffff 001 s RacialTypeName
 fp i
 f ffffffff ffffffff 001 s SubRaceName
 fp i
+f ffffffff ffffffff 001 v ACR_IgnoreAcquire
+fp o
 f ffffffff ffffffff 002 f atan2
 fp f
 fp f
@@ -3747,186 +3749,6 @@ f ffffffff ffffffff 001 v _playerStartQuarantinePortalDialog
 fp i
 f ffffffff ffffffff 001 v _playerStartQuarantineAutoPortal
 fp i
-f ffffffff ffffffff 000 s ACR_SUBDUAL_TOGGLE
-f ffffffff ffffffff 000 s ACR_NLD_DB
-f ffffffff ffffffff 000 i ACR_NLD_HEALRATE
-f ffffffff ffffffff 000 i NLD_SA_ALLOWED
-f ffffffff ffffffff 000 s ACR_NLD_MODE
-f ffffffff ffffffff 000 s ACR_NLD_STATE
-f ffffffff ffffffff 000 s ACR_NLD_HEALING
-f ffffffff ffffffff 000 i ACR_NLD_STATE_NORMAL
-f ffffffff ffffffff 000 i ACR_NLD_STATE_STAGGERED
-f ffffffff ffffffff 000 i ACR_NLD_STATE_HELPLESS
-f ffffffff ffffffff 000 s ACR_NLD_DAMAGE
-f ffffffff ffffffff 000 s ACR_NLD_DAMAGE_TOTAL
-f ffffffff ffffffff 000 s ACR_NLD_DICE_DAMAGE
-f ffffffff ffffffff 000 s ACR_NLD_DICE_NUMBER
-f ffffffff ffffffff 000 s ACR_NLD_DAMAGE_PENALTY
-f ffffffff ffffffff 000 s ACR_NLD_WOFFHAND
-f ffffffff ffffffff 000 s ACR_NLD_W2HANDED
-f ffffffff ffffffff 000 s ACR_NLD_SNEAKATTACK
-f ffffffff ffffffff 000 s ACR_NLD_SA_DICE
-f ffffffff ffffffff 000 s ACR_NLD_MAT_ADAMANTINE
-f ffffffff ffffffff 000 s ACR_NLD_MAT_ALCSILVER
-f ffffffff ffffffff 000 s ACR_NLD_MAT_COLDIRON
-f ffffffff ffffffff 000 s ACR_NLD_ATTACKER
-f ffffffff ffffffff 000 s ACR_NLD_TARGET
-f ffffffff ffffffff 001 v ACR_ToggleNLDMode
-fp o
-f ffffffff ffffffff 001 v ACR_NLD_OnPCLoaded
-fp o
-f ffffffff ffffffff 003 v ACR_NLD_OnWeaponSwitch
-fp o
-fp o
-fp i
-f 00000d8e 00001304 002 v ACR_ApplyNLDEffects
-fp o
-fp i
-f ffffffff ffffffff 003 i ACR_NLD_OnWeaponHit
-fp o
-fp o
-fp o
-f ffffffff ffffffff 004 v ACR_NLD_HealNLD
-fp o
-fp i
-fp i
-fp o
-f ffffffff ffffffff 004 v ACR_NLD_Regen
-fp o
-fp i
-fp i
-fp f
-f ffffffff ffffffff 003 v ACR_NLD_ReportTotal
-fp o
-fp o
-fp i
-f ffffffff ffffffff 001 v ACR_NLD_HealAll
-fp o
-f ffffffff ffffffff 002 i ACR_NLD_DeathOrDyingHitDamage
-fp o
-fp o
-f ffffffff ffffffff 001 v ACR_NLD_OnDeath
-fp o
-f ffffffff ffffffff 001 v ACR_NonLethalOnClientExit
-fp o
-f 00000bf7 00000d18 002 v ACR_ApplyNonlethalDamageToCreature
-fp o
-fp i
-f ffffffff ffffffff 004 v _NLDWeaponDamage
-fp o
-fp o
-fp o
-fp i
-f ffffffff ffffffff 002 i _NLDGetWeaponSpecialisation
-fp o
-fp o
-f ffffffff ffffffff 002 i _NLDGetGreaterWeaponSpecialisation
-fp o
-fp o
-f ffffffff ffffffff 001 i _NLDGetEnhancementBonus
-fp o
-f ffffffff ffffffff 004 s _NLDamageReductionCheck
-fp o
-fp o
-fp i
-fp i
-f ffffffff ffffffff 001 v _GiveNLDFist
-fp o
-f ffffffff ffffffff 001 v _ApplyNLDFist
-fp o
-f 00002814 000029db 002 v _NLDNaturalHealing
-fp o
-fp i
-f 00001467 0000155d 001 v _RemoveNLDStaggeredEffect
-fp o
-f 0000133e 00001439 001 v _RemoveNLDHelplessEffect
-fp o
-f ffffffff ffffffff 001 i _GetNLDSneakAttackDice
-fp o
-f ffffffff ffffffff 001 v _HandleNLDSneakAttacks
-fp o
-f ffffffff ffffffff 001 v _RestoreNLDSneakAttackFeats
-fp o
-f ffffffff ffffffff 001 i _GetNLDSAFeatList
-fp o
-f ffffffff ffffffff 002 v _SetNLDSAFeatList
-fp o
-fp i
-f ffffffff ffffffff 001 i _GetNLDMode
-fp o
-f ffffffff ffffffff 002 v _SetNLDMode
-fp o
-fp i
-f 00001304 0000133e 001 i _GetNLDState
-fp o
-f 00001439 00001467 002 v _SetNLDState
-fp o
-fp i
-f 00000d18 00000d59 001 i _GetNLDTotal
-fp o
-f 00000d59 00000d8e 002 v _SetNLDTotal
-fp o
-fp i
-f ffffffff ffffffff 001 i _GetLastNLDamage
-fp o
-f ffffffff ffffffff 002 v _SetLastNLDamage
-fp o
-fp i
-f 000027a8 000027e4 001 i _GetIsNLDHealing
-fp o
-f 000027e4 00002814 002 v _SetIsNLDHealing
-fp o
-fp i
-f 00002720 000027a8 001 v _DoSubduedAnimation
-fp o
-f ffffffff ffffffff 000 i NW_TALENT_PROTECT
-f ffffffff ffffffff 000 i NW_TALENT_ENHANCE
-f ffffffff ffffffff 003 i GetMatchCompatibility
-fp e3
-fp s
-fp i
-f ffffffff ffffffff 001 i MatchDoIHaveAMindAffectingSpellOnMe
-fp o
-f ffffffff ffffffff 001 i MatchAreaOfEffectSpell
-fp i
-f ffffffff ffffffff 001 i MatchCombatProtections
-fp e3
-f ffffffff ffffffff 001 i MatchSpellProtections
-fp e3
-f ffffffff ffffffff 001 i MatchElementalProtections
-fp e3
-f ffffffff ffffffff 001 i MatchSingleHandedWeapon
-fp o
-f ffffffff ffffffff 001 i MatchDoubleHandedWeapon
-fp o
-f ffffffff ffffffff 001 i MatchMeleeWeapon
-fp o
-f ffffffff ffffffff 001 i MatchShield
-fp o
-f ffffffff ffffffff 001 i MatchCrossbow
-fp o
-f ffffffff ffffffff 001 i MatchNormalBow
-fp o
-f ffffffff ffffffff 001 i MatchMindAffectingSpells
-fp i
-f ffffffff ffffffff 001 i MatchPersonSpells
-fp i
-f ffffffff ffffffff 001 i MatchInflictTouchAttack
-fp i
-f ffffffff ffffffff 001 i MatchNonliving
-fp i
-f ffffffff ffffffff 002 i VerifyDisarm
-fp e3
-fp o
-f ffffffff ffffffff 002 i VerifyCombatMeleeTalent
-fp e3
-fp o
-f ffffffff ffffffff 002 i GetHasEffect
-fp i
-fp o
-f ffffffff ffffffff 001 i MatchHumanoidRacialType
-fp i
-f ffffffff ffffffff 000 i GetRemovalSpell
 f ffffffff ffffffff 000 s X2_IP_WORK_CONTAINER_TAG
 f ffffffff ffffffff 000 s X2_IP_ADDRPOP_2DA
 f ffffffff ffffffff 000 s X2_IP_POISONWEAPON_2DA
@@ -4067,6 +3889,201 @@ fp i
 fp o
 f ffffffff ffffffff 001 i IPGetHasUseLimitation
 fp o
+f ffffffff ffffffff 000 s ACR_NLD_FIST
+f ffffffff ffffffff 000 s ACR_SUBDUAL_TOGGLE
+f ffffffff ffffffff 000 s ACR_NLD_DB
+f ffffffff ffffffff 000 i ACR_NLD_HEALRATE
+f ffffffff ffffffff 000 i NLD_SA_ALLOWED
+f ffffffff ffffffff 000 s ACR_NLD_MODE
+f ffffffff ffffffff 000 s ACR_NLD_STATE
+f ffffffff ffffffff 000 s ACR_NLD_HEALING
+f ffffffff ffffffff 000 i ACR_NLD_STATE_NORMAL
+f ffffffff ffffffff 000 i ACR_NLD_STATE_STAGGERED
+f ffffffff ffffffff 000 i ACR_NLD_STATE_HELPLESS
+f ffffffff ffffffff 000 s ACR_NLD_DAMAGE
+f ffffffff ffffffff 000 s ACR_NLD_DAMAGE_TOTAL
+f ffffffff ffffffff 000 s ACR_NLD_DICE_DAMAGE
+f ffffffff ffffffff 000 s ACR_NLD_DICE_NUMBER
+f ffffffff ffffffff 000 s ACR_NLD_DAMAGE_PENALTY
+f ffffffff ffffffff 000 s ACR_NLD_WOFFHAND
+f ffffffff ffffffff 000 s ACR_NLD_W2HANDED
+f ffffffff ffffffff 000 s ACR_NLD_SNEAKATTACK
+f ffffffff ffffffff 000 s ACR_NLD_SA_DICE
+f ffffffff ffffffff 000 s ACR_NLD_MAT_ADAMANTINE
+f ffffffff ffffffff 000 s ACR_NLD_MAT_ALCSILVER
+f ffffffff ffffffff 000 s ACR_NLD_MAT_COLDIRON
+f ffffffff ffffffff 000 s ACR_NLD_ATTACKER
+f ffffffff ffffffff 000 s ACR_NLD_TARGET
+f ffffffff ffffffff 000 i FEAT_FAVORED_SOUL_DR_COLD_IRON
+f ffffffff ffffffff 000 i FEAT_FAVORED_SOUL_DR_SILVER
+f ffffffff ffffffff 000 i FEAT_INSIGHTFUL_STRIKE
+f ffffffff ffffffff 000 i SPELL_GR_SHADOW_CON_GHOSTLY_VISAGE
+f ffffffff ffffffff 001 v ACR_ToggleNLDMode
+fp o
+f ffffffff ffffffff 001 v ACR_NLD_OnPCLoaded
+fp o
+f ffffffff ffffffff 003 v ACR_NLD_OnWeaponSwitch
+fp o
+fp o
+fp i
+f 00000d8e 00001304 002 v ACR_ApplyNLDEffects
+fp o
+fp i
+f ffffffff ffffffff 003 i ACR_NLD_OnWeaponHit
+fp o
+fp o
+fp o
+f ffffffff ffffffff 004 v ACR_NLD_HealNLD
+fp o
+fp i
+fp i
+fp o
+f ffffffff ffffffff 004 v ACR_NLD_Regen
+fp o
+fp i
+fp i
+fp f
+f ffffffff ffffffff 003 v ACR_NLD_ReportTotal
+fp o
+fp o
+fp i
+f ffffffff ffffffff 001 v ACR_NLD_HealAll
+fp o
+f ffffffff ffffffff 002 i ACR_NLD_DeathOrDyingHitDamage
+fp o
+fp o
+f ffffffff ffffffff 001 v ACR_NLD_OnDeath
+fp o
+f ffffffff ffffffff 001 v ACR_NonLethalOnClientExit
+fp o
+f 00000bf7 00000d18 002 v ACR_ApplyNonlethalDamageToCreature
+fp o
+fp i
+f ffffffff ffffffff 004 v _NLDWeaponDamage
+fp o
+fp o
+fp o
+fp i
+f ffffffff ffffffff 002 i _NLDGetWeaponSpecialisation
+fp o
+fp o
+f ffffffff ffffffff 002 i _NLDGetGreaterWeaponSpecialisation
+fp o
+fp o
+f ffffffff ffffffff 002 i _NLDGetEnhancementBonus
+fp o
+fp o
+f ffffffff ffffffff 001 i _NDLGetFavoredEnemyFeat
+fp o
+f ffffffff ffffffff 001 i _NDLGetImprovedFavoredEnemyFeat
+fp o
+f ffffffff ffffffff 002 i _NLDGetFavoredEnemyBonus
+fp o
+fp o
+f ffffffff ffffffff 004 s _NLDamageReductionCheck
+fp o
+fp o
+fp i
+fp i
+f ffffffff ffffffff 001 v _GiveNLDFist
+fp o
+f ffffffff ffffffff 001 v _ApplyNLDFist
+fp o
+f 00002814 000029db 002 v _NLDNaturalHealing
+fp o
+fp i
+f 00001467 0000155d 001 v _RemoveNLDStaggeredEffect
+fp o
+f 0000133e 00001439 001 v _RemoveNLDHelplessEffect
+fp o
+f ffffffff ffffffff 001 i _GetNLDSneakAttackDice
+fp o
+f ffffffff ffffffff 001 v _HandleNLDSneakAttacks
+fp o
+f ffffffff ffffffff 001 v _RestoreNLDSneakAttackFeats
+fp o
+f ffffffff ffffffff 001 i _GetNLDSAFeatList
+fp o
+f ffffffff ffffffff 002 v _SetNLDSAFeatList
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetNLDMode
+fp o
+f ffffffff ffffffff 002 v _SetNLDMode
+fp o
+fp i
+f 00001304 0000133e 001 i _GetNLDState
+fp o
+f 00001439 00001467 002 v _SetNLDState
+fp o
+fp i
+f 00000d18 00000d59 001 i _GetNLDTotal
+fp o
+f 00000d59 00000d8e 002 v _SetNLDTotal
+fp o
+fp i
+f ffffffff ffffffff 001 i _GetLastNLDamage
+fp o
+f ffffffff ffffffff 002 v _SetLastNLDamage
+fp o
+fp i
+f 000027a8 000027e4 001 i _GetIsNLDHealing
+fp o
+f 000027e4 00002814 002 v _SetIsNLDHealing
+fp o
+fp i
+f 00002720 000027a8 001 v _DoSubduedAnimation
+fp o
+f ffffffff ffffffff 001 i GetIsNonlethalImmune
+fp o
+f ffffffff ffffffff 000 i NW_TALENT_PROTECT
+f ffffffff ffffffff 000 i NW_TALENT_ENHANCE
+f ffffffff ffffffff 003 i GetMatchCompatibility
+fp e3
+fp s
+fp i
+f ffffffff ffffffff 001 i MatchDoIHaveAMindAffectingSpellOnMe
+fp o
+f ffffffff ffffffff 001 i MatchAreaOfEffectSpell
+fp i
+f ffffffff ffffffff 001 i MatchCombatProtections
+fp e3
+f ffffffff ffffffff 001 i MatchSpellProtections
+fp e3
+f ffffffff ffffffff 001 i MatchElementalProtections
+fp e3
+f ffffffff ffffffff 001 i MatchSingleHandedWeapon
+fp o
+f ffffffff ffffffff 001 i MatchDoubleHandedWeapon
+fp o
+f ffffffff ffffffff 001 i MatchMeleeWeapon
+fp o
+f ffffffff ffffffff 001 i MatchShield
+fp o
+f ffffffff ffffffff 001 i MatchCrossbow
+fp o
+f ffffffff ffffffff 001 i MatchNormalBow
+fp o
+f ffffffff ffffffff 001 i MatchMindAffectingSpells
+fp i
+f ffffffff ffffffff 001 i MatchPersonSpells
+fp i
+f ffffffff ffffffff 001 i MatchInflictTouchAttack
+fp i
+f ffffffff ffffffff 001 i MatchNonliving
+fp i
+f ffffffff ffffffff 002 i VerifyDisarm
+fp e3
+fp o
+f ffffffff ffffffff 002 i VerifyCombatMeleeTalent
+fp e3
+fp o
+f ffffffff ffffffff 002 i GetHasEffect
+fp i
+fp o
+f ffffffff ffffffff 001 i MatchHumanoidRacialType
+fp i
+f ffffffff ffffffff 000 i GetRemovalSpell
 f ffffffff ffffffff 001 v Petrify
 fp o
 f ffffffff ffffffff 001 v Depetrify
@@ -6795,80 +6812,80 @@ l56 0000027 00000b55 00000b76
 l56 0000028 00000b76 00000bcf
 l56 0000056 00000bcf 00000be9
 l56 0000057 00000bef 00000bf7
-l27 0000587 00000bf7 00000c07
-l27 0000588 00000c07 00000c14
-l27 0000589 00000c14 00000c24
-l27 0000590 00000c24 00000c8e
-l27 0000591 00000c8e 00000cde
-l27 0000593 00000cde 00000cf4
-l27 0000594 00000cf4 00000d0a
-l27 0000595 00000d10 00000d18
-l27 0001353 00000d18 00000d51
-l27 0001354 00000d51 00000d59
-l27 0001358 00000d59 00000d86
-l27 0001359 00000d86 00000d8e
-l27 0000427 00000d8e 00000d98
-l27 0000428 00000d98 00000da5
-l27 0000429 00000da5 00000db5
-l27 0000430 00000db5 00000dc7
-l27 0000432 00000dcd 00000ddd
-l27 0000434 00000de3 00000df3
-l27 0000435 00000df9 00000e07
-l27 0000437 00000e07 00000e1b
-l27 0000438 00000e1b 00000e7d
-l27 0000439 00000e7d 00000ebd
-l27 0000442 00000ec3 00000ec5
-l27 0000444 00000edd 00000eed
-l27 0000445 00000ef3 00000f01
-l27 0000447 00000f01 00000f11
-l27 0000449 00000f17 00000f40
-l27 0000450 00000f40 00000f7d
-l27 0000451 00000f7d 00000fc0
-l27 0000453 00000fc0 00000fe1
-l27 0000454 00000fe1 00001022
-l27 0000455 00001022 0000105c
-l27 0000456 0000105c 0000107d
-l27 0000457 0000107d 0000109c
-l27 0000458 0000109c 000010b0
-l27 0000459 000010b0 000010da
-l27 0000461 000010da 00001103
-l27 0000463 00001103 0000112e
-l27 0000464 0000112e 0000115e
-l27 0000467 0000116a 0000116c
-l27 0000469 0000116c 0000117c
-l27 0000470 00001182 00001190
-l27 0000471 00001196 00001198
-l27 0000472 000011ae 000011bc
-l27 0000474 000011bc 000011cc
-l27 0000476 000011d2 000011e6
-l27 0000477 000011e6 00001248
-l27 0000479 00001248 00001274
-l27 0000482 00001274 000012a6
-l27 0000484 000012ac 000012c0
-l27 0000485 000012c0 000012f6
-l27 0000487 000012fc 00001304
-l27 0001343 00001304 00001336
-l27 0001344 00001336 0000133e
-l27 0001103 0000133e 00001351
-l27 0001104 00001351 00001356
-l27 0001105 00001356 00001363
-l27 0001107 00001363 00001376
-l27 0001108 00001376 0000138b
-l27 0001109 00001391 000013c3
-l27 0001111 000013c3 000013de
-l27 0001113 000013e4 0000142b
-l27 0001114 00001431 00001439
-l27 0001348 00001439 0000145f
-l27 0001349 0000145f 00001467
-l27 0001088 00001467 00001474
-l27 0001089 00001474 00001479
-l27 0001090 00001479 0000148c
-l27 0001092 0000148c 000014a1
-l27 0001093 000014a7 000014d9
-l27 0001094 000014df 000014e1
-l27 0001095 000014fc 0000152e
-l27 0001097 0000152e 00001549
-l27 0001099 00001555 0000155d
+l28 0000571 00000bf7 00000c07
+l28 0000572 00000c07 00000c14
+l28 0000573 00000c14 00000c24
+l28 0000574 00000c24 00000c8e
+l28 0000575 00000c8e 00000cde
+l28 0000577 00000cde 00000cf4
+l28 0000578 00000cf4 00000d0a
+l28 0000579 00000d10 00000d18
+l28 0001620 00000d18 00000d51
+l28 0001621 00000d51 00000d59
+l28 0001624 00000d59 00000d86
+l28 0001625 00000d86 00000d8e
+l28 0000434 00000d8e 00000d98
+l28 0000435 00000d98 00000da5
+l28 0000436 00000da5 00000db5
+l28 0000437 00000db5 00000dc7
+l28 0000438 00000dcd 00000ddd
+l28 0000439 00000de3 00000df3
+l28 0000440 00000df9 00000e07
+l28 0000442 00000e07 00000e1b
+l28 0000443 00000e1b 00000e7d
+l28 0000444 00000e7d 00000ebd
+l28 0000446 00000ec3 00000ec5
+l28 0000447 00000edd 00000eed
+l28 0000448 00000ef3 00000f01
+l28 0000450 00000f01 00000f11
+l28 0000451 00000f17 00000f40
+l28 0000452 00000f40 00000f7d
+l28 0000453 00000f7d 00000fc0
+l28 0000455 00000fc0 00000fe1
+l28 0000456 00000fe1 00001022
+l28 0000457 00001022 0000105c
+l28 0000458 0000105c 0000107d
+l28 0000459 0000107d 0000109c
+l28 0000460 0000109c 000010b0
+l28 0000461 000010b0 000010da
+l28 0000463 000010da 00001103
+l28 0000465 00001103 0000112e
+l28 0000466 0000112e 0000115e
+l28 0000468 0000116a 0000116c
+l28 0000469 0000116c 0000117c
+l28 0000470 00001182 00001190
+l28 0000471 00001196 00001198
+l28 0000472 000011ae 000011bc
+l28 0000474 000011bc 000011cc
+l28 0000475 000011d2 000011e6
+l28 0000476 000011e6 00001248
+l28 0000478 00001248 00001274
+l28 0000481 00001274 000012a6
+l28 0000482 000012ac 000012c0
+l28 0000483 000012c0 000012f6
+l28 0000485 000012fc 00001304
+l28 0001612 00001304 00001336
+l28 0001613 00001336 0000133e
+l28 0001417 0000133e 00001351
+l28 0001418 00001351 00001356
+l28 0001419 00001356 00001363
+l28 0001421 00001363 00001376
+l28 0001422 00001376 0000138b
+l28 0001423 00001391 000013c3
+l28 0001425 000013c3 000013de
+l28 0001427 000013e4 0000142b
+l28 0001428 00001431 00001439
+l28 0001616 00001439 0000145f
+l28 0001617 0000145f 00001467
+l28 0001404 00001467 00001474
+l28 0001405 00001474 00001479
+l28 0001406 00001479 0000148c
+l28 0001407 0000148c 000014a1
+l28 0001408 000014a7 000014d9
+l28 0001409 000014df 000014e1
+l28 0001410 000014fc 0000152e
+l28 0001412 0000152e 00001549
+l28 0001414 00001555 0000155d
 l21 0000219 0000155d 00001562
 l21 0000220 00001562 00001564
 l21 0000222 00001564 00001574
@@ -7026,29 +7043,29 @@ l10 0000183 000026c6 000026ea
 l10 0000184 000026ea 000026f2
 l14 0001823 000026f2 00002718
 l14 0001824 00002718 00002720
-l27 0001383 00002720 00002730
-l27 0001385 00002730 00002740
-l27 0001386 00002746 0000276f
-l27 0001387 0000276f 0000279a
-l27 0001390 000027a0 000027a8
-l27 0001373 000027a8 000027dc
-l27 0001374 000027dc 000027e4
-l27 0001378 000027e4 0000280c
-l27 0001379 0000280c 00002814
-l27 0001064 00002814 00002823
-l27 0001065 00002829 0000282f
-l27 0001066 0000282f 00002843
-l27 0001067 00002843 00002853
-l27 0001068 00002853 00002863
-l27 0001070 00002869 0000287d
-l27 0001071 0000287d 00002889
-l27 0001073 00002889 00002899
-l27 0001075 0000289f 000028b3
-l27 0001076 000028b3 000028c9
-l27 0001077 000028c9 000028d6
-l27 0001078 000028d6 000028e8
-l27 0001079 000028e8 00002965
-l27 0001080 00002965 00002979
-l27 0001082 0000297f 000029b7
-l27 0001083 000029b7 000029cd
-l27 0001084 000029d3 000029db
+l28 0001644 00002720 00002730
+l28 0001646 00002730 00002740
+l28 0001647 00002746 0000276f
+l28 0001648 0000276f 0000279a
+l28 0001651 000027a0 000027a8
+l28 0001636 000027a8 000027dc
+l28 0001637 000027dc 000027e4
+l28 0001640 000027e4 0000280c
+l28 0001641 0000280c 00002814
+l28 0001383 00002814 00002823
+l28 0001384 00002829 0000282f
+l28 0001385 0000282f 00002843
+l28 0001386 00002843 00002853
+l28 0001387 00002853 00002863
+l28 0001388 00002869 0000287d
+l28 0001389 0000287d 00002889
+l28 0001391 00002889 00002899
+l28 0001392 0000289f 000028b3
+l28 0001393 000028b3 000028c9
+l28 0001394 000028c9 000028d6
+l28 0001395 000028d6 000028e8
+l28 0001396 000028e8 00002965
+l28 0001397 00002965 00002979
+l28 0001399 0000297f 000029b7
+l28 0001400 000029b7 000029cd
+l28 0001401 000029d3 000029db

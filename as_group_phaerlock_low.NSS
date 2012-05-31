@@ -49,7 +49,8 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
-		spawn_npc("010_cr_reptile_phaerlock1",0.3);
+		spawn_npc("010_cr_reptile_phaerlock1");
+		spawn_npc("010_cr_reptile_phaerlock1",0.5);
 		spawn_npc("010_cr_reptile_phaerlock1",0.3);
 		spawn_npc("010_cr_reptile_phaerlock1",0.3);
 		spawn_npc("010_cr_reptile_phaerlock2",0.3);

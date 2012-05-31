@@ -109,6 +109,8 @@ void main()
 	if (GetLocalInt(OBJECT_SELF, "X2_L_IS_INCORPOREAL")) {
 		ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(EffectDamageReduction(50, DAMAGE_POWER_PLUS_ONE, 0, DR_TYPE_MAGICBONUS)), oCreature);
 		ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(EffectConcealment(50)), oCreature);
+		effect eGhost = ExtraordinaryEffect(EffectCutsceneGhost());
+		ApplyEffectToObject(DURATION_TYPE_PERMANENT, eGhost, OBJECT_SELF);
 		int nDeflection = GetAbilityModifier(ABILITY_CHARISMA, oCreature);
 		if(nDeflection < 1) nDeflection = 1;
 		ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(EffectACIncrease(nDeflection, AC_DEFLECTION_BONUS)), oCreature);
