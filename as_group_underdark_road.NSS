@@ -184,7 +184,8 @@ void main() {
 					spawn_group("kuotoa");
 					break;
 				default:
-					spawn_hostile_npc("abr_cr_ab_mindflayer");
+					spawn_hostile_npc("abr_cr_ab_mindflayer_01");
+					spawn_group("phaerlock_low",0.5);
 				
 			}
 	}
