@@ -22,7 +22,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // This line is required on all spawn group scripts.
-#include "acr_spawn_i"
+#include "acr_1sc_spawn_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -48,30 +48,21 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
-object oChest;
-object oTrap;
-object oCheckTrigger;
-object o;
+void main()
+{
+	object oWP, o;
 
-int nRand;
+	oWP = OBJECT_SELF;
+
+	int nRand;
 
 
-switch(Random(5)) {
+	switch(Random(5)) {
 			// 60%
 			case 0:
 			case 1:
 			case 2:
-	            oCheckTrigger = GetNearestObjectByTag("phat_lewt_trigger", OBJECT_SELF, 1);
-				
-				if (GetDistanceBetween(oCheckTrigger, OBJECT_SELF) > 10.0) {
-					oCheckTrigger = OBJECT_INVALID;
-					o = GetArea(OBJECT_SELF);
-					WriteTimestampedLogEntry("phat_lewt: Error, no trigger for loot in "+GetName(o) + " (" + GetTag(o) + ")");
-					return;
-				}
-					
-				SetLocalInt(oCheckTrigger, "PL_SPAWNABLE", 1);
+				o = ACR_SpawnLootDetector();
 				break;
 				
 			case 3:
@@ -81,7 +72,7 @@ switch(Random(5)) {
 
 				// 10%
 				if (nRand < 25) {
-			            ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
+			        	ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 				}
 				// 10%
 				else if (nRand < 50) {
@@ -101,6 +92,6 @@ switch(Random(5)) {
  
 	// 20%
 	if (!Random(5))
-				ACR_DestroySpawnPoint(OBJECT_SELF);
+		ACR_DestroySpawnPoint(oWP);
 
 }
