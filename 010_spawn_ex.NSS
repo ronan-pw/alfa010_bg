@@ -184,21 +184,20 @@ void spawn_placeable(string resref, float prob=1.0, float deg=0.0, float deg2=18
 		loc = ACR_GetSpawnLocationFromDirectionAndFacing(deg,dist,deg2+deg);
 		
 		o = CreateObject(OBJECT_TYPE_CREATURE, "c_faction_pig", loc);
-		SetFirstName(o,"[BUG]");
-		SetLastName(o,"Report me!");
 		
 		loc = GetLocation(o);
 		
-		SetImmortal(o,FALSE);
 		DestroyObject(o);
 		
 		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
 		
-		if (FindSubString(GetTag(o),"phat_lewt") == -1) {
-			SetLockKeyTag(o,"foo");
-			SetLockKeyRequired(o);
+		/* Generic placeables with inventories, lock them */
+		if (GetHasInventory(o) && (FindSubString(GetTag(o),"phat_lewt") == -1)) {
+			SetEventHandler(o, SCRIPT_PLACEABLE_ON_OPEN, "acf_plc_onopen");
 			SetPlotFlag(o,1);
 			SetLocked(o,1);
+			SetLockUnlockDC(o, 20+Random(11));
+			SetLocalInt(o,"ACR_JUNK_SPAWN",1);
 		}
 	}
 }
