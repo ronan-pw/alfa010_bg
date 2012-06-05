@@ -46,6 +46,10 @@ void main()
 {
 	object o = OBJECT_SELF;
 	
+	/* ignore hb if lagging */
+	if (GetLocalInt(o, "ACR_NPC") == 2 && GetGlobalInt("ACR_GAMEOBJUPDATE_TIME") > 500000)
+		return;
+
 	ACR_CreatureOnHeartBeat();
 	
 	if (GetLocalInt(o, "tw_travel"))
@@ -69,6 +73,4 @@ void main()
 		ClearAllActions(TRUE);
 		ActionMoveAwayFromObject(GetLastAttacker(), TRUE, 200.0);
 	}
-
-    // Custom code goes here.
 }
