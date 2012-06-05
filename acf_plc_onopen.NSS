@@ -56,7 +56,7 @@ void main() {
 		return;
 
 
-	switch (Random(20)) {
+	switch (Random(26)) {
 	case 0:
 		sResref = "010_it_junk_armour_pad"; 
 		break;
@@ -131,6 +131,9 @@ void main() {
 		break;
 	case 24:
 		sResref = "010_it_junk_misc";
+		break;
+	case 25:
+		sResref = "010_it_junk_pottery";
 		break;
 	}
 
