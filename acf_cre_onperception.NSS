@@ -44,7 +44,7 @@
 void main()
 {
 	/* ignore hb if lagging */
-	if (GetLocalInt(OBJECT_SELF, "ACR_NPC") == 2 && GetGlobalInt("ACR_GAMEOBJUPDATE_TIME") > 500000)
+	if (GetLocalInt(OBJECT_SELF, "ACR_NPC") == 2 && GetGlobalInt("ACR_GAMEOBJUPDATE_TIME") > 500)
 		return;
 
 	ACR_CreatureOnPerception();
