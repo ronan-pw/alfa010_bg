@@ -49,57 +49,21 @@ void main();
 
 void main() {
 
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_koboldfighter01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_koboldfighter02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_koboldfighter03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_koboldfighter04", OBJECT_TYPE_CREATURE);
-            break;
-        case 4:
-            ACR_SpawnObject("abr_cr_hu_koboldfighter05", OBJECT_TYPE_CREATURE);
-            break;}			
-			
-	
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_koboldrunt01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_koboldrunt02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_koboldrunt03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_koboldrunt04", OBJECT_TYPE_CREATURE);
-            break;
-        case 4:
-            ACR_SpawnObject("abr_cr_hu_koboldrunt05", OBJECT_TYPE_CREATURE);
-            break;}
-			
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_koboldscout01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_koboldscout02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_koboldscout03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_koboldscout04", OBJECT_TYPE_CREATURE);
-            break;
-        case 4:
-            ACR_SpawnObject("abr_cr_hu_koboldscout05", OBJECT_TYPE_CREATURE);
-            break;}			
-	
+	spawn_hostile_npc("abr_cr_hu_koboldfighter01",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter02",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter03",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter04",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter05",0.2);
 
+	spawn_hostile_npc("abr_cr_hu_koboldrunt01",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldrunt02",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldrunt03",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldrunt04",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldrunt05",0.2);
+
+	spawn_hostile_npc("abr_cr_hu_koboldscout01",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout02",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout03",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout04",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout05",0.2);
 }

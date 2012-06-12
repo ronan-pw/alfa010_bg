@@ -49,40 +49,21 @@ void main();
 
 void main() {
 
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_koboldelite01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_koboldelite02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_koboldelite03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_koboldelite04", OBJECT_TYPE_CREATURE);
-            break;
-        case 4:
-            ACR_SpawnObject("abr_cr_hu_koboldelite05", OBJECT_TYPE_CREATURE);
-            break;}			
-			
-	switch(Random(5)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_koboldelite01", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_koboldelite02", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_koboldelite03", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_koboldelite04", OBJECT_TYPE_CREATURE);
-            break;
-        case 4:
-            ACR_SpawnObject("abr_cr_hu_koboldelite05", OBJECT_TYPE_CREATURE);
-            break;}		
+	spawn_hostile_npc("abr_cr_hu_koboldscout01",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout02",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout03",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout04",0.2);
+	spawn_hostile_npc("abr_cr_hu_koboldscout05",0.2);
 
-	
+	spawn_hostile_npc("abr_cr_hu_koboldfighter01",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter02",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter03",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter04",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldfighter05",0.3);
 
+	spawn_hostile_npc("abr_cr_hu_koboldelite01",0.4);
+	spawn_hostile_npc("abr_cr_hu_koboldelite01",0.4);
+	spawn_hostile_npc("abr_cr_hu_koboldelite01",0.4);
+	spawn_hostile_npc("abr_cr_hu_koboldelite01",0.4);
+	spawn_hostile_npc("abr_cr_hu_koboldelite01",0.4);
 }

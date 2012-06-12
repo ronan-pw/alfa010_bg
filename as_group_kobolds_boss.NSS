@@ -48,25 +48,11 @@ void main();
 ////////////////////////////////////////////////////////////////////////////////
 
 void main() {
-
-	switch(Random(8)) {
-        case 0:
-            ACR_SpawnObject("abr_cr_hu_koboldbard", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_cr_hu_koboldcaptain", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_cr_hu_koboldranger", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_cr_hu_koboldroughneck", OBJECT_TYPE_CREATURE);
-            break;
-		case 4:
-            ACR_SpawnObject("abr_cr_hu_koboldshaman", OBJECT_TYPE_CREATURE);
-            break;
-}			
 	
+	spawn_hostile_npc("abr_cr_hu_koboldbard",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldcaptain",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldranger",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldroughneck",0.3);
+	spawn_hostile_npc("abr_cr_hu_koboldshaman",0.3);
 
-   
 }
