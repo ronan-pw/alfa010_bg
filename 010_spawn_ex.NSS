@@ -191,13 +191,13 @@ void spawn_placeable(string resref, float prob=1.0, float deg=0.0, float deg2=18
 		
 		o = ACR_SpawnObjectAtLocation(resref, OBJECT_TYPE_PLACEABLE, loc);
 		
-		/* Generic placeables with inventories, lock them */
+		/* Generic placeables with inventories (chests), lock them */
 		if (GetHasInventory(o) && (FindSubString(GetTag(o),"phat_lewt") == -1)) {
 			SetEventHandler(o, SCRIPT_PLACEABLE_ON_OPEN, "acf_plc_onopen");
 			SetPlotFlag(o,1);
 			SetLocked(o,1);
 			SetLockUnlockDC(o, 20+Random(11));
-			SetLocalInt(o,"ACR_JUNK_SPAWN",1);
+			SetLocalInt(o,"ACR_SPAWN_JUNK",1);
 		}
 	}
 }
