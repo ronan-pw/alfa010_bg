@@ -52,7 +52,7 @@ void main() {
 	object o;
 	
 	// fire
-	if (Random(3) == 0) {
+	if (Random(10) > 5) {
 		switch (Random(5)) {
 			case 0:
 				spawn_placeable("plc_mr_campfire1", 1.0, 50.0, 0.0, 3.0);
@@ -113,13 +113,14 @@ void main() {
 	}
 	
 	// Tent
-	if (Random(5) == 0) {
+	if (Random(4) == 0) {
 		spawn_placeable("plc_bl_tents01", 0.5, 180.0);
 		spawn_placeable("plc_bl_tents02", 0.5, 240.0);
 	}
 	
 	// Containers
-	if (Random(4) == 0) {
+	if (Random(10) > 5) {
+		spawn_placeable("plc_ml_chestm01", 0.5, 60.0, 0.0);
 		spawn_placeable("plc_ml_chestl01", 0.5, 70.0, 0.0);
 		spawn_placeable("plc_ml_chestl02", 0.5, 80.0, 0.0);
 		spawn_placeable("plc_mc_crate04", 0.5, 90.0, 0.0);

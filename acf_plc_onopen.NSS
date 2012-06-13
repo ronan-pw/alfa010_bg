@@ -52,7 +52,7 @@ void main() {
 
 	ACR_PlaceableOnOpen();
 
-	if (!GetLocalInt(OBJECT_SELF, "ACR_JUNK_SPAWN"))
+	if (!GetLocalInt(OBJECT_SELF, "ACR_SPAWN_JUNK"))
 		return;
 
 
@@ -145,5 +145,5 @@ void main() {
 
 	DestroyObject(o);
 
-	DeleteLocalInt(OBJECT_SELF, "ACR_JUNK_SPAWN");
+	DeleteLocalInt(OBJECT_SELF, "ACR_SPAWN_JUNK");
 }
