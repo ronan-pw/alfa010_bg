@@ -22,6 +22,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -49,31 +50,23 @@ void main();
 
 void main() {
 
-	
-
-	switch(Random(6)) {
-        case 0:
-            ACR_SpawnObject("abr_wereboar_human", OBJECT_TYPE_CREATURE);
-            break;
-        case 1:
-            ACR_SpawnObject("abr_wererat_human", OBJECT_TYPE_CREATURE);
-            break;
-        case 2:
-            ACR_SpawnObject("abr_werewolf_human", OBJECT_TYPE_CREATURE);
-            break;
-        case 3:
-            ACR_SpawnObject("abr_wereboar", OBJECT_TYPE_CREATURE);
-            break;			
-	    case 4:
-            ACR_SpawnObject("abr_wererat", OBJECT_TYPE_CREATURE);
-            break;		
-	    case 5:
-            ACR_SpawnObject("abr_werewolf", OBJECT_TYPE_CREATURE);
-            break;
-			
-			}			
-				
-	
-	
-    
+	switch (Random(4)) {
+		case 0:
+        		spawn_hostile_npc("abr_wereboar_human",0.3);
+        		spawn_hostile_npc("abr_wereboar_human",0.3);
+		        spawn_hostile_npc("abr_wereboar",0.5);
+		        spawn_hostile_npc("abr_wereboar",0.5);
+			break;
+		case 1:
+        		spawn_hostile_npc("abr_wererat_human",0.3);
+        		spawn_hostile_npc("abr_wererat_human",0.3);
+        		spawn_hostile_npc("abr_wererat",0.5);
+        		spawn_hostile_npc("abr_wererat",0.5);
+			break;
+		default:
+		        spawn_hostile_npc("abr_werewolf_human",0.3);
+        		spawn_hostile_npc("abr_werewolf_human",0.3);
+		        spawn_hostile_npc("abr_werewolf",0.5);
+		        spawn_hostile_npc("abr_werewolf",0.5);
+	}
 }
