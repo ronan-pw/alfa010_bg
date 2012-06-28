@@ -1,5 +1,5 @@
 NDB V1.0
-0000063 0000010 0004370 0000080 0000278
+0000063 0000010 0004375 0000080 0000278
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -834,9 +834,9 @@ f ffffffff ffffffff 000 f DISTANCE_SHORT
 f ffffffff ffffffff 000 f DISTANCE_MEDIUM
 f ffffffff ffffffff 000 f DISTANCE_LARGE
 f ffffffff ffffffff 000 f DISTANCE_HUGE
-f 00001a5f 00001ae8 001 s LocationToString
+f 00001a40 00001ac9 001 s LocationToString
 fp e2
-f 00001ae8 00001b71 001 s VectorToString
+f 00001ac9 00001b52 001 s VectorToString
 fp t0000
 f ffffffff ffffffff 002 v MoveToNewLocation
 fp e2
@@ -1767,6 +1767,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PURGE_CACHED_CHARACTER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_SHUTDOWN_SERVER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
 fp t0002
@@ -1839,6 +1840,10 @@ f ffffffff ffffffff 001 i ACR_PauseHeartbeat
 fp o
 f ffffffff ffffffff 001 i ACR_ServerIPC_OnQuarantinePlayer
 fp o
+f ffffffff ffffffff 003 i ACR_RunScriptOnServer
+fp i
+fp s
+fp s
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
 fp i
@@ -3854,6 +3859,8 @@ fp s
 fp i
 f ffffffff ffffffff 001 v ACR_PCExportSingleCharacter
 fp o
+f ffffffff ffffffff 001 i ACR_PPSIsPlayerQuarantined
+fp o
 f ffffffff ffffffff 003 v _playerRestoreLocation
 fp o
 fp e2
@@ -3864,6 +3871,10 @@ f ffffffff ffffffff 001 v _playerStartQuarantinePortalDialog
 fp i
 f ffffffff ffffffff 001 v _playerStartQuarantineAutoPortal
 fp i
+f ffffffff ffffffff 001 v _playerScheduleQuarantineAreaCheck
+fp o
+f ffffffff ffffffff 001 v _playerQuarantineAreaCheck
+fp o
 f ffffffff ffffffff 001 o _check_object
 fp o
 f ffffffff ffffffff 002 i _get_index
@@ -7086,7 +7097,7 @@ fp i
 fp i
 f ffffffff ffffffff 001 v ACR_ReportSpawnDeath
 fp o
-f 00001b71 00001bb5 002 v ACR_DestroySpawnPoint
+f 00001b52 00001b96 002 v ACR_DestroySpawnPoint
 fp o
 fp i
 f ffffffff ffffffff 001 v ACR_SpawnOnAreaEnter
@@ -7142,7 +7153,7 @@ f ffffffff ffffffff 001 v ACR_SpawnPoint
 fp o
 f 00000424 0000045b 001 e2 ACR_GetSpawnLocation
 fp o
-f 0000196d 00001a5f 001 s ACR_SpawnPointToString
+f 0000196d 00001a40 001 s ACR_SpawnPointToString
 fp o
 f ffffffff ffffffff 001 i ACR_GetSpawnEvent
 fp o
@@ -7296,15 +7307,15 @@ v 00001939 00001965 00000000 o oValue
 v 00001939 00001965 00000004 i nIndex
 v 00001939 00001965 00000008 s sVarName
 v 00001939 00001965 0000000c o oObject
-v 0000196d 00001a5d 00000000 s #retval
-v 0000196d 00001a57 00000004 o oWP
-v 0000196d 00001a51 00000008 o oArea
-v 00001a5f 00001ae6 00000000 s #retval
-v 00001a5f 00001ae0 00000004 e2 loc
-v 00001ae8 00001b6f 00000000 s #retval
-v 00001ae8 00001b69 00000004 t0000 vec
-v 00001b71 00001bad 00000000 i bDespawnChildren
-v 00001b71 00001bad 00000004 o oWP
+v 0000196d 00001a3e 00000000 s #retval
+v 0000196d 00001a38 00000004 o oWP
+v 0000196d 00001a32 00000008 o oArea
+v 00001a40 00001ac7 00000000 s #retval
+v 00001a40 00001ac1 00000004 e2 loc
+v 00001ac9 00001b50 00000000 s #retval
+v 00001ac9 00001b4a 00000004 t0000 vec
+v 00001b52 00001b8e 00000000 i bDespawnChildren
+v 00001b52 00001b8e 00000004 o oWP
 l00 0000048 00000015 0000002c
 l01 0000074 0000002c 0000002c
 l01 0000075 0000002c 0000002c
@@ -7317,12 +7328,12 @@ l02 0000062 00000048 00000056
 l02 0000064 00000056 00000065
 l02 0000065 00000065 00000074
 l02 0000066 00000074 00000083
-l03 0000131 00000083 00000083
-l03 0000132 00000083 00000083
-l03 0000133 00000083 00000083
-l03 0000134 00000083 00000083
-l03 0000135 00000083 00000083
-l03 0000136 00000083 00000083
+l03 0000144 00000083 00000083
+l03 0000145 00000083 00000083
+l03 0000146 00000083 00000083
+l03 0000147 00000083 00000083
+l03 0000148 00000083 00000083
+l03 0000149 00000083 00000083
 l04 0000234 00000083 00000087
 l05 0000116 00000087 00000087
 l05 0000117 00000087 00000087
@@ -7575,11 +7586,11 @@ l61 0002021 00001931 00001939
 l13 0000163 00001939 00001965
 l13 0000164 00001965 0000196d
 l61 0000992 0000196d 0000197a
-l61 0000994 0000197a 00001a51
-l61 0000995 00001a57 00001a5f
-l18 0000212 00001a5f 00001ae0
-l18 0000215 00001ae0 00001ae8
-l18 0000221 00001ae8 00001b69
-l18 0000224 00001b69 00001b71
-l61 0000936 00001b71 00001bad
-l61 0000937 00001bad 00001bb5
+l61 0000994 0000197a 00001a32
+l61 0000995 00001a38 00001a40
+l18 0000212 00001a40 00001ac1
+l18 0000215 00001ac1 00001ac9
+l18 0000221 00001ac9 00001b4a
+l18 0000224 00001b4a 00001b52
+l61 0000936 00001b52 00001b8e
+l61 0000937 00001b8e 00001b96

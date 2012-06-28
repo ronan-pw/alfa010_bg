@@ -1,5 +1,5 @@
 NDB V1.0
-0000065 0000010 0004400 0000106 0000300
+0000065 0000010 0004405 0000106 0000300
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -836,9 +836,9 @@ f ffffffff ffffffff 000 f DISTANCE_SHORT
 f ffffffff ffffffff 000 f DISTANCE_MEDIUM
 f ffffffff ffffffff 000 f DISTANCE_LARGE
 f ffffffff ffffffff 000 f DISTANCE_HUGE
-f 00001e49 00001ed2 001 s LocationToString
+f 00001e2a 00001eb3 001 s LocationToString
 fp e2
-f 00001ed2 00001f5b 001 s VectorToString
+f 00001eb3 00001f3c 001 s VectorToString
 fp t0000
 f ffffffff ffffffff 002 v MoveToNewLocation
 fp e2
@@ -1769,6 +1769,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PURGE_CACHED_CHARACTER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_SHUTDOWN_SERVER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
 fp t0002
@@ -1841,6 +1842,10 @@ f ffffffff ffffffff 001 i ACR_PauseHeartbeat
 fp o
 f ffffffff ffffffff 001 i ACR_ServerIPC_OnQuarantinePlayer
 fp o
+f ffffffff ffffffff 003 i ACR_RunScriptOnServer
+fp i
+fp s
+fp s
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
 fp i
@@ -3856,6 +3861,8 @@ fp s
 fp i
 f ffffffff ffffffff 001 v ACR_PCExportSingleCharacter
 fp o
+f ffffffff ffffffff 001 i ACR_PPSIsPlayerQuarantined
+fp o
 f ffffffff ffffffff 003 v _playerRestoreLocation
 fp o
 fp e2
@@ -3866,6 +3873,10 @@ f ffffffff ffffffff 001 v _playerStartQuarantinePortalDialog
 fp i
 f ffffffff ffffffff 001 v _playerStartQuarantineAutoPortal
 fp i
+f ffffffff ffffffff 001 v _playerScheduleQuarantineAreaCheck
+fp o
+f ffffffff ffffffff 001 v _playerQuarantineAreaCheck
+fp o
 f ffffffff ffffffff 001 o _check_object
 fp o
 f ffffffff ffffffff 002 i _get_index
@@ -7144,7 +7155,7 @@ f ffffffff ffffffff 001 v ACR_SpawnPoint
 fp o
 f 00000449 00000480 001 e2 ACR_GetSpawnLocation
 fp o
-f 00001d57 00001e49 001 s ACR_SpawnPointToString
+f 00001d57 00001e2a 001 s ACR_SpawnPointToString
 fp o
 f ffffffff ffffffff 001 i ACR_GetSpawnEvent
 fp o
@@ -7402,13 +7413,13 @@ v 00001d23 00001d4f 00000000 o oValue
 v 00001d23 00001d4f 00000004 i nIndex
 v 00001d23 00001d4f 00000008 s sVarName
 v 00001d23 00001d4f 0000000c o oObject
-v 00001d57 00001e47 00000000 s #retval
-v 00001d57 00001e41 00000004 o oWP
-v 00001d57 00001e3b 00000008 o oArea
-v 00001e49 00001ed0 00000000 s #retval
-v 00001e49 00001eca 00000004 e2 loc
-v 00001ed2 00001f59 00000000 s #retval
-v 00001ed2 00001f53 00000004 t0000 vec
+v 00001d57 00001e28 00000000 s #retval
+v 00001d57 00001e22 00000004 o oWP
+v 00001d57 00001e1c 00000008 o oArea
+v 00001e2a 00001eb1 00000000 s #retval
+v 00001e2a 00001eab 00000004 e2 loc
+v 00001eb3 00001f3a 00000000 s #retval
+v 00001eb3 00001f34 00000004 t0000 vec
 l00 0000048 00000015 0000002c
 l01 0000074 0000002c 0000002c
 l01 0000075 0000002c 0000002c
@@ -7421,12 +7432,12 @@ l02 0000062 00000048 00000056
 l02 0000064 00000056 00000065
 l02 0000065 00000065 00000074
 l02 0000066 00000074 00000083
-l03 0000131 00000083 00000083
-l03 0000132 00000083 00000083
-l03 0000133 00000083 00000083
-l03 0000134 00000083 00000083
-l03 0000135 00000083 00000083
-l03 0000136 00000083 00000083
+l03 0000144 00000083 00000083
+l03 0000145 00000083 00000083
+l03 0000146 00000083 00000083
+l03 0000147 00000083 00000083
+l03 0000148 00000083 00000083
+l03 0000149 00000083 00000083
 l04 0000234 00000083 00000087
 l05 0000116 00000087 00000087
 l05 0000117 00000087 00000087
@@ -7703,9 +7714,9 @@ l61 0002021 00001d1b 00001d23
 l13 0000163 00001d23 00001d4f
 l13 0000164 00001d4f 00001d57
 l61 0000992 00001d57 00001d64
-l61 0000994 00001d64 00001e3b
-l61 0000995 00001e41 00001e49
-l18 0000212 00001e49 00001eca
-l18 0000215 00001eca 00001ed2
-l18 0000221 00001ed2 00001f53
-l18 0000224 00001f53 00001f5b
+l61 0000994 00001d64 00001e1c
+l61 0000995 00001e22 00001e2a
+l18 0000212 00001e2a 00001eab
+l18 0000215 00001eab 00001eb3
+l18 0000221 00001eb3 00001f34
+l18 0000224 00001f34 00001f3c

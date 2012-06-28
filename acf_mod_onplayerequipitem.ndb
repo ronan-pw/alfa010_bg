@@ -1,5 +1,5 @@
 NDB V1.0
-0000098 0000023 0005354 0000103 0000495
+0000098 0000023 0005362 0000103 0000495
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -1883,6 +1883,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PURGE_CACHED_CHARACTER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_SHUTDOWN_SERVER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
 fp t0002
@@ -1955,6 +1956,10 @@ f ffffffff ffffffff 001 i ACR_PauseHeartbeat
 fp o
 f ffffffff ffffffff 001 i ACR_ServerIPC_OnQuarantinePlayer
 fp o
+f ffffffff ffffffff 003 i ACR_RunScriptOnServer
+fp i
+fp s
+fp s
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
 fp i
@@ -3970,6 +3975,8 @@ fp s
 fp i
 f ffffffff ffffffff 001 v ACR_PCExportSingleCharacter
 fp o
+f ffffffff ffffffff 001 i ACR_PPSIsPlayerQuarantined
+fp o
 f ffffffff ffffffff 003 v _playerRestoreLocation
 fp o
 fp e2
@@ -3980,6 +3987,10 @@ f ffffffff ffffffff 001 v _playerStartQuarantinePortalDialog
 fp i
 f ffffffff ffffffff 001 v _playerStartQuarantineAutoPortal
 fp i
+f ffffffff ffffffff 001 v _playerScheduleQuarantineAreaCheck
+fp o
+f ffffffff ffffffff 001 v _playerQuarantineAreaCheck
+fp o
 f ffffffff ffffffff 001 o _check_object
 fp o
 f ffffffff ffffffff 002 i _get_index
@@ -9239,6 +9250,9 @@ f ffffffff ffffffff 000 i NOTIFY_TYPE_INFO
 f ffffffff ffffffff 000 i NOTIFY_TYPE_TIP
 f ffffffff ffffffff 000 s NOTIFY_EVENT_CLICKED_TICKER
 f ffffffff ffffffff 000 s NOTIFY_EVENT_DISMISSED_TICKLER
+f ffffffff ffffffff 000 s NOTIFY_WINDOW_MESSAGE_BOX
+f ffffffff ffffffff 000 s NOTIFY_WINDOW_NO_CALLBACK
+f ffffffff ffffffff 000 s NOTIFY_WINDOW_URL_BOX
 f ffffffff ffffffff 009 v NotifyPlayer
 fp o
 fp i
@@ -9564,12 +9578,12 @@ l02 0000074 00000083 00000083
 l02 0000075 00000083 00000083
 l02 0000076 00000083 00000083
 l02 0000077 00000083 00000083
-l03 0000131 00000083 00000083
-l03 0000132 00000083 00000083
-l03 0000133 00000083 00000083
-l03 0000134 00000083 00000083
-l03 0000135 00000083 00000083
-l03 0000136 00000083 00000083
+l03 0000144 00000083 00000083
+l03 0000145 00000083 00000083
+l03 0000146 00000083 00000083
+l03 0000147 00000083 00000083
+l03 0000148 00000083 00000083
+l03 0000149 00000083 00000083
 l04 0000234 00000083 00000087
 l05 0000116 00000087 00000087
 l05 0000117 00000087 00000087

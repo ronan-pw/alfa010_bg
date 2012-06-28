@@ -1,5 +1,5 @@
 NDB V1.0
-0000065 0000010 0004400 0000121 0000305
+0000065 0000010 0004405 0000121 0000305
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -836,9 +836,9 @@ f ffffffff ffffffff 000 f DISTANCE_SHORT
 f ffffffff ffffffff 000 f DISTANCE_MEDIUM
 f ffffffff ffffffff 000 f DISTANCE_LARGE
 f ffffffff ffffffff 000 f DISTANCE_HUGE
-f 00001e4d 00001ed6 001 s LocationToString
+f 00001e2e 00001eb7 001 s LocationToString
 fp e2
-f 00001ed6 00001f5f 001 s VectorToString
+f 00001eb7 00001f40 001 s VectorToString
 fp t0000
 f ffffffff ffffffff 002 v MoveToNewLocation
 fp e2
@@ -1769,6 +1769,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_DISCONNECT_PLAYER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PURGE_CACHED_CHARACTER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_SHUTDOWN_SERVER
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
+f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
 fp t0002
@@ -1841,6 +1842,10 @@ f ffffffff ffffffff 001 i ACR_PauseHeartbeat
 fp o
 f ffffffff ffffffff 001 i ACR_ServerIPC_OnQuarantinePlayer
 fp o
+f ffffffff ffffffff 003 i ACR_RunScriptOnServer
+fp i
+fp s
+fp s
 f ffffffff ffffffff 008 i ACR_CallIPCScript
 fp i
 fp i
@@ -3856,6 +3861,8 @@ fp s
 fp i
 f ffffffff ffffffff 001 v ACR_PCExportSingleCharacter
 fp o
+f ffffffff ffffffff 001 i ACR_PPSIsPlayerQuarantined
+fp o
 f ffffffff ffffffff 003 v _playerRestoreLocation
 fp o
 fp e2
@@ -3866,6 +3873,10 @@ f ffffffff ffffffff 001 v _playerStartQuarantinePortalDialog
 fp i
 f ffffffff ffffffff 001 v _playerStartQuarantineAutoPortal
 fp i
+f ffffffff ffffffff 001 v _playerScheduleQuarantineAreaCheck
+fp o
+f ffffffff ffffffff 001 v _playerQuarantineAreaCheck
+fp o
 f ffffffff ffffffff 001 o _check_object
 fp o
 f ffffffff ffffffff 002 i _get_index
@@ -7137,14 +7148,14 @@ fp f
 fp f
 fp f
 fp o
-f 00001fb3 00001fdf 002 v ACR_SpawnGroup
+f 00001f94 00001fc0 002 v ACR_SpawnGroup
 fp s
 fp o
 f ffffffff ffffffff 001 v ACR_SpawnPoint
 fp o
 f 0000044d 00000484 001 e2 ACR_GetSpawnLocation
 fp o
-f 00001d5b 00001e4d 001 s ACR_SpawnPointToString
+f 00001d5b 00001e2e 001 s ACR_SpawnPointToString
 fp o
 f ffffffff ffffffff 001 i ACR_GetSpawnEvent
 fp o
@@ -7291,7 +7302,7 @@ f ffffffff ffffffff 003 o spawn_nonambient_npc
 fp s
 fp f
 fp f
-f 00001f5f 00001fb3 002 v spawn_group
+f 00001f40 00001f94 002 v spawn_group
 fp s
 fp f
 f ffffffff ffffffff 005 v spawn_placeable
@@ -7411,19 +7422,19 @@ v 00001d27 00001d53 00000000 o oValue
 v 00001d27 00001d53 00000004 i nIndex
 v 00001d27 00001d53 00000008 s sVarName
 v 00001d27 00001d53 0000000c o oObject
-v 00001d5b 00001e4b 00000000 s #retval
-v 00001d5b 00001e45 00000004 o oWP
-v 00001d5b 00001e3f 00000008 o oArea
-v 00001e4d 00001ed4 00000000 s #retval
-v 00001e4d 00001ece 00000004 e2 loc
-v 00001ed6 00001f5d 00000000 s #retval
-v 00001ed6 00001f57 00000004 t0000 vec
-v 00001f5f 00001fab 00000000 f prob
-v 00001f5f 00001fab 00000004 s resref
-v 00001f5f 00001fa5 00000008 f f
-v 00001f73 00001fa5 0000000c o o
-v 00001fb3 00001fd7 00000000 o oWP
-v 00001fb3 00001fd7 00000004 s sGroupName
+v 00001d5b 00001e2c 00000000 s #retval
+v 00001d5b 00001e26 00000004 o oWP
+v 00001d5b 00001e20 00000008 o oArea
+v 00001e2e 00001eb5 00000000 s #retval
+v 00001e2e 00001eaf 00000004 e2 loc
+v 00001eb7 00001f3e 00000000 s #retval
+v 00001eb7 00001f38 00000004 t0000 vec
+v 00001f40 00001f8c 00000000 f prob
+v 00001f40 00001f8c 00000004 s resref
+v 00001f40 00001f86 00000008 f f
+v 00001f54 00001f86 0000000c o o
+v 00001f94 00001fb8 00000000 o oWP
+v 00001f94 00001fb8 00000004 s sGroupName
 l00 0000048 00000015 0000002c
 l01 0000074 0000002c 0000002c
 l01 0000075 0000002c 0000002c
@@ -7436,12 +7447,12 @@ l02 0000062 00000048 00000056
 l02 0000064 00000056 00000065
 l02 0000065 00000065 00000074
 l02 0000066 00000074 00000083
-l03 0000131 00000083 00000083
-l03 0000132 00000083 00000083
-l03 0000133 00000083 00000083
-l03 0000134 00000083 00000083
-l03 0000135 00000083 00000083
-l03 0000136 00000083 00000083
+l03 0000144 00000083 00000083
+l03 0000145 00000083 00000083
+l03 0000146 00000083 00000083
+l03 0000147 00000083 00000083
+l03 0000148 00000083 00000083
+l03 0000149 00000083 00000083
 l04 0000234 00000083 00000087
 l05 0000116 00000087 00000087
 l05 0000117 00000087 00000087
@@ -7716,16 +7727,16 @@ l61 0002021 00001d1f 00001d27
 l13 0000163 00001d27 00001d53
 l13 0000164 00001d53 00001d5b
 l61 0000992 00001d5b 00001d68
-l61 0000994 00001d68 00001e3f
-l61 0000995 00001e45 00001e4d
-l18 0000212 00001e4d 00001ece
-l18 0000215 00001ece 00001ed6
-l18 0000221 00001ed6 00001f57
-l18 0000224 00001f57 00001f5f
-l63 0000158 00001f5f 00001f73
-l63 0000159 00001f73 00001f79
-l63 0000161 00001f79 00001f8b
-l63 0000162 00001f91 00001fa5
-l63 0000164 00001fab 00001fb3
-l61 0000979 00001fb3 00001fd7
-l61 0000980 00001fd7 00001fdf
+l61 0000994 00001d68 00001e20
+l61 0000995 00001e26 00001e2e
+l18 0000212 00001e2e 00001eaf
+l18 0000215 00001eaf 00001eb7
+l18 0000221 00001eb7 00001f38
+l18 0000224 00001f38 00001f40
+l63 0000158 00001f40 00001f54
+l63 0000159 00001f54 00001f5a
+l63 0000161 00001f5a 00001f6c
+l63 0000162 00001f72 00001f86
+l63 0000164 00001f8c 00001f94
+l61 0000979 00001f94 00001fb8
+l61 0000980 00001fb8 00001fc0
