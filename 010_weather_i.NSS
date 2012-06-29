@@ -128,6 +128,60 @@ void set_region_weather(int region, int type, int power)
 	SetGlobalInt("weather_"+IntToString(region)+"_power",power);
 }
 
+void reset_swim_dcs(object area)
+{
+	int old_dc;
+	object o;
+
+	o = GetFirstObjectInArea(area);
+
+	while (o != OBJECT_INVALID) {
+	
+		if (GetBaseItemType(o) == OBJECT_TYPE_TRIGGER) {
+			old_dc = GetLocalInt(o, "ACR_SWIM_DC_OLD");
+			
+			if (old_dc > 0)
+				SetLocalInt(o, "ACR_SWIM_DC", old_dc);
+		}
+		
+		o = GetNextObjectInArea(area);
+	}
+}
+
+void update_swim_dcs(object area, int type, int power)
+{
+	int dc;
+	object o;
+
+	o = GetFirstObjectInArea(area);
+
+	if (type == 0)
+		return;
+
+	while (o != OBJECT_INVALID) {
+	
+		if (GetBaseItemType(o) == OBJECT_TYPE_TRIGGER) {
+			dc = GetLocalInt(o, "ACR_SWIM_DC");
+			SetLocalInt(o, "ACR_SWIM_DC_OLD", dc);
+
+			dc += power/2;
+
+			switch (type) {
+				case 1:
+					dc *= 1;
+					break;
+				case 2:
+					dc *= 2;
+					break;
+			}
+
+			SetLocalInt(o, "ACR_SWIM_DC", dc);
+		}
+		
+		o = GetNextObjectInArea(area);
+	}
+}
+
 string calc_next_state(int region, int cur_type, int cur_power, string matrix)
 {
 	int i, dep_type, dep_power;
@@ -337,6 +391,10 @@ void set_weather(object area,int type,int power)
 	}
 	
 	ACR_PrintDebugMessage("Setting weather ["+GetTag(area)+"] ("+IntToString(track)+","+IntToString(volume)+"),("+IntToString(type)+","+IntToString(power)+")", _WEATHER_SYSTEM_NAME, DEBUG_LEVEL_INFO);
+
+	reset_swim_dcs(area);
+	update_swim_dcs(area, type, power);
+	
 	
 	AmbientSoundSetDayVolume(area,volume);
 	AmbientSoundSetNightVolume(area,volume);
@@ -399,7 +457,7 @@ void process_weather()
 		ACR_PrintDebugMessage(get_region_name(i)+" ("+IntToString(i)+") -> ("+IntToString(type)+","+IntToString(power)+")", _WEATHER_SYSTEM_NAME, DEBUG_LEVEL_INFO);
 	}
 			
-			
+		
 	area = GetFirstArea();
 	
 	while (GetIsObjectValid(area)) {
