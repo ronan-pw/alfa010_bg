@@ -47,7 +47,7 @@ void main()
     ACR_CreatureOnPhysicallyAttacked();
 	float delay = 2.0;
 	
-	if(!GetWeaponRanged(GetLastWeaponUsed(attacker)))
+	if(!GetWeaponRanged(GetLastWeaponUsed(attacker)) && ReflexSave(attacker, 18, SAVING_THROW_TYPE_ACID))
 		ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(d8(1), DAMAGE_TYPE_ACID), attacker);
 	
 	/*SendMessageToAllDMs("Creature "+GetName(OBJECT_SELF)+" was attacked.");
