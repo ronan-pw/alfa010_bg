@@ -26,7 +26,9 @@ void main() {
 	string sDest = (GetAlignmentGoodEvil(oUser) == ALIGNMENT_GOOD) ? GetLocalString(OBJECT_SELF, "010_PORTAL_ALT_DEST") : GetLocalString(OBJECT_SELF, "010_PORTAL_DEST");
 	object oDest = GetObjectByTag(sDest);
 	
-	if((oDest != OBJECT_INVALID && nCharges) || GetIsDM(oUser)) {
+	if(GetLocalInt(oDest, "010_PORTAL_BLOCKED"))
+		SpeakString("*<i>Nothing happens.</i>*");
+	else if((oDest != OBJECT_INVALID && nCharges) || GetIsDM(oUser)) {
 		PortToLocation(GetLocation(oDest));
 		SetLocalInt(OBJECT_SELF, "010_PORTAL_CHARGES", nCharges-1);
 	} else {
