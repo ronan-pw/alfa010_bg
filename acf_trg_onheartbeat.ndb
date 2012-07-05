@@ -1,5 +1,5 @@
 NDB V1.0
-0000068 0000010 0004523 0000014 0000060
+0000070 0000010 0004540 0000014 0000060
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -38,36 +38,38 @@ n34 acr_portal_i
 n35 dmfi_inc_sendtex
 n36 dmfi_inc_tool
 n37 dmfi_inc_inc_com
-n38 acr_pps_i
-n39 x2_inc_itemprop
-n40 acr_nonlethal_i
-n41 x0_i0_petrify
-n42 nw_i0_spells
-n43 x0_i0_partywide
-n44 x0_i0_transport
-n45 x0_i0_common
-n46 nw_i0_plot
-n47 x0_i0_behavior
-n48 x0_i0_modes
-n49 x0_i0_voice
-n50 x0_i0_walkway
-n51 x0_i0_anims
-n52 x0_i0_henchman
-n53 nwn2_inc_metmag
-n54 x0_i0_spells
-n55 nwn2_inc_spells
-n56 acr_effects_i
-n57 acr_xp_i
-n58 acr_skills_i
-n59 acr_resting_i
-n60 acr_list_i
-n61 acr_mobloot_i
-n62 acr_spawn_i
-n63 acr_seamlessat_i
-n64 acr_quest_i
-n65 acr_area_i
-n66 acr_trigger_i
-N67 acf_trg_onheartbeat
+n38 acr_version_i
+n39 acr_conversions_i
+n40 acr_pps_i
+n41 x2_inc_itemprop
+n42 acr_nonlethal_i
+n43 x0_i0_petrify
+n44 nw_i0_spells
+n45 x0_i0_partywide
+n46 x0_i0_transport
+n47 x0_i0_common
+n48 nw_i0_plot
+n49 x0_i0_behavior
+n50 x0_i0_modes
+n51 x0_i0_voice
+n52 x0_i0_walkway
+n53 x0_i0_anims
+n54 x0_i0_henchman
+n55 nwn2_inc_metmag
+n56 x0_i0_spells
+n57 nwn2_inc_spells
+n58 acr_effects_i
+n59 acr_xp_i
+n60 acr_skills_i
+n61 acr_resting_i
+n62 acr_list_i
+n63 acr_mobloot_i
+n64 acr_spawn_i
+n65 acr_seamlessat_i
+n66 acr_quest_i
+n67 acr_area_i
+n68 acr_trigger_i
+N69 acf_trg_onheartbeat
 s 03 vector
 sf f x
 sf f y
@@ -1547,6 +1549,8 @@ f ffffffff ffffffff 000 i CLASS_BLADESINGER
 f ffffffff ffffffff 000 i CLASS_LOREMASTER
 f ffffffff ffffffff 000 i CLASS_MYSTICTHEURGE
 f ffffffff ffffffff 000 i RACIAL_TYPE_PLANT
+f ffffffff ffffffff 000 i IP_CONST_FEAT_DARKVISION
+f ffffffff ffffffff 000 i ACTION_MODE_DARKVISION
 f ffffffff ffffffff 000 i CHAT_MODE_SILENT_TALK
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GOLD
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GRAY
@@ -1799,6 +1803,10 @@ f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_PALADIN
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_RANGER
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_SPIRIT_SHAMAN
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_FAVORED_SOUL
+f ffffffff ffffffff 000 i FEAT_ACR_COMBAT_EXPERTISE
+f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_COMBAT_EXPERTISE
+f ffffffff ffffffff 000 i FEAT_ACR_POWER_ATTACK
+f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_POWER_ATTACK
 f ffffffff ffffffff 000 i IPRP_FEATS_ALERTNESS
 f ffffffff ffffffff 000 i IPRP_FEATS_COMBAT_CASTING
 f ffffffff ffffffff 000 i IPRP_FEATS_DODGE
@@ -4636,6 +4644,17 @@ fp o
 f ffffffff ffffffff 002 v DMFI_ManageInventory
 fp o
 fp o
+f ffffffff ffffffff 000 s ACR_VERSION
+f ffffffff ffffffff 000 s ACR_HAK_BUILD_DATE
+f ffffffff ffffffff 000 s ACR_HAK_VERSION
+f ffffffff ffffffff 000 s ACR_GetVersion
+f ffffffff ffffffff 000 s ACR_GetBuildDate
+f ffffffff ffffffff 000 s ACR_GetHAKVersion
+f ffffffff ffffffff 000 s ACR_GetHAKBuildDate
+f ffffffff ffffffff 000 s ACR_CONVERSION_MAXIMUM
+f ffffffff ffffffff 002 i TryUpdateCharacterToNewestVersion
+fp o
+fp s
 f ffffffff ffffffff 000 f ACR_PPS_CYCLE
 f ffffffff ffffffff 000 i ACR_PPS_CACHE_CYCLE
 f ffffffff ffffffff 000 s ACR_PPS_COUNT
@@ -6542,6 +6561,12 @@ fp f
 f ffffffff ffffffff 002 v ACR_SetAdaptionEffect
 fp o
 fp i
+f ffffffff ffffffff 002 v ACR_AddTemporaryDarkvision
+fp o
+fp o
+f ffffffff ffffffff 002 v ACR_RemoveTemporaryDarkvision
+fp o
+fp o
 f ffffffff ffffffff 000 s _STORED_XP
 f ffffffff ffffffff 000 f _RPXP_SCRIPT_ANCHOR
 f ffffffff ffffffff 000 s _BANKED_RPXP_INCREMENTS
@@ -7580,8 +7605,8 @@ l10 0000118 000000b7 000000b7
 l10 0000119 000000b7 000000b7
 l11 0000162 000000b7 000000d4
 l11 0000166 000000d4 000000f1
-l67 0000047 00000103 00000109
-l67 0000060 00000109 0000010b
-l66 0000118 0000010b 00000117
-l66 0000119 00000117 00000119
+l69 0000047 00000103 00000109
+l69 0000060 00000109 0000010b
+l68 0000118 0000010b 00000117
+l68 0000119 00000117 00000119
 l22 0000467 00000119 00000121

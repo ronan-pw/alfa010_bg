@@ -1,5 +1,5 @@
 NDB V1.0
-0000068 0000010 0004490 0000017 0000069
+0000070 0000010 0004507 0000017 0000069
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -29,45 +29,47 @@ n25 acr_portal_i
 n26 dmfi_inc_sendtex
 n27 dmfi_inc_tool
 n28 dmfi_inc_inc_com
-n29 acr_pps_i
-n30 acr_list_i
-n31 x2_inc_itemprop
-n32 acr_nonlethal_i
-n33 x0_i0_match
-n34 x0_i0_petrify
-n35 x0_i0_assoc
-n36 nw_i0_spells
-n37 x0_i0_partywide
-n38 x0_i0_transport
-n39 x0_i0_common
-n40 nw_i0_plot
-n41 x0_i0_behavior
-n42 x0_i0_modes
-n43 x0_i0_voice
-n44 x0_i0_debug
-n45 x0_i0_equip
-n46 ginc_2da
-n47 ginc_event_handlers
-n48 x0_i0_talent
-n49 x0_i0_combat
-n50 x0_i0_spawncond
-n51 x0_i0_walkway
-n52 x0_i0_anims
-n53 x0_i0_henchman
-n54 nwn2_inc_metmag
-n55 x0_i0_spells
-n56 nwn2_inc_spells
-n57 acr_effects_i
-n58 acr_skills_i
-n59 acr_resting_i
-n60 acr_mobloot_i
-n61 acr_spawn_i
-n62 acr_seamlessat_i
-n63 acr_area_i
-n64 acr_server_misc_i
-n65 acr_area_instance_i
-n66 010_caravan_i
-N67 010_caravan_create
+n29 acr_version_i
+n30 acr_conversions_i
+n31 acr_pps_i
+n32 acr_list_i
+n33 x2_inc_itemprop
+n34 acr_nonlethal_i
+n35 x0_i0_match
+n36 x0_i0_petrify
+n37 x0_i0_assoc
+n38 nw_i0_spells
+n39 x0_i0_partywide
+n40 x0_i0_transport
+n41 x0_i0_common
+n42 nw_i0_plot
+n43 x0_i0_behavior
+n44 x0_i0_modes
+n45 x0_i0_voice
+n46 x0_i0_debug
+n47 x0_i0_equip
+n48 ginc_2da
+n49 ginc_event_handlers
+n50 x0_i0_talent
+n51 x0_i0_combat
+n52 x0_i0_spawncond
+n53 x0_i0_walkway
+n54 x0_i0_anims
+n55 x0_i0_henchman
+n56 nwn2_inc_metmag
+n57 x0_i0_spells
+n58 nwn2_inc_spells
+n59 acr_effects_i
+n60 acr_skills_i
+n61 acr_resting_i
+n62 acr_mobloot_i
+n63 acr_spawn_i
+n64 acr_seamlessat_i
+n65 acr_area_i
+n66 acr_server_misc_i
+n67 acr_area_instance_i
+n68 010_caravan_i
+N69 010_caravan_create
 s 03 vector
 sf f x
 sf f y
@@ -458,6 +460,8 @@ f ffffffff ffffffff 000 i CLASS_BLADESINGER
 f ffffffff ffffffff 000 i CLASS_LOREMASTER
 f ffffffff ffffffff 000 i CLASS_MYSTICTHEURGE
 f ffffffff ffffffff 000 i RACIAL_TYPE_PLANT
+f ffffffff ffffffff 000 i IP_CONST_FEAT_DARKVISION
+f ffffffff ffffffff 000 i ACTION_MODE_DARKVISION
 f ffffffff ffffffff 000 i CHAT_MODE_SILENT_TALK
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GOLD
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GRAY
@@ -710,6 +714,10 @@ f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_PALADIN
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_RANGER
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_SPIRIT_SHAMAN
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_FAVORED_SOUL
+f ffffffff ffffffff 000 i FEAT_ACR_COMBAT_EXPERTISE
+f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_COMBAT_EXPERTISE
+f ffffffff ffffffff 000 i FEAT_ACR_POWER_ATTACK
+f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_POWER_ATTACK
 f ffffffff ffffffff 000 i IPRP_FEATS_ALERTNESS
 f ffffffff ffffffff 000 i IPRP_FEATS_COMBAT_CASTING
 f ffffffff ffffffff 000 i IPRP_FEATS_DODGE
@@ -3826,6 +3834,17 @@ fp o
 f ffffffff ffffffff 002 v DMFI_ManageInventory
 fp o
 fp o
+f ffffffff ffffffff 000 s ACR_VERSION
+f ffffffff ffffffff 000 s ACR_HAK_BUILD_DATE
+f ffffffff ffffffff 000 s ACR_HAK_VERSION
+f ffffffff ffffffff 000 s ACR_GetVersion
+f ffffffff ffffffff 000 s ACR_GetBuildDate
+f ffffffff ffffffff 000 s ACR_GetHAKVersion
+f ffffffff ffffffff 000 s ACR_GetHAKBuildDate
+f ffffffff ffffffff 000 s ACR_CONVERSION_MAXIMUM
+f ffffffff ffffffff 002 i TryUpdateCharacterToNewestVersion
+fp o
+fp s
 f ffffffff ffffffff 000 f ACR_PPS_CYCLE
 f ffffffff ffffffff 000 i ACR_PPS_CACHE_CYCLE
 f ffffffff ffffffff 000 s ACR_PPS_COUNT
@@ -6591,6 +6610,12 @@ fp f
 f ffffffff ffffffff 002 v ACR_SetAdaptionEffect
 fp o
 fp i
+f ffffffff ffffffff 002 v ACR_AddTemporaryDarkvision
+fp o
+fp o
+f ffffffff ffffffff 002 v ACR_RemoveTemporaryDarkvision
+fp o
+fp o
 f ffffffff ffffffff 000 i ACR_SKILLS_NUMBER
 f ffffffff ffffffff 000 s CHECK_COLOUR1
 f ffffffff ffffffff 000 s CHECK_COLOUR2
@@ -7512,17 +7537,17 @@ l10 0000213 000000b7 000000b7
 l10 0000214 000000b7 000000b7
 l11 0000162 000000b7 000000d4
 l11 0000166 000000d4 000000f1
-l67 0000034 00000103 00000109
-l67 0000035 00000109 0000010b
-l66 0000123 0000010b 0000010d
-l66 0000125 0000010d 00000135
-l66 0000126 00000135 00000154
-l66 0000127 00000154 0000016e
-l66 0000128 00000174 00000176
-l66 0000113 00000176 00000178
-l66 0000114 00000178 00000196
-l66 0000115 000001ac 000001e8
-l66 0000116 000001ee 0000020a
-l66 0000114 0000020a 00000228
-l66 0000118 0000022e 00000248
-l66 0000119 0000024e 00000256
+l69 0000034 00000103 00000109
+l69 0000035 00000109 0000010b
+l68 0000123 0000010b 0000010d
+l68 0000125 0000010d 00000135
+l68 0000126 00000135 00000154
+l68 0000127 00000154 0000016e
+l68 0000128 00000174 00000176
+l68 0000113 00000176 00000178
+l68 0000114 00000178 00000196
+l68 0000115 000001ac 000001e8
+l68 0000116 000001ee 0000020a
+l68 0000114 0000020a 00000228
+l68 0000118 0000022e 00000248
+l68 0000119 0000024e 00000256

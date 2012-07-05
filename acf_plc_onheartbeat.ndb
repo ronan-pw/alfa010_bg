@@ -1,5 +1,5 @@
 NDB V1.0
-0000065 0000010 0004279 0000026 0000086
+0000067 0000010 0004296 0000026 0000086
 n00 ginc_debug
 n01 acr_debug_i
 n02 x0_i0_enemy
@@ -40,31 +40,33 @@ n36 acr_portal_i
 n37 dmfi_inc_sendtex
 n38 dmfi_inc_tool
 n39 dmfi_inc_inc_com
-n40 acr_pps_i
-n41 acr_list_i
-n42 x2_inc_itemprop
-n43 acr_nonlethal_i
-n44 x0_i0_petrify
-n45 nw_i0_spells
-n46 x0_i0_partywide
-n47 x0_i0_transport
-n48 x0_i0_common
-n49 nw_i0_plot
-n50 x0_i0_behavior
-n51 x0_i0_modes
-n52 x0_i0_voice
-n53 x0_i0_walkway
-n54 x0_i0_anims
-n55 x0_i0_henchman
-n56 nwn2_inc_metmag
-n57 x0_i0_spells
-n58 nwn2_inc_spells
-n59 acr_effects_i
-n60 acr_skills_i
-n61 acr_resting_i
-n62 acr_mobloot_i
-n63 acr_placeable_i
-N64 acf_plc_onheartbeat
+n40 acr_version_i
+n41 acr_conversions_i
+n42 acr_pps_i
+n43 acr_list_i
+n44 x2_inc_itemprop
+n45 acr_nonlethal_i
+n46 x0_i0_petrify
+n47 nw_i0_spells
+n48 x0_i0_partywide
+n49 x0_i0_transport
+n50 x0_i0_common
+n51 nw_i0_plot
+n52 x0_i0_behavior
+n53 x0_i0_modes
+n54 x0_i0_voice
+n55 x0_i0_walkway
+n56 x0_i0_anims
+n57 x0_i0_henchman
+n58 nwn2_inc_metmag
+n59 x0_i0_spells
+n60 nwn2_inc_spells
+n61 acr_effects_i
+n62 acr_skills_i
+n63 acr_resting_i
+n64 acr_mobloot_i
+n65 acr_placeable_i
+N66 acf_plc_onheartbeat
 s 03 vector
 sf f x
 sf f y
@@ -455,6 +457,8 @@ f ffffffff ffffffff 000 i CLASS_BLADESINGER
 f ffffffff ffffffff 000 i CLASS_LOREMASTER
 f ffffffff ffffffff 000 i CLASS_MYSTICTHEURGE
 f ffffffff ffffffff 000 i RACIAL_TYPE_PLANT
+f ffffffff ffffffff 000 i IP_CONST_FEAT_DARKVISION
+f ffffffff ffffffff 000 i ACTION_MODE_DARKVISION
 f ffffffff ffffffff 000 i CHAT_MODE_SILENT_TALK
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GOLD
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GRAY
@@ -707,6 +711,10 @@ f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_PALADIN
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_RANGER
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_SPIRIT_SHAMAN
 f ffffffff ffffffff 000 i FEAT_SACREDFIST_SPELLCASTING_FAVORED_SOUL
+f ffffffff ffffffff 000 i FEAT_ACR_COMBAT_EXPERTISE
+f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_COMBAT_EXPERTISE
+f ffffffff ffffffff 000 i FEAT_ACR_POWER_ATTACK
+f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_POWER_ATTACK
 f ffffffff ffffffff 000 i IPRP_FEATS_ALERTNESS
 f ffffffff ffffffff 000 i IPRP_FEATS_COMBAT_CASTING
 f ffffffff ffffffff 000 i IPRP_FEATS_DODGE
@@ -4717,6 +4725,17 @@ fp o
 f ffffffff ffffffff 002 v DMFI_ManageInventory
 fp o
 fp o
+f ffffffff ffffffff 000 s ACR_VERSION
+f ffffffff ffffffff 000 s ACR_HAK_BUILD_DATE
+f ffffffff ffffffff 000 s ACR_HAK_VERSION
+f ffffffff ffffffff 000 s ACR_GetVersion
+f ffffffff ffffffff 000 s ACR_GetBuildDate
+f ffffffff ffffffff 000 s ACR_GetHAKVersion
+f ffffffff ffffffff 000 s ACR_GetHAKBuildDate
+f ffffffff ffffffff 000 s ACR_CONVERSION_MAXIMUM
+f ffffffff ffffffff 002 i TryUpdateCharacterToNewestVersion
+fp o
+fp s
 f ffffffff ffffffff 000 f ACR_PPS_CYCLE
 f ffffffff ffffffff 000 i ACR_PPS_CACHE_CYCLE
 f ffffffff ffffffff 000 s ACR_PPS_COUNT
@@ -6727,6 +6746,12 @@ fp f
 f ffffffff ffffffff 002 v ACR_SetAdaptionEffect
 fp o
 fp i
+f ffffffff ffffffff 002 v ACR_AddTemporaryDarkvision
+fp o
+fp o
+f ffffffff ffffffff 002 v ACR_RemoveTemporaryDarkvision
+fp o
+fp o
 f ffffffff ffffffff 000 i ACR_SKILLS_NUMBER
 f ffffffff ffffffff 000 s CHECK_COLOUR1
 f ffffffff ffffffff 000 s CHECK_COLOUR2
@@ -7196,20 +7221,20 @@ l10 0000213 000000b7 000000b7
 l10 0000214 000000b7 000000b7
 l11 0000162 000000b7 000000d4
 l11 0000166 000000d4 000000f1
-l64 0000050 00000103 00000109
-l64 0000053 00000109 0000012c
-l64 0000054 00000132 00000147
-l64 0000056 00000147 00000149
-l63 0000196 00000149 00000161
-l63 0000197 00000161 00000173
-l63 0000199 00000179 00000186
-l63 0000200 0000018c 00000198
-l63 0000202 00000198 000001e3
-l63 0000203 000001e3 00000202
-l63 0000205 00000202 00000241
-l63 0000207 00000241 00000269
-l63 0000211 00000269 00000275
-l63 0000212 0000027b 0000027d
+l66 0000050 00000103 00000109
+l66 0000053 00000109 0000012c
+l66 0000054 00000132 00000147
+l66 0000056 00000147 00000149
+l65 0000196 00000149 00000161
+l65 0000197 00000161 00000173
+l65 0000199 00000179 00000186
+l65 0000200 0000018c 00000198
+l65 0000202 00000198 000001e3
+l65 0000203 000001e3 00000202
+l65 0000205 00000202 00000241
+l65 0000207 00000241 00000269
+l65 0000211 00000269 00000275
+l65 0000212 0000027b 0000027d
 l21 0000174 0000027d 0000027f
 l21 0000199 0000027f 000002a5
 l21 0000200 000002a5 000002cb
