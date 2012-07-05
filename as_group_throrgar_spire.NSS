@@ -77,13 +77,13 @@ void main() {
 		case 3: 
 		case 4:
 			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou")); break;
-		case 5: 
-		case 6: 
-		case 7: 
-		case 8: 
-		case 9:
+		case 5:
+		case 6:
+		case 7:
 			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou"));
 			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou")); break;
+		case 8: 
+		case 9:			
 		case 10:
 		case 11:
 		case 13:

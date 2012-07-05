@@ -205,5 +205,6 @@ void WindHeartbeat(object oArea = OBJECT_SELF) {
 			RemoveAllEffectsFromSource(oCreature, 10100);
 			ApplyEffectFromSource(10100, DURATION_TYPE_TEMPORARY, eff, oCreature, 9.0);
 		}
+		object oCreature = GetNextObjectInArea(OBJECT_SELF);
 	}
 }
