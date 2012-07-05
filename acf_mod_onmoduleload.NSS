@@ -26,6 +26,7 @@
 #include "acr_mod_events_i"
 #include "acr_db_persist_i"
 #include "010_door_i"
+#include "010_throrgar_spire_i"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -75,4 +76,5 @@ void main() {
 	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_high_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_HIGH")));
 	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_uniq_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_UNIQ")));
 
+	InitializeThrorgarSpire();
 }

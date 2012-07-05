@@ -31,7 +31,7 @@ object SpawnInvisibleImp() {
 	return oSpawned;
 }
 
-void SpawnRandomNumber(int nMin, int nMax, string sResource, int nObjectType) {
+void SpawnRandomNumber(int nMin, int nMax, string sResource, int nObjectType = OBJECT_TYPE_CREATURE) {
 	int nNum = nMin + Random(1+nMax-nMin);
 	
 	int i;
