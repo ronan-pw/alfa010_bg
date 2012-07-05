@@ -176,7 +176,7 @@ void WindHeartbeat(object oArea = OBJECT_SELF) {
 						AttemptBlowAway(oArea, oCreature, 15);
 					else if(nSize == CREATURE_SIZE_SMALL)
 						AttemptKnockDown(oCreature, 15);
-					else if(nSize == CREATURE_SIZE_MEDIUM);
+					else if(nSize == CREATURE_SIZE_MEDIUM)
 						AttemptCheck(oCreature, 15);
 					if(!Random(20)) AttemptConfusion(oCreature, 15);
 					break;
