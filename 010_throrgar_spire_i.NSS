@@ -40,7 +40,7 @@ void WindForceHeartbeat(object oArea) {
 		case 2: nForce++; break;
 	}
 	
-	if(nForce < 0) nForce = 0;
+	if(nForce < 1) nForce = 1;
 	else if(nForce > 4) nForce = 4;
 	DelayCommand(WIND_FORCE_WARNING_DELAY, SetLocalInt(oArea, WIND_FORCE_LI, nForce));
 	DelayCommand(WIND_FORCE_CHANGE_DELAY, WindForceHeartbeat(oArea));

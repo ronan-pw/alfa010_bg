@@ -28,6 +28,8 @@
 // Constants ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+const int TELEPORT_DESPAWN_DELAY = 1;
+
 ////////////////////////////////////////////////////////////////////////////////
 // Structures //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,33 +50,55 @@ void main();
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-void main() {
-	// Spawns in Throrgar are highly random.
+void TeleportDespawn(object oCreature) {
+	if(GetIsInCombat(oCreature)) {
+		DelayCommand(HoursToSeconds(TELEPORT_DESPAWN_DELAY), TeleportDespawn(oCreature));
+		return;
+	}
 	
+	ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(33), GetLocation(oCreature));
+	DestroyObject(oCreature, 6.0);
+}
+
+void ScheduleTeleport(object oCreature) {
+	DelayCommand(HoursToSeconds(TELEPORT_DESPAWN_DELAY), TeleportDespawn(oCreature));
+}
+
+void main() {
+
+	// Only 1 out of 10 points spawns.
+	if(Random(10)) return;
+
+	// Spawns in Throrgar are highly random.
 	switch(Random(20)) {
 		case 0: 
 		case 1: 
 		case 2: 
 		case 3: 
 		case 4:
-			spawn_hostile("abr_cr_ou_demon_hezrou"); break;
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou")); break;
 		case 5: 
 		case 6: 
 		case 7: 
 		case 8: 
 		case 9:
-			spawn_hostile("abr_cr_ou_demon_hezrou");
-			spawn_hostile("abr_cr_ou_demon_hezrou"); break;
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou"));
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou")); break;
 		case 10:
 		case 11:
 		case 13:
-			spawn_hostile("abr_cr_ou_demon_babau"); break;
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
 		case 14:
 		case 15:
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau"));
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau"));
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
 		case 16:
 		case 17:
 		case 18:
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau"));
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
 		case 19:
-			SpawnRandomNumber(3, 6, "abr_cr_ou_demon_babau"); break;
+			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
 	}
 }

@@ -50,6 +50,7 @@
 
 void main() {
 
+	InitializeThrorgarSpire();
 
     SetGlobalInt(_ACR_SETTINGS_SERVER_ID, 10);
 	SetGlobalInt(_ACR_SETTINGS_SERVER_REGION, 3559);
@@ -75,6 +76,4 @@ void main() {
 	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_med_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_MED")));
 	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_high_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_HIGH")));
 	CreateObject(OBJECT_TYPE_PLACEABLE, "x0_mod_treasure_uniq_admin", GetLocation(GetWaypointByTag("WP_ADMIN_LOOT_UNIQ")));
-
-	InitializeThrorgarSpire();
 }
