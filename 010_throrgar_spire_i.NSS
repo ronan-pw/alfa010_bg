@@ -157,10 +157,15 @@ void WindHeartbeat(object oArea = OBJECT_SELF) {
 	int nWindForce = GetWindForce();
 	effect eff;
 	while(oCreature != OBJECT_INVALID) {
-		if(GetObjectType(oCreature) == OBJECT_TYPE_CREATURE) {
-		int nSize = PredictCreatureSize(oCreature);		
+		float fElevation = GetPosition(oCreature).z;
 		
-			switch(nWindForce) {
+		if(GetObjectType(oCreature) == OBJECT_TYPE_CREATURE) {
+		
+			int nSize = PredictCreatureSize(oCreature);
+			
+			if(fElevation > 112.0 || fElevation < 14.0)
+				SendMessageToPC(oCreature, "Your current position shields you from the harsh winds whipping around the spire.");
+			else switch(nWindForce) {
 				case WIND_FORCE_MODERATE:
 					// Listening here is harder than in normal storms, because of the influence of pandemonium.
 					eff = EffectSkillDecrease(SKILL_LISTEN, 2);
@@ -205,6 +210,6 @@ void WindHeartbeat(object oArea = OBJECT_SELF) {
 			RemoveAllEffectsFromSource(oCreature, 10100);
 			ApplyEffectFromSource(10100, DURATION_TYPE_TEMPORARY, eff, oCreature, 9.0);
 		}
-		object oCreature = GetNextObjectInArea(OBJECT_SELF);
+		oCreature = GetNextObjectInArea(OBJECT_SELF);
 	}
 }

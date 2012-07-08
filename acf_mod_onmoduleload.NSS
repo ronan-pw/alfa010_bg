@@ -50,7 +50,7 @@
 
 void main() {
 
-	InitializeThrorgarSpire();
+	InitializeThrorgarSpire(GetObjectByTag("ud_t0_throgar_spire"));
 
     SetGlobalInt(_ACR_SETTINGS_SERVER_ID, 10);
 	SetGlobalInt(_ACR_SETTINGS_SERVER_REGION, 3559);
