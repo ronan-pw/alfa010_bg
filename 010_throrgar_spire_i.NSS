@@ -20,9 +20,9 @@ int GetWindForce(object oArea = OBJECT_SELF) {
 
 string WindDescription(int nForce) {
 	switch(nForce) {
-		case WIND_FORCE_MODERATE: return "Howling winds encircle the spire, seemingly carrying speach and sound off with them into the darkness.";
-		case WIND_FORCE_STRONG: return "Strong winds shriek in your ears, making both speach and ranged weapons less reliable.";
-		case WIND_FORCE_SEVERE: return "Severe winds whip at the spire, threatening the balance of smaller creatures, slowing larger ones and making speach and ranged weapons unreliable.";
+		case WIND_FORCE_MODERATE: return "Howling winds encircle the spire, seemingly carrying speech and sound off with them into the darkness.";
+		case WIND_FORCE_STRONG: return "Strong winds shriek in your ears, making both speech and ranged weapons less reliable.";
+		case WIND_FORCE_SEVERE: return "Severe winds whip at the spire, threatening the balance of smaller creatures, slowing larger ones and making speech and ranged weapons unreliable.";
 		case WIND_FORCE_STORM: return "Storm-force winds surround the spire, threatening to blow smaller creatures off into the gloom, and the balance and speed of larger ones. Speech and ranged weapons are useless!";
 		case WIND_FORCE_HURRICANE: return "Hurricane-force winds blast you off balance, seemingly at the worse possible moments. Medium and smaller creatures could be blown away completely! Speech and ranged weapons are useless.";
 	}

@@ -46,13 +46,17 @@ const int TELEPORT_DESPAWN_DELAY = 1;
 // spawn group is spawned.
 void main();
 
+void TeleportDespawn(object oCreature);
+
+void ScheduleTeleport(object oCreature);
+
 ////////////////////////////////////////////////////////////////////////////////
 // Function Definitions ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 void TeleportDespawn(object oCreature) {
 	if(GetIsInCombat(oCreature)) {
-		DelayCommand(HoursToSeconds(TELEPORT_DESPAWN_DELAY), TeleportDespawn(oCreature));
+		ScheduleTeleport(oCreature);
 		return;
 	}
 	
@@ -76,29 +80,29 @@ void main() {
 		case 2: 
 		case 3: 
 		case 4:
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou")); break;
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_hezrou", OBJECT_TYPE_CREATURE)); break;
 		case 5:
 		case 6:
 		case 7:
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou"));
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_hezrou")); break;
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_hezrou", OBJECT_TYPE_CREATURE));
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_hezrou", OBJECT_TYPE_CREATURE)); break;
 		case 8: 
 		case 9:			
 		case 10:
 		case 11:
 		case 13:
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE)); break;
 		case 14:
 		case 15:
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau"));
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau"));
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE));
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE));
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE)); break;
 		case 16:
 		case 17:
 		case 18:
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau"));
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE));
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE)); break;
 		case 19:
-			ScheduleTeleport(spawn_hostile("abr_cr_ou_demon_babau")); break;
+			ScheduleTeleport(ACR_SpawnObject("abr_cr_ou_demon_babau", OBJECT_TYPE_CREATURE)); break;
 	}
 }
