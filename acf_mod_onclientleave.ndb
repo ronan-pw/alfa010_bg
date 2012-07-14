@@ -1,5 +1,5 @@
 NDB V1.0
-0000099 0000023 0005412 0000534 0001511
+0000100 0000023 0005435 0000534 0001511
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -97,8 +97,9 @@ n93 x2_inc_spellhook
 n94 acr_spells_i
 n95 acr_craft_creation_i
 n96 acr_notifications_i
-n97 acr_mod_events_i
-N98 acf_mod_onclientleave
+n97 acr_combat_actions_i
+n98 acr_mod_events_i
+N99 acf_mod_onclientleave
 s 03 vector
 sf f x
 sf f y
@@ -9420,6 +9421,47 @@ f ffffffff ffffffff 001 t0022 GetBodyTintSet
 fp o
 f ffffffff ffffffff 001 t0022 GetHeadTintSet
 fp o
+f ffffffff ffffffff 000 i ACR_COMBAT_ACTION_COOLDOWN_TIME
+f ffffffff ffffffff 000 s ACR_COMBAT_ACTION_TIMESTAMP
+f ffffffff ffffffff 000 i POWER_EXPERT_EVENT_OPEN_MENU
+f ffffffff ffffffff 000 i POWER_EXPERT_EVENT_COMBAT_EXPERTISE_MENU
+f ffffffff ffffffff 000 i POWER_EXPERT_EVENT_POWER_ATTACK_MENU
+f ffffffff ffffffff 000 i POWER_EXPERT_EVENT_POWER_ATTACK_TOGGLE
+f ffffffff ffffffff 000 i POWER_EXPERT_EVENT_COMBAT_EXPERTISE_TOGGLE
+f ffffffff ffffffff 000 s POWER_ATTACK_MODE_ACTIVE
+f ffffffff ffffffff 000 s COMBAT_EXPERTISE_MODE_ACTIVE
+f ffffffff ffffffff 000 s POST_SPELLCAST_NO_COMBAT_MODE
+f ffffffff ffffffff 001 v CombatActionsOnItemEquip
+fp o
+f ffffffff ffffffff 001 v FightNormally
+fp o
+f ffffffff ffffffff 001 v FightDefensively
+fp o
+f ffffffff ffffffff 001 v FightTotallyDefensively
+fp o
+f ffffffff ffffffff 002 v FightWithExpertise
+fp o
+fp i
+f ffffffff ffffffff 001 i GetIsFightingDefensively
+fp o
+f ffffffff ffffffff 003 v _FightDefensively
+fp o
+fp i
+fp i
+f ffffffff ffffffff 002 v _NotifyCombatAction
+fp s
+fp o
+f ffffffff ffffffff 001 i _TrySwitchModes
+fp o
+f ffffffff ffffffff 001 v _ClearCombatModes
+fp o
+f ffffffff ffffffff 003 v _HandlePowExpGUIEvent
+fp o
+fp i
+fp i
+f ffffffff ffffffff 002 v CombatActionsOnEquip
+fp o
+fp o
 f ffffffff ffffffff 000 s _ONLOAD_DEBUG
 f ffffffff ffffffff 000 s ACR_MOD_STATUS
 f ffffffff ffffffff 000 s ACR_MOD_SPELLBOOK
@@ -9510,6 +9552,10 @@ fp s
 fp o
 fp i
 f ffffffff ffffffff 000 v ACR_ModuleInit_ForceLinkageForCLRScripts
+f ffffffff ffffffff 001 v _createPlayerGUIs
+fp o
+f ffffffff ffffffff 001 v _updatePlayerGUIs
+fp o
 f ffffffff ffffffff 005 v _DistributeTranslationToMouthPieces
 fp s
 fp s
@@ -9517,8 +9563,6 @@ fp o
 fp f
 fp o
 f ffffffff ffffffff 001 v ACR_CheckBodyPartsOnLevelUp
-fp o
-f ffffffff ffffffff 001 v _createPlayerGUIs
 fp o
 f ffffffff ffffffff 000 v ACR_ModuleOnUnAcquireItem
 f 00000103 00000126 000 v main
@@ -10167,28 +10211,28 @@ l19 0000080 000000f1 000000f1
 l19 0000081 000000f1 000000f1
 l19 0000082 000000f1 000000f1
 l19 0000083 000000f1 000000f1
-l98 0000048 00000103 00000105
-l98 0000050 00000105 0000010b
-l98 0000053 0000010b 0000011e
-l98 0000054 00000124 00000126
-l97 0001002 00000126 0000012b
-l97 0001006 0000012b 00000155
-l97 0001011 0000015b 000001a4
-l97 0001013 000001aa 000001ac
-l97 0001018 000001ac 000001ba
-l97 0001033 000001ba 000001c8
-l97 0001036 000001c8 000001d6
-l97 0001037 000001d6 000001e4
-l97 0001042 000001e4 0000020d
-l97 0001043 00000213 00000229
-l97 0001046 00000229 00000237
-l97 0001049 00000237 00000245
-l97 0001052 00000245 00000253
-l97 0001055 00000253 00000261
-l97 0001058 00000261 0000026f
-l97 0001061 0000026f 00000283
-l97 0001064 00000283 00000291
-l97 0001065 00000297 00000299
+l99 0000048 00000103 00000105
+l99 0000050 00000105 0000010b
+l99 0000053 0000010b 0000011e
+l99 0000054 00000124 00000126
+l98 0001020 00000126 0000012b
+l98 0001024 0000012b 00000155
+l98 0001029 0000015b 000001a4
+l98 0001031 000001aa 000001ac
+l98 0001036 000001ac 000001ba
+l98 0001051 000001ba 000001c8
+l98 0001054 000001c8 000001d6
+l98 0001055 000001d6 000001e4
+l98 0001060 000001e4 0000020d
+l98 0001061 00000213 00000229
+l98 0001064 00000229 00000237
+l98 0001067 00000237 00000245
+l98 0001070 00000245 00000253
+l98 0001073 00000253 00000261
+l98 0001076 00000261 0000026f
+l98 0001079 0000026f 00000283
+l98 0001082 00000283 00000291
+l98 0001083 00000297 00000299
 l24 0000690 00000299 000002dc
 l24 0000691 000002dc 000002e4
 l29 0000219 000002e4 000002e9
