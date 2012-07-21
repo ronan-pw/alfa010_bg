@@ -62,12 +62,17 @@ void main()
 			case 0:
 			case 1:
 			case 2:
-				o = ACR_SpawnLootDetector();
-
-				if (Random(2))
-					SetLocalString(o, "PL_RESREF", "phat_lewt_chest_small");
-				else
-					SetLocalString(o, "PL_RESREF", "phat_lewt_crate");
+				if (Random(5)) {
+					o = ACR_SpawnLootDetector();
+		
+					if (Random(2))
+						SetLocalString(o, "PL_RESREF", "phat_lewt_chest_small");
+					else
+						SetLocalString(o, "PL_RESREF", "phat_lewt_crate");
+				}
+				else {
+			        	ACR_SpawnObject("phat_lewt_rubble", OBJECT_TYPE_PLACEABLE);
+				}
 
 				break;
 				
