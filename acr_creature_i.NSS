@@ -58,6 +58,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const string _CRE_NO_AI = "ACR_CRE_NO_AI";
+const string ACR_CRE_ISUNDEAD = "ACR_CRE_ISUNDEAD";
+const int ACR_CRE_FORCE_NOT_UNDEAD = 2;
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Structures //////////////////////////////////////////////////////////////////
@@ -70,6 +73,9 @@ const string _CRE_NO_AI = "ACR_CRE_NO_AI";
 ////////////////////////////////////////////////////////////////////////////////
 // Function Prototypes /////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+// Puts oCreature in modes that let it run.
+void _startRunning(object oCreature = OBJECT_SELF);
 
 // The ACR's Creature event handler.
 void ACR_CreatureOnSpawnIn();
@@ -113,6 +119,9 @@ void ACR_CreatureOnUserDefined();
 //! This function performs a creature identification check by oPC on oTarget
 void ACR_CreatureIdentify(object oPC, object oTarget);
 
+//! Checks if the creature is an undead type, even if it is not racially categorized as undead.
+int ACR_GetIsUndead( object oTarget );
+
 
 int GetCreatureAIType(object oCreature=OBJECT_SELF);
 
@@ -138,6 +147,13 @@ int GetCreatureAIType(object oCreature=OBJECT_SELF)
 	y = (GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) <= _HENCH_AI_MIN_INT);
 	
 	return (x > y) ? x : y;
+}
+
+void _startRunning(object oCreature = OBJECT_SELF) {
+	if(!GetHasFeat(FEAT_KEEN_SENSE, oCreature, TRUE))
+		SetActionMode(OBJECT_SELF, ACTION_MODE_DETECT, FALSE);
+	
+	SetActionMode(OBJECT_SELF, ACTION_MODE_STEALTH, FALSE);
 }
 
 void ACR_CreatureOnSpawnIn()
@@ -484,4 +500,13 @@ void ACR_CreatureIdentify(object oPC, object oTarget)
 
 	// report the filtered creature name
 	SendMessageToPC(oPC, "You recognize it as "+GetArticle(sName)+" <color=Magenta><i>"+sName+"</i></color>!");
+}
+
+
+int ACR_GetIsUndead( object oTarget ) {
+	if ( GetLocalInt( oTarget, ACR_CRE_ISUNDEAD ) == ACR_CRE_FORCE_NOT_UNDEAD ) return FALSE;
+	if ( GetRacialType( oTarget ) == RACIAL_TYPE_UNDEAD ) return TRUE;
+	if ( GetLevelByClass( CLASS_TYPE_UNDEAD, oTarget ) > 0 ) return TRUE;
+	if ( GetLocalInt( oTarget, ACR_CRE_ISUNDEAD ) == TRUE ) return TRUE;
+	return FALSE;
 }
