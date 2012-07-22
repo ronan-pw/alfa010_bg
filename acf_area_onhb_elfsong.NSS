@@ -62,14 +62,14 @@ void main() {
 		SetLocalInt(OBJECT_SELF, "singing", 1);
 
 		if (Random(2)) {
-			DelayCommand(1.0f, AssignCommand(o, ActionSpeakString("<i>An eerie ethereal melody slowly springs to life, its substance coming forth from the very the inn itself; a ghostly elven voice singing an elegaic lament that tears at one's heart, the entire tavern quieting suddenly to keenly listen.")));
+			DelayCommand(1.0f, AssignCommand(o, ActionSpeakString("<i>An eerie ethereal melody slowly springs to life, its substance coming forth from the very the inn itself; a ghostly elven voice sings an elegaic lament that tears at one's heart at which the entire tavern quiets suddenly to listen keenly.")));
 		}
 		else {
-			DelayCommand(1.0f, AssignCommand(o, ActionSpeakString("<i>A haunting elegy reverberates through the halls of the tavern, seeming to spring forth from the very floorboards themselves;  all the tavern's patrons quiet themselves in apparent respect to the voice and the normally rowdy place silences so that the eerie voice is clearly audible to all.")));
+			DelayCommand(1.0f, AssignCommand(o, ActionSpeakString("<i>A haunting elegy reverberates through the halls of the tavern, seeming to spring forth from the very floorboards themselves; all the tavern's patrons quiet themselves in apparent respect to the voice -- the normally rowdy place silences so that the eerie voice is clearly audible to all.")));
 		}
 
 		if (Random(2)) {
-			DelayCommand(45.0f, AssignCommand(o, ActionSpeakString("<i>One of the patrons yells towards the barkeep when he is summarily shushed by the rest of the patrons and quiets to listen to the singing.")));
+			DelayCommand(45.0f, AssignCommand(o, ActionSpeakString("<i>One of the patrons yells towards the barkeep -- he is summarily shushed by the rest of the patrons and quiets to listen to the singing.")));
 		}
 		else {
 			DelayCommand(45.0f, AssignCommand(o, ActionSpeakString("<i>The elegaic melody continues softly, the patrons of the tavern keeping their rapt attention on the song.")));
