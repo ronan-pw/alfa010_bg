@@ -34,7 +34,7 @@ INCS	= 010_area_ex \
 	  npc_onper \
 	  nwnx_nwscriptvm_include \
 	  test_var_i \
-	  010_thrrgar_spire_i \
+	  010_throrgar_spire_i \
 	  tw_secret
 	  
 	  
