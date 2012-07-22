@@ -85,9 +85,11 @@ void main() {
 
 
 		MusicBackgroundChangeNight(OBJECT_SELF, 472); 
+		MusicBackgroundChangeDay(OBJECT_SELF, 472); 
 		MusicBackgroundPlay(OBJECT_SELF); 
 
 		DelayCommand(130.0f, MusicBackgroundChangeNight(OBJECT_SELF, 0)); 
+		DelayCommand(130.0f, MusicBackgroundChangeDay(OBJECT_SELF, 0)); 
 		DelayCommand(130.0f, MusicBackgroundStop(OBJECT_SELF)); 
 		DelayCommand(600.0f, SetLocalInt(OBJECT_SELF, "singing", 0)); 
 	}
