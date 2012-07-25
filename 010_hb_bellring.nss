@@ -1,5 +1,5 @@
-const float delay_mean = 2.5f;
-const float delay_var = 0.01f;
+const float delay_mean = 3.0f;
+const float delay_var = 0.002f;
 
 #include "acr_tools_i"
 
@@ -77,8 +77,7 @@ void main()
 
 	
 	for (i=0; i<time; ++i) {
-		delay = ACR_RandomNormal(IntToFloat(i)*delay_mean, sqrt(delay_var));
-
+		delay = ACR_RandomNormal(IntToFloat(i)*delay_mean, sqrt(delay_var)); 
 		if (i%2)
 			DelayCommand(delay, play_sounds(t0));
 		else

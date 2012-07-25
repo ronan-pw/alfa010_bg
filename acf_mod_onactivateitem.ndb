@@ -1,5 +1,5 @@
 NDB V1.0
-0000114 0000024 0006095 0000357 0000699
+0000114 0000024 0006148 0000357 0000699
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -1544,6 +1544,18 @@ f ffffffff ffffffff 000 f HOUR_TO_SECONDS
 f ffffffff ffffffff 000 i TIME_YEAR_START
 f ffffffff ffffffff 000 i ALFA2_FR_YEAR_START
 f ffffffff ffffffff 000 i ALFA2_RL_YEAR_START
+f ffffffff ffffffff 000 i ACR_TIME_SECONDS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_MINUTES_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_HOURS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_DAYS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_MONTHS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_YEARS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_SECONDS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_MINUTES_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_HOURS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_DAYS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_MONTHS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_YEARS_IN_UTC
 f ffffffff ffffffff 000 s _TIME_RATIO_LF
 f ffffffff ffffffff 000 s ACR_MODULE_TIME
 f ffffffff ffffffff 000 v ACR_InitializeTime
@@ -1588,6 +1600,9 @@ fp i
 fp i
 fp i
 f ffffffff ffffffff 000 v _CalcDate
+f ffffffff ffffffff 000 i ACR_GetRealDaysSinceStart
+f ffffffff ffffffff 000 i ACR_GetRealMonthsSinceStart
+f ffffffff ffffffff 000 i ACR_GetRealYearsSinceStart
 f ffffffff ffffffff 000 i ACR_GetFRWeekday
 f ffffffff ffffffff 000 s ACR_LOG_BAN
 f ffffffff ffffffff 000 s ACR_LOG_LOAD
@@ -10279,12 +10294,50 @@ fp o
 f ffffffff ffffffff 001 i GetCreatureAIType
 fp o
 f ffffffff ffffffff 000 i _HENCH_AI_MIN_INT
+f ffffffff ffffffff 000 f ACR_DURATION_GLOBAL_SCALE
+f ffffffff ffffffff 000 f ACR_DURATION_10M_SCALE
+f ffffffff ffffffff 000 f ACR_DURATION_HOUR_SCALE
+f ffffffff ffffffff 000 i ACR_DURATION_TYPE_STATIC
+f ffffffff ffffffff 000 i ACR_DURATION_TYPE_PER_CL
+f ffffffff ffffffff 000 f ACR_DURATION_1R
+f ffffffff ffffffff 000 f ACR_DURATION_6S
+f ffffffff ffffffff 000 f ACR_DURATION_60S
+f ffffffff ffffffff 000 f ACR_DURATION_1M
+f ffffffff ffffffff 000 f ACR_DURATION_10M
+f ffffffff ffffffff 000 f ACR_DURATION_1H
+f ffffffff ffffffff 000 f ACR_DURATION_2H
+f ffffffff ffffffff 000 f ACR_DURATION_24H
+f ffffffff ffffffff 000 s ACR_SPELL_DESCRIPT_VAR_PREFIX
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_ACID
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_AIR
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_CHAOTIC
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_COLD
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_DARKNESS
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_DEATH
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_EARTH
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_ELECTRICITY
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_EVIL
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_FEAR
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_FIRE
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_FORCE
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_GOOD
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_LANGUAGE_DEP
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_LAWFUL
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_LIGHT
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_MIND_AFFECTING
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_SONIC
+f ffffffff ffffffff 000 i ACR_SPELL_DESCRIPT_WATER
+f ffffffff ffffffff 000 i ACR_PrecastEvent
+f ffffffff ffffffff 000 i ACR_PostcastEvent
 f ffffffff ffffffff 003 f ACR_GetSpellDuration
 fp o
 fp i
 fp f
 f ffffffff ffffffff 002 i ACR_GetCorrectCasterLevel
 fp o
+fp i
+f ffffffff ffffffff 002 v ACR_SetIsDomainSpell
+fp i
 fp i
 f ffffffff ffffffff 004 v WarnWhenSpellExpires
 fp o
@@ -10327,6 +10380,8 @@ fp i
 fp i
 fp i
 fp i
+f ffffffff ffffffff 001 s _GetDomainVarName
+fp i
 f ffffffff ffffffff 003 i _GetLevelIfHasFeat
 fp i
 fp o
@@ -10334,6 +10389,8 @@ fp i
 f ffffffff ffffffff 003 i _GetPracticedSpellcasterCL
 fp o
 fp i
+fp i
+f ffffffff ffffffff 001 i ACR_GetIsDomainSpell
 fp i
 f ffffffff ffffffff 001 i ACR_GetHighestCasterLevel
 fp o
@@ -10941,10 +10998,10 @@ l01 0000062 00000048 00000056
 l01 0000064 00000056 00000065
 l01 0000065 00000065 00000074
 l01 0000066 00000074 00000083
-l02 0000074 00000083 00000083
-l02 0000075 00000083 00000083
 l02 0000076 00000083 00000083
 l02 0000077 00000083 00000083
+l02 0000078 00000083 00000083
+l02 0000079 00000083 00000083
 l03 0000144 00000083 00000083
 l03 0000145 00000083 00000083
 l03 0000146 00000083 00000083
@@ -11461,10 +11518,10 @@ l26 0001835 000020b8 000020e4
 l26 0001836 000020ea 000020f2
 l26 0000690 000020f2 00002135
 l26 0000691 00002135 0000213d
-l02 0000239 0000213d 0000216b
-l02 0000240 0000216b 00002173
-l02 0000310 00002173 0000219a
-l02 0000311 0000219a 0000219c
+l02 0000241 0000213d 0000216b
+l02 0000242 0000216b 00002173
+l02 0000325 00002173 0000219a
+l02 0000326 0000219a 0000219c
 l71 0000691 0000219c 000021d7
 l71 0000692 000021d7 00002213
 l71 0000693 00002213 00002252
@@ -11528,13 +11585,13 @@ l34 0000233 00002cc1 00002ce9
 l34 0000236 00002d05 00002d47
 l34 0000239 00002d8c 00002dac
 l34 0000243 00002df1 00002df9
-l02 0000367 00002df9 00002dff
-l02 0000370 00002dff 00002e24
-l02 0000371 00002e24 00002e49
-l02 0000372 00002e49 00002e6e
-l02 0000373 00002e6e 00002e78
-l02 0000375 00002e9b 00002eb7
-l02 0000376 00002ebd 00002ec5
+l02 0000382 00002df9 00002dff
+l02 0000385 00002dff 00002e24
+l02 0000386 00002e24 00002e49
+l02 0000387 00002e49 00002e6e
+l02 0000388 00002e6e 00002e78
+l02 0000390 00002e9b 00002eb7
+l02 0000391 00002ebd 00002ec5
 l26 0000739 00002ec5 00002ef0
 l26 0000740 00002ef0 00002ef8
 l26 0000696 00002ef8 00002f2e

@@ -1,5 +1,5 @@
 NDB V1.0
-0000012 0000002 0000747 0000095 0000195
+0000012 0000002 0000762 0000088 0000187
 n00 ginc_debug
 n01 acr_time_i
 n02 nwnx_include
@@ -1259,6 +1259,18 @@ f ffffffff ffffffff 000 f HOUR_TO_SECONDS
 f ffffffff ffffffff 000 i TIME_YEAR_START
 f ffffffff ffffffff 000 i ALFA2_FR_YEAR_START
 f ffffffff ffffffff 000 i ALFA2_RL_YEAR_START
+f ffffffff ffffffff 000 i ACR_TIME_SECONDS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_MINUTES_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_HOURS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_DAYS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_MONTHS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_YEARS_SINCE_START
+f ffffffff ffffffff 000 i ACR_TIME_SECONDS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_MINUTES_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_HOURS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_DAYS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_MONTHS_IN_UTC
+f ffffffff ffffffff 000 i ACR_TIME_YEARS_IN_UTC
 f ffffffff ffffffff 000 s _TIME_RATIO_LF
 f ffffffff ffffffff 000 s ACR_MODULE_TIME
 f ffffffff ffffffff 000 v ACR_InitializeTime
@@ -1272,9 +1284,9 @@ f ffffffff ffffffff 000 i ACR_GetGameMillisecondsSinceStart
 f ffffffff ffffffff 000 i ACR_GetGameSecondsSinceStart
 f ffffffff ffffffff 000 i ACR_GetGameMinutesSinceStart
 f ffffffff ffffffff 000 i ACR_GetGameHoursSinceStart
-f 000013df 0000142a 000 i ACR_GetGameDaysSinceStart
-f 0000142a 00001475 000 i ACR_GetGameMonthsSinceStart
-f 00001475 000014a6 000 i ACR_GetGameYearsSinceStart
+f 000013df 00001424 000 i ACR_GetGameDaysSinceStart
+f ffffffff ffffffff 000 i ACR_GetGameMonthsSinceStart
+f ffffffff ffffffff 000 i ACR_GetGameYearsSinceStart
 f ffffffff ffffffff 001 f ACR_GetSecondsUntilNextHour
 fp i
 f ffffffff ffffffff 000 f ACR_GetGameToRealTimeRatio
@@ -1303,6 +1315,9 @@ fp i
 fp i
 fp i
 f ffffffff ffffffff 000 v _CalcDate
+f ffffffff ffffffff 000 i ACR_GetRealDaysSinceStart
+f ffffffff ffffffff 000 i ACR_GetRealMonthsSinceStart
+f ffffffff ffffffff 000 i ACR_GetRealYearsSinceStart
 f ffffffff ffffffff 000 i ACR_GetFRWeekday
 f 00000050 000000b5 001 i StartingConditional
 fp s
@@ -1395,19 +1410,12 @@ v 000012aa 0000133a 0000000c s VarName
 v 000012c7 0000133a 00000010 s VarPrefix
 v 00001394 000013dd 00000000 s #retval
 v 00001394 000013d7 00000004 s sString
-v 000013df 00001428 00000000 i #retval
-v 000013df 00001422 00000004 i nMonths
-v 000013e7 00001422 00000008 i nDays
-v 0000142a 00001473 00000000 i #retval
-v 0000142a 0000146d 00000004 i nYears
-v 00001432 0000146d 00000008 i nMonths
-v 00001475 000014a4 00000000 i #retval
-v 00001475 0000149e 00000004 i nYears
+v 000013df 00001422 00000000 i #retval
 l00 0000048 00000017 0000002e
-l01 0000074 0000002e 0000002e
-l01 0000075 0000002e 0000002e
 l01 0000076 0000002e 0000002e
 l01 0000077 0000002e 0000002e
+l01 0000078 0000002e 0000002e
+l01 0000079 0000002e 0000002e
 l11 0000006 00000050 00000055
 l11 0000007 00000055 00000069
 l11 0000008 00000069 00000081
@@ -1587,14 +1595,6 @@ l06 0001835 0000135a 00001386
 l06 0001836 0000138c 00001394
 l06 0000690 00001394 000013d7
 l06 0000691 000013d7 000013df
-l01 0000280 000013df 000013e7
-l01 0000281 000013e7 00001406
-l01 0000282 00001406 00001422
-l01 0000283 00001428 0000142a
-l01 0000287 0000142a 00001432
-l01 0000288 00001432 00001451
-l01 0000289 00001451 0000146d
-l01 0000290 00001473 00001475
-l01 0000294 00001475 00001482
-l01 0000295 00001482 0000149e
-l01 0000296 000014a4 000014a6
+l01 0000279 000013df 000013ea
+l01 0000280 000013ea 00001422
+l01 0000281 00001422 00001424
