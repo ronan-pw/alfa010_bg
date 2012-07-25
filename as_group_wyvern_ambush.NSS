@@ -59,8 +59,8 @@ void Spawn(object oSpawnPoint, location lLoc, int nNum) {
 
 void main() {
 
-	// 1% chance to spawn.
-	if(Random(100)) return;
+	// 0.5% chance to spawn.
+	if(Random(200)) return;
 	
 	int nNum = Random(5) + Random(5) + Random(5) - 6;
 	if(nNum <= 0) nNum = 1;
