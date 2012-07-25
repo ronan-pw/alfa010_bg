@@ -134,8 +134,9 @@ void AttemptBlowAway(object oArea, object oCreature, int nDC) {
 		if(!Random(3)) break;
 		else {
 			SendMessageToPC(oCreature, "Bathed only in darkness, the harsh winds dash you against jagged outcroppings and unseen rock faces.");
+			ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(d10(4), DAMAGE_TYPE_BLUDGEONING), oCreature);
 			nDamage += d10(4);
-			fHeight += 10;
+			//fHeight += 10;
 		}
 	}
 	
@@ -144,7 +145,8 @@ void AttemptBlowAway(object oArea, object oCreature, int nDC) {
 	location lDest = GetLocation(GetObjectByTag(BLOWN_AWAY_DESTINATION, Random(nRandomDests)));
 	
 	AssignCommand(oCreature, SpeakString("*<i>is slammed against the cliff face.</i>*"));
-	ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(nDamage + d6(FloatToInt(fHeight * 3.048 / 10.0)), DAMAGE_TYPE_BLUDGEONING), oCreature);
+	ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectDamage(d6(FloatToInt(fHeight * 3.048 / 10.0)), DAMAGE_TYPE_BLUDGEONING), oCreature);
+	RemoveFromParty(oCreature);
 	AssignCommand(oCreature, ActionJumpToLocation(lDest));
 }
 
