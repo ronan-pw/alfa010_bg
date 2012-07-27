@@ -1,7 +1,6 @@
 void main() {
 	object oCreature = GetFirstInPersistentObject();
 	while(oCreature != OBJECT_INVALID) {
-		if(GetObjectType(oCreature) != OBJECT_TYPE_CREATURE) continue;
 	
 		int nSize = GetCreatureSize(oCreature);
 		if(GetHasSpellEffect(SPELL_REDUCE_PERSON, oCreature) || GetHasSpellEffect(SPELL_REDUCE_PERSON_GREATER, oCreature) || GetHasSpellEffect(SPELL_REDUCE_PERSON_MASS, oCreature)) {
