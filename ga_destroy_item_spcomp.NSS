@@ -82,6 +82,11 @@ void main(string sItemTag)
 	fXP = 25.0f;
 	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
 	
+	sStr = "it_plot_beetle_fire";
+	nGP = 3;
+	fXP = 1.0f;
+	DestroyItems(oPC,sStr, GetNumItems(oPC, sStr), nGP, fXP);
+
 	sStr = "010_it_misc_rtooth";
 	nGP = 100;
 	fXP = 50.0f;
