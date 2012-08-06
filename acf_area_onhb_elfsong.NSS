@@ -55,38 +55,66 @@ void send_elfsong_msg(string str, object o)
 	SendChatMessage(o, OBJECT_INVALID, CHAT_MODE_TALK, str);
 }
 
-void main() {
+void main()
+{
 	object o;
+	string str;
 
 	ACR_AreaOnHeartbeat();
 
 
-	if (GetIsNight() && (GetLocalInt(OBJECT_SELF, "singing") == 0) && !Random(10)) {
+	if (GetIsNight() && (GetLocalInt(OBJECT_SELF, "singing") == 0) && !Random(15)) {
 
 		o = GetObjectByTag("010_cr_elfsong_voice");
 
 		SetLocalInt(OBJECT_SELF, "singing", 1);
 
-		if (Random(2)) {
-			DelayCommand(1.0f, send_elfsong_msg("<i>An eerie ethereal melody slowly springs to life, its substance coming forth from the very the inn itself; a ghostly elven voice sings an elegaic lament that tears at one's heart at which the entire tavern quiets suddenly to listen keenly.",o));
-		}
-		else {
-			DelayCommand(1.0f, send_elfsong_msg("<i>A haunting elegy reverberates through the halls of the tavern, seeming to spring forth from the very floorboards themselves; all the tavern's patrons quiet themselves in apparent respect to the voice -- the normally rowdy place silences so that the eerie voice is clearly audible to all.",o));
-		}
-
-		if (Random(2)) {
-			DelayCommand(45.0f, send_elfsong_msg("<i>One of the patrons yells towards the barkeep -- he is summarily shushed by the rest of the patrons and quiets to listen to the singing.",o));
-		}
-		else {
-			DelayCommand(45.0f, send_elfsong_msg("<i>The elegaic melody continues softly, the patrons of the tavern keeping their rapt attention on the song.",o));
+		switch (Random(3)) {
+			case 0:
+				str = "<i>An eerie ethereal melody slowly springs to life, its substance coming forth from the very the inn itself; a ghostly elven voice sings an elegaic lament that tears at one's heart at which the entire tavern quiets suddenly to listen keenly.";
+				break;
+			case 1:
+				str = "<i>A haunting elegy reverberates through the halls of the tavern, seeming to spring forth from the very floorboards themselves; all the tavern's patrons quiet themselves in apparent respect to the voice -- the normally rowdy place silences so that the eerie voice is clearly audible to all.";
+				break;
+			case 2:
+				str = "<i>A gentle melody crescendos up from from the din of the surrounding tavern, hushing the patrons to silence as the distant elven voice begins to sing an otherworldly mournful tune.";
+				break;
 		}
 
-		DelayCommand(120.0f, send_elfsong_msg("<i>The haunting song slowly comes to a close, the nearby patrons still silent either in admiration or discomfort.",o));
+		DelayCommand(0.0f, send_elfsong_msg(str, o));
+
+		switch (Random(3)) {
+			case 0:
+				str = "<i>One of the patrons yells towards the barkeep -- he is summarily shushed by the rest of the patrons and quiets to listen to the singing.";
+				break;
+			case 1:
+				str = "<i>The elegaic melody continues softly, the patrons of the tavern keeping their rapt attention on the song.";
+				break;
+			case 2:
+				str = "<i>The singing continues to waft through the air, moist eyes visible on even the most burly of patrons.";
+				break;
+		}
+
+		DelayCommand(40.0f, send_elfsong_msg(str, o));
+
+		switch (Random(3)) {
+			case 0:
+				str = "<i>The haunting song slowly comes to a close, the nearby patrons still silent either in admiration or discomfort.";
+				break;
+			case 1:
+				str = "<i>Once the melody comes to a close only an uncomfortable silence remains within the tavern.";
+				break;
+			case 2:
+				str = "<i>As the elegaic voice recedes into nothingness once more a soft din errupts in the tavern, a good many voices commenting on the remarkable singing.";
+				break;
+		}
+
+		DelayCommand(120.0f, send_elfsong_msg(str, o));
 
 
-		MusicBackgroundChangeNight(OBJECT_SELF, 472); 
-		MusicBackgroundChangeDay(OBJECT_SELF, 472); 
-		MusicBackgroundPlay(OBJECT_SELF); 
+		DelayCommand(2.0f, MusicBackgroundChangeNight(OBJECT_SELF, 472)); 
+		DelayCommand(2.0f, MusicBackgroundChangeDay(OBJECT_SELF, 472)); 
+		DelayCommand(2.0f, MusicBackgroundPlay(OBJECT_SELF));
 
 		DelayCommand(130.0f, MusicBackgroundChangeNight(OBJECT_SELF, 0)); 
 		DelayCommand(130.0f, MusicBackgroundChangeDay(OBJECT_SELF, 0)); 
