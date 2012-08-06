@@ -1,5 +1,5 @@
 NDB V1.0
-0000067 0000010 0004490 0000113 0000305
+0000067 0000010 0004488 0000113 0000305
 n00 ginc_debug
 n01 acr_time_i
 n02 acr_debug_i
@@ -1175,6 +1175,10 @@ f ffffffff ffffffff 001 s GetObjectTypeName
 fp i
 f ffffffff ffffffff 001 s GetBaseItemTypeName
 fp o
+f ffffffff ffffffff 001 i GetBaseArmorClass
+fp o
+f ffffffff ffffffff 001 i GetACEnhancementBonus
+fp o
 f ffffffff ffffffff 001 i GetBaseSpellFailure
 fp o
 f ffffffff ffffffff 001 i GetTotalSpellFailure
@@ -1783,31 +1787,6 @@ f ffffffff ffffffff 002 i ACR_GetCasterLevel
 fp o
 fp i
 f ffffffff ffffffff 002 i ACR_GetMinSpellCL
-fp i
-fp i
-f ffffffff ffffffff 003 i ACR_ScrollUse
-fp o
-fp o
-fp i
-f ffffffff ffffffff 002 i _DetermineScrollAttempt
-fp o
-fp i
-f ffffffff ffffffff 003 i _ScrollCastDiff
-fp i
-fp i
-fp i
-f ffffffff ffffffff 004 i _AttemptScrollUse
-fp i
-fp i
-fp o
-fp i
-f ffffffff ffffffff 004 i _ScrollMishapCheck
-fp o
-fp i
-fp i
-fp i
-f ffffffff ffffffff 003 v _ProcessMishap
-fp o
 fp i
 fp i
 f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
@@ -6608,7 +6587,7 @@ fp e0
 fp e0
 fp i
 fp i
-f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_START
+f ffffffff ffffffff 000 i _ACR_EFFECT_SOURCE_START
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_RESTING
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_COMBAT_ACTION
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FATIGUE
@@ -6626,6 +6605,17 @@ f ffffffff ffffffff 005 v ApplyEffectFromSource
 fp i
 fp i
 fp e0
+fp o
+fp f
+f ffffffff ffffffff 005 v ApplyEffectFromSpell
+fp i
+fp i
+fp e0
+fp o
+fp f
+f ffffffff ffffffff 004 v ApplyTrackingEffectFromSpell
+fp i
+fp i
 fp o
 fp f
 f ffffffff ffffffff 002 v RemoveAllEffectsFromSource
@@ -7587,8 +7577,8 @@ l31 0000268 0000031b 0000032f
 l31 0000272 0000032f 00000337
 l31 0000273 0000033d 0000034b
 l31 0000275 0000034b 00000353
-l31 0000986 00000353 0000038b
-l31 0000987 0000038b 00000393
+l31 0001009 00000353 0000038b
+l31 0001010 0000038b 00000393
 l02 0000194 00000393 00000399
 l02 0000195 00000399 000003b1
 l02 0000196 000003b1 000003cd
@@ -7786,11 +7776,11 @@ l13 0000135 00001f43 00001f7b
 l13 0000136 00001f7b 00001f83
 l13 0000183 00001f83 00001fa7
 l13 0000184 00001fa7 00001faf
-l31 0000971 00001faf 00001fc7
-l31 0000973 00001fcd 0000206c
-l31 0000974 0000206c 00002072
-l31 0000977 00002072 0000207f
-l31 0000982 0000207f 00002087
+l31 0000994 00001faf 00001fc7
+l31 0000996 00001fcd 0000206c
+l31 0000997 0000206c 00002072
+l31 0001000 00002072 0000207f
+l31 0001005 0000207f 00002087
 l16 0000984 00002087 000020be
 l16 0000985 000020be 000020c6
 l65 0000204 000020c6 000020c8

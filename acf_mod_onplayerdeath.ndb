@@ -1,5 +1,5 @@
 NDB V1.0
-0000114 0000024 0006148 0000603 0001401
+0000114 0000024 0006158 0000603 0001401
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -1306,6 +1306,10 @@ f ffffffff ffffffff 001 s GetObjectTypeName
 fp i
 f ffffffff ffffffff 001 s GetBaseItemTypeName
 fp o
+f ffffffff ffffffff 001 i GetBaseArmorClass
+fp o
+f ffffffff ffffffff 001 i GetACEnhancementBonus
+fp o
 f ffffffff ffffffff 001 i GetBaseSpellFailure
 fp o
 f ffffffff ffffffff 001 i GetTotalSpellFailure
@@ -1914,31 +1918,6 @@ f ffffffff ffffffff 002 i ACR_GetCasterLevel
 fp o
 fp i
 f ffffffff ffffffff 002 i ACR_GetMinSpellCL
-fp i
-fp i
-f ffffffff ffffffff 003 i ACR_ScrollUse
-fp o
-fp o
-fp i
-f ffffffff ffffffff 002 i _DetermineScrollAttempt
-fp o
-fp i
-f ffffffff ffffffff 003 i _ScrollCastDiff
-fp i
-fp i
-fp i
-f ffffffff ffffffff 004 i _AttemptScrollUse
-fp i
-fp i
-fp o
-fp i
-f ffffffff ffffffff 004 i _ScrollMishapCheck
-fp o
-fp i
-fp i
-fp i
-f ffffffff ffffffff 003 v _ProcessMishap
-fp o
 fp i
 fp i
 f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
@@ -6739,7 +6718,7 @@ fp e0
 fp e0
 fp i
 fp i
-f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_START
+f ffffffff ffffffff 000 i _ACR_EFFECT_SOURCE_START
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_RESTING
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_COMBAT_ACTION
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FATIGUE
@@ -6757,6 +6736,17 @@ f ffffffff ffffffff 005 v ApplyEffectFromSource
 fp i
 fp i
 fp e0
+fp o
+fp f
+f ffffffff ffffffff 005 v ApplyEffectFromSpell
+fp i
+fp i
+fp e0
+fp o
+fp f
+f ffffffff ffffffff 004 v ApplyTrackingEffectFromSpell
+fp i
+fp i
 fp o
 fp f
 f ffffffff ffffffff 002 v RemoveAllEffectsFromSource
@@ -7789,6 +7779,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_MISC_FETCH_DATABASE_CONNECTION
 f ffffffff ffffffff 000 i ACR_SERVER_MISC_GET_COLUMN_DATABASE_CONNECTION
 f ffffffff ffffffff 000 i ACR_SERVER_MISC_GET_AFFECTED_ROW_COUNT_DATABASE_CONNECTION
 f ffffffff ffffffff 000 i ACR_SERVER_MISC_ESCAPE_STRING_DATABASE_CONNECTION
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_GET_STACK_TRACE
 f ffffffff ffffffff 000 i ACR_ExecuteServerUpdaterScript
 f ffffffff ffffffff 001 o ACR_InternalCreateAreaInstance
 fp o
@@ -7815,6 +7806,7 @@ fp i
 f ffffffff ffffffff 002 s ACR_EscapeStringDatabaseConnection
 fp i
 fp s
+f ffffffff ffffffff 000 s ACR_GetStackTrace
 f ffffffff ffffffff 007 i ACR_CallServerMiscScript
 fp i
 fp i
@@ -10382,6 +10374,38 @@ fp i
 fp i
 f ffffffff ffffffff 001 s _GetDomainVarName
 fp i
+f ffffffff ffffffff 006 v PersistACBonusFromSpell
+fp o
+fp i
+fp i
+fp i
+fp f
+fp e0
+f ffffffff ffffffff 003 i ACR_ScrollUse
+fp o
+fp o
+fp i
+f ffffffff ffffffff 002 i _DetermineScrollAttempt
+fp o
+fp i
+f ffffffff ffffffff 003 i _ScrollCastDiff
+fp i
+fp i
+fp i
+f ffffffff ffffffff 004 i _AttemptScrollUse
+fp i
+fp i
+fp o
+fp i
+f ffffffff ffffffff 004 i _ScrollMishapCheck
+fp o
+fp i
+fp i
+fp i
+f ffffffff ffffffff 003 v _ProcessMishap
+fp o
+fp i
+fp i
 f ffffffff ffffffff 003 i _GetLevelIfHasFeat
 fp i
 fp o
@@ -10394,6 +10418,26 @@ f ffffffff ffffffff 001 i ACR_GetIsDomainSpell
 fp i
 f ffffffff ffffffff 001 i ACR_GetHighestCasterLevel
 fp o
+f ffffffff ffffffff 003 i _GetPersistentACBonusTarget
+fp o
+fp i
+fp i
+f ffffffff ffffffff 006 v _AddPersistentACBonusEffects
+fp o
+fp i
+fp i
+fp i
+fp f
+fp e0
+f ffffffff ffffffff 008 v _PersistACBonusFromSpell
+fp o
+fp i
+fp i
+fp i
+fp i
+fp f
+fp e0
+fp i
 f ffffffff ffffffff 000 s ACR_CRAFT_STORE_PREFIX
 f ffffffff ffffffff 000 s ACR_CRAFT_STORE_POTION
 f ffffffff ffffffff 000 s ACR_CRAFT_STORE_WAND
@@ -12365,8 +12409,8 @@ l11 0001001 000071e5 00007232
 l11 0001002 00007232 0000723a
 l05 0000217 0000723a 0000726b
 l05 0000218 0000726b 00007273
-l30 0000661 00007273 000072bd
-l30 0000662 000072bd 000072c5
+l30 0000663 00007273 000072bd
+l30 0000664 000072bd 000072c5
 l11 0001006 000072c5 00007343
 l11 0001007 00007343 0000734b
 l26 0000744 0000734b 0000737c
@@ -12417,8 +12461,8 @@ l41 0000268 00007af4 00007b08
 l41 0000272 00007b08 00007b10
 l41 0000273 00007b16 00007b24
 l41 0000275 00007b24 00007b2c
-l41 0000986 00007b2c 00007b64
-l41 0000987 00007b64 00007b6c
+l41 0001009 00007b2c 00007b64
+l41 0001010 00007b64 00007b6c
 l41 0000306 00007b6c 00007b7c
 l41 0000309 00007b7c 00007b84
 l41 0000311 00007b8a 00007b97
@@ -12449,11 +12493,11 @@ l38 0000450 00008577 0000858b
 l38 0000456 00008591 000085b6
 l38 0000458 000085b6 000085d2
 l38 0000459 000085d8 000085e0
-l41 0000971 000085e0 000085f8
-l41 0000973 000085fe 0000869d
-l41 0000974 0000869d 000086a3
-l41 0000977 000086a3 000086b0
-l41 0000982 000086b0 000086b8
+l41 0000994 000085e0 000085f8
+l41 0000996 000085fe 0000869d
+l41 0000997 0000869d 000086a3
+l41 0001000 000086a3 000086b0
+l41 0001005 000086b0 000086b8
 l26 0000984 000086b8 000086ef
 l26 0000985 000086ef 000086f7
 l11 0001072 000086f7 000086fd

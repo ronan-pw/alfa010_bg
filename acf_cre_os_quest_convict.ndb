@@ -1,5 +1,5 @@
 NDB V1.0
-0000084 0000012 0005311 0000412 0001298
+0000084 0000012 0005309 0000412 0001298
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -2340,6 +2340,10 @@ f ffffffff ffffffff 001 s GetObjectTypeName
 fp i
 f ffffffff ffffffff 001 s GetBaseItemTypeName
 fp o
+f ffffffff ffffffff 001 i GetBaseArmorClass
+fp o
+f ffffffff ffffffff 001 i GetACEnhancementBonus
+fp o
 f ffffffff ffffffff 001 i GetBaseSpellFailure
 fp o
 f ffffffff ffffffff 001 i GetTotalSpellFailure
@@ -2836,31 +2840,6 @@ f ffffffff ffffffff 002 i ACR_GetCasterLevel
 fp o
 fp i
 f ffffffff ffffffff 002 i ACR_GetMinSpellCL
-fp i
-fp i
-f ffffffff ffffffff 003 i ACR_ScrollUse
-fp o
-fp o
-fp i
-f ffffffff ffffffff 002 i _DetermineScrollAttempt
-fp o
-fp i
-f ffffffff ffffffff 003 i _ScrollCastDiff
-fp i
-fp i
-fp i
-f ffffffff ffffffff 004 i _AttemptScrollUse
-fp i
-fp i
-fp o
-fp i
-f ffffffff ffffffff 004 i _ScrollMishapCheck
-fp o
-fp i
-fp i
-fp i
-f ffffffff ffffffff 003 v _ProcessMishap
-fp o
 fp i
 fp i
 f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
@@ -6649,7 +6628,7 @@ fp e0
 fp e0
 fp i
 fp i
-f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_START
+f ffffffff ffffffff 000 i _ACR_EFFECT_SOURCE_START
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_RESTING
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_COMBAT_ACTION
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FATIGUE
@@ -6667,6 +6646,17 @@ f ffffffff ffffffff 005 v ApplyEffectFromSource
 fp i
 fp i
 fp e0
+fp o
+fp f
+f ffffffff ffffffff 005 v ApplyEffectFromSpell
+fp i
+fp i
+fp e0
+fp o
+fp f
+f ffffffff ffffffff 004 v ApplyTrackingEffectFromSpell
+fp i
+fp i
 fp o
 fp f
 f ffffffff ffffffff 002 v RemoveAllEffectsFromSource
@@ -10420,8 +10410,8 @@ l29 0000446 0000b7fb 0000b803
 l83 0000058 0000b803 0000b816
 l83 0000060 0000b816 0000b851
 l83 0000061 0000b851 0000b859
-l37 0000661 0000b859 0000b8a3
-l37 0000662 0000b8a3 0000b8ab
+l37 0000663 0000b859 0000b8a3
+l37 0000664 0000b8a3 0000b8ab
 l83 0000053 0000b8ab 0000b8be
 l83 0000054 0000b8be 0000b8c6
 l82 0000080 0000b8c6 0000b8d0
@@ -10435,16 +10425,16 @@ l82 0000090 0000b98e 0000b9b3
 l82 0000092 0000b9b3 0000b9f2
 l82 0000094 0000b9f2 0000ba28
 l82 0000095 0000ba2e 0000ba36
-l37 0000633 0000ba36 0000ba3c
-l37 0000636 0000ba3c 0000ba53
-l37 0000637 0000ba59 0000ba7c
-l37 0000638 0000ba7c 0000bab4
-l37 0000642 0000bab4 0000bae6
-l37 0000643 0000bae6 0000bb18
-l37 0000644 0000bb18 0000bb4c
-l37 0000645 0000bb4c 0000bb62
-l37 0000647 0000bb62 0000bb94
-l37 0000648 0000bb94 0000bbb7
-l37 0000649 0000bbb7 0000bbdf
-l37 0000651 0000bbdf 0000bc19
-l37 0000652 0000bc1f 0000bc27
+l37 0000635 0000ba36 0000ba3c
+l37 0000638 0000ba3c 0000ba53
+l37 0000639 0000ba59 0000ba7c
+l37 0000640 0000ba7c 0000bab4
+l37 0000644 0000bab4 0000bae6
+l37 0000645 0000bae6 0000bb18
+l37 0000646 0000bb18 0000bb4c
+l37 0000647 0000bb4c 0000bb62
+l37 0000649 0000bb62 0000bb94
+l37 0000650 0000bb94 0000bbb7
+l37 0000651 0000bbb7 0000bbdf
+l37 0000653 0000bbdf 0000bc19
+l37 0000654 0000bc1f 0000bc27

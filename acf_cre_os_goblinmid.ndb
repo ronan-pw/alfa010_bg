@@ -1,5 +1,5 @@
 NDB V1.0
-0000086 0000014 0005245 0000413 0001345
+0000086 0000014 0005243 0000413 0001345
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
@@ -2360,6 +2360,10 @@ f ffffffff ffffffff 001 s GetObjectTypeName
 fp i
 f ffffffff ffffffff 001 s GetBaseItemTypeName
 fp o
+f ffffffff ffffffff 001 i GetBaseArmorClass
+fp o
+f ffffffff ffffffff 001 i GetACEnhancementBonus
+fp o
 f ffffffff ffffffff 001 i GetBaseSpellFailure
 fp o
 f ffffffff ffffffff 001 i GetTotalSpellFailure
@@ -2856,31 +2860,6 @@ f ffffffff ffffffff 002 i ACR_GetCasterLevel
 fp o
 fp i
 f ffffffff ffffffff 002 i ACR_GetMinSpellCL
-fp i
-fp i
-f ffffffff ffffffff 003 i ACR_ScrollUse
-fp o
-fp o
-fp i
-f ffffffff ffffffff 002 i _DetermineScrollAttempt
-fp o
-fp i
-f ffffffff ffffffff 003 i _ScrollCastDiff
-fp i
-fp i
-fp i
-f ffffffff ffffffff 004 i _AttemptScrollUse
-fp i
-fp i
-fp o
-fp i
-f ffffffff ffffffff 004 i _ScrollMishapCheck
-fp o
-fp i
-fp i
-fp i
-f ffffffff ffffffff 003 v _ProcessMishap
-fp o
 fp i
 fp i
 f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
@@ -6669,7 +6648,7 @@ fp e0
 fp e0
 fp i
 fp i
-f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_START
+f ffffffff ffffffff 000 i _ACR_EFFECT_SOURCE_START
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_RESTING
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_COMBAT_ACTION
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FATIGUE
@@ -6687,6 +6666,17 @@ f ffffffff ffffffff 005 v ApplyEffectFromSource
 fp i
 fp i
 fp e0
+fp o
+fp f
+f ffffffff ffffffff 005 v ApplyEffectFromSpell
+fp i
+fp i
+fp e0
+fp o
+fp f
+f ffffffff ffffffff 004 v ApplyTrackingEffectFromSpell
+fp i
+fp i
 fp o
 fp f
 f ffffffff ffffffff 002 v RemoveAllEffectsFromSource
@@ -10407,18 +10397,18 @@ l84 0000069 0000c027 0000c052
 l84 0000070 0000c052 0000c07d
 l84 0000073 0000c07d 0000c0a2
 l84 0000074 0000c0a8 0000c0b0
-l38 0000633 0000c0b0 0000c0b6
-l38 0000636 0000c0b6 0000c0cd
-l38 0000637 0000c0d3 0000c0f6
-l38 0000638 0000c0f6 0000c12e
-l38 0000642 0000c12e 0000c160
-l38 0000643 0000c160 0000c192
-l38 0000644 0000c192 0000c1c6
-l38 0000645 0000c1c6 0000c1dc
-l38 0000647 0000c1dc 0000c20e
-l38 0000648 0000c20e 0000c231
-l38 0000649 0000c231 0000c259
-l38 0000651 0000c259 0000c293
-l38 0000652 0000c299 0000c2a1
-l38 0000661 0000c2a1 0000c2eb
-l38 0000662 0000c2eb 0000c2f3
+l38 0000635 0000c0b0 0000c0b6
+l38 0000638 0000c0b6 0000c0cd
+l38 0000639 0000c0d3 0000c0f6
+l38 0000640 0000c0f6 0000c12e
+l38 0000644 0000c12e 0000c160
+l38 0000645 0000c160 0000c192
+l38 0000646 0000c192 0000c1c6
+l38 0000647 0000c1c6 0000c1dc
+l38 0000649 0000c1dc 0000c20e
+l38 0000650 0000c20e 0000c231
+l38 0000651 0000c231 0000c259
+l38 0000653 0000c259 0000c293
+l38 0000654 0000c299 0000c2a1
+l38 0000663 0000c2a1 0000c2eb
+l38 0000664 0000c2eb 0000c2f3

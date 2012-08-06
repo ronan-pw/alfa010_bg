@@ -1,5 +1,5 @@
 NDB V1.0
-0000114 0000024 0006148 0000173 0000274
+0000114 0000024 0006158 0000173 0000274
 n00 ginc_debug
 n01 acr_debug_i
 n02 acr_time_i
@@ -1306,6 +1306,10 @@ f ffffffff ffffffff 001 s GetObjectTypeName
 fp i
 f ffffffff ffffffff 001 s GetBaseItemTypeName
 fp o
+f ffffffff ffffffff 001 i GetBaseArmorClass
+fp o
+f ffffffff ffffffff 001 i GetACEnhancementBonus
+fp o
 f ffffffff ffffffff 001 i GetBaseSpellFailure
 fp o
 f ffffffff ffffffff 001 i GetTotalSpellFailure
@@ -1914,31 +1918,6 @@ f ffffffff ffffffff 002 i ACR_GetCasterLevel
 fp o
 fp i
 f ffffffff ffffffff 002 i ACR_GetMinSpellCL
-fp i
-fp i
-f ffffffff ffffffff 003 i ACR_ScrollUse
-fp o
-fp o
-fp i
-f ffffffff ffffffff 002 i _DetermineScrollAttempt
-fp o
-fp i
-f ffffffff ffffffff 003 i _ScrollCastDiff
-fp i
-fp i
-fp i
-f ffffffff ffffffff 004 i _AttemptScrollUse
-fp i
-fp i
-fp o
-fp i
-f ffffffff ffffffff 004 i _ScrollMishapCheck
-fp o
-fp i
-fp i
-fp i
-f ffffffff ffffffff 003 v _ProcessMishap
-fp o
 fp i
 fp i
 f ffffffff ffffffff 000 s ACR_SERVER_IPC_SERVERCOM_SCRIPT
@@ -6739,7 +6718,7 @@ fp e0
 fp e0
 fp i
 fp i
-f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_START
+f ffffffff ffffffff 000 i _ACR_EFFECT_SOURCE_START
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_RESTING
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_COMBAT_ACTION
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FATIGUE
@@ -6757,6 +6736,17 @@ f ffffffff ffffffff 005 v ApplyEffectFromSource
 fp i
 fp i
 fp e0
+fp o
+fp f
+f ffffffff ffffffff 005 v ApplyEffectFromSpell
+fp i
+fp i
+fp e0
+fp o
+fp f
+f ffffffff ffffffff 004 v ApplyTrackingEffectFromSpell
+fp i
+fp i
 fp o
 fp f
 f ffffffff ffffffff 002 v RemoveAllEffectsFromSource
@@ -7789,6 +7779,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_MISC_FETCH_DATABASE_CONNECTION
 f ffffffff ffffffff 000 i ACR_SERVER_MISC_GET_COLUMN_DATABASE_CONNECTION
 f ffffffff ffffffff 000 i ACR_SERVER_MISC_GET_AFFECTED_ROW_COUNT_DATABASE_CONNECTION
 f ffffffff ffffffff 000 i ACR_SERVER_MISC_ESCAPE_STRING_DATABASE_CONNECTION
+f ffffffff ffffffff 000 i ACR_SERVER_MISC_GET_STACK_TRACE
 f ffffffff ffffffff 000 i ACR_ExecuteServerUpdaterScript
 f ffffffff ffffffff 001 o ACR_InternalCreateAreaInstance
 fp o
@@ -7815,6 +7806,7 @@ fp i
 f ffffffff ffffffff 002 s ACR_EscapeStringDatabaseConnection
 fp i
 fp s
+f ffffffff ffffffff 000 s ACR_GetStackTrace
 f ffffffff ffffffff 007 i ACR_CallServerMiscScript
 fp i
 fp i
@@ -10382,6 +10374,38 @@ fp i
 fp i
 f ffffffff ffffffff 001 s _GetDomainVarName
 fp i
+f ffffffff ffffffff 006 v PersistACBonusFromSpell
+fp o
+fp i
+fp i
+fp i
+fp f
+fp e0
+f ffffffff ffffffff 003 i ACR_ScrollUse
+fp o
+fp o
+fp i
+f ffffffff ffffffff 002 i _DetermineScrollAttempt
+fp o
+fp i
+f ffffffff ffffffff 003 i _ScrollCastDiff
+fp i
+fp i
+fp i
+f ffffffff ffffffff 004 i _AttemptScrollUse
+fp i
+fp i
+fp o
+fp i
+f ffffffff ffffffff 004 i _ScrollMishapCheck
+fp o
+fp i
+fp i
+fp i
+f ffffffff ffffffff 003 v _ProcessMishap
+fp o
+fp i
+fp i
 f ffffffff ffffffff 003 i _GetLevelIfHasFeat
 fp i
 fp o
@@ -10394,6 +10418,26 @@ f ffffffff ffffffff 001 i ACR_GetIsDomainSpell
 fp i
 f ffffffff ffffffff 001 i ACR_GetHighestCasterLevel
 fp o
+f ffffffff ffffffff 003 i _GetPersistentACBonusTarget
+fp o
+fp i
+fp i
+f ffffffff ffffffff 006 v _AddPersistentACBonusEffects
+fp o
+fp i
+fp i
+fp i
+fp f
+fp e0
+f ffffffff ffffffff 008 v _PersistACBonusFromSpell
+fp o
+fp i
+fp i
+fp i
+fp i
+fp f
+fp e0
+fp i
 f ffffffff ffffffff 000 s ACR_CRAFT_STORE_PREFIX
 f ffffffff ffffffff 000 s ACR_CRAFT_STORE_POTION
 f ffffffff ffffffff 000 s ACR_CRAFT_STORE_WAND
