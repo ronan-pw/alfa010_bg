@@ -23,6 +23,7 @@
 
 // This line is required on all spawn group scripts.
 #include "acr_spawn_i"
+#include "010_spawn_ex"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Constants ///////////////////////////////////////////////////////////////////
@@ -83,7 +84,7 @@ void main() {
 			if (Random(10) < 5)
 				ACR_SpawnObject("010_herb_corpse", OBJECT_TYPE_PLACEABLE);
 			else
-				spawned = 0;
+				spawn_group("herbs3");
 			
 			break;
 	}

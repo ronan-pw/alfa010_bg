@@ -62,7 +62,7 @@ void main()
 			case 0:
 			case 1:
 			case 2:
-				if (Random(5)) {
+				if (Random(3)) {
 					o = ACR_SpawnLootDetector();
 		
 					if (Random(2))
