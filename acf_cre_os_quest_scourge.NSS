@@ -62,17 +62,13 @@ void main()
 
 	// kludge
 	o = GetNearestObjectByTag("fai_scourge_quest_trig");
-	SetLocalString(o,"ACR_QST_NAME","");
-	SetLocalString(o,"ACR_QST_LOWER_STATE","0");
-	SetLocalString(o,"ACR_QST_UPPER_STATE","0");
-
-	o = GetObjectByTag("sharpteeth_00_cave");
 
 	if (GetLocalInt(o,"fai_scourge_quest")) {
 		DestroyObject(OBJECT_SELF);
 		return;
 	}
 
+	SetLocalInt(o,"fai_scourge_quest",1);
 	
 	SetLocalString(OBJECT_SELF,"1","lieutenant");
 	SetLocalString(OBJECT_SELF,"2","bandit");
