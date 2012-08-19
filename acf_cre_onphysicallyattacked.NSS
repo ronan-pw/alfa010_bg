@@ -71,6 +71,9 @@ void main()
 		if (GetLocalInt(OBJECT_SELF,"ACR_DOCILE")) {
 			SetLocalInt(OBJECT_SELF, "Fleeing",1);
 			ActionMoveAwayFromObject(attacker, TRUE, 200.0);
+
+			DelayCommand(20.0f, ActionSpeakString("*scampers off into the undergrowth*"));
+			DelayCommand(21.0f, DestroyObject(OBJECT_SELF));
 			return;
 		}
 
