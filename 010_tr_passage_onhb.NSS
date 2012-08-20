@@ -11,7 +11,7 @@ void main() {
 		if(GetHasSpellEffect(SPELL_ENLARGE_PERSON, oCreature))
 			nSize++;
 		
-		if(GetCreatureSize(oCreature) > CREATURE_SIZE_SMALL && GetSubRace(oCreature) != RACIAL_SUBTYPE_OOZE) {
+		if(nSize > CREATURE_SIZE_SMALL && GetSubRace(oCreature) != RACIAL_SUBTYPE_OOZE) {
 			SendMessageToPC(oCreature, "You're now too large to fit down this narrow passage - you're stuck in place!");
 			ApplyEffectToObject(DURATION_TYPE_TEMPORARY, EffectEntangle(), oCreature, 6.5);
 		}
