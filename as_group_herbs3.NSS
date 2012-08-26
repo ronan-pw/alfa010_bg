@@ -71,7 +71,18 @@ void main()
 						SetLocalString(o, "PL_RESREF", "phat_lewt_crate");
 				}
 				else {
-			        	ACR_SpawnObject("phat_lewt_rubble", OBJECT_TYPE_PLACEABLE);
+					switch (Random(3)) {
+						case 0:
+			        			ACR_SpawnObject("phat_lewt_rubble", OBJECT_TYPE_PLACEABLE);
+							break;
+						case 1:
+			        			ACR_SpawnObject("phat_lewt_chest_small_lock", OBJECT_TYPE_PLACEABLE);
+							break;
+
+						case 2:
+			        			ACR_SpawnObject("phat_lewt_bag", OBJECT_TYPE_PLACEABLE);
+							break;
+					}
 				}
 
 				break;
