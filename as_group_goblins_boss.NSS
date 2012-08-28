@@ -52,7 +52,7 @@ void main() {
 
 	spawn_hostile("010_cr_goblin_archer00",0.5);
 
-	switch(Random(3)) {
+	switch(Random(4)) {
         case 0:
             spawn_hostile("010_cr_goblin_leader00");
             break;
@@ -61,6 +61,9 @@ void main() {
             break;
 	case 2:
             spawn_hostile("abr_cr_hu_hobgoblin000");
+            break;
+	case 3:
+            spawn_hostile("010_cr_goblin_mount");
             break;
 	}
 
