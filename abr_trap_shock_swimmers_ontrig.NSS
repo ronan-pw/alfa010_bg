@@ -1,6 +1,6 @@
 void main() {
 	object oTrigger = GetNearestObject(OBJECT_TYPE_TRIGGER);
-	int i = 0;
+	int i = 1;
 	while(oTrigger != OBJECT_INVALID) {
 		if(GetLocalInt(oTrigger, "ACR_SWIM_DC")) {
 			// Found a swim trigger. Damage everyone inside it.
