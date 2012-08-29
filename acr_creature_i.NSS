@@ -142,11 +142,24 @@ const int _HENCH_AI_MIN_INT = 5;
  */
 int GetCreatureAIType(object oCreature=OBJECT_SELF)
 {
-	int x,y;
+	int x,y,z;
+
+	if (GetLocalInt(oCreature, "AI_TYPE_CALC")) {
+		return GetLocalInt(oCreature, "AI_TYPE");
+	}
+
 	x = GetLocalInt(oCreature, "ACR_NPC");
 	y = (GetAbilityScore(oCreature,ABILITY_INTELLIGENCE) <= _HENCH_AI_MIN_INT);
 	
-	return (x > y) ? x : y;
+	z = (x > y) ? x : y;
+
+	if (GetLocalInt(oCreature, "ACR_HENCHMAN"))
+		z = 0;
+
+	SetLocalInt(oCreature,"AI_TYPE",z);
+	SetLocalInt(oCreature,"AI_TYPE_CALC",1);
+
+	return z;
 }
 
 void _startRunning(object oCreature = OBJECT_SELF) {

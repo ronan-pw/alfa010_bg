@@ -142,4 +142,7 @@ void main()
 		SetLastName(OBJECT_SELF, "");
 	}
 
+	if (GetLocalInt(OBJECT_SELF, "ACR_HENCHMAN")) {
+		SetLocalInt(OBJECT_SELF,"ACR_NPC", 0);
+	}
 }

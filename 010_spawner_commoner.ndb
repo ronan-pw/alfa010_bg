@@ -1,20 +1,20 @@
 NDB V1.0
-0000030 0000005 0002851 0000018 0000231
+0000030 0000006 0002856 0000018 0000233
 n00 ginc_debug
-n01 nwnx_objectattributes_include
-n02 acr_debug_i
-n03 acr_time_i
-n04 acr_server_ipc_i
-n05 dmfi_inc_conv
-n06 nwnx_include
-n07 acr_array_i
-n08 acr_queue_i
-n09 acr_settings_i
-n10 acr_db_persist_i
-n11 acr_i
-n12 x0_i0_position
-n13 ginc_math
-n14 acr_tools_i
+n01 acr_tools_i
+n02 nwnx_objectattributes_include
+n03 acr_debug_i
+n04 acr_time_i
+n05 acr_server_ipc_i
+n06 dmfi_inc_conv
+n07 nwnx_include
+n08 acr_array_i
+n09 acr_queue_i
+n10 acr_settings_i
+n11 acr_db_persist_i
+n12 acr_i
+n13 x0_i0_position
+n14 ginc_math
 n15 x2_inc_switches
 n16 acr_spelltrack_i
 n17 acr_1984_i
@@ -34,6 +34,9 @@ s 03 vector
 sf f x
 sf f y
 sf f z
+s 02 IntListIterator
+sf i Position
+sf i Value
 s 04 XPObjectAttributes_Color
 sf f r
 sf f g
@@ -1263,6 +1266,19 @@ fp s
 f ffffffff ffffffff 002 i IsElementInStringList
 fp s
 fp i
+f ffffffff ffffffff 001 t0001 ACR_GetFirstInIntList
+fp s
+f ffffffff ffffffff 002 t0001 ACR_GetNextInIntList
+fp s
+fp t0001
+f ffffffff ffffffff 001 i ACR_IsIntListAtEnd
+fp t0001
+f ffffffff ffffffff 002 i ACR_GetIntListValue
+fp s
+fp t0001
+f ffffffff ffffffff 002 i ACR__IntListNextDelimiter
+fp s
+fp i
 f ffffffff ffffffff 001 s RacialTypeName
 fp i
 f ffffffff ffffffff 001 s SubRaceName
@@ -1348,44 +1364,44 @@ fp o
 fp i
 f ffffffff ffffffff 002 v XPObjectAttributesSetBodyTint
 fp o
-fp t0002
+fp t0003
 f ffffffff ffffffff 002 v XPObjectAttributesSetHeadTint
 fp o
-fp t0002
+fp t0003
 f ffffffff ffffffff 002 v XPObjectAttributesSetHairTint
 fp o
-fp t0002
+fp t0003
 f ffffffff ffffffff 002 v XPObjectAttributesSetMovement
 fp o
 fp i
-f ffffffff ffffffff 004 t0001 CreateXPObjectAttributes_Color
+f ffffffff ffffffff 004 t0002 CreateXPObjectAttributes_Color
 fp f
 fp f
 fp f
 fp f
-f ffffffff ffffffff 003 t0002 CreateXPObjectAttributes_TintSet
-fp t0001
-fp t0001
-fp t0001
-f ffffffff ffffffff 001 s XPObjectAttributespFormatTintSetAsString
+f ffffffff ffffffff 003 t0003 CreateXPObjectAttributes_TintSet
 fp t0002
+fp t0002
+fp t0002
+f ffffffff ffffffff 001 s XPObjectAttributespFormatTintSetAsString
+fp t0003
 f ffffffff ffffffff 001 s XPObjectAttributespFormatColorAsString
-fp t0001
+fp t0002
 f ffffffff ffffffff 001 s RawairToHairAccessory
 fp s
 f ffffffff ffffffff 001 s RawHairToHairLowlight
 fp s
 f ffffffff ffffffff 001 s RawHairToHairHighlight
 fp s
-f ffffffff ffffffff 001 t0001 RawAttribToTint
+f ffffffff ffffffff 001 t0002 RawAttribToTint
 fp s
-f ffffffff ffffffff 001 t0002 RawAttribToTintSet
+f ffffffff ffffffff 001 t0003 RawAttribToTintSet
 fp s
-f ffffffff ffffffff 001 t0002 GetHairTintSet
+f ffffffff ffffffff 001 t0003 GetHairTintSet
 fp o
-f ffffffff ffffffff 001 t0002 GetBodyTintSet
+f ffffffff ffffffff 001 t0003 GetBodyTintSet
 fp o
-f ffffffff ffffffff 001 t0002 GetHeadTintSet
+f ffffffff ffffffff 001 t0003 GetHeadTintSet
 fp o
 f ffffffff ffffffff 000 i DEBUG_TARGET_NONE
 f ffffffff ffffffff 000 i DEBUG_TARGET_DMS
@@ -1733,7 +1749,7 @@ f ffffffff ffffffff 000 i ACR_GetFRMonth
 f ffffffff ffffffff 000 i ACR_GetFRDay
 f ffffffff ffffffff 000 i ACR_GetFRTenday
 f ffffffff ffffffff 000 i ACR_GetFRHoliday
-f ffffffff ffffffff 003 t0003 ACR_ConvertDate
+f ffffffff ffffffff 003 t0004 ACR_ConvertDate
 fp i
 fp i
 fp i
@@ -1770,7 +1786,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
-fp t0004
+fp t0005
 f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
 f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
 fp o
@@ -4085,40 +4101,42 @@ v 00001133 00001183 00000000 f #retval
 v 00001133 0000117d 00000004 f fMax
 v 00001133 0000117d 00000008 f fMin
 l00 0000048 00000015 0000002c
-l01 0000064 0000002c 0000002c
-l01 0000065 0000002c 0000002c
-l01 0000066 0000002c 0000002c
-l01 0000067 0000002c 0000002c
-l01 0000072 0000002c 0000002c
-l01 0000073 0000002c 0000002c
-l01 0000074 0000002c 0000002c
-l01 0000075 0000002c 0000002c
-l01 0000076 0000002c 0000002c
-l01 0000077 0000002c 0000002c
-l01 0000078 0000002c 0000002c
-l01 0000079 0000002c 0000002c
-l01 0000080 0000002c 0000002c
-l01 0000081 0000002c 0000002c
-l01 0000082 0000002c 0000002c
-l01 0000083 0000002c 0000002c
-l02 0000058 0000002c 00000037
-l02 0000059 00000037 00000044
-l02 0000060 00000044 00000048
-l02 0000062 00000048 00000056
-l02 0000064 00000056 00000065
-l02 0000065 00000065 00000074
-l02 0000066 00000074 00000083
-l03 0000076 00000083 00000083
-l03 0000077 00000083 00000083
-l03 0000078 00000083 00000083
-l03 0000079 00000083 00000083
-l04 0000144 00000083 00000083
-l04 0000145 00000083 00000083
-l04 0000146 00000083 00000083
-l04 0000147 00000083 00000083
-l04 0000148 00000083 00000083
-l04 0000149 00000083 00000083
-l05 0000234 00000083 00000087
+l01 0000110 0000002c 0000002c
+l01 0000111 0000002c 0000002c
+l02 0000064 0000002c 0000002c
+l02 0000065 0000002c 0000002c
+l02 0000066 0000002c 0000002c
+l02 0000067 0000002c 0000002c
+l02 0000072 0000002c 0000002c
+l02 0000073 0000002c 0000002c
+l02 0000074 0000002c 0000002c
+l02 0000075 0000002c 0000002c
+l02 0000076 0000002c 0000002c
+l02 0000077 0000002c 0000002c
+l02 0000078 0000002c 0000002c
+l02 0000079 0000002c 0000002c
+l02 0000080 0000002c 0000002c
+l02 0000081 0000002c 0000002c
+l02 0000082 0000002c 0000002c
+l02 0000083 0000002c 0000002c
+l03 0000058 0000002c 00000037
+l03 0000059 00000037 00000044
+l03 0000060 00000044 00000048
+l03 0000062 00000048 00000056
+l03 0000064 00000056 00000065
+l03 0000065 00000065 00000074
+l03 0000066 00000074 00000083
+l04 0000076 00000083 00000083
+l04 0000077 00000083 00000083
+l04 0000078 00000083 00000083
+l04 0000079 00000083 00000083
+l05 0000144 00000083 00000083
+l05 0000145 00000083 00000083
+l05 0000146 00000083 00000083
+l05 0000147 00000083 00000083
+l05 0000148 00000083 00000083
+l05 0000149 00000083 00000083
+l06 0000234 00000083 00000087
 l29 0000006 00000099 0000009b
 l29 0000008 0000009b 000000c2
 l29 0000010 000000c2 000000f6
@@ -4313,5 +4331,5 @@ l28 0000351 000010f1 000010f7
 l28 0000353 000010fd 00001103
 l28 0000355 00001109 00001125
 l28 0000356 0000112b 00001133
-l14 0000663 00001133 0000117d
-l14 0000664 0000117d 00001185
+l01 0000717 00001133 0000117d
+l01 0000718 0000117d 00001185

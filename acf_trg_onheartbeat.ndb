@@ -1,37 +1,37 @@
 NDB V1.0
-0000070 0000010 0004600 0000014 0000060
+0000070 0000011 0004601 0000014 0000062
 n00 ginc_debug
 n01 x0_i0_enemy
 n02 x0_inc_generic
 n03 nwn2_inc_talent
-n04 acr_debug_i
-n05 acr_time_i
-n06 acr_server_ipc_i
-n07 dmfi_inc_conv
-n08 x0_i0_campaign
-n09 nw_i0_generic
-n10 acr_it_persist_i
-n11 acr_death_i
-n12 x0_i0_debug
-n13 x0_i0_match
-n14 x0_i0_assoc
-n15 x2_inc_switches
-n16 x0_i0_equip
-n17 ginc_2da
-n18 ginc_event_handlers
-n19 x0_i0_talent
-n20 x0_i0_combat
-n21 x0_i0_spawncond
-n22 acr_vfx_i
-n23 acr_array_i
-n24 nwnx_include
-n25 acr_queue_i
-n26 acr_settings_i
-n27 acr_db_persist_i
-n28 acr_i
-n29 x0_i0_position
-n30 ginc_math
-n31 acr_tools_i
+n04 acr_tools_i
+n05 acr_debug_i
+n06 acr_time_i
+n07 acr_server_ipc_i
+n08 dmfi_inc_conv
+n09 x0_i0_campaign
+n10 nw_i0_generic
+n11 acr_it_persist_i
+n12 acr_death_i
+n13 x0_i0_debug
+n14 x0_i0_match
+n15 x0_i0_assoc
+n16 x2_inc_switches
+n17 x0_i0_equip
+n18 ginc_2da
+n19 ginc_event_handlers
+n20 x0_i0_talent
+n21 x0_i0_combat
+n22 x0_i0_spawncond
+n23 acr_vfx_i
+n24 acr_array_i
+n25 nwnx_include
+n26 acr_queue_i
+n27 acr_settings_i
+n28 acr_db_persist_i
+n29 acr_i
+n30 x0_i0_position
+n31 ginc_math
 n32 acr_spelltrack_i
 n33 acr_1984_i
 n34 acr_portal_i
@@ -100,6 +100,9 @@ sf o oTarget
 s 02 EldritchShape
 sf i nSpell
 sf o oTarget
+s 02 IntListIterator
+sf i Position
+sf i Value
 s 04 DateStruct
 sf i year
 sf i month
@@ -2333,6 +2336,19 @@ fp s
 f ffffffff ffffffff 002 i IsElementInStringList
 fp s
 fp i
+f ffffffff ffffffff 001 t0006 ACR_GetFirstInIntList
+fp s
+f ffffffff ffffffff 002 t0006 ACR_GetNextInIntList
+fp s
+fp t0006
+f ffffffff ffffffff 001 i ACR_IsIntListAtEnd
+fp t0006
+f ffffffff ffffffff 002 i ACR_GetIntListValue
+fp s
+fp t0006
+f ffffffff ffffffff 002 i ACR__IntListNextDelimiter
+fp s
+fp i
 f ffffffff ffffffff 001 s RacialTypeName
 fp i
 f ffffffff ffffffff 001 s SubRaceName
@@ -2593,7 +2609,7 @@ f ffffffff ffffffff 000 i ACR_GetFRMonth
 f ffffffff ffffffff 000 i ACR_GetFRDay
 f ffffffff ffffffff 000 i ACR_GetFRTenday
 f ffffffff ffffffff 000 i ACR_GetFRHoliday
-f ffffffff ffffffff 003 t0006 ACR_ConvertDate
+f ffffffff ffffffff 003 t0007 ACR_ConvertDate
 fp i
 fp i
 fp i
@@ -2630,7 +2646,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
-fp t0007
+fp t0008
 f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
 f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
 fp o
@@ -6002,7 +6018,7 @@ f ffffffff ffffffff 001 i GetHPPercentage
 fp o
 f ffffffff ffffffff 001 i GetCastingMode
 fp i
-f ffffffff ffffffff 007 t0008 CreateTactics
+f ffffffff ffffffff 007 t0009 CreateTactics
 fp i
 fp i
 fp i
@@ -6014,20 +6030,20 @@ f ffffffff ffffffff 003 i TryClassTactic
 fp o
 fp i
 fp i
-f ffffffff ffffffff 004 t0008 CalculateTacticsByClass
-fp t0008
+f ffffffff ffffffff 004 t0009 CalculateTacticsByClass
+fp t0009
 fp o
 fp i
 fp i
-f ffffffff ffffffff 006 t0008 CalculateTactics
-fp t0008
+f ffffffff ffffffff 006 t0009 CalculateTactics
+fp t0009
 fp o
 fp f
 fp i
 fp i
 fp i
 f ffffffff ffffffff 007 i DetermineActionFromTactics
-fp t0008
+fp t0009
 fp o
 fp f
 fp i
@@ -7380,15 +7396,8 @@ fp o
 f ffffffff ffffffff 002 i ACR_AddObjectToSpawnPoint
 fp o
 fp o
-f ffffffff ffffffff 002 i _GetShouldSpawnBeActive
+f ffffffff ffffffff 001 i _GetShouldSpawnBeActive
 fp o
-fp i
-f ffffffff ffffffff 002 v _ActivateSpawnPoint
-fp o
-fp i
-f ffffffff ffffffff 002 v _DeactivateSpawnPoint
-fp o
-fp i
 f ffffffff ffffffff 002 v _SpawnPoint
 fp o
 fp i
@@ -7400,8 +7409,6 @@ fp o
 f ffffffff ffffffff 001 v _RefreshArea
 fp o
 f ffffffff ffffffff 001 v _DespawnArea
-fp o
-f ffffffff ffffffff 001 v _RefreshActiveSpawnPoint
 fp o
 f ffffffff ffffffff 001 v _RefreshSpawnPoint
 fp o
@@ -7442,8 +7449,6 @@ fp e2
 fp f
 fp f
 fp f
-f ffffffff ffffffff 001 v _RunSpawnIsActiveLoop
-fp o
 f ffffffff ffffffff 002 v _AddObjectToSpawnPoint
 fp o
 fp o
@@ -7631,41 +7636,43 @@ l03 0000023 0000002c 0000002c
 l03 0000024 0000002c 0000002c
 l03 0000029 0000002c 0000002c
 l03 0000030 0000002c 0000002c
-l04 0000058 0000002c 00000037
-l04 0000059 00000037 00000044
-l04 0000060 00000044 00000048
-l04 0000062 00000048 00000056
-l04 0000064 00000056 00000065
-l04 0000065 00000065 00000074
-l04 0000066 00000074 00000083
-l05 0000076 00000083 00000083
-l05 0000077 00000083 00000083
-l05 0000078 00000083 00000083
-l05 0000079 00000083 00000083
-l06 0000144 00000083 00000083
-l06 0000145 00000083 00000083
-l06 0000146 00000083 00000083
-l06 0000147 00000083 00000083
-l06 0000148 00000083 00000083
-l06 0000149 00000083 00000083
-l07 0000234 00000083 00000087
-l08 0000051 00000087 000000a1
-l08 0000053 000000a1 000000b7
-l09 0000207 000000b7 000000b7
-l09 0000208 000000b7 000000b7
-l09 0000209 000000b7 000000b7
-l09 0000210 000000b7 000000b7
-l09 0000211 000000b7 000000b7
-l09 0000213 000000b7 000000b7
-l09 0000214 000000b7 000000b7
-l10 0000116 000000b7 000000b7
-l10 0000117 000000b7 000000b7
-l10 0000118 000000b7 000000b7
-l10 0000119 000000b7 000000b7
-l11 0000162 000000b7 000000d4
-l11 0000166 000000d4 000000f1
+l04 0000110 0000002c 0000002c
+l04 0000111 0000002c 0000002c
+l05 0000058 0000002c 00000037
+l05 0000059 00000037 00000044
+l05 0000060 00000044 00000048
+l05 0000062 00000048 00000056
+l05 0000064 00000056 00000065
+l05 0000065 00000065 00000074
+l05 0000066 00000074 00000083
+l06 0000076 00000083 00000083
+l06 0000077 00000083 00000083
+l06 0000078 00000083 00000083
+l06 0000079 00000083 00000083
+l07 0000144 00000083 00000083
+l07 0000145 00000083 00000083
+l07 0000146 00000083 00000083
+l07 0000147 00000083 00000083
+l07 0000148 00000083 00000083
+l07 0000149 00000083 00000083
+l08 0000234 00000083 00000087
+l09 0000051 00000087 000000a1
+l09 0000053 000000a1 000000b7
+l10 0000207 000000b7 000000b7
+l10 0000208 000000b7 000000b7
+l10 0000209 000000b7 000000b7
+l10 0000210 000000b7 000000b7
+l10 0000211 000000b7 000000b7
+l10 0000213 000000b7 000000b7
+l10 0000214 000000b7 000000b7
+l11 0000116 000000b7 000000b7
+l11 0000117 000000b7 000000b7
+l11 0000118 000000b7 000000b7
+l11 0000119 000000b7 000000b7
+l12 0000162 000000b7 000000d4
+l12 0000166 000000d4 000000f1
 l69 0000047 00000103 00000109
 l69 0000060 00000109 0000010b
 l68 0000118 0000010b 00000117
 l68 0000119 00000117 00000119
-l22 0000467 00000119 00000121
+l23 0000467 00000119 00000121

@@ -1,19 +1,19 @@
 NDB V1.0
-0000031 0000003 0003061 0000023 0000049
+0000031 0000004 0003066 0000023 0000051
 n00 ginc_debug
-n01 acr_debug_i
-n02 acr_time_i
-n03 acr_server_ipc_i
-n04 dmfi_inc_conv
-n05 acr_array_i
-n06 nwnx_include
-n07 acr_queue_i
-n08 acr_settings_i
-n09 acr_db_persist_i
-n10 acr_i
-n11 x0_i0_position
-n12 ginc_math
-n13 acr_tools_i
+n01 acr_tools_i
+n02 acr_debug_i
+n03 acr_time_i
+n04 acr_server_ipc_i
+n05 dmfi_inc_conv
+n06 acr_array_i
+n07 nwnx_include
+n08 acr_queue_i
+n09 acr_settings_i
+n10 acr_db_persist_i
+n11 acr_i
+n12 x0_i0_position
+n13 ginc_math
 n14 x2_inc_switches
 n15 acr_spelltrack_i
 n16 acr_1984_i
@@ -35,6 +35,9 @@ s 03 vector
 sf f x
 sf f y
 sf f z
+s 02 IntListIterator
+sf i Position
+sf i Value
 s 04 DateStruct
 sf i year
 sf i month
@@ -1246,6 +1249,19 @@ fp s
 f ffffffff ffffffff 002 i IsElementInStringList
 fp s
 fp i
+f ffffffff ffffffff 001 t0001 ACR_GetFirstInIntList
+fp s
+f ffffffff ffffffff 002 t0001 ACR_GetNextInIntList
+fp s
+fp t0001
+f ffffffff ffffffff 001 i ACR_IsIntListAtEnd
+fp t0001
+f ffffffff ffffffff 002 i ACR_GetIntListValue
+fp s
+fp t0001
+f ffffffff ffffffff 002 i ACR__IntListNextDelimiter
+fp s
+fp i
 f ffffffff ffffffff 001 s RacialTypeName
 fp i
 f ffffffff ffffffff 001 s SubRaceName
@@ -1630,7 +1646,7 @@ f ffffffff ffffffff 000 i ACR_GetFRMonth
 f ffffffff ffffffff 000 i ACR_GetFRDay
 f ffffffff ffffffff 000 i ACR_GetFRTenday
 f ffffffff ffffffff 000 i ACR_GetFRHoliday
-f ffffffff ffffffff 003 t0001 ACR_ConvertDate
+f ffffffff ffffffff 003 t0002 ACR_ConvertDate
 fp i
 fp i
 fp i
@@ -1667,7 +1683,7 @@ f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_PAGE
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_EVENT_RUN_SCRIPT
 f ffffffff ffffffff 000 i ACR_SERVER_IPC_MAX_EVENT_LENGTH
 f ffffffff ffffffff 001 v ACR_SignalServerIPCEvent
-fp t0002
+fp t0003
 f ffffffff ffffffff 000 v ACR_ServerIPC_OnModuleLoad
 f ffffffff ffffffff 001 v ACR_ServerIPC_OnClientEnter
 fp o
@@ -4431,24 +4447,26 @@ v 0000020a 0000039f 00000014 e0 eSR
 v 0000021b 0000039f 00000018 e0 eGlobe
 v 0000022c 0000039f 0000001c e0 eMantle
 l00 0000048 00000015 0000002c
-l01 0000058 0000002c 00000037
-l01 0000059 00000037 00000044
-l01 0000060 00000044 00000048
-l01 0000062 00000048 00000056
-l01 0000064 00000056 00000065
-l01 0000065 00000065 00000074
-l01 0000066 00000074 00000083
-l02 0000076 00000083 00000083
-l02 0000077 00000083 00000083
-l02 0000078 00000083 00000083
-l02 0000079 00000083 00000083
-l03 0000144 00000083 00000083
-l03 0000145 00000083 00000083
-l03 0000146 00000083 00000083
-l03 0000147 00000083 00000083
-l03 0000148 00000083 00000083
-l03 0000149 00000083 00000083
-l04 0000234 00000083 00000087
+l01 0000110 0000002c 0000002c
+l01 0000111 0000002c 0000002c
+l02 0000058 0000002c 00000037
+l02 0000059 00000037 00000044
+l02 0000060 00000044 00000048
+l02 0000062 00000048 00000056
+l02 0000064 00000056 00000065
+l02 0000065 00000065 00000074
+l02 0000066 00000074 00000083
+l03 0000076 00000083 00000083
+l03 0000077 00000083 00000083
+l03 0000078 00000083 00000083
+l03 0000079 00000083 00000083
+l04 0000144 00000083 00000083
+l04 0000145 00000083 00000083
+l04 0000146 00000083 00000083
+l04 0000147 00000083 00000083
+l04 0000148 00000083 00000083
+l04 0000149 00000083 00000083
+l05 0000234 00000083 00000087
 l30 0000006 00000099 0000009e
 l30 0000007 0000009e 000000a0
 l30 0000008 000000a0 000000a6
