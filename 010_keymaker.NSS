@@ -17,6 +17,7 @@ void main()
 			
 			oItem = CopyItem(oItem);
 			SetLocalInt(oItem, "ACR_KEYCOPY", 1);
+			SetFirstName(oItem, "Copy of " + GetName(oItem));
 			DeleteLocalInt(OBJECT_SELF, "ready");
 			return;
 		}
