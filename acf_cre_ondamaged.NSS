@@ -43,13 +43,22 @@
 
 void main()
 {
-    ACR_CreatureOnDamaged();
+	ACR_CreatureOnDamaged();
+	object o,self = OBJECT_SELF;
+	int i;
+	
+	if (GetLocalInt(self,"ACR_MAKE_HOSTILE")) {
+		ChangeToStandardFaction(self,STANDARD_FACTION_HOSTILE);
 
-	
-    // Custom code goes here.
-	
-	if (GetLocalInt(OBJECT_SELF,"ACR_MAKE_HOSTILE"))
-	{
-		ChangeToStandardFaction(OBJECT_SELF,STANDARD_FACTION_HOSTILE);
+		o = self;
+		i = 1;
+
+		while (GetIsObjectValid(o)) {
+			o = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, self, i);
+
+			if (GetLocalInt(o,"ACR_MAKE_HOSTILE") && GetDistanceBetween(self, o) < 15.0)
+				ChangeToStandardFaction(o,STANDARD_FACTION_HOSTILE);
+
+		}
 	}
 }
