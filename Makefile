@@ -25,6 +25,7 @@ INCS	= 010_area_ex \
 	  acf_settings_i \
 	  acf_spawn_i \
 	  acr_creature_i \
+	  acr_passage_i \
 	  acr_vanity_i \
 	  acr_wildmagic_i \
 	  as_group_i \
