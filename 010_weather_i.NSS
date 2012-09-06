@@ -464,11 +464,15 @@ void process_weather()
 	
 		if (!GetIsAreaInterior(area)) {
 			region = get_area_region(area);
+
+
+			if (region != 0) {
 						
-			type = get_region_weather_type(region);				
-			power = get_region_weather_power(region);
+				type = get_region_weather_type(region);				
+				power = get_region_weather_power(region);
 				
-			set_weather(area,type,power);
+				set_weather(area,type,power);
+			}
 		}
 		area = GetNextArea();
 	}
