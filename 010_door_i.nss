@@ -18,10 +18,11 @@ void InitializeDoors()
 			str = GetEventHandler(o, SCRIPT_DOOR_ON_CLOSE);
 
 			/* ignore already fixed doors */
-			if (str == "acf_door_onclosed")
+			if ((str == "acf_door_onclosed") && (GetLocalFloat(o, "ACR_DOOR_CLOSE_DELAY") > 0.0))
 				continue;
 
-			lock = (str == "doorlock");
+			//lock = (str == "doorlock");
+			lock = GetLocked(o);
 			open = GetIsOpen(o);
 
 			SetEventHandler(o, SCRIPT_DOOR_ON_CLICKED, "acf_door_onclick");
