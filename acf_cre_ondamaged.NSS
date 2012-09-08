@@ -49,6 +49,7 @@ void main()
 	
 	if (GetLocalInt(self,"ACR_MAKE_HOSTILE")) {
 		ChangeToStandardFaction(self,STANDARD_FACTION_HOSTILE);
+		DeleteLocalInt(self, "ACR_MAKE_HOSTILE");
 
 		o = self;
 		i = 1;
@@ -56,9 +57,11 @@ void main()
 		while (GetIsObjectValid(o)) {
 			o = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, self, i);
 
-			if (GetLocalInt(o,"ACR_MAKE_HOSTILE") && GetDistanceBetween(self, o) < 15.0)
+			if (GetLocalInt(o,"ACR_MAKE_HOSTILE") && GetDistanceBetween(self, o) < 15.0) {
 				ChangeToStandardFaction(o,STANDARD_FACTION_HOSTILE);
-
+				DeleteLocalInt(o, "ACR_MAKE_HOSTILE");
+			}
+			++i;
 		}
 	}
 }
