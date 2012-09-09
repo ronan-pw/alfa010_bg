@@ -56,16 +56,7 @@ void main();
 // 7,634
 void main() {
 	int i;
-	for (i=0; i<d2(); ++i) {
-		switch(Random(10)) 
-		{
-		case 0:
-			spawn_hostile_npc("abr_cr_un_vampire_male");
-			break;
-		default:
-			spawn_hostile_npc("abr_cr_un_vampire_female");
-		}
-	}
+	spawn_hostile_npc("abr_cr_un_vampire_m_leader");
 	
 	for (i=0; i<d4()+1; ++i) {
 		spawn_hostile_npc("abr_cr_un_vampirespawn");
