@@ -46,7 +46,7 @@ void main();
 void main() {
 	ACR_SpawnObjectAtLocation("010_cr_hu_ffist_tunnelguard", OBJECT_TYPE_CREATURE, ACR_GetSpawnLocationFromVector(-4.0, 0.0));
 	ACR_SpawnObjectAtLocation("010_cr_hu_ffist_tunnelguard", OBJECT_TYPE_CREATURE, ACR_GetSpawnLocationFromVector(-2.0, 0.0));
-	ACR_SpawnObjectAtLocation("010_cr_hu_ffist_tunnelguard", OBJECT_TYPE_CREATURE, ACR_GetSpawnLocationFromVector(0.0, 0.0));
+	ACR_SpawnObject("010_cr_hu_ffist_tunnelguard", OBJECT_TYPE_CREATURE);
 	ACR_SpawnObjectAtLocation("010_cr_hu_ffist_tunnelguard", OBJECT_TYPE_CREATURE, ACR_GetSpawnLocationFromVector(2.0, 0.0));
 	ACR_SpawnObjectAtLocation("010_cr_hu_ffist_tunnelguard", OBJECT_TYPE_CREATURE, ACR_GetSpawnLocationFromVector(4.0, 0.0));
 	
