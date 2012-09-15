@@ -1,5 +1,5 @@
 NDB V1.0
-0000062 0000013 0004165 0000068 0000302
+0000062 0000013 0004189 0000068 0000302
 n00 ginc_debug
 n01 X0_I0_STRINGLIB
 n02 ginc_param_const
@@ -814,7 +814,6 @@ f ffffffff ffffffff 000 i CLASS_BLADESINGER
 f ffffffff ffffffff 000 i CLASS_LOREMASTER
 f ffffffff ffffffff 000 i CLASS_MYSTICTHEURGE
 f ffffffff ffffffff 000 i RACIAL_TYPE_PLANT
-f ffffffff ffffffff 000 i IP_CONST_FEAT_DARKVISION
 f ffffffff ffffffff 000 i ACTION_MODE_DARKVISION
 f ffffffff ffffffff 000 i CHAT_MODE_SILENT_TALK
 f ffffffff ffffffff 000 i APPEARANCE_TYPE_DWARF_GOLD
@@ -984,6 +983,26 @@ f ffffffff ffffffff 000 i FEAT_REGION_WATERDEEP
 f ffffffff ffffffff 000 i FEAT_REGION_WESTERN_HEARTLANDS
 f ffffffff ffffffff 000 i FEAT_REGION_WIZARDS_REACH
 f ffffffff ffffffff 000 i FEAT_REGION_OTHER
+f ffffffff ffffffff 000 i FEAT_COSMOPOLITAN
+f ffffffff ffffffff 000 i FEAT_DISCIPLINE
+f ffffffff ffffffff 000 i FEAT_FEARLESS_BK
+f ffffffff ffffffff 000 i FEAT_FORGEHEART
+f ffffffff ffffffff 000 i FEAT_FORESTER
+f ffffffff ffffffff 000 i FEAT_SPELLWISE
+f ffffffff ffffffff 000 i FEAT_STREET_SMART
+f ffffffff ffffffff 000 i FEAT_SUREFOOTED
+f ffffffff ffffffff 000 i FEAT_SURVIVOR
+f ffffffff ffffffff 000 i FEAT_TREETOPPER
+f ffffffff ffffffff 000 i FEAT_ACROBATIC
+f ffffffff ffffffff 000 i FEAT_AGILE
+f ffffffff ffffffff 000 i FEAT_ANIMAL_AFFINITY
+f ffffffff ffffffff 000 i FEAT_ATHLETIC
+f ffffffff ffffffff 000 i FEAT_DECEITFUL
+f ffffffff ffffffff 000 i FEAT_DEFT_HANDS
+f ffffffff ffffffff 000 i FEAT_DILIGENT
+f ffffffff ffffffff 000 i FEAT_INVESTIGATOR
+f ffffffff ffffffff 000 i FEAT_MAGICAL_APTITUDE
+f ffffffff ffffffff 000 i FEAT_PERSUASIVE
 f ffffffff ffffffff 000 i FEAT_SKILL_FOCUS_BALANCE
 f ffffffff ffffffff 000 i FEAT_SKILL_FOCUS_CLIMB
 f ffffffff ffffffff 000 i FEAT_SKILL_FOCUS_DECIPHER
@@ -1113,6 +1132,8 @@ f ffffffff ffffffff 000 i FEAT_ACR_COMBAT_EXPERTISE
 f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_COMBAT_EXPERTISE
 f ffffffff ffffffff 000 i FEAT_ACR_POWER_ATTACK
 f ffffffff ffffffff 000 i FEAT_ACR_IMPROVED_POWER_ATTACK
+f ffffffff ffffffff 000 i IP_CONST_FEAT_DARKVISION
+f ffffffff ffffffff 000 i IP_CONST_FEAT_LOWLIGHTVISION
 f ffffffff ffffffff 000 i IPRP_FEATS_ALERTNESS
 f ffffffff ffffffff 000 i IPRP_FEATS_COMBAT_CASTING
 f ffffffff ffffffff 000 i IPRP_FEATS_DODGE
@@ -1646,6 +1667,8 @@ fp o
 fp i
 f ffffffff ffffffff 001 i ACR_GetArmorRulesType
 fp o
+f ffffffff ffffffff 001 i ACR_GetArmorCheckPenalty
+fp i
 f ffffffff ffffffff 004 o ACR_ApplyEffectAtLocation
 fp i
 fp e0
@@ -1693,10 +1716,11 @@ f ffffffff ffffffff 001 s SubRaceName
 fp i
 f ffffffff ffffffff 001 v ACR_IgnoreAcquire
 fp o
-f ffffffff ffffffff 004 v ACR_Cache2daListing
+f ffffffff ffffffff 005 v ACR_Cache2daListing
 fp s
 fp s
 fp s
+fp i
 fp i
 f ffffffff ffffffff 001 i ACR_CheckIsStarted2daList
 fp s
@@ -6655,6 +6679,8 @@ f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FEAT_OFFSET
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_FEAT_END
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_SPELL_OFFSET
 f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_SPELL_END
+f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_MISC_OFFSET
+f ffffffff ffffffff 000 i ACR_EFFECT_SOURCE_MISC_END
 f ffffffff ffffffff 000 s ACR_EFFECT_FLAGS
 f ffffffff ffffffff 000 i ACR_EFFECT_FLAG_FATIGUED
 f ffffffff ffffffff 000 i ACR_EFFECT_FLAG_EXHAUSTED
@@ -7013,8 +7039,8 @@ l01 0000031 0000002e 0000002e
 l01 0000032 0000002e 0000002e
 l02 0000055 0000002e 0000002e
 l02 0000056 0000002e 0000002e
-l03 0000114 0000002e 0000002e
 l03 0000115 0000002e 0000002e
+l03 0000116 0000002e 0000002e
 l04 0000058 0000002e 00000039
 l04 0000059 00000039 00000046
 l04 0000060 00000046 0000004a
@@ -7287,8 +7313,8 @@ l60 0001140 0000220f 00002265
 l60 0001143 00002265 00002297
 l60 0001145 00002297 000022b3
 l60 0001146 000022b9 000022c1
-l03 0001282 000022c1 00002302
-l03 0001283 00002302 0000230a
+l03 0001290 000022c1 00002302
+l03 0001291 00002302 0000230a
 l60 0001151 0000230a 00002317
 l60 0001152 00002317 00002319
 l60 0001154 00002319 00002327
@@ -7299,9 +7325,9 @@ l60 0001161 00002356 000023a0
 l60 0001162 000023b3 000023c8
 l60 0001161 000023c8 00002412
 l60 0001163 0000241e 00002426
-l03 0001254 00002426 0000242a
-l03 0001256 0000242a 00002448
-l03 0001257 0000245b 00002485
-l03 0001258 0000248b 000024a0
-l03 0001256 000024a0 000024be
-l03 0001260 000024ca 000024d2
+l03 0001262 00002426 0000242a
+l03 0001264 0000242a 00002448
+l03 0001265 0000245b 00002485
+l03 0001266 0000248b 000024a0
+l03 0001264 000024a0 000024be
+l03 0001268 000024ca 000024d2
